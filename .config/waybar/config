@@ -120,7 +120,7 @@
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
-        "on-double-click": "pkill iwgtk || iwgtk"
+        "on-click-right": "pkill iwgtk || iwgtk"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
@@ -139,7 +139,7 @@
             "car": "",
             "default": ["", "", ""]
         },
-        "on-click": "pavucontrol"
+        "on-click": "pkill pavucontrol || pavucontrol"
     },
     "custom/media": {
         "format": "{icon} {}",

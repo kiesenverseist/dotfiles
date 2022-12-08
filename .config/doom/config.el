@@ -21,7 +21,7 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "Fira Code" :size 16))
+(setq doom-font (font-spec :name "FiraCode Nerd Font" :size 16))
 ;; (setq doom-font (font-spec :family "Noto Sans Mono" :size 16 :weight 'normal)
 ;;      doom-variable-pitch-font (font-spec :family "Noto Sans" :size 18))
 ;;
@@ -44,7 +44,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type relative)
+(setq display-line-numbers-type 'relative)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!

@@ -5,3 +5,12 @@ cd "$HOME"
 # sparse checkout
 yadm gitconfig core.sparseCheckout true
 yadm sparse-checkout set '/*' '!README.md'
+
+# setup doom emacs if available
+if command -v .config/emacs/bin/doom >/dev/null 2>&1; then
+    echo "Bootstrapping Doom Emacs..."
+
+    doom=".config/emacs/bin/doom"
+    $doom upgrade
+    $doom sync
+fi
