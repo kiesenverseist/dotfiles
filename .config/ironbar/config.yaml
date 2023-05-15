@@ -1,0 +1,107 @@
+monitors:
+  DP-2:
+    position: "left"
+    anchor_to_edges: false
+    height: 42
+    start:
+      - type: "workspaces"
+        all_monitors: false
+      - type: "launcher"
+        favorites:
+          - firefox
+          - kitty
+        show_names: false
+        show_icons: true
+    # center:
+    #   - type: "focused"
+    #     show_title: true
+    #     truncate: "end"
+    #     show_icon: false
+    end:
+      # - type: "tray"
+      - type: "music"
+        player_type: "mpris"
+        format: "{title} / {artist}"
+        truncate:
+          mode: "end"
+          max_length: 20
+        icons:
+          play: ""
+          pause: ""
+        # music_dir: "/home/jake/Music"
+      - bar:
+        - type: button
+          label: 
+          name: volume-button
+          on_click: '!pavucontrol'
+        class: volume-widget
+        type: custom
+      - bar:
+        - type: button
+          label: 
+          name: swaync-button
+          on_click: '!swaync-client -t -sw'
+        class: swaync-button
+        type: custom
+      - type: 'clipboard'
+        max_items: 10
+        truncate:
+          mode: 'end'
+          length: 50
+      - type: "clock"
+        format: "%Y/%m/%d %H:%M:%S"
+      - bar:
+        - label: 
+          name: power-btn
+          on_click: popup:toggle
+          type: button
+        class: power-menu
+        popup:
+        - orientation: vertical
+          type: box
+          widgets:
+          - label: Power menu
+            name: header
+            type: label
+          - type: box
+            widgets:
+            - class: power-btn
+              label: <span font-size='40pt'></span>
+              on_click: '!shutdown now'
+              type: button
+            - class: power-btn
+              label: <span font-size='40pt'></span>
+              on_click: '!reboot'
+              type: button
+          - label: 'Uptime: {{30000:uptime -p | cut -d '' '' -f2-}}'
+            name: uptime
+            type: label
+        tooltip: 'Up: {{30000:uptime -p | cut -d '' '' -f2-}}'
+        type: custom
+  HDMI-A-1:
+    position: "top"
+    anchor_to_edges: true
+    height: 42
+    start:
+      - type: "workspaces"
+        all_monitors: false
+      - type: "launcher"
+        favorites:
+          - firefox
+          - kitty
+        show_names: false
+        show_icons: true
+    center:
+      - type: "focused"
+        show_title: true
+        truncate: "end"
+        show_icon: false
+    end:
+      - type: "tray"
+      - type: 'clipboard'
+        max_items: 3
+        truncate:
+          mode: 'end'
+          length: 50
+      - type: "clock"
+        format: "%Y/%m/%d %H:%M:%S"

@@ -1,3 +1,5 @@
 
 # See https://wiki.hyprland.org/Configuring/Monitors/
 monitor=,preferred,auto,1.75
+
+exec-once = waybar & blueberry-tray & nm-applet --indicator
