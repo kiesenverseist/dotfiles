@@ -13,6 +13,9 @@ if command -v nvim > /dev/null 2>&1; then
   else
     echo "nvim config already exists"
   fi 
+  if [ ! -d .config/nvim/lua/custom ]; then
+    ln -s ~/.config/nvchad ~/.config/nvim/lua/custom
+  fi
 fi
 
 # sparse checkout
