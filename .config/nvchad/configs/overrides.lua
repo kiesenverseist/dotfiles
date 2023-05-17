@@ -21,6 +21,16 @@ M.treesitter = {
     --   "python"
     -- },
   },
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true,
+      keymaps = {
+        ["ia"] = {query = "@parameter.inner", desc = "Select inside argument"},
+        ["aa"] = {query = "@parameter.outer", desc = "Select around argument"},
+      }
+    }
+  }
 }
 
 M.mason = {
@@ -64,7 +74,7 @@ M.nvimtree = {
 }
 
 M.telescope = {
-  extensions_list = {'project'}
+  extensions_list = {'project', 'themes', 'terms',},
 }
 
 return M

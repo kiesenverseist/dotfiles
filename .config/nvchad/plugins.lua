@@ -31,6 +31,11 @@ local plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = overrides.treesitter,
+    dependencies = {
+      {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+      },
+    },
   },
 
   {
@@ -41,12 +46,13 @@ local plugins = {
   {
     "nvim-telescope/telescope.nvim",
     opts = overrides.telescope,
+    dependencies = {
+      {
+        "nvim-telescope/telescope-project.nvim",
+      },
+    }
   },
 
-  {
-    "nvim-telescope/telescope-project.nvim",
-    lazy = false,
-  },
 
   -- Install a plugin
   {
@@ -59,10 +65,32 @@ local plugins = {
 
   {
     "nvim-treesitter/nvim-treesitter-context",
-    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+    cmd = {"TSBufEnable",},
     config = function()
       require('treesitter-context').setup()
     end,
+  },
+
+  {
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup()
+    end
+  },
+
+  {
+    "folke/which-key.nvim",
+    keys = { "<leader>", '"', "'", "`", "c", "v", "g", "y" },
+  },
+
+  {
+    "echasnovski/mini.align",
+    keys = {"ga", "gA"},
+    config = function()
+      require("mini.align").setup()
+    end
   },
 
   -- To make a plugin not be loaded

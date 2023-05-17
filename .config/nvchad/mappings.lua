@@ -17,4 +17,13 @@ M.telescope = {
   },
 }
 
+M.minialign = {
+  plugin = true,
+
+  n = {
+    ["ga"] = { "ga", "which_key_ignore" },
+    ["gA"] = { "ga", "which_key_ignore" },
+  },
+}
+
 return M
