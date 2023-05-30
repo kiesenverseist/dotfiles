@@ -104,6 +104,14 @@ local plugins = {
     end
   },
 
+  {
+    "windwp/nvim-projectconfig",
+    lazy = false,
+    config = function()
+      require("nvim-projectconfig").setup({autocmd = true})
+    end
+  },
+
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",
