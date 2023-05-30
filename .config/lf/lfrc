@@ -1,0 +1,19 @@
+# set previewer ~/.config/lf/lf_kitty_preview
+# set cleaner ~/.config/lf/lf_kitty_clean
+
+# previewer stuffs
+set previewer ctpv
+set cleaner ctpvclear
+&ctpv -s $id
+&ctpvquit $id
+
+# zoxide integration
+cmd z %{{
+	result="$(zoxide query --exclude $PWD $@)"
+	lf -remote "send $id cd \"$result\""
+}}
+
+cmd zi ${{
+	result="$(zoxide query -i)"
+	lf -remote "send $id cd \"$result\""
+}}
