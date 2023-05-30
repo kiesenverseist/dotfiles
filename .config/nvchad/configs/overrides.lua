@@ -75,6 +75,11 @@ M.nvimtree = {
 
 M.telescope = {
   extensions_list = {'project', 'themes', 'terms',},
+  extensions = {
+    project = {
+      sync_with_nvim_tree = true,
+    },
+  },
 }
 
 return M

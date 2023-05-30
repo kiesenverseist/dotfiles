@@ -35,6 +35,13 @@ local plugins = {
       {
         "nvim-treesitter/nvim-treesitter-textobjects",
       },
+      {
+        "nvim-treesitter/nvim-treesitter-context",
+        -- cmd = {"TSBufEnable",},
+        config = function()
+          require('treesitter-context').setup()
+        end,
+      },
     },
   },
 
@@ -53,6 +60,17 @@ local plugins = {
     }
   },
 
+  {
+    "nvim-telescope/telescope-project.nvim",
+    dependencies = {
+      {
+        "neovim/nvim-lspconfig"
+      },
+      {
+        "nvim-treesitter/nvim-treesitter",
+      },
+    }
+  },
 
   -- Install a plugin
   {
@@ -63,13 +81,6 @@ local plugins = {
     end,
   },
 
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-    cmd = {"TSBufEnable",},
-    config = function()
-      require('treesitter-context').setup()
-    end,
-  },
 
   {
     "kylechui/nvim-surround",
