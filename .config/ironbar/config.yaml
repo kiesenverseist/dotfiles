@@ -97,7 +97,7 @@ monitors:
         truncate: "end"
         show_icon: false
     end:
-      - type: "tray"
+      # - type: "tray"
       - type: 'clipboard'
         max_items: 3
         truncate:
