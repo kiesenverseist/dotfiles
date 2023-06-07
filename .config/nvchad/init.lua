@@ -24,3 +24,7 @@ opt.shiftwidth = 4
 opt.smartindent = true
 opt.tabstop = 4
 opt.softtabstop = 4
+
+-- code folding
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
