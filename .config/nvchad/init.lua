@@ -17,6 +17,7 @@ if vim.g.neovide == true then
 end
 
 local opt = vim.opt
+local api = vim.api
 
 -- Indenting
 opt.expandtab = true
@@ -28,3 +29,25 @@ opt.softtabstop = 4
 -- code folding
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+local function nvim_create_augroups(definitions)
+    for group_name, definition in pairs(definitions) do
+        api.nvim_command('augroup '..group_name)
+        api.nvim_command('autocmd!')
+        for _, def in ipairs(definition) do
+            local command = table.concat(vim.tbl_flatten{'autocmd', def}, ' ')
+            api.nvim_command(command)
+        end
+        api.nvim_command('augroup END')
+    end
+end
+
+
+local autoCommands = {
+    -- other autocommands
+    open_folds = {
+        {"BufReadPost,FileReadPost,BufAdd", "*", "normal zR"}
+    }
+}
+
+nvim_create_augroups(autoCommands)

@@ -57,6 +57,9 @@ local plugins = {
       {
         "nvim-telescope/telescope-project.nvim",
       },
+      {
+        "nvim-telescope/telescope-bibtex.nvim",
+      },
     }
   },
 
@@ -93,12 +96,15 @@ local plugins = {
 
   {
     "folke/which-key.nvim",
-    keys = { "<leader>", '"', "'", "`", "c", "v", "g", "y" },
+    keys = { "<leader>", '"', "'", "`", "c", "v", "g", "y", "z" },
   },
 
   {
     "echasnovski/mini.align",
     keys = {"ga", "gA"},
+    init = function()
+      require("core.utils").load_mappings "minialign"
+    end,
     config = function()
       require("mini.align").setup()
     end
@@ -115,6 +121,30 @@ local plugins = {
   {
     "direnv/direnv.vim",
     lazy = false,
+  },
+
+  -- debugging support
+  {
+    "mfussenegger/nvim-dap",
+    lazy=false,
+    init = function()
+      require("core.utils").load_mappings "dap"
+    end,
+    config = function()
+      require "custom.configs.dapconfig"
+    end
+  },
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    lazy=false,
+    dependencies = {
+      {
+        "mfussenegger/nvim-dap",
+      },
+    },
+    config = function()
+      require("nvim-dap-virtual-text").setup()
+    end
   },
 
   -- To make a plugin not be loaded

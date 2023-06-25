@@ -26,6 +26,21 @@ M.minialign = {
   },
 }
 
+-- dap
+M.dap = {
+  plugin = true,
+
+  n = {
+    ["<leader>db"] = { function() require('dap').toggle_breakpoint() end, "toggle breakpoint" },
+    ["<leader>dc"] = { function() require('dap').continue() end, "continue / start" },
+    ["<leader>do"] = { function() require('dap').step_over() end, "step over" },
+    ["<leader>di"] = { function() require('dap').step_into() end, "step into" },
+    ["<leader>dr"] = { function() require('dap').repl.open() end, "open repl" },
+    ["<leader>dl"] = { function() require('dap').run_last() end, "run last" },
+    ["<leader>dx"] = { function() require('dap').close() end, "run last" },
+  },
+}
+
 -- neovide bindings
 if vim.g.neovide then
   M.neovide = {
