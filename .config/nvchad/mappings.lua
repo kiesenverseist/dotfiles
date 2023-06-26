@@ -14,6 +14,7 @@ M.telescope = {
 
   n = {
     ["<leader>pp"] = { "<cmd> Telescope project <CR>", "Pick project" },
+    ["<leader>cd"] = { "<cmd> Telescope zoxide list <CR>", "change dir zoxide" },
   },
 }
 

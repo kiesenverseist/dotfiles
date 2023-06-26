@@ -76,10 +76,13 @@ M.nvimtree = {
 }
 
 M.telescope = {
-  extensions_list = {'project', 'themes', 'terms',},
+  extensions_list = {'project', 'themes', 'terms', 'zoxide',},
   extensions = {
     project = {
       sync_with_nvim_tree = true,
+    },
+    zoxide = {
+
     },
   },
 }

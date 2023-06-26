@@ -60,6 +60,9 @@ local plugins = {
       {
         "nvim-telescope/telescope-bibtex.nvim",
       },
+      {
+        "jvgrootveld/telescope-zoxide",
+      },
     }
   },
 
@@ -75,6 +78,14 @@ local plugins = {
     }
   },
 
+  {
+    "jvgrootveld/telescope-zoxide",
+    dependencies = {
+      {
+        "nvim-lua/popup.nvim",
+      }
+    }
+  },
   -- Install a plugin
   {
     "max397574/better-escape.nvim",
