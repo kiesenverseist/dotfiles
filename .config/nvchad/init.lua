@@ -51,3 +51,9 @@ local autoCommands = {
 }
 
 nvim_create_augroups(autoCommands)
+
+-- vimtex config (move to separete file later)
+vim.g.vimtex_mappings_prefix = '<S-Space>'
+vim.g.vimtex_compiler_method = "tectonic"
+vim.g.vimtex_view_method = 'zathura'
+vim.g.maplocalleader = ','

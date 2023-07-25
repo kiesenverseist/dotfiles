@@ -20,12 +20,14 @@ end
 
 -- 
 lspconfig.texlab.setup {
-    settings = {
-        textlab = {
-            build = {
-                executable = "tectonic",
-                args = {"--synctex", "--keep-logs", "--keep-intermediates", "main.tex"},
-            }
-        }
+  settings = {
+    textlab = {
+      build = {
+        executable = "tectonic",
+        args = {"--synctex", "--keep-logs", "--keep-intermediates", "main.tex"},
+      }
     }
+  },
+  on_attach = on_attach,
+  capabilities = capabilities,
 }

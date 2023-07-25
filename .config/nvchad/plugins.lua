@@ -107,7 +107,7 @@ local plugins = {
 
   {
     "folke/which-key.nvim",
-    keys = { "<leader>", '"', "'", "`", "c", "v", "g", "y", "z" },
+    keys = { "<leader>", "<localleader>", '"', "'", "`", "c", "v", "g", "y", "z" },
   },
 
   {
@@ -157,6 +157,51 @@ local plugins = {
       require("nvim-dap-virtual-text").setup()
     end
   },
+  
+  {
+    "rcarriga/nvim-notify",
+    lazy=false,
+    config = function()
+        vim.notify = function(msg, ...)
+            if msg:match("warning: multiple different client offset_encodings detected for buffer, this is not supported yet") then
+                return
+            end
+            require('notify')(msg, ...)
+        end
+    end
+  },
+
+  {
+    "dccsillag/magma-nvim",
+    lazy=false,
+    version="*",
+    keys = {
+      { "<leader>mi", "<cmd>MagmaInit<CR>", desc = "This command initializes a runtime for the current buffer." },
+      { "<leader>mo", "<cmd>MagmaEvaluateOperator<CR>", desc = "Evaluate the text given by some operator." },
+      { "<leader>ml", "<cmd>MagmaEvaluateLine<CR>", desc = "Evaluate the current line." },
+      { "<leader>mv", "<cmd>MagmaEvaluateVisual<CR>", desc = "Evaluate the selected text." },
+      { "<leader>mc", "<cmd>MagmaEvaluateOperator<CR>", desc = "Reevaluate the currently selected cell." },
+      { "<leader>mr", "<cmd>MagmaRestart!<CR>", desc = "Shuts down and restarts the current kernel." },
+      {
+        "<leader>mx",
+        "<cmd>MagmaInterrupt<CR>",
+        desc = "Interrupts the currently running cell and does nothing if not cell is running.",
+      }
+    },
+    build=':UpdateRemotePlugins',
+    -- event="BufEnter",
+    -- config = function()
+    --     -- vim.cmd[[:UpdateRemotePlugins]]
+    --     require('magma').setup()
+    -- end
+  },
+  {
+    "lervag/vimtex",
+    lazy=false,
+  },
+  -- {
+  --   
+  -- },
 
   -- To make a plugin not be loaded
   -- {
