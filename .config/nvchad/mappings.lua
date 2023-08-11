@@ -13,8 +13,10 @@ M.telescope = {
   plugin = true,
 
   n = {
+    ["<C-p>"] = { "<cmd> Telescope find_files <CR>", "Find files" },
     ["<leader>pp"] = { "<cmd> Telescope project <CR>", "Pick project" },
     ["<leader>cd"] = { "<cmd> Telescope zoxide list <CR>", "change dir zoxide" },
+    ["<leader>u"]  = { "<cmd> Telescope undo <CR>", "undo tree" },
   },
 }
 

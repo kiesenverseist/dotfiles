@@ -76,13 +76,17 @@ M.nvimtree = {
 }
 
 M.telescope = {
-  extensions_list = {'project', 'themes', 'terms', 'zoxide',},
+  extensions_list = {'project', 'themes', 'terms', 'zoxide', 'undo'},
   extensions = {
     project = {
       sync_with_nvim_tree = true,
     },
     zoxide = {
 
+    },
+    undo = {
+      use_delta = true,
+      side_by_side = true,
     },
   },
 }

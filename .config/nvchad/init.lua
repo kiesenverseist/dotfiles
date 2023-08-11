@@ -1,4 +1,4 @@
--- local autocmd = vim.api.nvim_create_autocmd
+local autocmd = vim.api.nvim_create_autocmd
 
 -- Auto resize panes when resizing nvim window
 -- autocmd("VimResized", {
@@ -20,11 +20,11 @@ local opt = vim.opt
 local api = vim.api
 
 -- Indenting
-opt.expandtab = true
-opt.shiftwidth = 4
-opt.smartindent = true
-opt.tabstop = 4
-opt.softtabstop = 4
+-- opt.expandtab = true
+-- opt.shiftwidth = 4
+-- opt.smartindent = true
+-- opt.tabstop = 4
+-- opt.softtabstop = 4
 
 -- code folding
 opt.foldmethod = "expr"
@@ -46,7 +46,7 @@ end
 local autoCommands = {
     -- other autocommands
     open_folds = {
-        {"BufReadPost,FileReadPost,BufAdd", "*", "normal zR"}
+        {"BufEnter", "*", "normal zR"}
     }
 }
 

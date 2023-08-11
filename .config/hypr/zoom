@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # multiply the factor by that amount
 # 0 will reset zoom

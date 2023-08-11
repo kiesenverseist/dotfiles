@@ -54,36 +54,25 @@ local plugins = {
     "nvim-telescope/telescope.nvim",
     opts = overrides.telescope,
     dependencies = {
-      {
-        "nvim-telescope/telescope-project.nvim",
-      },
-      {
-        "nvim-telescope/telescope-bibtex.nvim",
-      },
-      {
-        "jvgrootveld/telescope-zoxide",
-      },
+      { "nvim-telescope/telescope-project.nvim", },
+      { "nvim-telescope/telescope-bibtex.nvim", },
+      { "jvgrootveld/telescope-zoxide", },
+      { "debugloop/telescope-undo.nvim", },
     }
   },
 
   {
     "nvim-telescope/telescope-project.nvim",
     dependencies = {
-      {
-        "neovim/nvim-lspconfig"
-      },
-      {
-        "nvim-treesitter/nvim-treesitter",
-      },
+      { "neovim/nvim-lspconfig" },
+      { "nvim-treesitter/nvim-treesitter", },
     }
   },
 
   {
     "jvgrootveld/telescope-zoxide",
     dependencies = {
-      {
-        "nvim-lua/popup.nvim",
-      }
+      { "nvim-lua/popup.nvim", }
     }
   },
   -- Install a plugin
