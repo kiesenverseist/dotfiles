@@ -6,8 +6,19 @@
 
 config_version: 2
 settings:
-  fonts.default_size:
-    global: 12pt
+  bindings.key_mappings:
+    global:
+      <Ctrl-6>: <Ctrl-^>
+      <Ctrl-Enter>: <Ctrl-Return>
+      <Ctrl-I>: <Tab>
+      <Ctrl-J>: <Return>
+      <Ctrl-M>: <Return>
+      <Ctrl-[>: <Escape>
+      <Enter>: <Return>
+      <Shift-Enter>: <Return>
+      <Shift-Return>: <Return>
+  colors.webpage.darkmode.enabled:
+    global: true
   tabs.position:
     global: left
   tabs.show:
