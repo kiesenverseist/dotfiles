@@ -8,6 +8,8 @@ local autocmd = vim.api.nvim_create_autocmd
 
 if vim.g.neovide == true then
   vim.o.guifont = "FiraCode Nerd Font:h14"
+  vim.o.winblend = 50
+  vim.o.pumblend = 50
 
   vim.g.neovide_transparency = 0.95
   vim.g.transparency = 0.95
@@ -57,3 +59,14 @@ vim.g.vimtex_mappings_prefix = '<S-Space>'
 vim.g.vimtex_compiler_method = "tectonic"
 vim.g.vimtex_view_method = 'zathura'
 vim.g.maplocalleader = ','
+
+-- hypr treesitter stuff
+-- local parser_config = require("nvim-treesitter.parsers").get_parser_config()
+-- parser_config.hypr = {
+--   install_info = {
+--     url = "https://github.com/luckasRanarison/tree-sitter-hypr",
+--     files = { "src/parser.c" },
+--     branch = "master",
+--   },
+--   filetype = "hypr",
+-- }

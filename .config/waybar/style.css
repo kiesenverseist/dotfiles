@@ -21,7 +21,7 @@ window#waybar.empty {
     background-color: transparent;
 }
 window#waybar.solo {
-    background-color: #EBDBB2;
+    background-color: transparent;
 }
 
 
@@ -29,7 +29,12 @@ window#waybar.termite {
     background-color: #3F3F3F;
 }
 
-window#waybar.chromium {
+window#waybar.firefox {
+    background-color: #282828;
+    border: none;
+}
+
+window#waybar.neovide {
     background-color: #282828;
     border: none;
 }

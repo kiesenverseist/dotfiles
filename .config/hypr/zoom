@@ -5,27 +5,33 @@
 
 echo $1
 
+exec 123>/tmp/zoomlock || exit 1
+flock -n 123 || exit 1
+trap 'rm -f /tmp/zoomlock' EXIT
+
 if [[ $1 -eq 0 ]];
 then
-    echo "reset zoom"
+    # echo "reset zoom"
     hyprctl keyword misc:cursor_zoom_factor 1.0
 else
-    echo "changing zoom"
+    # echo "changing zoom"
     zoom_str=$(hyprctl getoption misc:cursor_zoom_factor | grep float)
-    echo "got zoom"
-    echo "zoom_str: $zoom_str"
-    echo "getting number"
+    # echo "got zoom"
+    # echo "zoom_str: $zoom_str"
+    # echo "getting number"
     curr_zoom=${zoom_str#*:}
-    echo "curr_zoom: $curr_zoom"
-    echo "getting new zoom"
+    # echo "curr_zoom: $curr_zoom"
+    # echo "getting new zoom"
     new_zoom=$(bc <<< "$curr_zoom * $1")
-    echo "new_zoom: $new_zoom"
+    # echo "new_zoom: $new_zoom"
     if [[ $(bc <<< "$new_zoom < 1.0") == 1 ]]; then
-        echo "setting min zoom"
+        # echo "setting min zoom"
         hyprctl keyword misc:cursor_zoom_factor 1.0
     else
-        echo "setting new zoom"
+        # echo "setting new zoom"
         hyprctl keyword misc:cursor_zoom_factor $new_zoom
     fi
+
 fi
 
+sleep 0.05

@@ -20,6 +20,14 @@ M.telescope = {
   },
 }
 
+M.obsidian = {
+  plugin = true,
+
+  n = {
+    ["gf"] = {function() require("obsidian.mapping").gf_passthrough() end, "goto file"},
+  },
+}
+
 M.minialign = {
   plugin = true,
 

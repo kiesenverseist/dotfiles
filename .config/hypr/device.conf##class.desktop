@@ -1,12 +1,15 @@
 env = LIBVA_DRIVER_NAME,nvidia
+env = XDG_SESSION_TYPE,wayland
 env = GBM_BACKEND,nvidia-drm
+env = __GLX_VENDOR_LIBRARY_NAME,nvidia
 env = WLR_NO_HARDWARE_CURSORS,1
 
 monitor = DP-2,preferred,1080x0,1
+
 monitor = HDMI-A-1,1920x1080@60,0x0,1
 monitor = HDMI-A-1,transform,3
 
-exec-once = ironbar
+# exec-once = ironbar
 
 workspace=1, monitor:DP-2
 workspace=2, monitor:DP-2
@@ -19,4 +22,5 @@ workspace=9, monitor:HDMI-A-1
 bind= SUPER CTRL SHIFT, 1, movecurrentworkspacetomonitor, DP-1
 bind= SUPER CTRL SHIFT, 2, movecurrentworkspacetomonitor, HDMI-A-1
 
-windowrule = workspace 7, class:^(discord)$
+# Execute your favorite apps at launch
+exec-once = bash ~/.config/hypr/start-desktop.sh
