@@ -1,7 +1,8 @@
-{ config, pkgs, nix-gaming, ... }:
+{ config, pkgs, nix-gaming, nix-alien, ... }:
 let
   gruvboxplus = import ./gruvbox-plus.nix {inherit pkgs;};
   gdlauncher = import ./gdlauncher.nix {inherit pkgs;};
+  lmms-nightly = import ./lmms.nix {inherit pkgs;};
   gaming = nix-gaming.packages.${pkgs.system};
   xwvb = pkgs.libsForQt5.callPackage ./xwaylandvideobridge.nix {};
   eww-custom = pkgs.callPackage ./eww-custom {};
@@ -50,6 +51,7 @@ in {
     bc
     lf ctpv
     socat jq
+    zstd
 
     # de stuff
     (pkgs.waybar.overrideAttrs (oldAttrs: {
@@ -72,12 +74,21 @@ in {
     gnome.gnome-calculator
     gnome.nautilus
     gnome.sushi
+    gnome-solanum
     xwvb # xwaylandvideobridge
     blueman
     zathura
     via
     chromium
-    
+    vlc obs-studio
+
+    # lmms
+    # ardour
+    lmms-nightly
+    distrho
+    cardinal
+    vcv-rack
+    carla
 
     syncthingtray
     rofi-power-menu
@@ -99,6 +110,7 @@ in {
     unityhub
     postgresql
     sqlite
+    texlab
 
     # gaming
     protontricks
@@ -120,6 +132,8 @@ in {
     prusa-slicer
     kicad
 
+
+    nix-alien
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
