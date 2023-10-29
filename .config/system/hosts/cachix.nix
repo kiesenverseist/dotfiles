@@ -11,14 +11,10 @@ in {
   inherit imports;
   nix.settings.substituters = [
     "https://cache.nixos.org/"
-    "http://graphite:5000"
-    "http://halite:5000"
   ];
 
-  # services.nix-serve = {
-  #   enable = true;
-  #   # package = pkgs.haskellPackages.nix-serve-ng;
-  # };
-
-  services.harmonia.enable = true;
+  services.harmonia = {
+    enable = true;
+    signKeyPath = "/var/lib/secrets/harmonia.secret";
+  };
 }
