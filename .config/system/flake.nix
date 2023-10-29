@@ -12,9 +12,14 @@
     # nixos-nvidia-vgpu.url = "github:Yeshey/nixos-nvidia-vgpu/master";
     # hypr-plugins.url = "github:nehrbash/sn-hyprland-plugins";
 
+    peerix = {
+      url = "github:cid-chan/peerix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
-  outputs = { self, nixpkgs}@inputs:
+  outputs = {self, nixpkgs, nixos-hardware, peerix}@inputs:
   let 
     system = "x86_64-linux";
 
@@ -24,25 +29,65 @@
       config = {
           allowUnfree = true;
       };
-
-
+    
     };
+
+    # px = peerix.nixosModules.peerix {
+    #   services.peerix = {
+    #     enable = true;
+    #     package = peerix.packages.${system}.peerix;
+    #     openFirewall = true;
+    #     privateKeyFile = ./hosts/peerix-private;
+    #     publicKeyFile = ./hosts/peerix-public;
+    #     publicKey = "
+    #       peerix-graphite:W0rigmVaZfW12WTkDyegBvhnZvp6EEpBilrwuUs/x9w=
+    #       peerix-halite:P4oCmaTSf2JHnw1DtRKOMMuf4TEoITd9T0V4cAKRObo= 
+    #     ";
+    #   };
+    # };
+
   in {
     nixosConfigurations = {
       "halite" = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs system;};
 
         modules = [
-            ./hosts/halite
-            # nixos-nvidia-vgpu.nixosModules.nvidia-vgpu
+          ./hosts/halite
+          peerix.nixosModules.peerix {
+            services.peerix = {
+              enable = true;
+              package = peerix.packages.${system}.peerix;
+              openFirewall = true;
+              privateKeyFile = ./hosts/peerix-private;
+              publicKeyFile = ./hosts/peerix-public;
+              publicKey = "
+                peerix-graphite:W0rigmVaZfW12WTkDyegBvhnZvp6EEpBilrwuUs/x9w=
+                peerix-halite:P4oCmaTSf2JHnw1DtRKOMMuf4TEoITd9T0V4cAKRObo= 
+              ";
+            };
+          }
+          # nixos-nvidia-vgpu.nixosModules.nvidia-vgpu
         ];
       };
       "graphite" = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs system;};
 
         modules = [
-            ./hosts/graphite
-            # nixos-nvidia-vgpu.nixosModules.nvidia-vgpu
+          ./hosts/graphite
+
+          peerix.nixosModules.peerix {
+            services.peerix = {
+              enable = true;
+              package = peerix.packages.${system}.peerix;
+              openFirewall = true;
+              privateKeyFile = ./hosts/peerix-private;
+              publicKeyFile = ./hosts/peerix-public;
+              publicKey = "
+                peerix-graphite:W0rigmVaZfW12WTkDyegBvhnZvp6EEpBilrwuUs/x9w=
+                peerix-halite:P4oCmaTSf2JHnw1DtRKOMMuf4TEoITd9T0V4cAKRObo= 
+              ";
+            };
+          }
         ];
       };
       "live" = nixpkgs.lib.nixosSystem {

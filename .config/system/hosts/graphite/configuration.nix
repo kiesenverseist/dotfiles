@@ -168,7 +168,7 @@
       # };
     # };
 
-    bluetooth.enable = true;
+    # bluetooth.enable = true;
   };
 
   nixpkgs.config.allowUnfree = true;
