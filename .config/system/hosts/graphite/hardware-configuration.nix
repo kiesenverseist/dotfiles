@@ -14,7 +14,7 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = " /dev/disk/by-id/wwn-0x50014ee2bcf8d5aa:/dev/disk/by-id/wwn-0x5002538e90369aab-part2:/dev/disk/by-id/wwn-0x5000c500cf8957af-part2";
+    { device = " /dev/disk/by-id/wwn-0x50014ee2bcf8d5aa:/dev/disk/by-id/wwn-0x5000c500cf8957af-part2:/dev/nvme0n1";
       fsType = "bcachefs";
     };
 

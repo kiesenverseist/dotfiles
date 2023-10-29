@@ -13,7 +13,7 @@
   # in
   [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./cachix.nix
+    ../cachix.nix
     # (import "${logiops}/nixos/modules/hardware/logiops")
   ];
 
@@ -31,7 +31,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 100;
 
-  # networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "halite"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
@@ -57,7 +57,7 @@
     enable = true;
     displayManager.sddm = {
       enable = true;
-      theme = "${import ./sddm-theme.nix {inherit pkgs;}}";
+      theme = "${import ../sddm-theme.nix {inherit pkgs;}}";
     };
     desktopManager.plasma5.enable = true;
     # displayManager.defaultSession = "plasmawayland";
@@ -156,6 +156,15 @@
       modesetting.enable = true;
       open = false;
       nvidiaSettings = true;
+      # vgpu = {
+      #   enable = true;
+      #   unlock.enable = true;
+      #   fastapi-dls = {
+      #     enable = true;
+      #     local_ipv4 = "localhost";
+      #     timezone = "Australia/Sydney";
+      #   };
+      # };
     };
 
     bluetooth.enable = true;
@@ -208,13 +217,24 @@
 
     virt-manager
     polkit-kde-agent
+    virtiofsd
+
+    # hypr-plugins.hyprbars
   ];
 
   # pr.logiops.enable = true;
 
   # flatpak
   services.flatpak.enable = true;
+
   services.tailscale.enable = true;
+  services.jellyfin.enable = true;
+  services.jellyseerr = {
+    enable = true;
+  };
+  services.sonarr = {
+    enable = true;
+  };
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
@@ -241,12 +261,22 @@
   # virtualisation
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
-  programs.dconf.enable = true;
+  # virtualisation.sharedDirectories = {
+  #   my-share = {
+  #     source = "/home/kiesen/old-ssd/shared";
+  #     target = "shared";
+  #   };
+  # };
 
-  services.gitea = {
-    enable = true;
-    lfs.enable = true;
-  };
+  programs.dconf.enable = true;
+  programs.nix-ld.enable = true;
+
+  programs.nbd.enable = true;
+
+  # services.gitea = {
+  #   enable = true;
+  #   lfs.enable = true;
+  # };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

@@ -11,15 +11,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-gaming.url = "github:fufexan/nix-gaming";
+    nix-alien.url = "github:thiagokokada/nix-alien";
   };
 
-  outputs = { nixpkgs, home-manager, nix-gaming, ... }:
+  outputs = { nixpkgs, home-manager, nix-gaming, nix-alien, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree=true;
       };
+      nix-alien-pkg = nix-alien.packages.${system};
     in {
       homeConfigurations = {
         "kiesen@nixos" = home-manager.lib.homeManagerConfiguration {
@@ -33,6 +35,7 @@
           # to pass through arguments to home.nix
           extraSpecialArgs = {
             inherit nix-gaming;
+            nix-alien = nix-alien-pkg.nix-alien;
           };
         };
         "kiesen@kiesen-eos-laptop" = home-manager.lib.homeManagerConfiguration {
