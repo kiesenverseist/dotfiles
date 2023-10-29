@@ -19,4 +19,6 @@ in {
   #   enable = true;
   #   # package = pkgs.haskellPackages.nix-serve-ng;
   # };
+
+  services.harmonia.enable = true;
 }
