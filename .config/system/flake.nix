@@ -2,7 +2,8 @@
   description = "My system configuration flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    # nixpkgs-stable.url = github:nixos/nixpkgs;
 
     # home-manager = {
     #   url = "github:nix-community/home-manager";
@@ -12,14 +13,14 @@
     # nixos-nvidia-vgpu.url = "github:Yeshey/nixos-nvidia-vgpu/master";
     # hypr-plugins.url = "github:nehrbash/sn-hyprland-plugins";
 
-    peerix = {
-      url = "github:cid-chan/peerix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # peerix = {
+    #   url = github:cid-chan/peerix;
+    #   inputs.nixpkgs.follows = "nixpkgs-stable";
+    # };
 
   };
 
-  outputs = {self, nixpkgs, nixos-hardware, peerix}@inputs:
+  outputs = {self, nixpkgs, nixos-hardware}@inputs:
   let 
     system = "x86_64-linux";
 
@@ -53,19 +54,6 @@
 
         modules = [
           ./hosts/halite
-          peerix.nixosModules.peerix {
-            services.peerix = {
-              enable = true;
-              package = peerix.packages.${system}.peerix;
-              openFirewall = true;
-              privateKeyFile = ./hosts/peerix-private;
-              publicKeyFile = ./hosts/peerix-public;
-              publicKey = "
-                peerix-graphite:W0rigmVaZfW12WTkDyegBvhnZvp6EEpBilrwuUs/x9w=
-                peerix-halite:P4oCmaTSf2JHnw1DtRKOMMuf4TEoITd9T0V4cAKRObo= 
-              ";
-            };
-          }
           # nixos-nvidia-vgpu.nixosModules.nvidia-vgpu
         ];
       };
@@ -74,20 +62,6 @@
 
         modules = [
           ./hosts/graphite
-
-          peerix.nixosModules.peerix {
-            services.peerix = {
-              enable = true;
-              package = peerix.packages.${system}.peerix;
-              openFirewall = true;
-              privateKeyFile = ./hosts/peerix-private;
-              publicKeyFile = ./hosts/peerix-public;
-              publicKey = "
-                peerix-graphite:W0rigmVaZfW12WTkDyegBvhnZvp6EEpBilrwuUs/x9w=
-                peerix-halite:P4oCmaTSf2JHnw1DtRKOMMuf4TEoITd9T0V4cAKRObo= 
-              ";
-            };
-          }
         ];
       };
       "live" = nixpkgs.lib.nixosSystem {
