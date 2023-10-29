@@ -15,7 +15,8 @@ in {
     "http://halite:5000"
   ];
 
-  services.nix-serve = {
-    enable = true;
-  };
+  # services.nix-serve = {
+  #   enable = true;
+  #   # package = pkgs.haskellPackages.nix-serve-ng;
+  # };
 }

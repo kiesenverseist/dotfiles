@@ -18,9 +18,11 @@
     #   inputs.nixpkgs.follows = "nixpkgs-stable";
     # };
 
+    nix-serve-ng.url = github:aristanetworks/nix-serve-ng;
+
   };
 
-  outputs = {self, nixpkgs, nixos-hardware}@inputs:
+  outputs = {self, nixpkgs, nixos-hardware, nix-serve-ng}@inputs:
   let 
     system = "x86_64-linux";
 
@@ -54,6 +56,7 @@
 
         modules = [
           ./hosts/halite
+          nix-serve-ng.nixosModules.default {services.nix-serve.enable=true;}
           # nixos-nvidia-vgpu.nixosModules.nvidia-vgpu
         ];
       };
@@ -62,6 +65,7 @@
 
         modules = [
           ./hosts/graphite
+          nix-serve-ng.nixosModules.default {services.nix-serve.enable=true;}
         ];
       };
       "live" = nixpkgs.lib.nixosSystem {
