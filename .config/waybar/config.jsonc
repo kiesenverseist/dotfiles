@@ -7,11 +7,13 @@
     // Choose the order of the modules
     "modules-center": ["hyprland/window", "hyprland/submap"],
     "modules-left": ["hyprland/workspaces", "hyprland/mode", "hyprland/scratchpad", "hyprland/media"],
-    "modules-right": ["idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight" //, "keyboard-state"
+    "modules-right": ["idle_inhibitor", "pulseaudio", "network", 
+      // "cpu", "memory", "temperature", 
+      "backlight" //, "keyboard-state"
     , "battery", "clock", "tray", "custom/notification"],
     // Modules configuration
     "hyprland/workspaces": {
-        "format":"{icon}",
+        "format":"{name}",
         "on-click": "activate"
     },
     "hyprland/window": {

@@ -12,4 +12,4 @@ xwayland {
 env = GDK_SCALE,"1.5"
 env = XCURSOR_SIZE,32
 
-exec-once = waybar & blueberry-tray & nm-applet --indicator
+exec-once = waybar & blueberry-tray & nm-applet --indicator & wpaperd

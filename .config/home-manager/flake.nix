@@ -21,17 +21,26 @@
         config.allowUnfree=true;
       };
     in {
-      homeConfigurations."kiesen" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+      homeConfigurations = {
+        "kiesen@nixos" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
 
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [ ./home.nix ];
+          # Specify your home configuration modules here, for example,
+          # the path to your home.nix.
+          modules = [ ./home.nix ];
 
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
-        extraSpecialArgs = {
-          inherit nix-gaming;
+          # Optionally use extraSpecialArgs
+          # to pass through arguments to home.nix
+          extraSpecialArgs = {
+            inherit nix-gaming;
+          };
+        };
+        "kiesen@kiesen-eos-laptop" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+
+          # Specify your home configuration modules here, for example,
+          # the path to your home.nix.
+          modules = [ ./home-laptop.nix ];
         };
       };
     };
