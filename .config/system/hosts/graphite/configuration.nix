@@ -22,6 +22,7 @@
   # Use the GRUB 2 boot loader.
   # boot.loader.grub.enable = true;
   # boot.loader.grub.efiSupport = true;
+  # boot.loader.efi.canTouchEfiVariables = true;
   # boot.loader.grub.efiInstallAsRemovable = true;
   # boot.loader.efi.efiSysMountPoint = "/boot";
   # Define on which hard drive you want to install Grub.
@@ -31,11 +32,11 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 100;
 
-  networking.hostName = "halite"; # Define your hostname.
+  networking.hostName = "graphite"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-  networking.nameservers = [ "9.9.9.9" "1.1.1.1" ];
+  # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  # networking.nameservers = [ "9.9.9.9" "1.1.1.1" ];
 
   # Set your time zone.
   time.timeZone = "Australia/Sydney";
@@ -110,7 +111,7 @@
 
   programs.hyprland = {
     enable = true;
-    enableNvidiaPatches = true;
+    # enableNvidiaPatches = true;
     # xwayland.enable = true;
     # xwayland.hidpi = true;
   };
@@ -123,7 +124,7 @@
     after = ["graphical-session-pre.target"];
    };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  # services.xserver.videoDrivers = ["nvidia"];
 
   programs.steam.enable = true;
   programs.gamemode.enable = true;
@@ -152,10 +153,10 @@
       enable = true;
       driSupport32Bit = true;
     };
-    nvidia = {
-      modesetting.enable = true;
-      open = false;
-      nvidiaSettings = true;
+    # nvidia = {
+    #   modesetting.enable = true;
+    #   open = false;
+    #   nvidiaSettings = true;
       # vgpu = {
       #   enable = true;
       #   unlock.enable = true;
@@ -165,7 +166,7 @@
       #     timezone = "Australia/Sydney";
       #   };
       # };
-    };
+    # };
 
     bluetooth.enable = true;
   };
@@ -228,13 +229,13 @@
   services.flatpak.enable = true;
 
   services.tailscale.enable = true;
-  services.jellyfin.enable = true;
-  services.jellyseerr = {
-    enable = true;
-  };
-  services.sonarr = {
-    enable = true;
-  };
+  # services.jellyfin.enable = true;
+  # services.jellyseerr = {
+  #   enable = true;
+  # };
+  # services.sonarr = {
+  #   enable = true;
+  # };
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];

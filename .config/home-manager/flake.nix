@@ -24,12 +24,26 @@
       nix-alien-pkg = nix-alien.packages.${system};
     in {
       homeConfigurations = {
-        "kiesen@nixos" = home-manager.lib.homeManagerConfiguration {
+        "kiesen@halite" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
           # Specify your home configuration modules here, for example,
           # the path to your home.nix.
           modules = [ ./home.nix ];
+
+          # Optionally use extraSpecialArgs
+          # to pass through arguments to home.nix
+          extraSpecialArgs = {
+            inherit nix-gaming;
+            nix-alien = nix-alien-pkg.nix-alien;
+          };
+        };
+        "kiesen@graphite" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+
+          # Specify your home configuration modules here, for example,
+          # the path to your home.nix.
+          modules = [ ./home-graphite.nix ];
 
           # Optionally use extraSpecialArgs
           # to pass through arguments to home.nix
