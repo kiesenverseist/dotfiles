@@ -1,0 +1,154 @@
+;; stats ;;
+(defvar mem-hover false)
+(defvar cpu-hover false)
+(defvar net-hover false)
+(defvar dis-hover false)
+(defwidget stats [dir]
+  (box
+    :orientation dir
+    :space-evenly false
+    :valign "end"
+    :halign "fill"
+    (eventbox ; memory
+      :onhover `eww update mem-hover=true`
+      :onhoverlost `eww update mem-hover=false`
+      (box
+        :orientation dir
+        :space-evenly false
+        :valign "end"
+        (revealer
+         :transition "slideup"
+         :reveal mem-hover
+         (box :orientation dir
+           :space-evenly false
+           "used"
+           "${round(EWW_RAM.used_mem / (1024*1024*1024), 1)}G"
+           (graph
+             :height 48
+             :thickness 3
+             :time-range '5m'
+             :max {EWW_RAM.total_mem}
+             :value {EWW_RAM.used_mem})
+           "avail"
+           "${round(EWW_RAM.available_mem / (1024*1024*1024), 1)}G"
+           (graph
+             :height 48
+             :thickness 3
+             :time-range '5m'
+             :max {EWW_RAM.total_mem}
+             :value {EWW_RAM.available_mem})
+           "free"
+           "${round(EWW_RAM.free_mem / (1024*1024*1024), 1)}G"
+           (graph
+             :height 48
+             :thickness 3
+             :time-range '5m'
+             :max {EWW_RAM.total_mem}
+             :value {EWW_RAM.free_mem})))
+          
+       (overlay
+         (circular-progress
+           :height 48
+           :thickness 5 
+           :value {EWW_RAM.used_mem_perc})
+         "")))
+    (eventbox
+      :onhover `eww update cpu-hover=true`
+      :onhoverlost `eww update cpu-hover=false`
+      (box
+        :orientation dir
+        :valign "end"
+        :space-evenly false
+        (revealer
+          :transition "slideup"
+          :reveal cpu-hover
+          (box
+            :orientation dir
+            :space-evenly false
+            "${round(EWW_CPU.avg,0)}%"
+            (graph
+              :height 48
+              :thickness 3
+              :time-range '1m'
+              :max 100
+              :value {EWW_CPU.avg})
+            "${round(EWW_TEMPS['K10TEMP_TCTL'],0)}C"
+            (graph
+              :height 48
+              :thickness 3
+              :time-range '1m'
+              :max 100
+              :min 30
+              :value {EWW_TEMPS['K10TEMP_TCTL']})))
+            
+        (overlay
+          (circular-progress
+            :height 48
+            :thickness 5
+            :value {EWW_CPU.avg})
+          "")))
+    (eventbox
+      :onhover `eww update net-hover=true`
+      :onhoverlost `eww update net-hover=false`
+      (box
+        :orientation dir
+        :valign "end"
+        :space-evenly false
+        (revealer
+          :transition "slideup"
+          :reveal net-hover
+          (box
+            :orientation dir
+            :space-evenly false
+            "DOWN"
+            "${round(EWW_NET["enp34s0"]["NET_DOWN"]/1024/1024, 1)}M"
+            (graph
+              :height 48
+              :thickness 1
+              :time-range '1m'
+             :value {EWW_NET["enp34s0"]["NET_DOWN"]})
+            "UP"
+            "${round(EWW_NET["enp34s0"]["NET_UP"]/1024/1024, 1)}M"))
+            
+        (overlay
+          (graph
+            :height 48
+            :thickness 1
+            :time-range '1m'
+            :value {EWW_NET["enp34s0"]["NET_UP"]})
+          (graph
+            :height 48
+            :thickness 1
+            :time-range '1m'
+            :visible {!net-hover}
+            :value {EWW_NET["enp34s0"]["NET_DOWN"]})
+          (label :text "󰹺" :visible {!net-hover}))))
+        
+    (eventbox ; disk
+      :onhover `eww update dis-hover=true`
+      :onhoverlost `eww update dis-hover=false`
+      (box
+        :orientation dir
+        :space-evenly false
+        :valign "end"
+        (revealer
+         :transition "slideup"
+         :reveal dis-hover
+         (box :orientation dir
+           :space-evenly false
+           ;; {EWW_DISK["/"].name}
+           "used"
+           "${round(EWW_DISK["/"].used / (1024*1024*1024*1024), 2)}T"
+           ""
+           "free"
+           "${round(EWW_DISK["/"].free / (1024*1024*1024*1024), 2)}T"
+           ""
+           "total"
+           "${round(EWW_DISK["/"].total / (1024*1024*1024*1024), 2)}T"))
+          
+       (overlay
+         (circular-progress
+           :height 48
+           :thickness 5 
+           :value {EWW_DISK["/"].used_perc})
+         "󰋊")))))

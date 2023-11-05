@@ -1,0 +1,252 @@
+(include "stats.yuck")
+
+(defwindow bar1
+  :monitor 1
+  :stacking "fg"
+  :exclusive true
+  :focusable false
+  :namespace "bar"
+  :geometry (geometry 
+             :x "4px"
+             :y "0%"
+             :width "30px"
+             :height "90%"
+             :anchor "left center")
+  (vbar))
+
+(defwindow bar0
+  :monitor 0
+  :stacking "fg"
+  :exclusive true
+  :focusable false
+  :namespace "bar"
+  :geometry (geometry 
+             :x "0%"
+             :y "0%"
+             :width "100%"
+             :height "30px"
+             :anchor "top center")
+  (hbar))
+
+
+(defwidget vbar []
+  (box 
+    :orientation "vertical"
+    ;; :style "background: rgba(0.4,0.4,0.4,0.5)"
+    :valign "fill"
+    :halign "fill"
+    :space-evenly false
+    ;; :vexpand true
+    ;; :hexpand true
+    (box 
+      :orientation "v"
+      :valign "start"
+      :halign "center"
+      :space-evenly false
+      :vexpand true
+      (button :onclick `pkill rofi || rofi -show drun -show-icons -sidebar-mode -hover-select & disown` "")
+      (workspaces :dir "vertical" :monitor "DP-2"))
+    
+    (box 
+      :orientation "horizontal"
+      :valign "center"
+      :halign "center"
+      :hexpand true
+      :space-evenly false
+      (vl :t "${window}")
+      (revealer 
+        :reveal {strlength(submap) > 1} 
+        :transition "slideleft" 
+        :halign "center"
+        :valign "center"
+        (vl 
+          :class "submap"
+          :t {submap})))
+      
+    (box 
+      :orientation "vertical"
+      :valign "end"
+      :halign "center"
+      :space-evenly false
+      :vexpand true
+      (systray :pack-direction "ttb")
+      (stats :dir "v")
+      (clock :orientation "vertical")
+      (power))))
+
+(defwidget hbar []
+  (box 
+    :orientation "horizontal"
+    :valign "fill"
+    :halign "fill"
+    (box 
+      ;; :orientation dir
+      :valign "center"
+      :halign "start"
+      (workspaces :dir "horizontal" :monitor "HDMI-A-1"))
+    
+    (box 
+      :orientation "vertical"
+      :valign "center"
+      :halign "center"
+      (label :text {window})
+      (label :text {submap}))
+    
+    (box 
+      ;; :orientation dir
+      :valign "center"
+      :halign "end"
+      :space-evenly false
+      :hexpand true
+      (clock :orientation "horizontal")
+      (systray :pack_direction "right"))))
+    
+  
+
+(deflisten workspaces
+  :initial "[]"
+  "bash scripts/get-workspaces")
+(deflisten current_workspace
+  :initial '{"id":1}'
+  "bash scripts/get-active-workspace")
+(deflisten window
+  :initial "..."
+  "sh scripts/get-window-title")
+(deflisten submap
+  :inital ""
+  "sh scripts/get-submap")
+
+(defwidget workspaces [dir monitor]
+  (eventbox :onscroll ""
+    (box 
+      :orientation dir
+      :valign "start"
+      :halign "center"
+      (label :text "${current_workspace.id}" :visible false) ;; just to keep that variable updated
+      (for workspace in workspaces
+        (button 
+          :onclick "hyprctl dispatch workspace ${workspace.id}"
+          :visible {workspace.id > 0 && workspace.monitor =~ monitor}
+          :style {workspace.id == current_workspace.id ? "color: #fbf1c7" : " "}
+          "${workspace.id}")))))
+      
+  
+
+
+;; just a vertical label
+(defwidget vl [t ?class]
+  (label :class class :text t :angle 90))
+
+;; clock and calendar stuff ;;
+(defpoll time-hour 
+  :interval "1s"
+  `date +%H`)
+(defpoll time-minute 
+  :interval "1s"
+  `date +%M`)
+(defpoll time-second 
+  :interval "1s"
+  `date +%S`)
+(defpoll time-day :interval "1h"
+    `date '+%d'`)
+(defpoll time-month :interval "1h"
+    `date '+%m'`)
+(defpoll time-year :interval "1h"
+    `date '+%Y'`)
+
+(defvar cal-open false)
+(defvar time-hover false)
+
+(defwidget clock [orientation]
+  (eventbox :onclick 
+      {cal-open ? 
+        `eww update cal-open=false & eww close calendar` 
+       :
+        `eww update cal-open=true & eww open calendar`}
+      
+      :onhover `eww update time-hover=true` 
+      :onhoverlost `eww update time-hover=false` 
+    (box 
+      :orientation orientation
+      :valign "center"
+      :space-evenly false
+      time-hour 
+      (label :text ":" :visible {orientation =~ "h"})
+      time-minute
+      (label :text ":" :visible {orientation =~ "h"})
+      time-second
+      (revealer
+        :reveal time-hover
+        :transition {orientation =~ "h" ? "slideleft" : "slideup"}
+        (box :orientation orientation
+          :space-evenly false
+          "-"
+          time-day 
+          (label :text ":" :visible {orientation =~ "h"})
+          time-month
+          (label :text ":" :visible {orientation =~ "h"})
+          time-year)))))
+          
+      
+
+(defwidget cal []
+  (box :orientation "v"
+    (calendar 
+      :day time-day
+      :month time-month
+      :year time-year
+      :show-week-numbers true
+      ;; :onclick `xdg-open "obsidian://open?vault=knowledge&file={2}-$(printf '%02d' $(({1} + 1)))-{0}"`
+      :timeout "1s")))
+
+(defwindow calendar
+  :monitor 1
+  :stacking "fg"
+  :exclusive false
+  :focusable false
+  :geometry (geometry
+              :x "70px"
+              :y "80%"
+              :width "270px"
+              :height "60px")
+  (cal))
+
+
+;; power menu stuff ;;
+(defvar power false)
+(defwidget power []
+  (eventbox  :onhover "eww update power=true"  
+     :onhoverlost "eww update power=false" 
+   (box    :orientation "v"          
+         :space-evenly "false"    
+         :vexpand "false"   
+         :class "powermenu"
+     (revealer  :transition "slideup"        
+           :reveal power       
+       (box    :orientation "v"          
+             :space-evenly "false"
+
+         ;; (button   	:class "button-bspres"  			
+         ;;       :tooltip "BSPWM Restart" 
+         ;;       :onclick "bspc wm -r" "" )
+
+         (button    :class "button-off"          
+               :tooltip "Shutdown"     
+               :onclick "shutdown now"  "")
+
+         (button    :class "button-reb"          
+               :tooltip "Reboot"     
+               :onclick "reboot"  "")
+
+         (button    :class "button-quit"         
+               :tooltip "Logout"      
+               :onclick "killall bspwm" "")
+
+         (button    :class "button-lock"         
+               :tooltip "Lock Screen"   
+               :onclick "betterlockscreen -l"  "")))
+
+     (button    :class "button-off"          
+           :tooltip "Power"     
+           :onclick "rofi -show menu -modi 'menu:rofi-power-menu'& "  ""))))
+
