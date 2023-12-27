@@ -52,6 +52,7 @@ in {
     lf ctpv
     socat jq
     zstd
+    waypipe
 
     # de stuff
     (pkgs.waybar.overrideAttrs (oldAttrs: {
@@ -84,11 +85,11 @@ in {
 
     # lmms
     # ardour
-    lmms-nightly
-    distrho
-    cardinal
-    vcv-rack
-    carla
+    # lmms-nightly
+    # distrho
+    # cardinal
+    # vcv-rack
+    # carla
 
     syncthingtray
     rofi-power-menu

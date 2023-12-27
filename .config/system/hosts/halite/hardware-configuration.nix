@@ -8,13 +8,17 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
+  boot.kernelPackages = pkgs.linuxPackages_testing;
+
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "bcache" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-amd" "vfio-pci" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = " /dev/disk/by-id/wwn-0x50014ee2bcf8d5aa:/dev/disk/by-id/wwn-0x5000c500cf8957af-part2:/dev/nvme0n1";
+    { 
+      # device = " /dev/disk/by-id/wwn-0x50014ee2bcf8d5aa:/dev/disk/by-id/wwn-0x5000c500cf8957af-part2:/dev/nvme0n1";
+      device = "UUID=df61a550-ba4f-4214-b36a-c069cd3c7123";
       fsType = "bcachefs";
     };
 

@@ -15,6 +15,7 @@
     ./hardware-configuration.nix
     ../cachix.nix
     # (import "${logiops}/nixos/modules/hardware/logiops")
+    ./qbittorrent.nix
   ];
 
   # services.logiops.enable = true;
@@ -34,8 +35,10 @@
   networking.hostName = "halite"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
   networking.nameservers = [ "9.9.9.9" "1.1.1.1" ];
+
+  # networking.bridges.br0.interfaces = ["enp34s0"];
 
   # Set your time zone.
   time.timeZone = "Australia/Sydney";
@@ -59,7 +62,7 @@
       enable = true;
       theme = "${import ../sddm-theme.nix {inherit pkgs;}}";
     };
-    desktopManager.plasma5.enable = true;
+    # desktopManager.plasma5.enable = true;
     # displayManager.defaultSession = "plasmawayland";
   };
   
@@ -70,7 +73,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.avahi.enable = true;
-  services.avahi.nssmdns = true;
+  services.avahi.nssmdns4 = true;
   services.avahi.openFirewall = true;
 
   # networking
@@ -125,22 +128,22 @@
 
   services.xserver.videoDrivers = ["nvidia"];
 
-  programs.steam.enable = true;
-  programs.gamemode.enable = true;
-  programs.gamescope = {
-    enable = true;
-    # capSysNice = true;
-  };
+  # programs.steam.enable = true;
+  # programs.gamemode.enable = true;
+  # programs.gamescope = {
+  #   enable = true;
+  #   # capSysNice = true;
+  # };
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      steam = prev.steam.override ({ extraPkgs ? pkgs': [], ... }: {
-        extraPkgs = pkgs': (extraPkgs pkgs') ++ (with pkgs'; [
-          libconfig
-        ]);
-      });
-    })
-  ];
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     steam = prev.steam.override ({ extraPkgs ? pkgs': [], ... }: {
+  #       extraPkgs = pkgs': (extraPkgs pkgs') ++ (with pkgs'; [
+  #         libconfig
+  #       ]);
+  #     });
+  #   })
+  # ];
 
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
@@ -185,11 +188,6 @@
   ];
 
   nixpkgs.config.packageOverrides = pkgs: {
-    pr167388 = import (fetchTarball {
-          url = "https://github.com/NixOS/nixpkgs/archive/d88cd9ff3050bfc7d9382502cd261364e9602f1.tar.gz";
-          sha256 = "0przcgr431xlbcnbyjj20bg50qczyq546aq82dknlv59mmx9kx58";
-        })
-      {config = config.nixpkgs.config;};
     steam = pkgs.steam.override { extraPkgs = pkgs: with pkgs; [ libgdiplus keyutils libkrb5 libpng libpulseaudio libvorbis stdenv.cc.cc.lib xorg.libXcursor xorg.libXi xorg.libXinerama xorg.libXScrnSaver ]; }; # https://github.com/ValveSoftware/gamescope/issues/905
   };
 
@@ -205,8 +203,6 @@
 
     firefox
 
-    pr167388.logiops
-
     nixd
     home-manager
 
@@ -215,26 +211,29 @@
 
     tailscale
 
-    virt-manager
+    # virt-manager
     polkit-kde-agent
     virtiofsd
 
     # hypr-plugins.hyprbars
   ];
 
-  # pr.logiops.enable = true;
-
   # flatpak
   services.flatpak.enable = true;
 
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    permitCertUid = "caddy";
+  };
+
   services.jellyfin.enable = true;
-  services.jellyseerr = {
-    enable = true;
-  };
-  services.sonarr = {
-    enable = true;
-  };
+  services.plex.enable = true;
+  # services.jellyseerr = {
+  #   enable = true;
+  # };
+  # services.sonarr = {
+  #   enable = true;
+  # };
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
@@ -259,8 +258,59 @@
   networking.firewall.enable = false;
 
   # virtualisation
-  virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      ovmf.enable = true;
+      # runAsRoot = false;
+    };
+    onBoot = "start";
+    onShutdown = "shutdown";
+  };
+
   virtualisation.spiceUSBRedirection.enable = true;
+
+  virtualisation.docker.enable = true;
+
+  programs.virt-manager.enable = true;
+
+  networking.useDHCP = false;
+  networking.bridges."br0".interfaces = ["enp34s0"];
+  networking.interfaces."br0".useDHCP = true;
+
+  # networking.nat = {
+  #   enable = true;
+  #   internalInterfaces = ["br0"];
+  #   externalInterface = "enp34s0";
+  # };
+  #
+  # networking.bridges."br0".interfaces = [];
+  # networking.interfaces."br0".ipv4.addresses = [
+  #   {address="192.168.122.1"; prefixLength=24;}
+  # ];
+  #
+  # services.kea.dhcp4 = {
+  #   enable = true;
+  #   settings = {
+  #     interfaces-config.interfaces = ["br0"];
+  #     lease-database = {
+  #       name = "/var/lib/kea/dhcp4.leases";
+  #       persist = true;
+  #       type = "memfile";
+  #     };
+  #     subnet4 = [
+  #       {
+  #         id = 1;
+  #         subnet = "192.168.122.0/24";
+  #         pools = [
+  #           {pool = "192.168.122.100 - 192.168.122.200";}
+  #         ];
+  #       }
+  #     ];
+  #     valid-lifetime = 4000;
+  #   };
+  # };
+
   # virtualisation.sharedDirectories = {
   #   my-share = {
   #     source = "/home/kiesen/old-ssd/shared";
@@ -273,10 +323,47 @@
 
   programs.nbd.enable = true;
 
-  # services.gitea = {
-  #   enable = true;
-  #   lfs.enable = true;
-  # };
+  services.gitea = {
+    enable = true;
+    lfs.enable = true;
+    settings.server.ROOT_URL = "https://halite.ladon-minnow.ts.net/git/";
+  };
+
+  services.gitea-actions-runner = {
+    instances."first" = {
+      name = "first";
+      enable = true;
+      url = "https://halite.ladon-minnow.ts.net/git/";
+      token = "zk0hCo1VHHjdadQPH4X4IbMQ5u09Le7KSuinNyD5";
+      labels = [
+        "native:host"
+        "ubuntu-latest:docker://node:16-bullseye"
+        "ubuntu-22.04:docker://node:16-bullseye"
+        "ubuntu-20.04:docker://node:16-bullseye"
+        "ubuntu-18.04:docker://node:16-buster"
+      ];
+    };
+  };
+
+  services.qbittorrent = {
+    enable = true;
+    user = "kiesen";
+  };
+
+  services.caddy = {
+    enable = true;
+    virtualHosts."halite.ladon-minnow.ts.net" = {
+      extraConfig = ''
+        route /git/* {
+          uri strip_prefix /git
+          reverse_proxy localhost:3000
+        }
+
+        redir /jellyfin /jellyfin/
+        reverse_proxy /jellyfin/* localhost:8096
+      '';
+    };
+  };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
