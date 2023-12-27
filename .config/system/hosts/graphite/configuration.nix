@@ -3,7 +3,9 @@
 # and in the NixOS manual (accessible by running `nixos-help`).
 
 { config, lib, pkgs, system, ... }:
-
+let
+  factorio-custom = pkgs.callPackage ./factorio-custom {releaseType="headless";};
+in 
 {
   imports =
   # let
@@ -16,6 +18,8 @@
     ../cachix.nix
     # (import "${logiops}/nixos/modules/hardware/logiops")
   ];
+
+  boot.kernelPackages = pkgs.linuxPackages_testing;
 
   # services.logiops.enable = true;
 
@@ -111,10 +115,12 @@
 
   programs.hyprland = {
     enable = true;
-    # enableNvidiaPatches = true;
+    enableNvidiaPatches = true;
     # xwayland.enable = true;
     # xwayland.hidpi = true;
   };
+
+  programs.adb.enable = true;
 
   systemd.targets.hyprland-session = {
     description = "Hyprland compositor session";
@@ -124,7 +130,7 @@
     after = ["graphical-session-pre.target"];
    };
 
-  # services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = ["nvidia"];
 
   programs.steam.enable = true;
   programs.gamemode.enable = true;
@@ -138,6 +144,7 @@
       steam = prev.steam.override ({ extraPkgs ? pkgs': [], ... }: {
         extraPkgs = pkgs': (extraPkgs pkgs') ++ (with pkgs'; [
           libconfig
+          openssl
         ]);
       });
     })
@@ -153,10 +160,10 @@
       enable = true;
       driSupport32Bit = true;
     };
-    # nvidia = {
-    #   modesetting.enable = true;
-    #   open = false;
-    #   nvidiaSettings = true;
+    nvidia = {
+      modesetting.enable = true;
+      open = false;
+      nvidiaSettings = true;
       # vgpu = {
       #   enable = true;
       #   unlock.enable = true;
@@ -166,8 +173,9 @@
       #     timezone = "Australia/Sydney";
       #   };
       # };
-    # };
+    };
 
+    steam-hardware.enable = true;
     # bluetooth.enable = true;
   };
 
@@ -178,7 +186,7 @@
     isNormalUser = true;
     # shell = pkgs.defaultzsh;
     shell = pkgs.fish;
-    extraGroups = [ "wheel" "libvirtd" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "libvirtd" "adbusers"]; # Enable ‘sudo’ for the user.
   };
 
   fonts.packages = with pkgs; [
@@ -252,6 +260,13 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  services.factorio = {
+    enable = true;
+    requireUserVerification = false;
+    nonBlockingSaving = true;
+    package = factorio-custom;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

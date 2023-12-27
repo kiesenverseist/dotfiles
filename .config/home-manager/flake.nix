@@ -20,6 +20,9 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree=true;
+        config.permittedInsecurePackages = [
+          "electron-24.8.6"
+        ];
       };
       nix-alien-pkg = nix-alien.packages.${system};
     in {

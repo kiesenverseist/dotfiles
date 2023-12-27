@@ -1,7 +1,7 @@
 (include "stats.yuck")
 
 (defwindow bar1
-  :monitor 1
+  :monitor 0 
   :stacking "fg"
   :exclusive true
   :focusable false
@@ -14,19 +14,19 @@
              :anchor "left center")
   (vbar))
 
-(defwindow bar0
-  :monitor 0
-  :stacking "fg"
-  :exclusive true
-  :focusable false
-  :namespace "bar"
-  :geometry (geometry 
-             :x "0%"
-             :y "0%"
-             :width "100%"
-             :height "30px"
-             :anchor "top center")
-  (hbar))
+;; (defwindow bar0
+;;   :monitor 0
+;;   :stacking "fg"
+;;   :exclusive true
+;;   :focusable false
+;;   :namespace "bar"
+;;   :geometry (geometry 
+;;              :x "0%"
+;;              :y "0%"
+;;              :width "100%"
+;;              :height "30px"
+;;              :anchor "top center")
+;;   (hbar))
 
 
 (defwidget vbar []
@@ -45,7 +45,8 @@
       :space-evenly false
       :vexpand true
       (button :onclick `pkill rofi || rofi -show drun -show-icons -sidebar-mode -hover-select & disown` "")
-      (workspaces :dir "vertical" :monitor "DP-2"))
+      ;; (workspaces :dir "vertical" :monitor "DP-2"))
+      (workspaces :dir "vertical" :monitor "DP-1"))
     
     (box 
       :orientation "horizontal"

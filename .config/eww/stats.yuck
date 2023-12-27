@@ -101,27 +101,27 @@
             :orientation dir
             :space-evenly false
             "DOWN"
-            "${round(EWW_NET["enp34s0"]["NET_DOWN"]/1024/1024, 1)}M"
+            "${round(EWW_NET["eno1"]["NET_DOWN"]/1024/1024, 1)}M"
             (graph
               :height 48
               :thickness 1
               :time-range '1m'
-             :value {EWW_NET["enp34s0"]["NET_DOWN"]})
+             :value {EWW_NET["eno1"]["NET_DOWN"]})
             "UP"
-            "${round(EWW_NET["enp34s0"]["NET_UP"]/1024/1024, 1)}M"))
+            "${round(EWW_NET["eno1"]["NET_UP"]/1024/1024, 1)}M"))
             
         (overlay
           (graph
             :height 48
             :thickness 1
             :time-range '1m'
-            :value {EWW_NET["enp34s0"]["NET_UP"]})
+            :value {EWW_NET["eno1"]["NET_UP"]})
           (graph
             :height 48
             :thickness 1
             :time-range '1m'
             :visible {!net-hover}
-            :value {EWW_NET["enp34s0"]["NET_DOWN"]})
+            :value {EWW_NET["eno1"]["NET_DOWN"]})
           (label :text "󰹺" :visible {!net-hover}))))
         
     (eventbox ; disk

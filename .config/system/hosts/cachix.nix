@@ -12,6 +12,14 @@ in {
   nix.settings.substituters = [
     "https://cache.nixos.org/"
   ];
+  nix.settings = {
+    connect-timeout = 1;
+    fallback = true;
+    log-lines = 25;
+    min-free = 128000000;
+    max-free = 1000000000;
+    auto-optimise-store = true;
+  };
 
   services.harmonia = {
     enable = true;

@@ -5,7 +5,7 @@ systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &
 eww daemon
 eww open-many bar0 bar1
 wpaperd &
-polkit-dumb-agent &
+polkit-agent-helper-1 &
 # waybar &
 nm-applet --indicator &
 # dunst &

@@ -6,6 +6,8 @@ let
   gaming = nix-gaming.packages.${pkgs.system};
   xwvb = pkgs.libsForQt5.callPackage ./xwaylandvideobridge.nix {};
   eww-custom = pkgs.callPackage ./eww-custom {};
+  godot-wayland = import ./godot-wayland.nix {inherit pkgs;};
+  alvr = import ./alvr.nix {inherit pkgs;};
 in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -96,21 +98,25 @@ in {
 
     # proprietary stuffs
     (discord.override {
-      withOpenASAR = true;
+      withOpenASAR = false;
     })
-    obsidian
+    (obsidian.override {
+      electron = electron_24;
+    })
     # teams
-    microsoft-edge
+    # microsoft-edge
 
     # programming
     cachix
     neovide
     gf
     clang 
-    unityhub
     postgresql
     sqlite
     texlab
+    tectonic
+    # (import (fetchTarball https://install.devenv.sh/latest)).default
+
 
     # gaming
     protontricks
@@ -121,12 +127,17 @@ in {
     prismlauncher
     wine
     lutris
+    moonlight-qt
+    protonup-qt
+    alvr
 
 #nvapi latencyflex
 
     # game dev
     godot_4
+    godot-wayland.godot-wayland
     pixelorama
+    # unityhub
     
     # making
     prusa-slicer
@@ -342,12 +353,12 @@ in {
 
   services.network-manager-applet.enable = true;
 
-  dconf.settings = {
-    "org/virt-manager/virt-manager/connections" = {
-      autoconnect = ["qemu:///system"];
-      uris = ["qemu:///system"];
-    };
-  };
+  # dconf.settings = {
+  #   "org/virt-manager/virt-manager/connections" = {
+  #     autoconnect = ["qemu:///system"];
+  #     uris = ["qemu:///system"];
+  #   };
+  # };
 
   systemd.user.targets.tray = {
 		Unit = {
@@ -360,7 +371,7 @@ in {
 
   qt.platformTheme = "gtk";
   qt.style.name = "adwaita-dark";
-  # qt.style.package = pkgs.adwaita-qt;
+  qt.style.package = pkgs.adwaita-qt;
 
   gtk.enable = true;
 
@@ -368,7 +379,7 @@ in {
   gtk.cursorTheme.name = "Bibata-Modern-Ice";
 
   gtk.theme.package = pkgs.adw-gtk3;
-  gtk.theme.name = "adw-gtk3";
+  gtk.theme.name = "adw-gtk3-dark";
 
   gtk.iconTheme.package = gruvboxplus;
   gtk.iconTheme.name = "GruvboxPlus";
