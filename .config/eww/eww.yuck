@@ -46,7 +46,7 @@
       :vexpand true
       (button :onclick `pkill rofi || rofi -show drun -show-icons -sidebar-mode -hover-select & disown` "")
       ;; (workspaces :dir "vertical" :monitor "DP-2"))
-      (workspaces :dir "vertical" :monitor "DP-1"))
+      (workspaces :dir "vertical" :monitor "HDMI-A-1"))
     
     (box 
       :orientation "horizontal"

@@ -42,6 +42,10 @@ in
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
   # networking.nameservers = [ "9.9.9.9" "1.1.1.1" ];
 
+  networking.useDHCP = false;
+  networking.bridges."br0".interfaces = ["eno2"];
+  networking.interfaces."br0".useDHCP = true;
+
   # Set your time zone.
   time.timeZone = "Australia/Sydney";
 
@@ -66,6 +70,7 @@ in
     };
     desktopManager.plasma5.enable = true;
     # displayManager.defaultSession = "plasmawayland";
+    videoDrivers = ["amdgpu"];
   };
   
   # Configure keymap in X11
@@ -75,7 +80,7 @@ in
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.avahi.enable = true;
-  services.avahi.nssmdns = true;
+  services.avahi.nssmdns4 = true;
   services.avahi.openFirewall = true;
 
   # networking
@@ -115,7 +120,7 @@ in
 
   programs.hyprland = {
     enable = true;
-    enableNvidiaPatches = true;
+    # enableNvidiaPatches = true;
     # xwayland.enable = true;
     # xwayland.hidpi = true;
   };
@@ -129,8 +134,6 @@ in
     wants = ["graphical-session-pre.target"];
     after = ["graphical-session-pre.target"];
    };
-
-  services.xserver.videoDrivers = ["nvidia"];
 
   programs.steam.enable = true;
   programs.gamemode.enable = true;
@@ -160,20 +163,21 @@ in
       enable = true;
       driSupport32Bit = true;
     };
-    nvidia = {
-      modesetting.enable = true;
-      open = false;
-      nvidiaSettings = true;
-      # vgpu = {
-      #   enable = true;
-      #   unlock.enable = true;
-      #   fastapi-dls = {
-      #     enable = true;
-      #     local_ipv4 = "localhost";
-      #     timezone = "Australia/Sydney";
-      #   };
-      # };
-    };
+
+    # nvidia = {
+    #   modesetting.enable = true;
+    #   open = false;
+    #   nvidiaSettings = true;
+    #   # vgpu = {
+    #   #   enable = true;
+    #   #   unlock.enable = true;
+    #   #   fastapi-dls = {
+    #   #     enable = true;
+    #   #     local_ipv4 = "localhost";
+    #   #     timezone = "Australia/Sydney";
+    #   #   };
+    #   # };
+    # };
 
     steam-hardware.enable = true;
     # bluetooth.enable = true;
@@ -283,6 +287,8 @@ in
   #     target = "shared";
   #   };
   # };
+
+  systemd.user.tmpfiles.rules = ["f /dev/shm/looking-glass 0664 1000 kvm -"];
 
   programs.dconf.enable = true;
   programs.nix-ld.enable = true;

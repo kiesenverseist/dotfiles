@@ -130,6 +130,7 @@ in {
     moonlight-qt
     protonup-qt
     alvr
+    looking-glass-client
 
 #nvapi latencyflex
 

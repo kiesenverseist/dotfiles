@@ -5,12 +5,12 @@ in {
   godot-wayland = pkgs.godot_4.overrideAttrs (old: rec {
     pname = "godot-wayland";
     version = "4.2.0-wayland";
-    commitHash = "4a26acf156d1a6f5246733e3c4d037e13a69cb60";
+    commitHash = "12b7296457feaf9e7c2324e8669ee54c73f83506";
     src = pkgs.fetchFromGitHub {
       owner = "Riteo";
       repo = "godot";
       rev = commitHash;
-      hash = "sha256-e6D9Mx/ehI8ykceNq0GF/0Mf5vICamqjqohuhdFriRA=";
+      hash = "sha256-IvLuAT/yCfznLmA15jkgGmxBftukukd/JxwEkb+rrB0=";
     };
 
     nativeBuildInputs = old.nativeBuildInputs ++ [pkgs.wayland-scanner];
