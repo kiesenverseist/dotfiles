@@ -32,6 +32,13 @@ M.treesitter = {
         ["aa"] = {query = "@parameter.outer", desc = "Select around argument"},
       }
     }
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      node_incremental = "v",
+      node_decremental = "V",
+    }
   }
 }
 

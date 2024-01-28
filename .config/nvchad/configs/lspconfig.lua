@@ -7,7 +7,8 @@ local lspconfig = require("lspconfig")
 local servers = {
     "html", "cssls", "tsserver", "svelte",
     "clangd", --"rust_analyzer",
-    "pylsp", "gdscript",
+    "pylsp",
+    "gdscript",
     "nixd",
 }
 
@@ -35,7 +36,6 @@ lspconfig.texlab.setup {
 lspconfig.rust_analyzer.setup {
   -- cmd = {"/nix/store/sri7b1jjipg8i0yql90xbr1c12ij7m02-rust-analyzer-2023-07-17/bin/rust-analyzer"},
   cmd = {"rust-analyzer"},
-  
   on_attach = on_attach,
   capabilities = capabilities,
 }
