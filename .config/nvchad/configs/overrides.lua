@@ -1,101 +1,138 @@
 local M = {}
 
 M.treesitter = {
-  ensure_installed = {
-    "vim", "lua",
-    "html", "css", "scss",
-    "javascript", "typescript", "tsx", "svelte",
-    "markdown", "markdown_inline", "latex",
-    "c", "cpp", "cmake", "make",
-    "rust",
-    "fish",
-    "yaml", "toml", "json",
-    "nix",
-    "ocaml", "ocaml_interface",
-    "python", "java",
-    "regex",
-    "gdscript", --"gdresource",
-    "gitignore", "gitattributes", "git_rebase", "gitcommit", "git_config",
-  },
-  indent = {
-    enable = true,
-    -- disable = {
-    --   "python"
-    -- },
-  },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true,
-      keymaps = {
-        ["ia"] = {query = "@parameter.inner", desc = "Select inside argument"},
-        ["aa"] = {query = "@parameter.outer", desc = "Select around argument"},
-      }
-    }
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      node_incremental = "v",
-      node_decremental = "V",
-    }
-  }
+	ensure_installed = {
+		"vim",
+		"vimdoc",
+		"query",
+		"lua",
+		"html",
+		"css",
+		"scss",
+		"javascript",
+		"typescript",
+		"tsx",
+		"svelte",
+		"markdown",
+		"markdown_inline",
+		"latex",
+		"c",
+		"cpp",
+		"cmake",
+		"make",
+		"rust",
+		"fish",
+		"bash",
+		"yaml",
+		"toml",
+		"json",
+		"nix",
+		"ocaml",
+		"ocaml_interface",
+		"python",
+		"java",
+		"regex",
+		"gdscript", --"gdresource",
+		"gitignore",
+		"gitattributes",
+		"git_rebase",
+		"gitcommit",
+		"git_config",
+	},
+	indent = {
+		enable = true,
+		-- disable = {
+		--   "python"
+		-- },
+	},
+	textobjects = {
+		select = {
+			enable = true,
+			lookahead = true,
+			keymaps = {
+				["ia"] = { query = "@parameter.inner", desc = "Select inside argument" },
+				["aa"] = { query = "@parameter.outer", desc = "Select around argument" },
+			},
+		},
+	},
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			node_incremental = "v",
+			node_decremental = "V",
+		},
+	},
 }
 
 M.mason = {
-  ensure_installed = {
-    -- lua stuff
-    "lua-language-server",
-    "stylua",
+	ensure_installed = {
+		-- lua stuff
+		"lua-language-server",
+		"stylua",
 
-    -- web dev stuff
-    "css-lsp",
-    "html-lsp",
-    "typescript-language-server",
-    "deno",
-    "prettier",
-    "svelte-language-server",
+		-- web dev stuff
+		"css-lsp",
+		"html-lsp",
+		"typescript-language-server",
+		"deno",
+		"prettier",
+		"svelte-language-server",
 
-    -- c/cpp stuff
-    "clangd", "clang-format", "cpptools",
+		-- c/cpp stuff
+		"clangd",
+		"clang-format",
+		"cpptools",
 
-    "rust-analyzer",
+		"rust-analyzer",
 
-    "shell-check",
-    "black",
-  },
+		"shell-check",
+		"black",
+	},
 }
 
 -- git support in nvimtree
 M.nvimtree = {
-  git = {
-    enable = true,
-  },
+	git = {
+		enable = true,
+	},
 
-  renderer = {
-    highlight_git = true,
-    icons = {
-      show = {
-        git = true,
-      },
-    },
-  },
+	renderer = {
+		highlight_git = true,
+		icons = {
+			show = {
+				git = true,
+			},
+		},
+	},
 }
 
 M.telescope = {
-  extensions_list = {'project', 'themes', 'terms', 'zoxide', 'undo'},
-  extensions = {
-    project = {
-      sync_with_nvim_tree = true,
-    },
-    zoxide = {
+	extensions_list = { "project", "themes", "terms", "zoxide", "undo" },
+	extensions = {
+		project = {
+			sync_with_nvim_tree = true,
+		},
+		zoxide = {},
+		undo = {
+			use_delta = true,
+			side_by_side = true,
+		},
+	},
+}
 
-    },
-    undo = {
-      use_delta = true,
-      side_by_side = true,
-    },
-  },
+M.nvterm = {
+	terminals = {
+		type_opts = {
+			float = {
+				relative = "editor",
+				row = 0.1,
+				col = 0.1,
+				width = 0.8,
+				height = 0.7,
+				border = "single",
+			},
+		},
+	},
 }
 
 return M

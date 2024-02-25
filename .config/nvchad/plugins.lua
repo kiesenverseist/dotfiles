@@ -16,6 +16,7 @@ local plugins = {
 				end,
 			},
 		},
+		opts = { inlay_hints = { enabled = true } },
 		config = function()
 			require("plugins.configs.lspconfig")
 			require("custom.configs.lspconfig")
@@ -54,6 +55,12 @@ local plugins = {
 						},
 						filetype = "hypr",
 					}
+				end,
+			},
+			{
+				"HiPhish/rainbow-delimiters.nvim",
+				config = function()
+					require("rainbow-delimiters.setup").setup({})
 				end,
 			},
 		},
@@ -140,6 +147,10 @@ local plugins = {
 	{
 		"mfussenegger/nvim-dap",
 		lazy = false,
+		dependencies = {
+			"mfussenegger/nvim-dap-python",
+			"rcarriga/nvim-dap-ui",
+		},
 		init = function()
 			require("core.utils").load_mappings("dap")
 		end,
@@ -155,14 +166,15 @@ local plugins = {
 				"mfussenegger/nvim-dap",
 			},
 		},
-		config = function()
-			require("nvim-dap-virtual-text").setup()
-		end,
+		config = true,
 	},
 
 	{
 		"rcarriga/nvim-notify",
 		lazy = false,
+		init = function()
+			require("core.utils").load_mappings("notify")
+		end,
 		config = function()
 			vim.notify = function(msg, ...)
 				if
@@ -277,23 +289,44 @@ local plugins = {
 			require("custom.configs.conform")
 		end,
 	},
-	-- {
-	--
-	-- },
-
-	-- To make a plugin not be loaded
-	-- {
-	--   "NvChad/nvim-colorizer.lua",
-	--   enabled = false
-	-- },
-
-	-- All NvChad plugins are lazy-loaded by default
-	-- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
-	-- If you want a plugin to load on startup, add `lazy = false` to a plugin spec, for example
-	-- {
-	--   "mg979/vim-visual-multi",
-	--   lazy = false,
-	-- }
+	{
+		"folke/trouble.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		-- keys = { "<leader>T" },
+		lazy = false,
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		},
+		init = function()
+			require("core.utils").load_mappings("trouble")
+		end,
+	},
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {
+			-- add any options here
+		},
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify",
+		},
+	},
+	require("custom.configs.neotestconfig"),
+	{
+		"andythigpen/nvim-coverage",
+		event = "BufEnter",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		opts = {},
+	},
+	{
+		"NvChad/nvterm",
+		opts = overrides.nvterm,
+	},
 }
 
 return plugins
