@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ config, lib, pkgs, system, ... }:
+{ config, inputs, lib, pkgs, system, ... }:
 let
   factorio-custom = pkgs.callPackage ./factorio-custom {releaseType="headless";};
 in 
@@ -98,9 +98,7 @@ in
 
   programs.hyprland = {
     enable = true;
-    # enableNvidiaPatches = true;
-    # xwayland.enable = true;
-    # xwayland.hidpi = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
 
   programs.adb.enable = true;
@@ -143,7 +141,6 @@ in
     };
 
     steam-hardware.enable = true;
-    # bluetooth.enable = true;
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -151,9 +148,8 @@ in
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kiesen = {
     isNormalUser = true;
-    # shell = pkgs.defaultzsh;
     shell = pkgs.fish;
-    extraGroups = [ "wheel" "libvirtd" "adbusers"]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "libvirtd" "qemu-libvirtd" "disk" "adbusers"]; # Enable ‘sudo’ for the user.
   };
 
   fonts.packages = with pkgs; [
@@ -169,7 +165,7 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    neovim
 
     wget
     git
@@ -188,24 +184,22 @@ in
     polkit-kde-agent
     virtiofsd
 
+    inputs.hypridle.packages.${pkgs.system}.hypridle
+    inputs.hyprlock.packages.${pkgs.system}.hyprlock
+
     # hypr-plugins.hyprbars
   ];
 
+
+  # List services that you want to enable:
 
   # flatpak
   services.flatpak.enable = true;
 
   services.tailscale.enable = true;
-  # services.jellyfin.enable = true;
-  # services.jellyseerr = {
-  #   enable = true;
-  # };
-  # services.sonarr = {
-  #   enable = true;
-  # };
 
   xdg.portal.enable = true;
-  # xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -215,7 +209,6 @@ in
   #   enableSSHSupport = true;
   # };
 
-  # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -234,31 +227,31 @@ in
   networking.firewall.enable = false;
 
   # virtualisation
-  virtualisation.libvirtd.enable = true;
-  virtualisation.spiceUSBRedirection.enable = true;
-  # virtualisation.sharedDirectories = {
-  #   my-share = {
-  #     source = "/home/kiesen/old-ssd/shared";
-  #     target = "shared";
-  #   };
-  # };
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      onBoot = "start";
+      onShutdown = "shutdown";
+    };
+    spiceUSBRedirection.enable = true;
+    # sharedDirectories = {
+    #   my-share = {
+    #     source = "/home/kiesen/old-ssd/shared";
+    #     target = "shared";
+    #   };
+    # };
+  };
 
-  systemd.user.tmpfiles.rules = ["f /dev/shm/looking-glass 0777 1000 kvm -"];
+  systemd.user.tmpfiles.rules = ["f /dev/shm/looking-glass 0666 root qemu-libvirtd -"];
 
   programs.dconf.enable = true;
-  programs.nix-ld.enable = true;
-
+  # programs.nix-ld.enable = true;
   programs.nbd.enable = true;
-
-  # services.gitea = {
-  #   enable = true;
-  #   lfs.enable = true;
-  # };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
+  # system.copySystemConfiguration = true; # incompatible with flakes :(
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
