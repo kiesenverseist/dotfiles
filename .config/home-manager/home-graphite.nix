@@ -129,9 +129,11 @@ in {
     lutris
     moonlight-qt
     protonup-qt
-    alvr
     looking-glass-client
 
+    alvr
+    immersed-vr
+    libva vaapiVdpau libvdpau-va-gl
 #nvapi latencyflex
 
     # game dev

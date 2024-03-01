@@ -288,7 +288,7 @@ in
   #   };
   # };
 
-  systemd.user.tmpfiles.rules = ["f /dev/shm/looking-glass 0664 1000 kvm -"];
+  systemd.user.tmpfiles.rules = ["f /dev/shm/looking-glass 0777 1000 kvm -"];
 
   programs.dconf.enable = true;
   programs.nix-ld.enable = true;
