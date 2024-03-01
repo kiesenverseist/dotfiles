@@ -8,20 +8,13 @@ let
 in 
 {
   imports =
-  # let
-  #   logiops = builtins.fetchTarball {
-  #     url = "https://github.com/ckiee/nixpkgs/archive/refs/heads/logiops-nixos.tar.gz";
-  #   };
-  # in
-  [ # Include the results of the hardware scan.
+  [ 
     ./hardware-configuration.nix
     ../cachix.nix
-    # (import "${logiops}/nixos/modules/hardware/logiops")
+    ./logiops.nix
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_testing;
-
-  # services.logiops.enable = true;
 
   # Use the GRUB 2 boot loader.
   # boot.loader.grub.enable = true;
@@ -49,10 +42,6 @@ in
   # Set your time zone.
   time.timeZone = "Australia/Sydney";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   # Select internationalisation properties.
   # i18n.defaultLocale = "en_US.UTF-8";
   # console = {
@@ -69,7 +58,7 @@ in
       theme = "${import ../sddm-theme.nix {inherit pkgs;}}";
     };
     desktopManager.plasma5.enable = true;
-    # displayManager.defaultSession = "plasmawayland";
+    displayManager.defaultSession = "hyprland";
     videoDrivers = ["amdgpu"];
   };
   
@@ -82,18 +71,6 @@ in
   services.avahi.enable = true;
   services.avahi.nssmdns4 = true;
   services.avahi.openFirewall = true;
-
-  # networking
-  # services.create_ap = {
-  #   enable = false;
-  #   settings = {
-  #     INTERNET_IFACE = "enp34s0";
-  #     WIFI_IFACE = "wlo1";
-  #     SSID = "kiesen-ap";
-  #     PASSPHRASE = "apple100";
-  #     # WPA_PAIRWISE = "CCMP";
-  #   };
-  # };
 
   # services.onedrive.enable = true;
 
@@ -110,10 +87,11 @@ in
 
   security.polkit.enable = true;
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.optimise = {
+    automatic = true;
+    dates = ["3:00"];
+  };
 
   programs.zsh.enable = true;
   programs.fish.enable = true;
@@ -164,21 +142,6 @@ in
       driSupport32Bit = true;
     };
 
-    # nvidia = {
-    #   modesetting.enable = true;
-    #   open = false;
-    #   nvidiaSettings = true;
-    #   # vgpu = {
-    #   #   enable = true;
-    #   #   unlock.enable = true;
-    #   #   fastapi-dls = {
-    #   #     enable = true;
-    #   #     local_ipv4 = "localhost";
-    #   #     timezone = "Australia/Sydney";
-    #   #   };
-    #   # };
-    # };
-
     steam-hardware.enable = true;
     # bluetooth.enable = true;
   };
@@ -198,11 +161,6 @@ in
   ];
 
   nixpkgs.config.packageOverrides = pkgs: {
-    pr167388 = import (fetchTarball {
-          url = "https://github.com/NixOS/nixpkgs/archive/d88cd9ff3050bfc7d9382502cd261364e9602f1.tar.gz";
-          sha256 = "0przcgr431xlbcnbyjj20bg50qczyq546aq82dknlv59mmx9kx58";
-        })
-      {config = config.nixpkgs.config;};
     steam = pkgs.steam.override { extraPkgs = pkgs: with pkgs; [ libgdiplus keyutils libkrb5 libpng libpulseaudio libvorbis stdenv.cc.cc.lib xorg.libXcursor xorg.libXi xorg.libXinerama xorg.libXScrnSaver ]; }; # https://github.com/ValveSoftware/gamescope/issues/905
   };
 
@@ -217,8 +175,6 @@ in
     git
 
     firefox
-
-    pr167388.logiops
 
     nixd
     home-manager
@@ -235,7 +191,6 @@ in
     # hypr-plugins.hyprbars
   ];
 
-  # pr.logiops.enable = true;
 
   # flatpak
   services.flatpak.enable = true;
