@@ -113,7 +113,7 @@
 
   programs.hyprland = {
     enable = true;
-    enableNvidiaPatches = true;
+    # enableNvidiaPatches = true;
     # xwayland.enable = true;
     # xwayland.hidpi = true;
   };
