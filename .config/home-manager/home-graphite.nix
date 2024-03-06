@@ -250,6 +250,9 @@ in {
     };
   };
 
+  programs.nix-index.enable = true;
+  # programs.command-not-found.enable = true;
+
   programs.vscode = {
     enable =  true;
     extensions = with pkgs.vscode-extensions; [
@@ -303,8 +306,17 @@ in {
     # font = "FiraCode Nerd Font 16";
     font = "GohuFont uni11 Nerd Font Propo 22";
     terminal = "${pkgs.kitty}/bin/kitty";
-    theme = "gruvbox-dark-hard";
-    extraConfig = {
+    theme =  let 
+      inherit (config.lib.formats.rasi) mkLiteral;
+    in {
+      "@theme" = "gruvbox-dark-hard";
+      element-icon = {
+        size = mkLiteral "2.5ch";
+      };
+    };
+    extraConfig = let 
+      inherit (config.lib.formats.rasi) mkLiteral;
+    in {
       modes = "window,drun,run,ssh,calc,file-browser-extended";
     };
   };
