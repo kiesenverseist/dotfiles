@@ -3,6 +3,8 @@ local M = {}
 M.treesitter = {
 	ensure_installed = {
 		"vim",
+		"vimdoc",
+		"query",
 		"lua",
 		"html",
 		"css",
@@ -20,6 +22,7 @@ M.treesitter = {
 		"make",
 		"rust",
 		"fish",
+		"bash",
 		"yaml",
 		"toml",
 		"json",
@@ -114,6 +117,21 @@ M.telescope = {
 		undo = {
 			use_delta = true,
 			side_by_side = true,
+		},
+	},
+}
+
+M.nvterm = {
+	terminals = {
+		type_opts = {
+			float = {
+				relative = "editor",
+				row = 0.1,
+				col = 0.1,
+				width = 0.8,
+				height = 0.7,
+				border = "single",
+			},
 		},
 	},
 }

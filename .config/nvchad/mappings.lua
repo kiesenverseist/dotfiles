@@ -10,6 +10,12 @@ M.disabled = {
 M.general = {
 	n = {
 		[";"] = { ":", "enter command mode", opts = { nowait = true } },
+		["<leader>G"] = {
+			function()
+				require("nvterm.terminal").send("lazygit", "float")
+			end,
+			"open lazygit",
+		},
 	},
 }
 
@@ -59,23 +65,35 @@ M.dap = {
 			end,
 			"toggle breakpoint",
 		},
-		["<leader>dc"] = {
+		["<leader>dB"] = {
+			function()
+				require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+			end,
+			"toggle breakpoint condition",
+		},
+		["<F5>"] = {
 			function()
 				require("dap").continue()
 			end,
 			"continue / start",
 		},
-		["<leader>do"] = {
+		["<F1>"] = {
+			function()
+				require("dap").step_into()
+			end,
+			"step into",
+		},
+		["<F2>"] = {
 			function()
 				require("dap").step_over()
 			end,
 			"step over",
 		},
-		["<leader>di"] = {
+		["<F3>"] = {
 			function()
-				require("dap").step_into()
+				require("dap").step_out()
 			end,
-			"step into",
+			"step out",
 		},
 		["<leader>dr"] = {
 			function()
@@ -89,11 +107,113 @@ M.dap = {
 			end,
 			"run last",
 		},
+		["<leader>do"] = {
+			function()
+				require("dapui").toggle()
+			end,
+			"open ui",
+		},
 		["<leader>dx"] = {
 			function()
 				require("dap").close()
 			end,
-			"run last",
+			"close debugging",
+		},
+	},
+}
+
+-- neotest
+M.neotest = {
+	plugin = true,
+
+	n = {
+		["<leader>tt"] = {
+			function()
+				require("neotest").run.run()
+			end,
+			"Run nearest test",
+		},
+		["<leader>tf"] = {
+			function()
+				require("neotest").run.run(vim.fn.expand("%"))
+			end,
+			"Run tests in file",
+		},
+		["<leader>ts"] = {
+			function()
+				require("neotest").run.stop()
+			end,
+			"Stop nearest test",
+		},
+		["<leader>tS"] = {
+			function()
+				require("neotest").run.stop(vim.vn.expand("%"))
+			end,
+			"Stop tests in file",
+		},
+		["<leader>tp"] = {
+			function()
+				require("neotest").summary.toggle()
+			end,
+			"Toggle test summary",
+		},
+		["<leader>dt"] = {
+			function()
+				require("neotest").run.run({ strategy = "dap" })
+			end,
+			"Debug nearest test",
+		},
+	},
+}
+
+-- trouble
+M.trouble = {
+	n = {
+		["<leader>T"] = {
+			function()
+				require("trouble").toggle()
+			end,
+			"Toggle Trouble",
+		},
+		["]d"] = {
+			function()
+				require("trouble").next({ skip_groups = true, jump = true })
+			end,
+			"Trouble next",
+		},
+		["[d"] = {
+			function()
+				require("trouble").next({ skip_groups = true, jump = true })
+			end,
+			"Trouble previous",
+		},
+	},
+}
+
+-- lsp extra binds
+M.lspconfig = {
+	plugin = true,
+
+	n = {
+		["<leader>lD"] = {
+			function()
+				vim.lsp.buf.type_definition()
+			end,
+			"LSP definition type",
+		},
+	},
+}
+
+-- notify
+M.notify = {
+	plugin = true,
+
+	n = {
+		["<leader>D"] = {
+			function()
+				require("notify").dismiss()
+			end,
+			"Dismiss notifications",
 		},
 	},
 }
@@ -102,9 +222,24 @@ M.dap = {
 if vim.g.neovide then
 	M.neovide = {
 		n = {
-			["<C-=>"] = { ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>", "Neovide zoom in" },
-			["<C-->"] = { ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>", "Neovide zoom out" },
-			["<C-0>"] = { ":lua vim.g.neovide_scale_factor = 1<CR>", "Neovide reset zoom" },
+			["<C-=>"] = {
+				function()
+					vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1
+				end,
+				"Neovide zoom in",
+			},
+			["<C-->"] = {
+				function()
+					vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1
+				end,
+				"Neovide zoom out",
+			},
+			["<C-0>"] = {
+				function()
+					vim.g.neovide_scale_factor = 1
+				end,
+				"Neovide reset zoom",
+			},
 		},
 	}
 end

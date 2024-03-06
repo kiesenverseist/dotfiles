@@ -16,6 +16,7 @@ local plugins = {
 				end,
 			},
 		},
+		opts = { inlay_hints = { enabled = true } },
 		config = function()
 			require("plugins.configs.lspconfig")
 			require("custom.configs.lspconfig")
@@ -40,6 +41,26 @@ local plugins = {
 				-- cmd = {"TSBufEnable",},
 				config = function()
 					require("treesitter-context").setup()
+				end,
+			},
+			{
+				"luckasRanarison/tree-sitter-hypr",
+				config = function()
+					local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+					parser_config.hypr = {
+						install_info = {
+							url = "https://github.com/luckasRanarison/tree-sitter-hypr",
+							files = { "src/parser.c" },
+							branch = "master",
+						},
+						filetype = "hypr",
+					}
+				end,
+			},
+			{
+				"HiPhish/rainbow-delimiters.nvim",
+				config = function()
+					require("rainbow-delimiters.setup").setup({})
 				end,
 			},
 		},
@@ -131,6 +152,10 @@ local plugins = {
 	{
 		"mfussenegger/nvim-dap",
 		lazy = false,
+		dependencies = {
+			"mfussenegger/nvim-dap-python",
+			"rcarriga/nvim-dap-ui",
+		},
 		init = function()
 			require("core.utils").load_mappings("dap")
 		end,
@@ -146,14 +171,15 @@ local plugins = {
 				"mfussenegger/nvim-dap",
 			},
 		},
-		config = function()
-			require("nvim-dap-virtual-text").setup()
-		end,
+		config = true,
 	},
 
 	{
 		"rcarriga/nvim-notify",
 		lazy = false,
+		init = function()
+			require("core.utils").load_mappings("notify")
+		end,
 		config = function()
 			vim.notify = function(msg, ...)
 				if
@@ -168,42 +194,41 @@ local plugins = {
 		end,
 	},
 
-	{
-		"dccsillag/magma-nvim",
-		lazy = false,
-		version = "*",
-		keys = {
-			{ "<leader>mi", "<cmd>MagmaInit<CR>", desc = "This command initializes a runtime for the current buffer." },
-			{ "<leader>mo", "<cmd>MagmaEvaluateOperator<CR>", desc = "Evaluate the text given by some operator." },
-			{ "<leader>ml", "<cmd>MagmaEvaluateLine<CR>", desc = "Evaluate the current line." },
-			{ "<leader>mv", "<cmd>MagmaEvaluateVisual<CR>", desc = "Evaluate the selected text." },
-			{ "<leader>mc", "<cmd>MagmaEvaluateOperator<CR>", desc = "Reevaluate the currently selected cell." },
-			{ "<leader>mr", "<cmd>MagmaRestart!<CR>", desc = "Shuts down and restarts the current kernel." },
-			{
-				"<leader>mx",
-				"<cmd>MagmaInterrupt<CR>",
-				desc = "Interrupts the currently running cell and does nothing if not cell is running.",
-			},
-		},
-		build = ":UpdateRemotePlugins",
-		-- event="BufEnter",
-		-- config = function()
-		--     -- vim.cmd[[:UpdateRemotePlugins]]
-		--     require('magma').setup()
-		-- end
-	},
+	-- {
+	-- 	"dccsillag/magma-nvim",
+	-- 	lazy = false,
+	-- 	version = "*",
+	-- 	keys = {
+	-- 		{ "<leader>mi", "<cmd>MagmaInit<CR>", desc = "This command initializes a runtime for the current buffer." },
+	-- 		{ "<leader>mo", "<cmd>MagmaEvaluateOperator<CR>", desc = "Evaluate the text given by some operator." },
+	-- 		{ "<leader>ml", "<cmd>MagmaEvaluateLine<CR>", desc = "Evaluate the current line." },
+	-- 		{ "<leader>mv", "<cmd>MagmaEvaluateVisual<CR>", desc = "Evaluate the selected text." },
+	-- 		{ "<leader>mc", "<cmd>MagmaEvaluateOperator<CR>", desc = "Reevaluate the currently selected cell." },
+	-- 		{ "<leader>mr", "<cmd>MagmaRestart!<CR>", desc = "Shuts down and restarts the current kernel." },
+	-- 		{
+	-- 			"<leader>mx",
+	-- 			"<cmd>MagmaInterrupt<CR>",
+	-- 			desc = "Interrupts the currently running cell and does nothing if not cell is running.",
+	-- 		},
+	-- 	},
+	-- 	build = ":UpdateRemotePlugins",
+	-- 	-- event="BufEnter",
+	-- 	-- config = function()
+	-- 	--     -- vim.cmd[[:UpdateRemotePlugins]]
+	-- 	--     require('magma').setup()
+	-- 	-- end
+	-- },
 	{
 		"lervag/vimtex",
 		lazy = false,
 	},
 	{
 		"elkowar/yuck.vim",
-		lazy = false,
-		-- ft='*.yuck',
+		ft='yuck',
 	},
 	{
 		"gpanders/nvim-parinfer",
-		lazy = false,
+    ft='yuck',
 	},
 
 	-- obsidian
@@ -283,6 +308,44 @@ local plugins = {
 	--   "mg979/vim-visual-multi",
 	--   lazy = false,
 	-- }
+	{
+		"folke/trouble.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		-- keys = { "<leader>T" },
+		lazy = false,
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		},
+		init = function()
+			require("core.utils").load_mappings("trouble")
+		end,
+	},
+	-- {
+	-- 	"folke/noice.nvim",
+	-- 	event = "VeryLazy",
+	-- 	opts = {
+	-- 		-- add any options here
+	-- 	},
+	-- 	dependencies = {
+	-- 		"MunifTanjim/nui.nvim",
+	-- 		"rcarriga/nvim-notify",
+	-- 	},
+	-- },
+	require("custom.configs.neotestconfig"),
+	{
+		"andythigpen/nvim-coverage",
+		event = "BufEnter",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		opts = {},
+	},
+	{
+		"NvChad/nvterm",
+		opts = overrides.nvterm,
+	},
 }
 
 return plugins
