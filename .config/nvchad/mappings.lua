@@ -1,66 +1,112 @@
 ---@type MappingsTable
 local M = {}
 
+M.disabled = {
+	n = {
+		["<C-c>"] = "",
+	},
+}
+
 M.general = {
-  n = {
-    [";"] = { ":", "enter command mode", opts = { nowait = true } },
-  },
+	n = {
+		[";"] = { ":", "enter command mode", opts = { nowait = true } },
+	},
 }
 
 -- more keybinds!
 
 M.telescope = {
-  plugin = true,
+	plugin = true,
 
-  n = {
-    ["<C-p>"] = { "<cmd> Telescope find_files <CR>", "Find files" },
-    ["<leader>pp"] = { "<cmd> Telescope project <CR>", "Pick project" },
-    ["<leader>cd"] = { "<cmd> Telescope zoxide list <CR>", "change dir zoxide" },
-    ["<leader>u"]  = { "<cmd> Telescope undo <CR>", "undo tree" },
-  },
+	n = {
+		["<C-p>"] = { "<cmd> Telescope find_files <CR>", "Find files" },
+		["<leader>pp"] = { "<cmd> Telescope project <CR>", "Pick project" },
+		["<leader>cd"] = { "<cmd> Telescope zoxide list <CR>", "change dir zoxide" },
+		["<leader>u"] = { "<cmd> Telescope undo <CR>", "undo tree" },
+	},
 }
 
 M.obsidian = {
-  plugin = true,
+	plugin = true,
 
-  n = {
-    ["gf"] = {function() require("obsidian.mapping").gf_passthrough() end, "goto file"},
-  },
+	n = {
+		["gf"] = {
+			function()
+				require("obsidian.mapping").gf_passthrough()
+			end,
+			"goto file",
+		},
+	},
 }
 
 M.minialign = {
-  plugin = true,
+	plugin = true,
 
-  n = {
-    ["ga"] = { "ga", "which_key_ignore" },
-    ["gA"] = { "ga", "which_key_ignore" },
-  },
+	n = {
+		["ga"] = { "ga", "which_key_ignore" },
+		["gA"] = { "ga", "which_key_ignore" },
+	},
 }
 
 -- dap
 M.dap = {
-  plugin = true,
+	plugin = true,
 
-  n = {
-    ["<leader>db"] = { function() require('dap').toggle_breakpoint() end, "toggle breakpoint" },
-    ["<leader>dc"] = { function() require('dap').continue() end, "continue / start" },
-    ["<leader>do"] = { function() require('dap').step_over() end, "step over" },
-    ["<leader>di"] = { function() require('dap').step_into() end, "step into" },
-    ["<leader>dr"] = { function() require('dap').repl.open() end, "open repl" },
-    ["<leader>dl"] = { function() require('dap').run_last() end, "run last" },
-    ["<leader>dx"] = { function() require('dap').close() end, "run last" },
-  },
+	n = {
+		["<leader>db"] = {
+			function()
+				require("dap").toggle_breakpoint()
+			end,
+			"toggle breakpoint",
+		},
+		["<leader>dc"] = {
+			function()
+				require("dap").continue()
+			end,
+			"continue / start",
+		},
+		["<leader>do"] = {
+			function()
+				require("dap").step_over()
+			end,
+			"step over",
+		},
+		["<leader>di"] = {
+			function()
+				require("dap").step_into()
+			end,
+			"step into",
+		},
+		["<leader>dr"] = {
+			function()
+				require("dap").repl.open()
+			end,
+			"open repl",
+		},
+		["<leader>dl"] = {
+			function()
+				require("dap").run_last()
+			end,
+			"run last",
+		},
+		["<leader>dx"] = {
+			function()
+				require("dap").close()
+			end,
+			"run last",
+		},
+	},
 }
 
 -- neovide bindings
 if vim.g.neovide then
-  M.neovide = {
-    n = {
-      ["<C-=>"] = {":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>", "Neovide zoom in"},
-      ["<C-->"] = {":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>", "Neovide zoom out"},
-      ["<C-0>"] = {":lua vim.g.neovide_scale_factor = 1<CR>", "Neovide reset zoom"},
-    },
-  }
+	M.neovide = {
+		n = {
+			["<C-=>"] = { ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>", "Neovide zoom in" },
+			["<C-->"] = { ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>", "Neovide zoom out" },
+			["<C-0>"] = { ":lua vim.g.neovide_scale_factor = 1<CR>", "Neovide reset zoom" },
+		},
+	}
 end
 
 return M
