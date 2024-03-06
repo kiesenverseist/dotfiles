@@ -245,7 +245,7 @@ in
   systemd.user.tmpfiles.rules = ["f /dev/shm/looking-glass 0666 root qemu-libvirtd -"];
 
   programs.dconf.enable = true;
-  # programs.nix-ld.enable = true;
+  programs.nix-ld.enable = true;
   programs.nbd.enable = true;
 
   # Copy the NixOS configuration file and link it from the resulting system
