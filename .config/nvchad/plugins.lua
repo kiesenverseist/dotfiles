@@ -42,21 +42,12 @@ local plugins = {
 					require("treesitter-context").setup()
 				end,
 			},
-			{
-				"luckasRanarison/tree-sitter-hypr",
-				config = function()
-					local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-					parser_config.hypr = {
-						install_info = {
-							url = "https://github.com/luckasRanarison/tree-sitter-hypr",
-							files = { "src/parser.c" },
-							branch = "master",
-						},
-						filetype = "hypr",
-					}
-				end,
-			},
 		},
+	},
+
+	{
+		"hrsh7th/nvim-cmp",
+		opts = overrides.cmp,
 	},
 
 	{
@@ -277,9 +268,7 @@ local plugins = {
 			require("custom.configs.conform")
 		end,
 	},
-	-- {
-	--
-	-- },
+	{ "folke/neodev.nvim", opts = {} },
 
 	-- To make a plugin not be loaded
 	-- {
