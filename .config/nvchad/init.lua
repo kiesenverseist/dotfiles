@@ -7,15 +7,17 @@ local autocmd = vim.api.nvim_create_autocmd
 -- })
 
 if vim.g.neovide == true then
-  vim.o.guifont = "FiraCode Nerd Font:h14"
-  vim.o.winblend = 50
-  vim.o.pumblend = 50
+	vim.o.guifont = "FiraCode Nerd Font:h14"
+	vim.o.winblend = 50
+	vim.o.pumblend = 50
 
-  vim.g.neovide_transparency = 0.95
-  vim.g.transparency = 0.95
+	vim.g.neovide_transparency = 0.95
+	vim.g.transparency = 0.95
 
-  vim.g.neovide_floating_blur_amount_x = 2.0
-  vim.g.neovide_floating_blur_amount_y = 2.0
+	vim.g.neovide_floating_blur_amount_x = 2.0
+	vim.g.neovide_floating_blur_amount_y = 2.0
+
+	vim.g.neovide_remember_window_size = false
 end
 
 local opt = vim.opt
@@ -33,40 +35,42 @@ opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 local function nvim_create_augroups(definitions)
-    for group_name, definition in pairs(definitions) do
-        api.nvim_command('augroup '..group_name)
-        api.nvim_command('autocmd!')
-        for _, def in ipairs(definition) do
-            local command = table.concat(vim.tbl_flatten{'autocmd', def}, ' ')
-            api.nvim_command(command)
-        end
-        api.nvim_command('augroup END')
-    end
+	for group_name, definition in pairs(definitions) do
+		api.nvim_command("augroup " .. group_name)
+		api.nvim_command("autocmd!")
+		for _, def in ipairs(definition) do
+			local command = table.concat(vim.tbl_flatten({ "autocmd", def }), " ")
+			api.nvim_command(command)
+		end
+		api.nvim_command("augroup END")
+	end
 end
 
-
 local autoCommands = {
-    -- other autocommands
-    open_folds = {
-        {"BufEnter", "*", "normal zR"}
-    }
+	-- other autocommands
+	open_folds = {
+		{ "BufEnter", "*", "normal zR" },
+	},
 }
 
 nvim_create_augroups(autoCommands)
 
+-- Add directory to zoxide when changed for example with `:cd`
+local zoxide_group = vim.api.nvim_create_augroup("zoxide", {})
+vim.api.nvim_create_autocmd({ "DirChanged" }, {
+	group = zoxide_group,
+	callback = function(ev)
+		vim.fn.system({ "zoxide", "add", ev.file })
+	end,
+})
+
 -- vimtex config (move to separete file later)
-vim.g.vimtex_mappings_prefix = '<S-Space>'
+vim.g.vimtex_mappings_prefix = "<S-Space>"
 vim.g.vimtex_compiler_method = "tectonic"
-vim.g.vimtex_view_method = 'zathura'
-vim.g.maplocalleader = ','
+vim.g.vimtex_view_method = "zathura"
+vim.g.maplocalleader = ","
 
 -- hypr treesitter stuff
--- local parser_config = require("nvim-treesitter.parsers").get_parser_config()
--- parser_config.hypr = {
---   install_info = {
---     url = "https://github.com/luckasRanarison/tree-sitter-hypr",
---     files = { "src/parser.c" },
---     branch = "master",
---   },
---   filetype = "hypr",
--- }
+vim.filetype.add({
+	pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+})
