@@ -6,8 +6,9 @@ local lspconfig = require("lspconfig")
 -- if you just want default config for the servers then put them in a table
 local servers = {
 	"html",
-	"cssls",
+	-- "cssls",
 	"tsserver",
+	"tailwindcss",
 	"svelte",
 	"clangd",
 	--"rust_analyzer",
@@ -16,6 +17,7 @@ local servers = {
 	-- "ruff_lsp",
 	"gdscript",
 	"nixd",
+	"prismals",
 }
 
 for _, lsp in ipairs(servers) do
@@ -25,6 +27,11 @@ for _, lsp in ipairs(servers) do
 	})
 end
 
+lspconfig.cssls.setup({
+	cmd = { "css-languageserver", "--stdio" },
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
 --
 lspconfig.texlab.setup({
 	settings = {
@@ -40,8 +47,13 @@ lspconfig.texlab.setup({
 })
 
 lspconfig.rust_analyzer.setup({
-	-- cmd = {"/nix/store/sri7b1jjipg8i0yql90xbr1c12ij7m02-rust-analyzer-2023-07-17/bin/rust-analyzer"},
 	cmd = { "rust-analyzer" },
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
+--
+-- lspconfig.prismals.setup({
+-- 	cmd = { "npx", "prisma-language-server", "--stdio" },
+-- 	on_attach = on_attach,
+-- 	capabilities = capabilities,
+-- })

@@ -83,6 +83,7 @@ in {
     via
     chromium
     vlc obs-studio
+    waypipe
 
     # lmms
     # ardour
@@ -130,6 +131,7 @@ in {
     moonlight-qt
     protonup-qt
     looking-glass-client
+    runelite
 
     alvr
     immersed-vr

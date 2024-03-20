@@ -313,11 +313,7 @@ local plugins = {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		-- keys = { "<leader>T" },
 		lazy = false,
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		},
+		opts = { },
 		init = function()
 			require("core.utils").load_mappings("trouble")
 		end,

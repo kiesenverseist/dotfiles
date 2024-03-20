@@ -12,6 +12,13 @@ local options = {
 		sh = { "shfmt" },
 
 		python = { "isort", "black" },
+
+		c = { "clang_format" },
+		cpp = { "clang_format" },
+		objc = { "clang_format" },
+		objcpp = { "clang_format" },
+		cuda = { "clang_format" },
+		proto = { "clang_format" },
 	},
 
 	-- adding same formatter for multiple filetypes can look too much work for some

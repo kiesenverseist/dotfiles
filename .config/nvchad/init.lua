@@ -34,6 +34,9 @@ local api = vim.api
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 
+vim.wo.relativenumber = true
+opt.scrolloff = 10
+
 local function nvim_create_augroups(definitions)
 	for group_name, definition in pairs(definitions) do
 		api.nvim_command("augroup " .. group_name)
