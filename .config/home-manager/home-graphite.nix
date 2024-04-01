@@ -46,7 +46,8 @@ in {
     # '')
 
     # cli stuff
-    btop nvtop
+    btop 
+    nvtopPackages.full
     curl
     lazygit
     atool unzip
@@ -98,6 +99,7 @@ in {
     rofi-pulse-select
 
     # proprietary stuffs
+    vesktop
     (discord.override {
       withOpenASAR = false;
     })
@@ -121,7 +123,7 @@ in {
 
     # gaming
     protontricks
-    gaming.proton-ge
+    # gaming.proton-ge
     gaming.osu-stable
     gaming.osu-lazer-bin
     gdlauncher
@@ -211,7 +213,7 @@ in {
 
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     enableCompletion = true;
     plugins = [
       {
@@ -278,7 +280,9 @@ in {
   programs.ripgrep = { enable = true; };
   programs.eza = {
     enable = true;
-    enableAliases = true;
+    enableFishIntegration = true;
+    enableZshIntegration = true;
+    enableBashIntegration = true;
     git = true;
     icons = true;
   };
@@ -298,12 +302,11 @@ in {
 
   programs.rofi = {
     enable = true;
-    package = (pkgs.rofi-wayland.override {
-      plugins = with pkgs;[
+    package = pkgs.rofi-wayland;
+    plugins = with pkgs;[
         rofi-calc
         rofi-file-browser
-      ];
-    });
+    ];
     cycle = true;
     # font = "FiraCode Nerd Font 16";
     font = "GohuFont uni11 Nerd Font Propo 22";
@@ -319,7 +322,8 @@ in {
     extraConfig = let 
       inherit (config.lib.formats.rasi) mkLiteral;
     in {
-      modes = "window,drun,run,ssh,calc,file-browser-extended";
+      # modes = "window,drun,run,ssh,calc,recursivebrowser";
+      modes = "window,drun,run,ssh";
     };
   };
 
