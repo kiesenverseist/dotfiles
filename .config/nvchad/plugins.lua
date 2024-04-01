@@ -7,15 +7,6 @@ local plugins = {
 
 	{
 		"neovim/nvim-lspconfig",
-		dependencies = {
-			-- format & linting
-			{
-				"jose-elias-alvarez/null-ls.nvim",
-				config = function()
-					require("custom.configs.null-ls")
-				end,
-			},
-		},
 		opts = { inlay_hints = { enabled = true } },
 		config = function()
 			require("plugins.configs.lspconfig")
@@ -224,11 +215,11 @@ local plugins = {
 	},
 	{
 		"elkowar/yuck.vim",
-		ft='yuck',
+		ft = "yuck",
 	},
 	{
 		"gpanders/nvim-parinfer",
-    ft='yuck',
+		ft = "yuck",
 	},
 
 	-- obsidian
@@ -313,7 +304,7 @@ local plugins = {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		-- keys = { "<leader>T" },
 		lazy = false,
-		opts = { },
+		opts = {},
 		init = function()
 			require("core.utils").load_mappings("trouble")
 		end,

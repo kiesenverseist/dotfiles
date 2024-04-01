@@ -99,6 +99,7 @@ in
   programs.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    portalPackage = inputs.xdph.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
   };
 
   programs.adb.enable = true;
@@ -111,7 +112,10 @@ in
     after = ["graphical-session-pre.target"];
    };
 
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    extraCompatPackages = [pkgs.proton-ge-bin];
+  };
   programs.gamemode.enable = true;
   programs.gamescope = {
     enable = true;
