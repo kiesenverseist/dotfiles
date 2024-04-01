@@ -1,7 +1,7 @@
 
 # See https://wiki.hyprland.org/Configuring/Monitors/
-monitor=,preferred,auto,1.75
-monitor=,highres,auto,1.75
+monitor=,preferred,auto,1.333333
+monitor=,highres,auto,1.333333
 
 # unscale XWayland
 xwayland {
@@ -12,4 +12,4 @@ xwayland {
 env = GDK_SCALE,"1.5"
 env = XCURSOR_SIZE,32
 
-exec-once = waybar & blueberry-tray & nm-applet --indicator & wpaperd
+exec-once = waybar & blueberry-tray & nm-applet --indicator & wpaperd & hypridle

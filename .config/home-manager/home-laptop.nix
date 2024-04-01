@@ -35,6 +35,10 @@ in {
     # comic-mono
     # cartograph
 
+    # theming
+    kdePackages.qtstyleplugin-kvantum
+    kdePackages.qt6ct
+
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
     # # environment:
@@ -50,6 +54,7 @@ in {
     # bc
     # lf ctpv
     # socat jq
+    # clipse
 
     # de stuff
     # (pkgs.waybar.overrideAttrs (oldAttrs: {
@@ -61,22 +66,7 @@ in {
     # (pkgs.eww.override { withWayland = true; })
     # libnotify
     wpaperd
-    # grim slurp
-    # pavucontrol
-    # yadm
-    # dolphin
-    # wl-clipboard
-    # playerctl
-    # xdg-user-dirs
-    # qbittorrent
-    # gnome.gnome-calculator
-    # gnome.nautilus
-    # gnome.sushi
     xwvb # xwaylandvideobridge
-    # blueman
-    # zathura
-    # via
-    # chromium
     
 
     # syncthingtray
@@ -84,6 +74,7 @@ in {
     rofi-pulse-select
 
     # proprietary stuffs
+    vesktop
     # (discord.override {
     #   withOpenASAR = true;
     # })
@@ -92,13 +83,14 @@ in {
     # microsoft-edge
 
     # programming
-    # cachix
+    cachix
     # neovide
     # gf
     # clang 
     # unityhub
     # postgresql
     # sqlite
+    nixd
 
     # gaming
     # protontricks
@@ -182,7 +174,7 @@ in {
 
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     enableCompletion = true;
     plugins = [
       {
@@ -246,7 +238,6 @@ in {
   programs.ripgrep = { enable = true; };
   programs.eza = {
     enable = true;
-    enableAliases = true;
     git = true;
     icons = true;
   };
@@ -329,13 +320,6 @@ in {
 
   # services.network-manager-applet.enable = true;
 
-  # dconf.settings = {
-  #   "org/virt-manager/virt-manager/connections" = {
-  #     autoconnect = ["qemu:///system"];
-  #     uris = ["qemu:///system"];
-  #   };
-  # };
-
  #  systemd.user.targets.tray = {
 	# 	Unit = {
 	# 		Description = "Home Manager System Tray";
@@ -343,11 +327,13 @@ in {
 	# 	};
 	# };
 
+  targets.genericLinux.enable = true;
+
   qt.enable = true;
 
-  qt.platformTheme = "gtk";
+  qt.platformTheme = "gtk3";
   qt.style.name = "adwaita-dark";
-  # qt.style.package = pkgs.adwaita-qt;
+  qt.style.package = pkgs.adwaita-qt;
 
   gtk.enable = true;
 
