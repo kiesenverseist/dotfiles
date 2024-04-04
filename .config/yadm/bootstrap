@@ -5,18 +5,18 @@ cd "$HOME"
 mkdir -p .config
 
 # clone down nvchad if nvim is installed, and no config exists
-if command -v nvim > /dev/null 2>&1; then
-  echo "nvim detected"
-  if [ ! -d .config/nvim/.git ]; then 
-    echo "Installing nvchad..."
-    git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
-  else
-    echo "nvim config already exists"
-  fi 
-  if [ ! -d .config/nvim/lua/custom ]; then
-    ln -s ~/.config/nvchad ~/.config/nvim/lua/custom
-  fi
-fi
+# if command -v nvim > /dev/null 2>&1; then
+#   echo "nvim detected"
+#   if [ ! -d .config/nvim/.git ]; then 
+#     echo "Installing nvchad..."
+#     git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
+#   else
+#     echo "nvim config already exists"
+#   fi 
+#   if [ ! -d .config/nvim/lua/custom ]; then
+#     ln -s ~/.config/nvchad ~/.config/nvim/lua/custom
+#   fi
+# fi
 
 # sparse checkout
 yadm gitconfig core.sparseCheckout true

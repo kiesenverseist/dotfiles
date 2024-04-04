@@ -7,12 +7,13 @@ local M = {
 
 		-- adapters
 		"nvim-neotest/neotest-python",
+    "nvim-neotest/nvim-nio",
 	},
 	lazy = false,
 	-- keys = { ["<leader>t"] = nil },
-	init = function()
-		require("core.utils").load_mappings("neotest")
-	end,
+	-- init = function()
+	-- 	require("nvchad.core.utils").load_mappings("neotest")
+	-- end,
 	config = function()
 		require("neotest").setup({
 			adapters = {
