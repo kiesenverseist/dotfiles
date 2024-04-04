@@ -21,15 +21,16 @@ return {
 
   {
     "williamboman/mason.nvim",
-    -- opts = {
-    --   ensure_installed = {
-    --     "lua-language-server", "stylua",
-    --     "html-lsp", "css-lsp", "prettier"
-    --   },
-    -- },
     opts = overrides.mason,
   },
-  --
+
+  {
+    "hrsh7th/nvim-cmp",
+    opts = function()
+      return require "configs.cmp"
+    end,
+  },
+
   -- {
   -- 	"nvim-treesitter/nvim-treesitter",
   -- 	opts = {

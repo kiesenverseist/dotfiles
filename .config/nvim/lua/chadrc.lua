@@ -10,6 +10,7 @@ M.ui = {
   -- transparency = true,
   hl_override = require("highlights").override,
   hl_add = require("highlights").add,
+
   statusline = {
     -- theme = "vscode_colored",
     -- theme = "default",
@@ -23,6 +24,7 @@ M.ui = {
       table.insert(modules, cursor_position())
     end,
   },
+
   term = {
     float = {
       relative = "editor",
