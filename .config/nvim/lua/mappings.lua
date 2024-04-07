@@ -6,6 +6,7 @@ local nomap = vim.keymap.del
 -- disable some of nvchad's mappings
 nomap("n", "<C-c>")
 nomap("n", "<C-s>")
+nomap("t", "<ESC>")
 
 --
 -- M.general = {
@@ -164,6 +165,12 @@ map("n", "<leader>gc", function()
     vim.cmd [[normal! _]]
   end
 end, { desc = "Jump to current context" })
+
+-- terminal bindings
+map("t", "<M-ESC>", function()
+  local win = vim.api.nvim_get_current_win()
+  vim.api.nvim_win_close(win, true)
+end, { desc = "Terminal Close term in terminal mode" })
 
 -- neovide
 if vim.g.neovide then
