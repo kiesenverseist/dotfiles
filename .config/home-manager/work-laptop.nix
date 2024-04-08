@@ -263,6 +263,12 @@ in {
     delta.enable = true;
     lfs.enable = true;
   };
+
+  nix = {
+    package = pkgs.nix;
+    settings.experimental-features = [ "nix-command" "flakes" ];
+  };
+
   # programs.lf = {
   #   enable = true;
   # };
