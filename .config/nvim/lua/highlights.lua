@@ -6,8 +6,7 @@ local M = {}
 
 ---@type Base46HLGroups
 local Comment = {
-  fg = "light_grey",
-  -- fg = "grey",
+  fg = "white",
   italic = true,
 }
 

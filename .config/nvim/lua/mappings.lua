@@ -1,5 +1,7 @@
 require "nvchad.mappings"
 
+vim.keymap.set("n", "asdf", ":!echo 'qwerty'<CR>")
+
 local map = vim.keymap.set
 local nomap = vim.keymap.del
 
@@ -21,6 +23,10 @@ nomap("t", "<ESC>")
 -- 	},
 -- }
 --
+
+-- quickfix list bindings from theprimeagen
+map("n", "<A-j>", "<cmd> cnext <CR>")
+map("n", "<A-k>", "<cmd> cprev <CR>")
 
 -- more telescope stuff
 map("n", "<C-p>", "<cmd> Telescope find_files <CR>", { desc = "Telescope Find files" })
@@ -91,9 +97,7 @@ end, { desc = "Test Run nearest" })
 map("n", "<leader>tf", function()
   require("neotest").run.run(vim.fn.expand "%")
 end, { desc = "Test Run in file" })
-map("n", "<leader>ts", function()
-  require("neotest").run.stop()
-end, { desc = "Test Stop nearest" })
+map("n", "<leader>ts", function() end, { desc = "Test Stop nearest" })
 map("n", "<leader>tS", function()
   require("neotest").run.stop(vim.vn.expand "%")
 end, { desc = "Test Stop in file" })
@@ -104,29 +108,18 @@ map("n", "<leader>dt", function()
   require("neotest").run.run { strategy = "dap" }
 end, { desc = "Test Debug nearest" })
 
--- -- trouble
--- M.trouble = {
--- 	n = {
--- 		["<leader>T"] = {
--- 			function()
--- 				require("trouble").toggle()
--- 			end,
--- 			"Toggle Trouble",
--- 		},
--- 		["]d"] = {
--- 			function()
--- 				require("trouble").next({ skip_groups = true, jump = true })
--- 			end,
--- 			"Trouble next",
--- 		},
--- 		["[d"] = {
--- 			function()
--- 				require("trouble").previous({ skip_groups = true, jump = true })
--- 			end,
--- 			"Trouble previous",
--- 		},
--- 	},
--- }
+-- trouble
+map("n", "<leader>T", function()
+  require("trouble").toggle()
+end, { desc = "Toggle Trouble" })
+map("n", "]t", function()
+  require("trouble").open()
+  require("trouble").next { skip_groups = true, jump = true }
+end, { desc = "Trouble Next" })
+map("n", "[t", function()
+  require("trouble").open()
+  require("trouble").previous { skip_groups = true, jump = true }
+end, { desc = "Trouble previous" })
 
 -- -- lsp extra binds
 -- M.lspconfig = {
@@ -150,10 +143,10 @@ end, { desc = "Dismiss notifications" })
 -- compile mode
 map("n", "<leader>cc", "<CMD>Compile<CR>", { desc = "Compile in compile mode" })
 map("n", "<leader>cr", "<CMD>Recompile<CR>", { desc = "Recompile with last command" })
-map("n", "<leader>cn", "<CMD>NextError<CR>")
-map("n", "<leader>cp", "<CMD>PrevError<CR>")
+map("n", "]e", "<CMD>NextError<CR>")
+map("n", "[e", "<CMD>PrevError<CR>")
 
--- overwrite default mapping for go to context
+-- overwrite nvchad mapping for go to context
 map("n", "<leader>gc", function()
   local ok, start = require("indent_blankline.utils").get_current_context(
     vim.g.indent_blankline_context_patterns,

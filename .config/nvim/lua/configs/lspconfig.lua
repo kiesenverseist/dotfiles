@@ -35,7 +35,7 @@ lspconfig.cssls.setup {
   on_init = on_init,
   capabilities = capabilities,
 }
---
+
 lspconfig.texlab.setup {
   settings = {
     textlab = {
@@ -49,6 +49,18 @@ lspconfig.texlab.setup {
   on_init = on_init,
   capabilities = capabilities,
 }
+
+lspconfig.ltex.setup {
+  settings = {
+    ltex = {
+      language = "en-AU",
+    },
+  },
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+}
+
 --
 -- lspconfig.rust_analyzer.setup({
 --   cmd = { "rust-analyzer" },

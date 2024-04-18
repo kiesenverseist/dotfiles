@@ -102,6 +102,7 @@ in {
     # sqlite
     pre-commit
     nixd
+    nodejs
 
     # gaming
     # protontricks
@@ -251,9 +252,10 @@ in {
   programs.ripgrep = { enable = true; };
   programs.eza = {
     enable = true;
-    enableAliases = true;
     git = true;
     icons = true;
+    enableFishIntegration = true;
+    enableZshIntegration = true;
   };
   programs.bat.enable = true;
   programs.git = {
@@ -263,6 +265,12 @@ in {
     delta.enable = true;
     lfs.enable = true;
   };
+
+  nix = {
+    package = pkgs.nix;
+    settings.experimental-features = [ "nix-command" "flakes" ];
+  };
+
   # programs.lf = {
   #   enable = true;
   # };
