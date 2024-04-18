@@ -5,11 +5,6 @@
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
     # nixpkgs-stable.url = github:nixos/nixpkgs;
 
-    # home-manager = {
-    #   url = "github:nix-community/home-manager";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
     hyprland.url = "github:hyprwm/Hyprland";
     hypridle.url = "github:hyprwm/hypridle";
     xdph.url = "github:hyprwm/xdg-desktop-portal-hyprland";
@@ -17,6 +12,14 @@
       url = "github:hyprwm/hyprlock";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-gaming.url = "github:fufexan/nix-gaming";
+    nix-alien.url = "github:thiagokokada/nix-alien";
+    nixgl.url = "github:guibou/nixGL";
 
   };
 
@@ -30,8 +33,16 @@
       config = {
           allowUnfree = true;
       };
+
+      # TODO: remove
+      config.permittedInsecurePackages = [
+        "electron-24.8.6"
+      ];
     
+      overlays = [inputs.nixgl.overlay];
     };
+
+    nix-alien-pkg = inputs.nix-alien.packages.${system};
 
   in {
     nixosConfigurations = {
@@ -57,6 +68,40 @@
           ./hosts/live
         ];
       };
+    };
+
+    homeConfigurations = {
+        "kiesen@halite" = inputs.home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ ./home/home-halite.nix ];
+          extraSpecialArgs = {
+            nix-gaming = inputs.nix-gaming;
+            nix-alien = nix-alien-pkg.nix-alien;
+          };
+        };
+        "kiesen@graphite" = inputs.home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+
+          # Specify your home configuration modules here, for example,
+          # the path to your home.nix.
+          modules = [ ./home/home-graphite.nix ];
+
+          # Optionally use extraSpecialArgs
+          # to pass through arguments to home.nix
+          extraSpecialArgs = {
+            nix-gaming = inputs.nix-gaming;
+            nix-alien = nix-alien-pkg.nix-alien;
+          };
+        };
+        "kiesen@kiesen-eos-laptop" = inputs.home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ ./home/home-laptop.nix ];
+        };
+        "ibrahim.fuad@au-lap-0102.saberastronautics.net" = inputs.home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ ./home/work-laptop.nix ];
+        };
+
     };
   };
 }

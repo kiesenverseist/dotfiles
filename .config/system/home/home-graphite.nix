@@ -1,13 +1,13 @@
 { config, pkgs, nix-gaming, nix-alien, ... }:
 let
-  gruvboxplus = import ./gruvbox-plus.nix {inherit pkgs;};
-  gdlauncher = import ./gdlauncher.nix {inherit pkgs;};
-  lmms-nightly = import ./lmms.nix {inherit pkgs;};
+  gruvboxplus = import ./common/gruvbox-plus.nix {inherit pkgs;};
+  gdlauncher = import ./common/gdlauncher.nix {inherit pkgs;};
+  lmms-nightly = import ./common/lmms.nix {inherit pkgs;};
   gaming = nix-gaming.packages.${pkgs.system};
-  xwvb = pkgs.libsForQt5.callPackage ./xwaylandvideobridge.nix {};
-  eww-custom = pkgs.callPackage ./eww-custom {};
-  godot-wayland = import ./godot-wayland.nix {inherit pkgs;};
-  alvr = import ./alvr.nix {inherit pkgs;};
+  xwvb = pkgs.libsForQt5.callPackage ./common/xwaylandvideobridge.nix {};
+  eww-custom = pkgs.callPackage ./common/eww-custom {};
+  godot-wayland = import ./common/godot-wayland.nix {inherit pkgs;};
+  alvr = import ./common/alvr.nix {inherit pkgs;};
 in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.

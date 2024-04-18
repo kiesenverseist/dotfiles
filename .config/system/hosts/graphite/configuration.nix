@@ -136,6 +136,7 @@ in
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
+    FLAKE = "/home/kiesen/.config/system";
   };
 
   hardware = {
@@ -178,6 +179,7 @@ in
 
     nixd
     home-manager
+    nh
 
     libsForQt5.qt5.qtquickcontrols2
     libsForQt5.qt5.qtgraphicaleffects
@@ -247,6 +249,9 @@ in
   };
 
   systemd.user.tmpfiles.rules = ["f /dev/shm/looking-glass 0666 root qemu-libvirtd -"];
+
+  # enable core dumps
+  systemd.coredump.enable = true; 
 
   programs.dconf.enable = true;
   programs.nix-ld.enable = true;
