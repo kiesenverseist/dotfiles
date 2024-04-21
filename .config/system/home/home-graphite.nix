@@ -200,7 +200,8 @@ in {
 
   programs.kitty = {
     enable = true;
-    theme = "Gruvbox Material Dark Hard";
+    # theme = "Gruvbox Material Dark Hard";
+    theme = "Rosé Pine";
     font = {
       name = "FiraCode Nerd Font";
       size = 16;
@@ -268,16 +269,22 @@ in {
     ];
   };
 
+  ## CLI Tools
+
   programs.pyenv = { enable = true; };
+
   programs.direnv = { 
     enable = true;
     nix-direnv.enable = true;
   };
+
   programs.zoxide = { 
     enable = true;
     enableFishIntegration = false;
   };
+
   programs.ripgrep = { enable = true; };
+
   programs.eza = {
     enable = true;
     enableFishIntegration = true;
@@ -286,7 +293,9 @@ in {
     git = true;
     icons = true;
   };
+
   programs.bat.enable = true;
+    
   programs.git = {
     enable = true;
     userName = "Ibrahim Fuad";
@@ -294,9 +303,14 @@ in {
     delta.enable = true;
     lfs.enable = true;
   };
+
   # programs.lf = {
   #   enable = true;
   # };
+
+  programs.fzf = {
+    enable = true;
+  };
 
   services.swayosd = { enable = true; };
 
