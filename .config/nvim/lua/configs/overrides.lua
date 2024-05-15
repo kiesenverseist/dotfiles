@@ -39,6 +39,8 @@ M.treesitter = {
     "gitcommit",
     "git_config",
     "hyprlang",
+    "go",
+    "templ",
   },
   indent = {
     enable = true,

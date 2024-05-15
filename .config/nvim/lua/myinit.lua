@@ -26,7 +26,7 @@ local api = vim.api
 -- Indenting
 -- opt.expandtab = true
 -- opt.shiftwidth = 4
--- opt.smartindent = true
+opt.smartindent = false
 -- opt.tabstop = 4
 -- opt.softtabstop = 4
 
@@ -90,4 +90,5 @@ vim.g.vimtex_view_method = "zathura"
 -- hypr treesitter stuff
 vim.filetype.add {
   pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+  extension = { templ = "templ" },
 }

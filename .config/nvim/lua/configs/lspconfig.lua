@@ -6,20 +6,28 @@ local lspconfig = require "lspconfig"
 
 -- if you just want default config for the servers then put them in a table
 local servers = {
+  -- webdev stuff
   "html",
   -- "cssls",
   "tsserver",
   "tailwindcss",
   "svelte",
+  "prismals",
+  "htmx",
+
   "clangd",
   "rust_analyzer",
+
   -- "pylsp",
   "pyright",
   -- "ruff_lsp",
+
   "gdscript",
   "nixd",
-  "prismals",
   "regols",
+
+  "gopls",
+  "templ",
 }
 
 for _, lsp in ipairs(servers) do
