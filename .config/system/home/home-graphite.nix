@@ -1,14 +1,19 @@
-{ config, pkgs, nix-gaming, nix-alien, ... }:
+{ config, pkgs, nix-gaming, nix-alien, inputs, ... }:
 let
-  gruvboxplus = import ./common/gruvbox-plus.nix {inherit pkgs;};
-  gdlauncher = import ./common/gdlauncher.nix {inherit pkgs;};
-  lmms-nightly = import ./common/lmms.nix {inherit pkgs;};
+  gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
+  gdlauncher = import ./packages/gdlauncher.nix {inherit pkgs;};
+  lmms-nightly = import ./packages/lmms.nix {inherit pkgs;};
   gaming = nix-gaming.packages.${pkgs.system};
-  xwvb = pkgs.libsForQt5.callPackage ./common/xwaylandvideobridge.nix {};
-  eww-custom = pkgs.callPackage ./common/eww-custom {};
-  godot-wayland = import ./common/godot-wayland.nix {inherit pkgs;};
-  alvr = import ./common/alvr.nix {inherit pkgs;};
+  xwvb = pkgs.libsForQt5.callPackage ./packages/xwaylandvideobridge.nix {};
+  eww-custom = pkgs.callPackage ./packages/eww-custom {};
+  godot-wayland = import ./packages/godot-wayland.nix {inherit pkgs;};
+  alvr = import ./packages/alvr.nix {inherit pkgs;};
 in {
+  imports = [
+    inputs.anyrun.homeManagerModules.anyrun
+  ];
+
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "kiesen";
@@ -47,7 +52,7 @@ in {
 
     # cli stuff
     btop 
-    nvtopPackages.full
+    nvtopPackages.amd
     curl
     lazygit
     atool unzip
@@ -55,6 +60,8 @@ in {
     lf ctpv
     socat jq
     zstd
+
+    gcalcli
 
     # de stuff
     (pkgs.waybar.overrideAttrs (oldAttrs: {
@@ -68,6 +75,7 @@ in {
     wpaperd
     grim slurp
     pavucontrol
+    pulsemixer
     yadm
     dolphin
     wl-clipboard
@@ -85,6 +93,7 @@ in {
     chromium
     vlc obs-studio
     waypipe
+    floorp
 
     # lmms
     # ardour
@@ -95,8 +104,8 @@ in {
     carla
 
     syncthingtray
-    rofi-power-menu
-    rofi-pulse-select
+    # rofi-power-menu
+    # rofi-pulse-select
 
     # proprietary stuffs
     vesktop
@@ -108,12 +117,13 @@ in {
     })
     # teams
     # microsoft-edge
+    todoist-electron
 
     # programming
     cachix
     neovide
     gf
-    clang 
+    # clang 
     postgresql
     sqlite
     texlab
@@ -142,7 +152,7 @@ in {
 
     # game dev
     godot_4
-    godot-wayland.godot-wayland
+    # godot-wayland.godot-wayland
     pixelorama
     # unityhub
     
@@ -170,6 +180,19 @@ in {
   };
   
   fonts.fontconfig.enable = true;
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+    settings = {
+      "source" = "~/.config/hypr/main.conf";
+    };
+    systemd.variables = ["--all"];
+    plugins = [
+      inputs.hyprland-plugins.packages.${pkgs.system}.hyprwinwrap
+      inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+    ];
+  };
+
 
   # You can also manage environment variables but you will have to manually
   # source
@@ -234,14 +257,15 @@ in {
     enable = true;
     functions = {
       icat = {
-        body = "kitty +kitten icat $argv[1]";
+        body = "kitten icat $argv[1]";
       };
       kssh = {
-        body = "kitty +kitten ssh $argv";
+        body = "kitten ssh $argv";
       };
     };
     interactiveShellInit = ''
       zoxide init fish --cmd=cd | source
+      fish_hybrid_key_bindings
     '';
   };
 
@@ -340,6 +364,23 @@ in {
       modes = "window,drun,run,ssh";
     };
   };
+
+  # programs.anyrun = {
+  #   enable = true;
+  #   config =  {
+  #     plugins =let
+  #       anyrun-plugins = inputs.anyrun.packages.${pkgs.system};
+  #     in [
+  #       anyrun-plugins.applications
+  #       anyrun-plugins.randr
+  #     ];
+  #     x = {fraction = 0.5;};
+  #     y = {fraction = 0.3;};
+  #     layer = "overlay";
+  #     showResultsImmediately = true;
+  #     closeOnClick = true;
+  #   };
+  # };
 
   programs.qutebrowser = {
     enable = true;

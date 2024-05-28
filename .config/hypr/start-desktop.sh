@@ -16,6 +16,7 @@ kitty btop &
 vesktop &
 firefox &
 obsidian &
+todoist-electron &
 # udiskie &
 # swaync &
 # emacs --daemon &
@@ -33,4 +34,5 @@ hyprctl dispatch movetoworkspacesilent '9,title:^\[study'
 hyprctl dispatch movetoworkspacesilent '1,title:^\[main'
 hyprctl dispatch movetoworkspacesilent '7,vesktop'
 hyprctl dispatch movetoworkspacesilent 'special:memo,obsidian'
+hyprctl dispatch movetoworkspacesilent 'special:memo,todoist'
 hyprctl dispatch movetoworkspacesilent 'special:memo,title:^\[music'

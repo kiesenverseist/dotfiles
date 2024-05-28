@@ -5,7 +5,13 @@
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
     # nixpkgs-stable.url = github:nixos/nixpkgs;
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    # hyprland.url = github:hyprwm/Hyprland?submodules=1;
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+
     hypridle.url = "github:hyprwm/hypridle";
     xdph.url = "github:hyprwm/xdg-desktop-portal-hyprland";
     hyprlock = {
@@ -20,6 +26,11 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
     nix-alien.url = "github:thiagokokada/nix-alien";
     nixgl.url = "github:guibou/nixGL";
+
+    anyrun = {
+      url = "github:Kirottu/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   };
 
@@ -89,6 +100,7 @@
           # Optionally use extraSpecialArgs
           # to pass through arguments to home.nix
           extraSpecialArgs = {
+            inherit inputs;
             nix-gaming = inputs.nix-gaming;
             nix-alien = nix-alien-pkg.nix-alien;
           };

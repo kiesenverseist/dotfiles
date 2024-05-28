@@ -141,11 +141,15 @@ in
 
   hardware = {
     opengl = {
+      package = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.mesa.drivers;
+      package32 = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.pkgsi686Linux.mesa.drivers;
       enable = true;
       driSupport32Bit = true;
     };
 
     steam-hardware.enable = true;
+
+    keyboard.qmk.enable = true;
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -249,6 +253,13 @@ in
   };
 
   systemd.user.tmpfiles.rules = ["f /dev/shm/looking-glass 0666 root qemu-libvirtd -"];
+
+  services.udev.extraRules = ''
+  KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+  KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+
+  '';
+
 
   # enable core dumps
   systemd.coredump.enable = true; 
