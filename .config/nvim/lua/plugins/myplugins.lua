@@ -2,24 +2,6 @@ local overrides = require "configs.overrides"
 
 ---@type NvPluginSpec[]
 local plugins = {
-
-  -- Override plugin definition options
-
-  -- {
-  -- 	"neovim/nvim-lspconfig",
-  -- 	opts = { inlay_hints = { enabled = true } },
-  -- 	config = function()
-  -- 		require("nvchad.configs.lspconfig").defaults()
-  -- 		require("configs.lspconfig")
-  -- 	end,
-  -- },
-
-  -- override plugin configs
-  -- {
-  -- 	"williamboman/mason.nvim",
-  -- 	opts = overrides.mason,
-  -- },
-
   {
     "nvim-treesitter/nvim-treesitter",
     opts = overrides.treesitter,
@@ -292,6 +274,7 @@ local plugins = {
   --   "mg979/vim-visual-multi",
   --   lazy = false,
   -- }
+
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -302,6 +285,7 @@ local plugins = {
     -- 	require("core.utils").load_mappings("trouble")
     -- end,
   },
+
   -- {
   -- 	"folke/noice.nvim",
   -- 	event = "VeryLazy",
@@ -313,7 +297,9 @@ local plugins = {
   -- 		"rcarriga/nvim-notify",
   -- 	},
   -- },
+
   require "configs.neotestconfig",
+
   {
     "andythigpen/nvim-coverage",
     event = "BufEnter",
@@ -322,6 +308,7 @@ local plugins = {
     },
     opts = {},
   },
+
   {
     "ej-shafran/compile-mode.nvim",
     cmd = { "Compile", "Recompile" },

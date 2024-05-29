@@ -6,7 +6,6 @@ local nomap = vim.keymap.del
 -- disable some of nvchad's mappings
 nomap("n", "<C-c>")
 nomap("n", "<C-s>")
-nomap("t", "<ESC>")
 
 --
 -- M.general = {

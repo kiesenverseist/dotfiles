@@ -49,7 +49,7 @@
       config.permittedInsecurePackages = [
         "electron-24.8.6"
       ];
-    
+
       overlays = [inputs.nixgl.overlay];
     };
 
@@ -109,7 +109,7 @@
           inherit pkgs;
           modules = [ ./home/home-laptop.nix ];
         };
-        "ibrahim.fuad@au-lap-0102.saberastronautics.net" = inputs.home-manager.lib.homeManagerConfiguration {
+        "ibrahim.fuad@au-lap-0618.saberastronautics.net" = inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [ ./home/work-laptop.nix ];
         };
