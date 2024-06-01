@@ -40,6 +40,7 @@
     xclip
     
     floorp
+    obsidian
 
     # programming
     # cachix
@@ -53,6 +54,7 @@
     # pre-commit
     nixd
     nodejs
+
 
     # game dev
     # godot_4

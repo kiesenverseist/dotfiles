@@ -27,6 +27,29 @@ map("n", "<leader>pp", "<cmd> Telescope project <CR>", { desc = "Telescope Pick 
 map("n", "<leader>cd", "<cmd> Telescope zoxide list <CR>", { desc = "Telescope Change dir" })
 map("n", "<leader>u", "<cmd> Telescope undo <CR>", { desc = "Telescope Undo tree" })
 
+-- mini.files
+map("n", "<C-n>", function()
+  if not MiniFiles.close() then
+    MiniFiles.open()
+  end
+end, { desc = "MiniFiles toggle" })
+
+map("n", "<leader>o", "<cmd> Oil <CR>", { desc = "Oil" })
+
+local files_set_cwd = function(path)
+  -- Works only if cursor is on the valid file system entry
+  local cur_entry_path = MiniFiles.get_fs_entry().path
+  local cur_directory = vim.fs.dirname(cur_entry_path)
+  vim.fn.chdir(cur_directory)
+end
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "MiniFilesBufferCreate",
+  callback = function(args)
+    map("n", "g~", files_set_cwd, { buffer = args.data.buf_id })
+  end,
+})
+
 --
 -- M.obsidian = {
 -- 	plugin = true,
