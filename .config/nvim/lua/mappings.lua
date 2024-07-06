@@ -172,8 +172,8 @@ end, { desc = "Dismiss notifications" })
 -- compile mode
 map("n", "<leader>cc", "<CMD>Compile<CR>", { desc = "Compile in compile mode" })
 map("n", "<leader>cr", "<CMD>Recompile<CR>", { desc = "Recompile with last command" })
-map("n", "<leader>cn", "<CMD>NextError<CR>")
-map("n", "<leader>cp", "<CMD>PrevError<CR>")
+map("n", "<leader>cn", "<CMD>NextError<CR>", { desc = "Next compile error" })
+map("n", "<leader>cp", "<CMD>PrevError<CR>", { desc = "Previous compile error" })
 
 -- overwrite default mapping for go to context
 map("n", "<leader>gc", function()
@@ -188,23 +188,25 @@ map("n", "<leader>gc", function()
   end
 end, { desc = "Jump to current context" })
 
+-- treesitter context
+map("n", "<leader>tc", "<CMD>TSContextToggle<CR>", { desc = "Toggle Treesitter context" })
+
 -- terminal bindings
 map("t", "<M-ESC>", function()
   local win = vim.api.nvim_get_current_win()
   vim.api.nvim_win_close(win, true)
 end, { desc = "Terminal Close term in terminal mode" })
+map("t", "<ESC><ESC>", "<C-\\><C-n>", { desc = "Terminal escape mode" })
 
 -- neovide
 if vim.g.neovide then
   map("n", "<C-=>", function()
-    vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1
+    vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * 1.1
   end, { desc = "Neovide zoom in" })
   map("n", "<C-->", function()
-    vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1
+    vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * 0.9
   end, { desc = "Neovide zoom out" })
   map("n", "<C-0>", function()
     vim.g.neovide_scale_factor = 1
   end, { desc = "Neovide reset zoom" })
 end
-
--- return M

@@ -30,19 +30,30 @@ local plugins = {
           }
         end,
       },
-      {
-        "HiPhish/rainbow-delimiters.nvim",
-        config = function()
-          require("rainbow-delimiters.setup").setup {}
-        end,
-      },
+      -- {
+      --   "HiPhish/rainbow-delimiters.nvim",
+      --   config = function()
+      --     require("rainbow-delimiters.setup").setup {}
+      --   end,
+      -- },
     },
   },
 
   {
     "nvim-tree/nvim-tree.lua",
     opts = overrides.nvimtree,
+    enabled = false,
   },
+
+  --  {
+  --    "windwp/nvim-autopairs",
+  --    enabled = false,
+  --  },
+  --
+  --  {
+  --    "numToStr/Comment.nvim",
+  --    enabled = true,
+  --  },
 
   {
     "nvim-telescope/telescope.nvim",
@@ -228,10 +239,6 @@ local plugins = {
   --   "NvChad/nvim-colorizer.lua",
   --   enabled = false
   -- },
-  {
-    "nvim-tree/nvim-tree.lua",
-    enabled = false,
-  },
 
   -- All NvChad plugins are lazy-loaded by default
   -- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
@@ -291,14 +298,64 @@ local plugins = {
     event = "VeryLazy",
     ---@type Flash.Config
     opts = {},
-    -- stylua: ignore
+    -- stlua: ignore
     keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").jump()
+        end,
+        desc = "Flash",
+      },
+      {
+        "S",
+        mode = { "n", "o" }, -- don't do in visual mode to avoid conflic with nvim-surround
+        function()
+          require("flash").treesitter()
+        end,
+        desc = "Flash Treesitter",
+      },
+      {
+        "<C-s>",
+        mode = { "x" }, -- in visual mode to avoid conflic with nvim-surround
+        function()
+          require("flash").treesitter()
+        end,
+        desc = "Flash Treesitter",
+      },
+      {
+        "r",
+        mode = "o",
+        function()
+          require("flash").remote()
+        end,
+        desc = "Remote Flash",
+      },
+      {
+        "R",
+        mode = { "o", "x" },
+        function()
+          require("flash").treesitter_search()
+        end,
+        desc = "Treesitter Search",
+      },
+      {
+        "<A-x>",
+        mode = { "c" },
+        function()
+          require("flash").toggle()
+        end,
+        desc = "Toggle Flash Search",
+      },
     },
+  },
+
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    event = "BufEnter",
+    opts = {},
   },
 }
 

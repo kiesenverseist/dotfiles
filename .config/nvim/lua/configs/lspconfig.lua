@@ -19,6 +19,7 @@ local servers = {
   "gdscript",
   "nixd",
   "prismals",
+  "regols",
 }
 
 for _, lsp in ipairs(servers) do

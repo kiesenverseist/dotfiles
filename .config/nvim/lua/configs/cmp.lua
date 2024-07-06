@@ -1,3 +1,5 @@
+-- return require "nvchad.configs.cmp"
+
 local cmp = require "cmp"
 
 local custom = {
@@ -28,6 +30,15 @@ local custom = {
         fallback()
       end
     end, { "i", "s" }),
+  },
+
+  sources = {
+    { name = "nvim_lsp" },
+    { name = "luasnip" },
+    { name = "vim-dadbod-completion" },
+    { name = "buffer" },
+    { name = "nvim_lua" },
+    { name = "path" },
   },
 }
 

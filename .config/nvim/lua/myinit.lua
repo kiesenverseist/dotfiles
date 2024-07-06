@@ -7,7 +7,7 @@ local autocmd = vim.api.nvim_create_autocmd
 -- })
 
 if vim.g.neovide == true then
-  vim.o.guifont = "FiraCode Nerd Font:h14"
+  vim.o.guifont = "FiraCode Nerd Font:h11"
   vim.o.winblend = 50
   vim.o.pumblend = 50
 
@@ -66,6 +66,21 @@ vim.api.nvim_create_autocmd({ "DirChanged" }, {
     vim.fn.system { "zoxide", "add", ev.file }
   end,
 })
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
+
+-- vim.api.nvim_create_autocmd("TermLeave", {
+--   callback = function(ctx)
+--     vim.fn.execute "normal <CR>"
+--   end,
+--   nested = true,
+-- })
 
 -- vimtex config (move to separete file later)
 vim.g.vimtex_mappings_prefix = "<S-Space>"

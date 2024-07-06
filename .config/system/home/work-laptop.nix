@@ -14,35 +14,38 @@
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
+  nix = {
+    package = pkgs.nix;
+    settings.experimental-features = [ "nix-command" "flakes" ];
+  };
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
     (nerdfonts.override { fonts = [ 
       "FiraCode"
       "Gohu"
     ]; })
 
-    # cli stuff
+    ## cli stuff
     btop
     nvtopPackages.amd
-        
     # curl
-    lazygit
-    unzip
     # bc
     # lf ctpv
     socat jq
+        
+    ## tui stuff
+    lazygit
+    unzip
     yadm
-    xclip
     
+    ## desktop
+    xclip
     floorp
     obsidian
 
-    # programming
+    ## programming
     # cachix
     neovim
     neovide
@@ -52,21 +55,27 @@
     # postgresql
     # sqlite
     # pre-commit
-    nixd
     nodejs
+    go
+    devenv
+    _1password
+    minikube
 
-
-    # game dev
+    ## game dev
     # godot_4
     # pixelorama
     
-    # making
+    ## making
     # prusa-slicer
     # kicad
 
+    ## nix stuff
     nix
+    nixd
     nixgl.nixGLIntel
     nh
+    nix-output-monitor
+
   ];
 
   fonts.fontconfig.enable = true;
@@ -89,7 +98,7 @@
     theme = "Gruvbox Material Dark Hard";
     font = {
       name = "FiraCode Nerd Font";
-      size = 14;
+      size = 16;
     };
     settings = {
       background_opacity = "0.95";
@@ -130,6 +139,8 @@
       zoxide init fish --cmd=cd | source
     '';
   };
+
+  programs.bash.enable = true;
 
   programs.starship = {
     enable = true;
