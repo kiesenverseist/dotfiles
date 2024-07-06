@@ -2,7 +2,7 @@
   description = "My system configuration flake";
 
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs-stable.url = github:nixos/nixpkgs;
 
     # hyprland.url = github:hyprwm/Hyprland?submodules=1;
@@ -23,9 +23,12 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     nix-gaming.url = "github:fufexan/nix-gaming";
     nix-alien.url = "github:thiagokokada/nix-alien";
     nixgl.url = "github:guibou/nixGL";
+    
+    foundryvtt.url = "github:reckenrode/nix-foundryvtt";
 
     anyrun = {
       url = "github:Kirottu/anyrun";
@@ -69,6 +72,7 @@
 
         modules = [
           ./hosts/graphite
+          inputs.foundryvtt.nixosModules.foundryvtt
         ];
       };
       "live" = inputs.nixpkgs.lib.nixosSystem {
@@ -95,7 +99,9 @@
 
           # Specify your home configuration modules here, for example,
           # the path to your home.nix.
-          modules = [ ./home/home-graphite.nix ];
+          modules = [ 
+            ./home/home-graphite.nix 
+          ];
 
           # Optionally use extraSpecialArgs
           # to pass through arguments to home.nix

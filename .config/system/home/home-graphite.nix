@@ -7,7 +7,6 @@ let
   xwvb = pkgs.libsForQt5.callPackage ./packages/xwaylandvideobridge.nix {};
   eww-custom = pkgs.callPackage ./packages/eww-custom {};
   godot-wayland = import ./packages/godot-wayland.nix {inherit pkgs;};
-  alvr = import ./packages/alvr.nix {inherit pkgs;};
 in {
   imports = [
     inputs.anyrun.homeManagerModules.anyrun
@@ -145,8 +144,6 @@ in {
     looking-glass-client
     runelite
 
-    alvr
-    immersed-vr
     libva vaapiVdpau libvdpau-va-gl
 #nvapi latencyflex
 

@@ -122,6 +122,8 @@ in
     # capSysNice = true;
   };
 
+  programs.alvr.enable = true;
+
   nixpkgs.overlays = [
     (final: prev: {
       steam = prev.steam.override ({ extraPkgs ? pkgs': [], ... }: {
@@ -225,9 +227,22 @@ in
 
   services.factorio = {
     enable = true;
+    lan = true;
     requireUserVerification = false;
     nonBlockingSaving = true;
-    package = factorio-custom;
+    saveName = "save1";
+    admins = [ "kiesenverseist" ];
+    # package = factorio-custom;
+  };
+
+  services.foundryvtt = {
+    enable = true;
+    # hostName = "graphite";
+    minifyStaticFiles = true;
+    package = inputs.foundryvtt.packages.${pkgs.system}.foundryvtt_12; # Sets the version to the latest FoundryVTT v12.
+    proxyPort = 443;
+    proxySSL = true;
+    upnp = false;
   };
 
   # Open ports in the firewall.
