@@ -148,6 +148,7 @@
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
+    FLAKE = "/home/kiesen/.config/system";
   };
 
   hardware = {
@@ -205,6 +206,7 @@
 
     nixd
     home-manager
+    nh
 
     libsForQt5.qt5.qtquickcontrols2
     libsForQt5.qt5.qtgraphicaleffects
