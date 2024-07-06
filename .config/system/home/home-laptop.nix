@@ -1,9 +1,9 @@
 { config, pkgs, ... }:
 let
-  gruvboxplus = import ./gruvbox-plus.nix {inherit pkgs;};
+  gruvboxplus = import ./common/gruvbox-plus.nix {inherit pkgs;};
   # gdlauncher = import ./gdlauncher.nix {inherit pkgs;};
   # gaming = nix-gaming.packages.${pkgs.system};
-  xwvb = pkgs.libsForQt5.callPackage ./xwaylandvideobridge.nix {};
+  xwvb = pkgs.libsForQt5.callPackage ./common/xwaylandvideobridge.nix {};
   # eww-custom = pkgs.callPackage ./eww-custom {};
 in {
   # Home Manager needs a bit of information about you and the paths it should
@@ -91,6 +91,8 @@ in {
     # postgresql
     # sqlite
     nixd
+    nh
+    nix-output-monitor
 
     # gaming
     # protontricks
@@ -144,6 +146,7 @@ in {
   home.sessionVariables = {
     EDITOR = "nvim";
     TERMINAL = "kitty";
+    FLAKE = "/home/kiesen/.config/system";
     # OBSIDIAN_REST_API_KEY = "6fcd1a7903cd6146397f0c76634f71440e7609a34866865a04d4535dfc3878d3";
   };
 
@@ -227,21 +230,27 @@ in {
   };
 
   programs.pyenv = { enable = true; };
+
   programs.direnv = { 
     enable = true;
     nix-direnv.enable = true;
   };
+
   programs.zoxide = { 
     enable = true;
     enableFishIntegration = false;
   };
+
   programs.ripgrep = { enable = true; };
+
   programs.eza = {
     enable = true;
     git = true;
     icons = true;
   };
+
   programs.bat.enable = true;
+
   programs.git = {
     enable = true;
     userName = "Ibrahim Fuad";
@@ -249,9 +258,14 @@ in {
     delta.enable = true;
     lfs.enable = true;
   };
+  
   # programs.lf = {
   #   enable = true;
   # };
+
+  programs.fzf.enable = true;
+
+  programs.gh.enable = true;
 
   services.swayosd = { enable = true; };
 
@@ -269,7 +283,8 @@ in {
     terminal = "${pkgs.kitty}/bin/kitty";
     theme = "gruvbox-dark-hard";
     extraConfig = {
-      modes = "window,drun,run,ssh,calc,file-browser-extended";
+      # modes = "window,drun,run,ssh,calc,file-browser-extended";
+      modes = "window,drun,run,ssh";
     };
   };
 
