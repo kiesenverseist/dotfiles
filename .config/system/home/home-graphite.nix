@@ -143,6 +143,7 @@ in {
     protonup-qt
     looking-glass-client
     runelite
+    modrinth-app
 
     libva vaapiVdpau libvdpau-va-gl
 #nvapi latencyflex
