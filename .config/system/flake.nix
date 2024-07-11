@@ -85,40 +85,36 @@
       };
     };
 
-    homeConfigurations = {
-        "kiesen@halite" = inputs.home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ ./home/home-halite.nix ];
-          extraSpecialArgs = {
-            nix-gaming = inputs.nix-gaming;
-            nix-alien = nix-alien-pkg.nix-alien;
-          };
-        };
-        "kiesen@graphite" = inputs.home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+    homeConfigurations = let
+      config = inputs.home-manager.lib.homeManagerConfiguration;
+    in {
+      "kiesen@halite" = config {
+        inherit pkgs;
+        modules = [ ./home/home-halite.nix ];
 
-          # Specify your home configuration modules here, for example,
-          # the path to your home.nix.
-          modules = [ 
-            ./home/home-graphite.nix 
-          ];
+        extraSpecialArgs = {
+          nix-gaming = inputs.nix-gaming;
+          nix-alien = nix-alien-pkg.nix-alien;
+        };
+      };
+      "kiesen@graphite" = config {
+        inherit pkgs;
+        modules = [ ./home/home-graphite.nix ];
 
-          # Optionally use extraSpecialArgs
-          # to pass through arguments to home.nix
-          extraSpecialArgs = {
-            inherit inputs;
-            nix-gaming = inputs.nix-gaming;
-            nix-alien = nix-alien-pkg.nix-alien;
-          };
+        extraSpecialArgs = {
+          inherit inputs;
+          nix-gaming = inputs.nix-gaming;
+          nix-alien = nix-alien-pkg.nix-alien;
         };
-        "kiesen@kiesen-eos-laptop" = inputs.home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ ./home/home-laptop.nix ];
-        };
-        "ibrahim.fuad@au-lap-0618.saberastronautics.net" = inputs.home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ ./home/work-laptop.nix ];
-        };
+      };
+      "kiesen@kiesen-eos-laptop" = config {
+        inherit pkgs;
+        modules = [ ./home/home-laptop.nix ];
+      };
+      "ibrahim.fuad@au-lap-0618.saberastronautics.net" = config {
+        inherit pkgs;
+        modules = [ ./home/work-laptop.nix ];
+      };
 
     };
   };

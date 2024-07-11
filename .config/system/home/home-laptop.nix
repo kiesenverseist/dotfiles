@@ -133,6 +133,14 @@ in {
   
   fonts.fontconfig.enable = true;
 
+  wayland.windowManager.hyprland = {
+    enable = true;
+    settings = {
+      "source" = "~/.config/hypr/main.conf";
+    };
+    systemd.variables = ["--all"];
+  };
+
   # You can also manage environment variables but you will have to manually
   # source
   #
