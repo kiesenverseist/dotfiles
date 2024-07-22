@@ -5,8 +5,8 @@ local M = {}
 -- local highlights = require "nvchad.configs.highlights"
 
 M.ui = {
-  theme = "gruvbox",
-  theme_toggle = { "gruvbox", "tokyonight" },
+  theme = "gruvchad",
+  theme_toggle = { "gruvchad", "tokyonight" },
   -- transparency = true,
   hl_override = require("highlights").override,
   hl_add = require("highlights").add,

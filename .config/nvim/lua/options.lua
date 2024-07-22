@@ -6,3 +6,4 @@ local o = vim.o
 -- o.cursorlineopt ='both' -- to enable cursorline!
 
 o.shell = "fish"
+o.title = true
