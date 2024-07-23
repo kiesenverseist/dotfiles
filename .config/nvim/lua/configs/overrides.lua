@@ -55,6 +55,8 @@ M.treesitter = {
       keymaps = {
         ["ia"] = { query = "@parameter.inner", desc = "Select inside argument" },
         ["aa"] = { query = "@parameter.outer", desc = "Select around argument" },
+        ["if"] = { query = "@function.inner", desc = "Select inside function" },
+        ["af"] = { query = "@function.outer", desc = "Select around function" },
       },
     },
   },
