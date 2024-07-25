@@ -185,10 +185,10 @@ in {
       "source" = "~/.config/hypr/main.conf";
     };
     systemd.variables = ["--all"];
-    plugins = [
-      inputs.hyprland-plugins.packages.${pkgs.system}.hyprwinwrap
-      inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
-    ];
+    # plugins = [
+    #   inputs.hyprland-plugins.packages.${pkgs.system}.hyprwinwrap
+    #   inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+    # ];
   };
 
 
