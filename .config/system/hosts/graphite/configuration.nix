@@ -75,7 +75,6 @@ in
   # services.onedrive.enable = true;
 
   # Enable sound.
-  sound.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -163,6 +162,12 @@ in
     extraGroups = [ "wheel" "libvirtd" "qemu-libvirtd" "disk" "adbusers"]; # Enable ‘sudo’ for the user.
   };
 
+  users.users."ibrahim.fuad" = {
+    isNormalUser = true;
+    shell = pkgs.fish;
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+  };
+
   fonts.packages = with pkgs; [
     (nerdfonts.override {fonts = [ "FiraCode" ]; })
   ];
@@ -232,7 +237,7 @@ in
     nonBlockingSaving = true;
     saveName = "save1";
     admins = [ "kiesenverseist" ];
-    # package = factorio-custom;
+    package = factorio-custom;
   };
 
   services.foundryvtt = {

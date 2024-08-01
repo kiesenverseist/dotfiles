@@ -35,9 +35,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
-  outputs = {self, nixos-hardware, ...}@inputs:
+  outputs = {self, ...}@inputs:
   let 
     system = "x86_64-linux";
 
@@ -115,7 +120,29 @@
         inherit pkgs;
         modules = [ ./home/work-laptop.nix ];
       };
+      "ibrahim.fuad@graphite" = config {
+        inherit pkgs;
+        modules = [ ./home/work-graphite.nix ];
 
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+      };
+    };
+
+    packages.${system} = {
+      vm = inputs.nixos-generators.nixosGenerate {
+        inherit system pkgs;
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/vm
+          ({lib, ...}: {system.build.qcow = lib.mkDefault {
+            diskSize = lib.mkForce "auto";
+            additionalSpace = "10G";
+          };})
+        ];
+        format = "qcow";
+      };
     };
   };
 }
