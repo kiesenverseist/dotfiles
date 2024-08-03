@@ -2,14 +2,15 @@
 let
   gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
   gdlauncher = import ./packages/gdlauncher.nix {inherit pkgs;};
-  lmms-nightly = import ./packages/lmms.nix {inherit pkgs;};
+  # lmms-nightly = import ./packages/lmms.nix {inherit pkgs;};
   gaming = nix-gaming.packages.${pkgs.system};
   xwvb = pkgs.libsForQt5.callPackage ./packages/xwaylandvideobridge.nix {};
   eww-custom = pkgs.callPackage ./packages/eww-custom {};
-  godot-wayland = import ./packages/godot-wayland.nix {inherit pkgs;};
+  # godot-wayland = import ./packages/godot-wayland.nix {inherit pkgs;};
 in {
   imports = [
     inputs.anyrun.homeManagerModules.anyrun
+    inputs.walker.homeManagerModules.walker
   ];
 
 
@@ -60,14 +61,6 @@ in {
     socat jq
     zstd
 
-    gcalcli
-
-    # de stuff
-    (pkgs.waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-      })
-    )
-    
     (eww-custom.override { withWayland = true; })
     # (pkgs.eww.override { withWayland = true; })
     libnotify
@@ -205,7 +198,6 @@ in {
   home.sessionVariables = {
     EDITOR = "nvim";
     TERMINAL = "kitty";
-    OBSIDIAN_REST_API_KEY = "6fcd1a7903cd6146397f0c76634f71440e7609a34866865a04d4535dfc3878d3";
   };
 
   xdg.userDirs.enable = true;
@@ -221,8 +213,8 @@ in {
 
   programs.kitty = {
     enable = true;
-    # theme = "Gruvbox Material Dark Hard";
-    theme = "Rosé Pine";
+    theme = "Gruvbox Material Dark Hard";
+    # theme = "Rosé Pine";
     font = {
       name = "FiraCode Nerd Font";
       size = 16;
@@ -264,6 +256,10 @@ in {
     interactiveShellInit = ''
       zoxide init fish --cmd=cd | source
       fish_hybrid_key_bindings
+
+      function starship_transient_rprompt_func
+        starship module time
+      end
     '';
   };
 
@@ -272,9 +268,9 @@ in {
   programs.starship = {
     enable = true;
     enableTransience = true;
-    settings = {
-      right_format = "$time";
-    };
+    # settings = {
+    #   right_format = "$time";
+    # };
   };
 
   programs.nix-index.enable = true;
@@ -336,32 +332,32 @@ in {
 
   services.swayosd = { enable = true; };
 
-  programs.rofi = {
-    enable = true;
-    package = pkgs.rofi-wayland;
-    plugins = with pkgs;[
-        rofi-calc
-        rofi-file-browser
-    ];
-    cycle = true;
-    # font = "FiraCode Nerd Font 16";
-    font = "GohuFont uni11 Nerd Font Propo 22";
-    terminal = "${pkgs.kitty}/bin/kitty";
-    theme =  let 
-      inherit (config.lib.formats.rasi) mkLiteral;
-    in {
-      "@theme" = "gruvbox-dark-hard";
-      element-icon = {
-        size = mkLiteral "2.5ch";
-      };
-    };
-    extraConfig = let 
-      inherit (config.lib.formats.rasi) mkLiteral;
-    in {
-      # modes = "window,drun,run,ssh,calc,recursivebrowser";
-      modes = "window,drun,run,ssh";
-    };
-  };
+  # programs.rofi = {
+  #   enable = true;
+  #   package = pkgs.rofi-wayland;
+  #   plugins = with pkgs;[
+  #       rofi-calc
+  #       rofi-file-browser
+  #   ];
+  #   cycle = true;
+  #   # font = "FiraCode Nerd Font 16";
+  #   font = "GohuFont uni11 Nerd Font Propo 22";
+  #   terminal = "${pkgs.kitty}/bin/kitty";
+  #   theme =  let 
+  #     inherit (config.lib.formats.rasi) mkLiteral;
+  #   in {
+  #     "@theme" = "gruvbox-dark-hard";
+  #     element-icon = {
+  #       size = mkLiteral "2.5ch";
+  #     };
+  #   };
+  #   extraConfig = let 
+  #     inherit (config.lib.formats.rasi) mkLiteral;
+  #   in {
+  #     # modes = "window,drun,run,ssh,calc,recursivebrowser";
+  #     modes = "window,drun,run,ssh";
+  #   };
+  # };
 
   # programs.anyrun = {
   #   enable = true;
@@ -380,6 +376,29 @@ in {
   #   };
   # };
 
+  programs.walker = {
+    enable = true;
+    runAsService = true;
+
+    # All options from the config.json can be used here.
+    # config = {
+    #   search.placeholder = "Example";
+    #   ui.fullscreen = true;
+    #   list = {
+    #     height = 200;
+    #   };
+    #   websearch.prefix = "?";
+    #   switcher.prefix = "/";
+    # };
+
+    # If this is not set the default styling is used.
+    style = ''
+      * {
+        color: #dcd7ba;
+      }
+    '';
+  };
+
   programs.qutebrowser = {
     enable = true;
     # package = pkgs.qutebrowser-qt6;
@@ -397,22 +416,24 @@ in {
     enable = true;
   };
   
-  services.mako = {
-    enable = true;
-    anchor = "top-left";
+  # services.mako = {
+  #   enable = true;
+  #   anchor = "top-left";
+  #
+  #   font= "Fira Nerd Font 12";
+  #
+  #   padding="5";
+  #
+  #   backgroundColor="#1D2021";
+  #   progressColor="#ebdbb2";
+  #   textColor="#d4be98";
+  #
+  #   borderColor="#ebdbb2";
+  #   borderSize=2;
+  #   borderRadius=5;
+  # };
 
-    font= "Fira Nerd Font 12";
-
-    padding="5";
-
-    backgroundColor="#689d6a";
-    progressColor="#ebdbb2";
-    textColor="#1d2021";
-
-    borderColor="#ebdbb2";
-    borderSize=2;
-    borderRadius=5;
-  };
+  services.swaync.enable = true;
 
   # remember to do the manual setup of this on first setup on computer
   services.syncthing = {
