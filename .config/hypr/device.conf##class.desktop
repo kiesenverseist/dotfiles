@@ -11,13 +11,13 @@ monitor = HDMI-A-1,preferred,1720x0,1
 
 # exec-once = ironbar
 
-workspace=1, monitor:DP-1
-workspace=2, monitor:DP-1
-workspace=3, monitor:DP-1
-workspace=4, monitor:DP-1
-workspace=7, monitor:HDMI-A-1
-workspace=8, monitor:HDMI-A-1
-workspace=9, monitor:HDMI-A-1
+#workspace=1, monitor:DP-1
+#workspace=2, monitor:DP-1
+#workspace=3, monitor:DP-1
+#workspace=4, monitor:DP-1
+#workspace=7, monitor:HDMI-A-1
+#workspace=8, monitor:HDMI-A-1
+#workspace=9, monitor:HDMI-A-1
 
 bind= SUPER CTRL SHIFT, 1, movecurrentworkspacetomonitor, DP-1
 bind= SUPER CTRL SHIFT, 2, movecurrentworkspacetomonitor, HDMI-A-1

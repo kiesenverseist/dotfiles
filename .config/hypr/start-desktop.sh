@@ -25,6 +25,12 @@ todoist-electron &
 # swayidle &
 # sway-audio-idle-inhibit
 
+sleep 5
+
+hyprctl dispatch movetoworkspacesilent 'special:memo,obsidian'
+hyprctl dispatch movetoworkspacesilent 'special:memo,todoist'
+hyprctl dispatch movetoworkspacesilent '7,vesktop'
+
 sleep 30 # give time for firefox windows to set titles
 
 hyprctl notify -1 3000 "rgb(ff1ea3)" "Arranging Windows"
@@ -32,7 +38,4 @@ hyprctl dispatch movetoworkspacesilent '8,title:^\[reading'
 hyprctl dispatch movetoworkspacesilent '8,title:^\[watching'
 hyprctl dispatch movetoworkspacesilent '9,title:^\[study'
 hyprctl dispatch movetoworkspacesilent '1,title:^\[main'
-hyprctl dispatch movetoworkspacesilent '7,vesktop'
-hyprctl dispatch movetoworkspacesilent 'special:memo,obsidian'
-hyprctl dispatch movetoworkspacesilent 'special:memo,todoist'
 hyprctl dispatch movetoworkspacesilent 'special:memo,title:^\[music'

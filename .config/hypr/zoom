@@ -12,10 +12,10 @@ trap 'rm -f /tmp/zoomlock' EXIT
 if [[ $1 -eq 0 ]];
 then
     # echo "reset zoom"
-    hyprctl keyword misc:cursor_zoom_factor 1.0
+    hyprctl keyword cursor:zoom_factor 1.0
 else
     # echo "changing zoom"
-    zoom_str=$(hyprctl getoption misc:cursor_zoom_factor | grep float)
+    zoom_str=$(hyprctl getoption cursor:zoom_factor | grep float)
     # echo "got zoom"
     # echo "zoom_str: $zoom_str"
     # echo "getting number"
@@ -26,10 +26,10 @@ else
     # echo "new_zoom: $new_zoom"
     if [[ $(bc <<< "$new_zoom < 1.0") == 1 ]]; then
         # echo "setting min zoom"
-        hyprctl keyword misc:cursor_zoom_factor 1.0
+        hyprctl keyword cursor:zoom_factor 1.0
     else
         # echo "setting new zoom"
-        hyprctl keyword misc:cursor_zoom_factor $new_zoom
+        hyprctl keyword cursor:zoom_factor $new_zoom
     fi
 
 fi
