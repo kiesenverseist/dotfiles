@@ -30,7 +30,7 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.configurationLimit = 100;
+  boot.loader.systemd-boot.configurationLimit = 10;
 
   networking.hostName = "halite"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -91,7 +91,7 @@
   # services.onedrive.enable = true;
 
   # Enable sound.
-  sound.enable = true;
+  # sound.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
