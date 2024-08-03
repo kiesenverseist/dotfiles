@@ -223,11 +223,6 @@
   # flatpak
   services.flatpak.enable = true;
 
-  services.tailscale = {
-    enable = true;
-    permitCertUid = "caddy";
-  };
-
   services.jellyfin.enable = true;
   services.plex.enable = true;
   # services.jellyseerr = {
@@ -352,6 +347,11 @@
     user = "kiesen";
   };
 
+  services.tailscale = {
+    enable = true;
+    permitCertUid = "caddy";
+  };
+
   services.caddy = {
     enable = true;
     virtualHosts."halite.ladon-minnow.ts.net" = {
@@ -367,10 +367,9 @@
     };
   };
 
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
+  services.cloudflared = {
+    enable = true;
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
