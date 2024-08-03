@@ -1,0 +1,7 @@
+keys:
+  - &graphite age1jawf28hfe053j36mnhx6x390ahqtxu0auapwrgvflyf5sq4ts9fs5exzdj
+creation_rules:
+  - path_regex: secrets.yaml
+    key_groups:
+    - age:
+      - *graphite

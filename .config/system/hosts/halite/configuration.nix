@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ config, lib, pkgs, system, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
@@ -16,6 +16,7 @@
     ../cachix.nix
     # (import "${logiops}/nixos/modules/hardware/logiops")
     ./qbittorrent.nix
+    inputs.sops-nix.nixosModules.sops
   ];
 
   # services.logiops.enable = true;
@@ -347,6 +348,15 @@
     user = "kiesen";
   };
 
+  sops = {
+    defaultSopsFile = ../../secrets/secrets.yaml;
+    defaultSopsFormat = "yaml";
+
+    age.keyFile = "/home/kiesen/.config/sops/age/keys.txt";
+
+    secrets.cloudflare_tunnel_token.owner = config.services.cloudflared.user;
+  };
+
   services.tailscale = {
     enable = true;
     permitCertUid = "caddy";
@@ -365,10 +375,31 @@
         reverse_proxy /jellyfin/* localhost:8096
       '';
     };
+    virtualHosts."local-loopback" = {
+      extraConfig = ''
+        route /git/* {
+          uri strip_prefix /git
+          reverse_proxy localhost:3000
+        }
+
+        redir /jellyfin /jellyfin/
+        reverse_proxy /jellyfin/* localhost:8096
+      '';
+    };
   };
 
   services.cloudflared = {
     enable = true;
+    tunnels = {
+      "halite" = {
+        credentialsFile = "${config.sops.secrets.cloudflare_tunnel_token.path}";
+        ingress = {
+          "*.kiesen.dev" = "halite.ladon-minnow.ts.net";
+          "jellyfin.kiesen.dev" = "local-loopback/jellyfin";
+        };
+        default = "http_status:404";
+      };
+    };
   };
 
   # This value determines the NixOS release from which the default
