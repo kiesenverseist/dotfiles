@@ -1,0 +1,143 @@
+{ inputs, pkgs, lib, config, ... }:
+
+{
+  imports = [
+    inputs.sops-nix.homeManagerModules.sops
+  ];
+
+  options = {
+    cli.enable = lib.mkEnableOption "enables basic cli config";
+  };
+
+  config = lib.mkIf config.cli.enable {
+
+    sops = {
+      age.sshKeyPaths = ["${config.home.homeDirectory}/.ssh/id_ed25519"];
+      age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+      age.generateKey = true;
+
+      secrets.nix_access_tokens = {
+        sopsFile = ../../secrets/secrets.yaml;
+      };
+    };
+
+    nix = {
+      package = pkgs.nix;
+      settings.experimental-features = [ "nix-command" "flakes" ];
+      extraOptions = ''
+        !include ${config.sops.secrets.nix_access_tokens.path}
+      '';
+    };
+
+    home.packages = with pkgs; [
+      ## cli stuff
+      btop
+      curl
+      bc
+      atool
+      # lf 
+      # ctpv
+      socat 
+      jq
+      unzip
+      zstd
+          
+      neovim
+      yadm
+      lazygit
+
+      ## nix stuff
+      nix
+      nixd
+      nh
+      nix-output-monitor
+
+    ];
+
+
+    home.sessionVariables = {
+      EDITOR = "nvim";
+      PATH = "$HOME/.nix-profile/bin:$PATH";
+      FLAKE = "$HOME/.config/system";
+    };
+
+    xdg.userDirs.enable = true;
+
+    programs.zsh = {
+      enable = true;
+      autosuggestion.enable = true;
+      enableCompletion = true;
+      plugins = [
+        {
+          name = "zsh-nix-shell";
+          file = "nix-shell.plugin.zsh";
+          src = pkgs.fetchFromGitHub {
+            owner = "chisui";
+            repo = "zsh-nix-shell";
+            rev = "v0.5.0";
+            sha256 = "0za4aiwwrlawnia4f29msk822rj9bgcygw6a8a6iikiwzjjz0g91";
+          };
+        }
+      ];
+    };
+
+    programs.fish = {
+      enable = true;
+      functions = {
+        icat = {
+          body = "kitten icat $argv[1]";
+        };
+        kssh = {
+          body = "kitten ssh $argv";
+        };
+      };
+      interactiveShellInit = ''
+        zoxide init fish --cmd=cd | source
+        fish_hybrid_key_bindings
+      '';
+      plugins = [
+        {name = "gruvbox"; src = pkgs.fishPlugins.gruvbox.src;}
+      ];
+    };
+
+    programs.bash.enable = true;
+
+    programs.starship = {
+      enable = true;
+      enableTransience = true;
+      settings = {
+        right_format = "$time";
+      };
+    };
+
+    programs.zoxide = { 
+      enable = true;
+      enableFishIntegration = false; # because I manually set this up
+    };
+
+    programs.ripgrep = { enable = true; };
+
+    programs.eza = {
+      enable = true;
+      enableFishIntegration = true;
+      enableZshIntegration = true;
+      git = true;
+      icons = true;
+    };
+
+    programs.bat.enable = true;
+
+    programs.git = {
+      enable = true;
+      delta.enable = true;
+      lfs.enable = true;
+    };
+
+    programs.fzf = {
+      enable = true;
+    };
+
+    programs.nix-index.enable = true;
+
+  };
+}

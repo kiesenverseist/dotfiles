@@ -11,8 +11,12 @@ in {
   imports = [
     inputs.anyrun.homeManagerModules.anyrun
     inputs.walker.homeManagerModules.walker
+    ./modules
   ];
 
+  guiMinimal.enable = true;
+  programming.enable = true;
+  # de.enable = false;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -31,18 +35,6 @@ in {
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    (pkgs.nerdfonts.override { fonts = [ 
-      "FiraCode"
-      "Gohu"
-    ]; })
-    # font-awesome
-    # comic-mono
-    # cartograph
-
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
     # # environment:
@@ -51,41 +43,35 @@ in {
     # '')
 
     # cli stuff
-    btop 
     nvtopPackages.amd
-    curl
-    lazygit
-    atool unzip
-    bc
-    lf ctpv
-    socat jq
-    zstd
+    lf 
+    ctpv
 
     (eww-custom.override { withWayland = true; })
     # (pkgs.eww.override { withWayland = true; })
     libnotify
     wpaperd
-    grim slurp
+    grim 
+    slurp
     pavucontrol
     pulsemixer
-    yadm
     dolphin
     wl-clipboard
     playerctl
     xdg-user-dirs
     qbittorrent
-    gnome.gnome-calculator
-    gnome.nautilus
-    gnome.sushi
+    gnome-calculator
+    nautilus
+    sushi
     gnome-solanum
     xwvb # xwaylandvideobridge
     blueman
     zathura
     via
     chromium
-    vlc obs-studio
+    vlc 
+    obs-studio
     waypipe
-    floorp
 
     # lmms
     # ardour
@@ -96,31 +82,19 @@ in {
     carla
 
     syncthingtray
-    # rofi-power-menu
-    # rofi-pulse-select
 
     # proprietary stuffs
     vesktop
     (discord.override {
       withOpenASAR = false;
     })
-    (obsidian.override {
-      electron = electron_24;
-    })
     # teams
     # microsoft-edge
-    todoist-electron
 
     # programming
-    cachix
-    neovide
     gf
-    # clang 
     postgresql
     sqlite
-    texlab
-    tectonic
-    # (import (fetchTarball https://install.devenv.sh/latest)).default
 
 
     # gaming
@@ -170,8 +144,6 @@ in {
     # '';
   };
   
-  fonts.fontconfig.enable = true;
-
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
@@ -195,12 +167,6 @@ in {
   #  /etc/profiles/per-user/kiesen/etc/profile.d/hm-session-vars.sh
   #
   # if you don't want to manage your shell through Home Manager.
-  home.sessionVariables = {
-    EDITOR = "nvim";
-    TERMINAL = "kitty";
-  };
-
-  xdg.userDirs.enable = true;
 
   xdg.mimeApps.defaultApplications = {
 
@@ -211,170 +177,41 @@ in {
     "/home/kiesen/.local/share/flatpak/exports/share"
   ];
 
-  programs.kitty = {
-    enable = true;
-    theme = "Gruvbox Material Dark Hard";
-    # theme = "Rosé Pine";
-    font = {
-      name = "FiraCode Nerd Font";
-      size = 16;
-    };
-    settings = {
-      background_opacity = "0.8";
-    };
-    shellIntegration.enableFishIntegration = true;
-  };
-
-  programs.zsh = {
-    enable = true;
-    autosuggestion.enable = true;
-    enableCompletion = true;
-    plugins = [
-      {
-        name = "zsh-nix-shell";
-        file = "nix-shell.plugin.zsh";
-        src = pkgs.fetchFromGitHub {
-          owner = "chisui";
-          repo = "zsh-nix-shell";
-          rev = "v0.5.0";
-          sha256 = "0za4aiwwrlawnia4f29msk822rj9bgcygw6a8a6iikiwzjjz0g91";
-        };
-      }
-    ];
-  };
-
-  programs.fish = {
-    enable = true;
-    functions = {
-      icat = {
-        body = "kitten icat $argv[1]";
-      };
-      kssh = {
-        body = "kitten ssh $argv";
-      };
-    };
-    interactiveShellInit = ''
-      zoxide init fish --cmd=cd | source
-      fish_hybrid_key_bindings
-
-      function starship_transient_rprompt_func
-        starship module time
-      end
-    '';
-  };
-
-  programs.bash.enable = true;
-
-  programs.starship = {
-    enable = true;
-    enableTransience = true;
-    # settings = {
-    #   right_format = "$time";
-    # };
-  };
-
-  programs.nix-index.enable = true;
-  # programs.command-not-found.enable = true;
 
   programs.vscode = {
     enable =  true;
-    extensions = with pkgs.vscode-extensions; [
-      arrterian.nix-env-selector
-      jdinhlife.gruvbox
-      # ms-python.python
-      # ms-toolsai.jupyter
-      ms-vsliveshare.vsliveshare
-    ];
   };
 
   ## CLI Tools
 
-  programs.pyenv = { enable = true; };
 
-  programs.direnv = { 
-    enable = true;
-    nix-direnv.enable = true;
-  };
-
-  programs.zoxide = { 
-    enable = true;
-    enableFishIntegration = false;
-  };
-
-  programs.ripgrep = { enable = true; };
-
-  programs.eza = {
-    enable = true;
-    enableFishIntegration = true;
-    enableZshIntegration = true;
-    enableBashIntegration = true;
-    git = true;
-    icons = true;
-  };
-
-  programs.bat.enable = true;
-    
   programs.git = {
-    enable = true;
     userName = "Ibrahim Fuad";
     userEmail = "creativeibi77@gmail.com";
-    delta.enable = true;
-    lfs.enable = true;
   };
 
   # programs.lf = {
   #   enable = true;
   # };
 
-  programs.fzf = {
-    enable = true;
-  };
-
   services.swayosd = { enable = true; };
 
-  # programs.rofi = {
-  #   enable = true;
-  #   package = pkgs.rofi-wayland;
-  #   plugins = with pkgs;[
-  #       rofi-calc
-  #       rofi-file-browser
-  #   ];
-  #   cycle = true;
-  #   # font = "FiraCode Nerd Font 16";
-  #   font = "GohuFont uni11 Nerd Font Propo 22";
-  #   terminal = "${pkgs.kitty}/bin/kitty";
-  #   theme =  let 
-  #     inherit (config.lib.formats.rasi) mkLiteral;
-  #   in {
-  #     "@theme" = "gruvbox-dark-hard";
-  #     element-icon = {
-  #       size = mkLiteral "2.5ch";
-  #     };
-  #   };
-  #   extraConfig = let 
-  #     inherit (config.lib.formats.rasi) mkLiteral;
-  #   in {
-  #     # modes = "window,drun,run,ssh,calc,recursivebrowser";
-  #     modes = "window,drun,run,ssh";
-  #   };
-  # };
-
-  # programs.anyrun = {
-  #   enable = true;
-  #   config =  {
-  #     plugins =let
-  #       anyrun-plugins = inputs.anyrun.packages.${pkgs.system};
-  #     in [
-  #       anyrun-plugins.applications
-  #       anyrun-plugins.randr
-  #     ];
-  #     x = {fraction = 0.5;};
-  #     y = {fraction = 0.3;};
-  #     layer = "overlay";
-  #     showResultsImmediately = true;
-  #     closeOnClick = true;
-  #   };
-  # };
+  programs.anyrun = {
+    enable = false;
+    config =  {
+      plugins =let
+        anyrun-plugins = inputs.anyrun.packages.${pkgs.system};
+      in [
+        anyrun-plugins.applications
+        anyrun-plugins.randr
+      ];
+      x = {fraction = 0.5;};
+      y = {fraction = 0.3;};
+      layer = "overlay";
+      showResultsImmediately = true;
+      closeOnClick = true;
+    };
+  };
 
   programs.walker = {
     enable = true;
@@ -416,22 +253,22 @@ in {
     enable = true;
   };
   
-  # services.mako = {
-  #   enable = true;
-  #   anchor = "top-left";
-  #
-  #   font= "Fira Nerd Font 12";
-  #
-  #   padding="5";
-  #
-  #   backgroundColor="#1D2021";
-  #   progressColor="#ebdbb2";
-  #   textColor="#d4be98";
-  #
-  #   borderColor="#ebdbb2";
-  #   borderSize=2;
-  #   borderRadius=5;
-  # };
+  services.mako = {
+    enable = false;
+    anchor = "top-left";
+
+    font= "Fira Nerd Font 12";
+
+    padding="5";
+
+    backgroundColor="#1D2021";
+    progressColor="#ebdbb2";
+    textColor="#d4be98";
+
+    borderColor="#ebdbb2";
+    borderSize=2;
+    borderRadius=5;
+  };
 
   services.swaync.enable = true;
 
@@ -462,22 +299,26 @@ in {
 		};
 	};
 
-  qt.enable = true;
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+    style.name = "adwaita-dark";
+    style.package = pkgs.adwaita-qt;
+  };
 
-  qt.platformTheme = "gtk";
-  qt.style.name = "adwaita-dark";
-  qt.style.package = pkgs.adwaita-qt;
 
-  gtk.enable = true;
+  gtk = {
+    enable = true;
+    cursorTheme.package = pkgs.bibata-cursors;
+    cursorTheme.name = "Bibata-Modern-Ice";
 
-  gtk.cursorTheme.package = pkgs.bibata-cursors;
-  gtk.cursorTheme.name = "Bibata-Modern-Ice";
+    theme.package = pkgs.adw-gtk3;
+    theme.name = "adw-gtk3-dark";
 
-  gtk.theme.package = pkgs.adw-gtk3;
-  gtk.theme.name = "adw-gtk3-dark";
+    iconTheme.package = gruvboxplus;
+    iconTheme.name = "GruvboxPlus";
+  };
 
-  gtk.iconTheme.package = gruvboxplus;
-  gtk.iconTheme.name = "GruvboxPlus";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
