@@ -5,8 +5,8 @@ local M = {}
 -- local highlights = require "nvchad.configs.highlights"
 
 M.ui = {
-  theme = "gruvbox",
-  theme_toggle = { "gruvbox", "tokyonight" },
+  theme = "flexoki",
+  theme_toggle = { "flexoki", "tokyonight" },
   -- transparency = true,
   hl_override = require("highlights").override,
   hl_add = require("highlights").add,
@@ -20,7 +20,7 @@ M.ui = {
         local left_sep = "%#St_pos_sep#" .. "" .. "%#St_pos_icon#" .. " "
         return left_sep .. "%#St_pos_text#" .. " " .. "%l:%c" .. " "
       end
-      table.remove(modules, 10)
+      -- table.remove(modules, 10)
       table.insert(modules, cursor_position())
     end,
   },

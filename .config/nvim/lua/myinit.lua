@@ -81,12 +81,15 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- vim.api.nvim_create_autocmd("TermLeave", {
---   callback = function(ctx)
---     vim.fn.execute "normal <CR>"
---   end,
---   nested = true,
--- })
+vim.api.nvim_create_autocmd("TermOpen", {
+  desc = "Load theme on terminal open",
+  group = vim.api.nvim_create_augroup("term-theme", { clear = true }),
+  callback = function()
+    require "nvchad.term"
+    vim.cmd "startinsert"
+    vim.cmd "setlocal nonumber norelativenumber"
+  end,
+})
 
 -- vimtex config (move to separete file later)
 vim.g.vimtex_mappings_prefix = "<S-Space>"

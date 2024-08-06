@@ -95,7 +95,8 @@
 
   programs.kitty = {
     enable = true;
-    theme = "Gruvbox Material Dark Hard";
+    # theme = "Gruvbox Material Dark Hard";
+    theme = "Flexoki (Dark)";
     font = {
       name = "FiraCode Nerd Font";
       size = 16;
@@ -138,6 +139,9 @@
     interactiveShellInit = ''
       zoxide init fish --cmd=cd | source
     '';
+    plugins = [
+      {name = "gruvbox"; src = pkgs.fishPlugins.gruvbox.src;}
+    ];
   };
 
   programs.bash.enable = true;

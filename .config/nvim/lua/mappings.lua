@@ -198,6 +198,10 @@ map("t", "<M-ESC>", function()
 end, { desc = "Terminal Close term in terminal mode" })
 map("t", "<ESC><ESC>", "<C-\\><C-n>", { desc = "Terminal escape mode" })
 
+map("n", "<M-t>", function()
+  vim.fn.termopen(vim.o.shell)
+end, { desc = "Terminal open normal" })
+
 -- neovide
 if vim.g.neovide then
   map("n", "<C-=>", function()
