@@ -125,10 +125,16 @@
       "kiesen@kiesen-eos-laptop" = config {
         inherit pkgs;
         modules = [ ./home/home-laptop.nix ];
+        extraSpecialArgs = {
+          inherit inputs;
+        };
       };
       "ibrahim.fuad@au-lap-0618.saberastronautics.net" = config {
         inherit pkgs;
         modules = [ ./home/work-laptop.nix ];
+        extraSpecialArgs = {
+          inherit inputs;
+        };
       };
       "ibrahim.fuad@graphite" = config {
         inherit pkgs;

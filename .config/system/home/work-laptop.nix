@@ -6,6 +6,7 @@
 
   guiMinimal.enable = true;
   programming.enable = true;
+  cli.enable = true;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -38,6 +39,7 @@
     nixgl.nixGLIntel
   ];
 
+  programs.bash.enable = false;
 
   programs.vscode = {
     enable =  true;
@@ -47,7 +49,6 @@
     userName = "ibrahim.fuad";
     userEmail = "ibrahim.fuad@saberastro.com";
   };
-
 
   programs.rofi = {
     enable = true;

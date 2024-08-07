@@ -100,7 +100,7 @@
       ];
     };
 
-    programs.bash.enable = true;
+    programs.bash.enable = lib.mkDefault true;
 
     programs.starship = {
       enable = true;
