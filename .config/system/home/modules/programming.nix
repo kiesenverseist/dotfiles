@@ -47,9 +47,13 @@
 
     programs.pyenv = { enable = true; };
 
+    programs.opam.enable = true;
+
     programs.direnv = { 
       enable = true;
       nix-direnv.enable = true;
     };
+
+    programs.gh.enable = true;
   };
 }
