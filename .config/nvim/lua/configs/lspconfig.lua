@@ -28,6 +28,8 @@ local servers = {
 
   "gopls",
   "templ",
+
+  "ocamllsp",
 }
 
 for _, lsp in ipairs(servers) do

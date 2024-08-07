@@ -1,9 +1,8 @@
 { config, pkgs, ... }:
 let
-  gruvboxplus = import ./common/gruvbox-plus.nix {inherit pkgs;};
-  # gdlauncher = import ./gdlauncher.nix {inherit pkgs;};
+  gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
   # gaming = nix-gaming.packages.${pkgs.system};
-  xwvb = pkgs.libsForQt5.callPackage ./common/xwaylandvideobridge.nix {};
+  xwvb = pkgs.libsForQt5.callPackage ./packages/xwaylandvideobridge.nix {};
   # eww-custom = pkgs.callPackage ./eww-custom {};
 in {
   # Home Manager needs a bit of information about you and the paths it should
@@ -93,6 +92,7 @@ in {
     nixd
     nh
     nix-output-monitor
+    opam
 
     # gaming
     # protontricks
@@ -133,13 +133,13 @@ in {
   
   fonts.fontconfig.enable = true;
 
-  wayland.windowManager.hyprland = {
-    enable = true;
-    settings = {
-      "source" = "~/.config/hypr/main.conf";
-    };
-    systemd.variables = ["--all"];
-  };
+  # wayland.windowManager.hyprland = {
+  #   enable = true;
+  #   settings = {
+  #     "source" = "~/.config/hypr/main.conf";
+  #   };
+  #   systemd.variables = ["--all"];
+  # };
 
   # You can also manage environment variables but you will have to manually
   # source
@@ -238,6 +238,7 @@ in {
   };
 
   programs.pyenv = { enable = true; };
+  programs.opam.enable = true;
 
   programs.direnv = { 
     enable = true;
