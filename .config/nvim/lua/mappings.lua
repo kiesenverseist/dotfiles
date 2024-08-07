@@ -1,7 +1,9 @@
-require "nvchad.mappings"
-
 local map = vim.keymap.set
 local nomap = vim.keymap.del
+
+map("n", "<C-i>", "<C-I>")
+
+require "nvchad.mappings"
 
 -- disable some of nvchad's mappings
 nomap("n", "<C-c>")
