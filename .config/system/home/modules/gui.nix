@@ -1,5 +1,7 @@
 { pkgs, lib, config, ... }:
-
+let
+  nixGl = import ./packages/nixgl.nix {inherit pkgs config;};
+in 
 {
   options = {
     guiMinimal.enable = lib.mkEnableOption "enables basic cli config";
@@ -13,7 +15,7 @@
         "Gohu"
       ]; })
 
-      neovide
+      (nixGl neovide)
       floorp
       obsidian
       todoist-electron
@@ -27,6 +29,7 @@
 
     programs.kitty = {
       enable = true;
+      package = (nixGl pkgs.kitty);
       # theme = "Gruvbox Material Dark Hard";
       theme = "Flexoki (Dark)";
       font = {

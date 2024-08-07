@@ -1,9 +1,10 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, config, ... }:
 let
   gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
   # gaming = nix-gaming.packages.${pkgs.system};
   xwvb = pkgs.libsForQt5.callPackage ./packages/xwaylandvideobridge.nix {};
   # eww-custom = pkgs.callPackage ./eww-custom {};
+  nixGl = import ./packages/nixgl.nix {inherit pkgs config;};
 in {
   imports = [
     inputs.walker.homeManagerModules.walker
@@ -12,6 +13,8 @@ in {
 
   guiMinimal.enable = true;
   programming.enable = true;
+
+  nixGLPrefix = "nixGLIntel";
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -34,19 +37,6 @@ in {
     kdePackages.qtstyleplugin-kvantum
     kdePackages.qt6ct
 
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
-
-    # de stuff
-    # (pkgs.waybar.overrideAttrs (oldAttrs: {
-    #     mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-    #   })
-    # )
-    
     # (eww-custom.override { withWayland = true; })
     # (pkgs.eww.override { withWayland = true; })
     # libnotify
@@ -66,6 +56,7 @@ in {
     # obsidian
     # teams
     # microsoft-edge
+
 
   ];
 
@@ -89,7 +80,7 @@ in {
   # ];
 
   programs.kitty = {
-    package = null;
+    package = (nixGl pkgs.kitty);
   };
 
   programs.vscode = {
