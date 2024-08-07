@@ -1,10 +1,18 @@
-{ config, pkgs, ... }:
+{ inputs, pkgs, ... }:
 let
   gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
   # gaming = nix-gaming.packages.${pkgs.system};
   xwvb = pkgs.libsForQt5.callPackage ./packages/xwaylandvideobridge.nix {};
   # eww-custom = pkgs.callPackage ./eww-custom {};
 in {
+  imports = [
+    inputs.walker.homeManagerModules.walker
+    ./modules
+  ];
+
+  guiMinimal.enable = true;
+  programming.enable = true;
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "kiesen";
@@ -22,18 +30,6 @@ in {
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    (pkgs.nerdfonts.override { fonts = [ 
-      "FiraCode"
-      "Gohu"
-    ]; })
-    # font-awesome
-    # comic-mono
-    # cartograph
-
     # theming
     kdePackages.qtstyleplugin-kvantum
     kdePackages.qt6ct
@@ -44,16 +40,6 @@ in {
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-
-    # cli stuff
-    # btop nvtop
-    # curl
-    # lazygit
-    # atool unzip
-    # bc
-    # lf ctpv
-    # socat jq
-    # clipse
 
     # de stuff
     # (pkgs.waybar.overrideAttrs (oldAttrs: {
@@ -81,57 +67,7 @@ in {
     # teams
     # microsoft-edge
 
-    # programming
-    cachix
-    # neovide
-    # gf
-    # clang 
-    # unityhub
-    # postgresql
-    # sqlite
-    nixd
-    nh
-    nix-output-monitor
-    opam
-
-    # gaming
-    # protontricks
-    # gaming.proton-ge
-    # gaming.osu-stable
-    # gaming.osu-lazer-bin
-    # gdlauncher
-    # prismlauncher
-    # wine
-    # lutris
-
-#nvapi latencyflex
-
-    # game dev
-    # godot_4
-    # pixelorama
-    
-    # making
-    # prusa-slicer
-    # kicad
-
   ];
-
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-  };
-  
-  fonts.fontconfig.enable = true;
 
   # wayland.windowManager.hyprland = {
   #   enable = true;
@@ -140,23 +76,6 @@ in {
   #   };
   #   systemd.variables = ["--all"];
   # };
-
-  # You can also manage environment variables but you will have to manually
-  # source
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/kiesen/etc/profile.d/hm-session-vars.sh
-  #
-  # if you don't want to manage your shell through Home Manager.
-  home.sessionVariables = {
-    EDITOR = "nvim";
-    TERMINAL = "kitty";
-    FLAKE = "/home/kiesen/.config/system";
-    # OBSIDIAN_REST_API_KEY = "6fcd1a7903cd6146397f0c76634f71440e7609a34866865a04d4535dfc3878d3";
-  };
 
   xdg.userDirs.enable = true;
 
@@ -169,132 +88,47 @@ in {
   #   "/home/kiesen/.local/share/flatpak/exports/share"
   # ];
 
-  # programs.kitty = {
-  #   package = {};
-  #   enable = true;
-  #   theme = "Gruvbox Material Dark Hard";
-  #   font = {
-  #     name = "FiraCode Nerd Font";
-  #     size = 16;
-  #   };
-  #   settings = {
-  #     background_opacity = "0.8";
-  #   };
-  #   shellIntegration.enableFishIntegration = true;
-  # };
-
-  programs.zsh = {
-    enable = true;
-    autosuggestion.enable = true;
-    enableCompletion = true;
-    plugins = [
-      {
-        name = "zsh-nix-shell";
-        file = "nix-shell.plugin.zsh";
-        src = pkgs.fetchFromGitHub {
-          owner = "chisui";
-          repo = "zsh-nix-shell";
-          rev = "v0.5.0";
-          sha256 = "0za4aiwwrlawnia4f29msk822rj9bgcygw6a8a6iikiwzjjz0g91";
-        };
-      }
-    ];
-  };
-
-  programs.fish = {
-    enable = true;
-    functions = {
-      icat = {
-        body = "kitty +kitten icat $argv[1]";
-      };
-      kssh = {
-        body = "kitty +kitten ssh $argv";
-      };
-    };
-    interactiveShellInit = ''
-      zoxide init fish --cmd=cd | source
-    '';
-  };
-
-  programs.bash.enable = true;
-
-  programs.starship = {
-    enable = true;
-    enableTransience = true;
-    settings = {
-      right_format = "$time";
-    };
+  programs.kitty = {
+    package = null;
   };
 
   programs.vscode = {
     enable =  true;
-    extensions = with pkgs.vscode-extensions; [
-      arrterian.nix-env-selector
-      jdinhlife.gruvbox
-      ms-python.python
-      ms-toolsai.jupyter
-      ms-vsliveshare.vsliveshare
-    ];
   };
-
-  programs.pyenv = { enable = true; };
-  programs.opam.enable = true;
-
-  programs.direnv = { 
-    enable = true;
-    nix-direnv.enable = true;
-  };
-
-  programs.zoxide = { 
-    enable = true;
-    enableFishIntegration = false;
-  };
-
-  programs.ripgrep = { enable = true; };
-
-  programs.eza = {
-    enable = true;
-    git = true;
-    icons = true;
-  };
-
-  programs.bat.enable = true;
 
   programs.git = {
-    enable = true;
     userName = "Ibrahim Fuad";
     userEmail = "creativeibi77@gmail.com";
-    delta.enable = true;
-    lfs.enable = true;
   };
   
-  # programs.lf = {
-  #   enable = true;
-  # };
-
-  programs.fzf.enable = true;
-
-  programs.gh.enable = true;
 
   services.swayosd = { enable = true; };
 
   programs.rofi = {
     enable = true;
-    package = (pkgs.rofi-wayland.override {
-      plugins = with pkgs;[
-        rofi-calc
-        rofi-file-browser
-      ];
-    });
-    cycle = true;
-    # font = "FiraCode Nerd Font 16";
-    font = "GohuFont uni11 Nerd Font Propo 22";
-    terminal = "${pkgs.kitty}/bin/kitty";
-    theme = "gruvbox-dark-hard";
-    extraConfig = {
-      # modes = "window,drun,run,ssh,calc,file-browser-extended";
-      modes = "window,drun,run,ssh";
-    };
+  };
+
+  programs.walker = {
+    enable = true;
+    runAsService = true;
+
+    # All options from the config.json can be used here.
+    # config = {
+    #   search.placeholder = "Example";
+    #   ui.fullscreen = true;
+    #   list = {
+    #     height = 200;
+    #   };
+    #   websearch.prefix = "?";
+    #   switcher.prefix = "/";
+    # };
+
+    # If this is not set the default styling is used.
+    style = ''
+      * {
+        color: #dcd7ba;
+      }
+    '';
   };
 
   programs.qutebrowser = {
@@ -309,27 +143,6 @@ in {
       };
     };
   };
-
-  # programs.mangohud = {
-  #   enable = true;
-  # };
-  
-  # services.mako = {
-  #   enable = true;
-  #   anchor = "top-left";
-  #
-  #   font= "Fira Nerd Font 12";
-  #
-  #   padding="5";
-  #
-  #   backgroundColor="#689d6a";
-  #   progressColor="#ebdbb2";
-  #   textColor="#1d2021";
-  #
-  #   borderColor="#ebdbb2";
-  #   borderSize=2;
-  #   borderRadius=5;
-  # };
 
   # remember to do the manual setup of this on first setup on computer
   # services.syncthing = {
@@ -353,22 +166,25 @@ in {
 
   targets.genericLinux.enable = true;
 
-  qt.enable = true;
+  qt = {
+    enable = true;
+    platformTheme = "gtk3";
+    style.name = "adwaita-dark";
+    style.package = pkgs.adwaita-qt;
+  };
 
-  qt.platformTheme = "gtk3";
-  qt.style.name = "adwaita-dark";
-  qt.style.package = pkgs.adwaita-qt;
+  gtk = {
+    enable = true;
 
-  gtk.enable = true;
+    cursorTheme.package = pkgs.bibata-cursors;
+    cursorTheme.name = "Bibata-Modern-Ice";
 
-  gtk.cursorTheme.package = pkgs.bibata-cursors;
-  gtk.cursorTheme.name = "Bibata-Modern-Ice";
+    theme.package = pkgs.adw-gtk3;
+    theme.name = "adw-gtk3";
 
-  gtk.theme.package = pkgs.adw-gtk3;
-  gtk.theme.name = "adw-gtk3";
-
-  gtk.iconTheme.package = gruvboxplus;
-  gtk.iconTheme.name = "GruvboxPlus";
+    iconTheme.package = gruvboxplus;
+    iconTheme.name = "GruvboxPlus";
+  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
