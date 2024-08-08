@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 let
-  nixGl = import ./packages/nixgl.nix {inherit pkgs config;};
+  nixGl = import ../packages/nixgl.nix {inherit pkgs config;};
 in 
 {
   options = {

@@ -1,7 +1,7 @@
 { inputs, pkgs, lib, config, ... }:
-
 {
   imports = [
+    ../../hosts/cachix.nix
     inputs.sops-nix.homeManagerModules.sops
   ];
 
@@ -34,9 +34,9 @@
     nix = {
       package = pkgs.nix;
       settings.experimental-features = [ "nix-command" "flakes" ];
-      extraOptions = ''
-        !include ${config.sops.secrets.nix_access_tokens.path}
-      '';
+      # extraOptions = ''
+      #   !include ${config.sops.secrets.nix_access_tokens.path}
+      # '';
     };
 
     home.packages = with pkgs; [

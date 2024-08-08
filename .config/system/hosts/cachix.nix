@@ -1,5 +1,3 @@
-
-# WARN: this file will get overwritten by $ cachix use <name>
 { pkgs, lib, ... }:
 
 let
@@ -21,8 +19,4 @@ in {
     auto-optimise-store = true;
   };
 
-  services.harmonia = {
-    enable = true;
-    signKeyPath = "/var/lib/secrets/harmonia.secret";
-  };
 }

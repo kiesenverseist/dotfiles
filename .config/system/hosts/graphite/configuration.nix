@@ -250,6 +250,11 @@ in
     upnp = false;
   };
 
+  services.harmonia = {
+    enable = true;
+    signKeyPath = "/var/lib/secrets/harmonia.secret";
+  };
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];

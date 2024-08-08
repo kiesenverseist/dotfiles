@@ -7,7 +7,7 @@ let
   nixGl = import ./packages/nixgl.nix {inherit pkgs config;};
 in {
   imports = [
-    inputs.walker.homeManagerModules.walker
+    inputs.walker.homeManagerModules.default
     ./modules
   ];
 
@@ -79,10 +79,6 @@ in {
   #   "/home/kiesen/.local/share/flatpak/exports/share"
   # ];
 
-  programs.kitty = {
-    package = (nixGl pkgs.kitty);
-  };
-
   programs.vscode = {
     enable =  true;
   };
@@ -115,11 +111,11 @@ in {
     # };
 
     # If this is not set the default styling is used.
-    style = ''
-      * {
-        color: #dcd7ba;
-      }
-    '';
+    # style = ''
+    #   * {
+    #     color: #dcd7ba;
+    #   }
+    # '';
   };
 
   programs.qutebrowser = {

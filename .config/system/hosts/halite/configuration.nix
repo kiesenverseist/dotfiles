@@ -109,6 +109,11 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
+  services.harmonia = {
+    enable = true;
+    signKeyPath = "/var/lib/secrets/harmonia.secret";
+  };
+
   programs.zsh.enable = true;
   programs.fish.enable = true;
 
