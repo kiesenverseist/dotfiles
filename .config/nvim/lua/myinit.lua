@@ -20,10 +20,25 @@ if vim.g.neovide == true then
   vim.g.neovide_remember_window_size = false
 
   vim.g.neovide_position_animation_length = 0.15
-  vim.g.neovide_scroll_animation_length = 0.20
-  vim.g.neovide_cursor_animation_length = 0.05
 
   -- vim.g.neovide_profiler = true
+
+  -- workaround for scroll jumping on buffer change
+  -- from https://github.com/neovide/neovide/issues/1771
+  vim.api.nvim_create_autocmd("BufLeave", {
+    callback = function()
+      vim.g.neovide_scroll_animation_length = 0
+      vim.g.neovide_cursor_animation_length = 0
+    end,
+  })
+  vim.api.nvim_create_autocmd("BufEnter", {
+    callback = function()
+      vim.fn.timer_start(70, function()
+        vim.g.neovide_scroll_animation_length = 0.20
+        vim.g.neovide_cursor_animation_length = 0.05
+      end)
+    end,
+  })
 end
 
 local opt = vim.opt
