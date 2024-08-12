@@ -20,7 +20,22 @@ return {
     "stevearc/oil.nvim",
     event = "VeryLazy",
     cmd = "Oil",
-    opts = {},
+    opts = {
+      lsp_file_methods = {
+        autosave_changes = true,
+      },
+      keymaps = {
+        ["<C-h>"] = false,
+        ["<C-l>"] = false,
+        ["<C-r>"] = "actions.refresh",
+      },
+      columns = {
+        "icon",
+        -- "size",
+        -- "permissions",
+        -- "mtime",
+      },
+    },
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   {
