@@ -5,6 +5,7 @@
   imports = [
     ./configuration.nix
     ./vfio.nix
+    ./nvidia.nix
   ];
 
   vfio.enable = lib.mkDefault true;

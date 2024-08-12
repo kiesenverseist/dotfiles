@@ -1,16 +1,17 @@
-{ config, pkgs, nix-gaming, nix-alien, inputs, ... }:
+{ config, pkgs, nix-alien, inputs, ... }:
 let
   gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
   gdlauncher = import ./packages/gdlauncher.nix {inherit pkgs;};
   # lmms-nightly = import ./packages/lmms.nix {inherit pkgs;};
-  gaming = nix-gaming.packages.${pkgs.system};
+  gaming = inputs.nix-gaming.packages.${pkgs.system};
   xwvb = pkgs.libsForQt5.callPackage ./packages/xwaylandvideobridge.nix {};
   eww-custom = pkgs.callPackage ./packages/eww-custom {};
   # godot-wayland = import ./packages/godot-wayland.nix {inherit pkgs;};
 in {
   imports = [
     inputs.anyrun.homeManagerModules.anyrun
-    inputs.walker.homeManagerModules.walker
+    inputs.walker.homeManagerModules.default
+    inputs.hyprland.homeManagerModules.default
     ./modules
   ];
 
@@ -229,11 +230,11 @@ in {
     # };
 
     # If this is not set the default styling is used.
-    style = ''
-      * {
-        color: #dcd7ba;
-      }
-    '';
+    # style = ''
+    #   * {
+    #     color: #dcd7ba;
+    #   }
+    # '';
   };
 
   programs.qutebrowser = {
@@ -301,16 +302,21 @@ in {
 
   qt = {
     enable = true;
-    platformTheme = "gtk";
+    platformTheme.name = "gtk";
     style.name = "adwaita-dark";
     style.package = pkgs.adwaita-qt;
   };
 
+  home.pointerCursor = {
+    gtk.enable = true;
+    # x11.enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Ice";
+    size = 16;
+  };
 
   gtk = {
     enable = true;
-    cursorTheme.package = pkgs.bibata-cursors;
-    cursorTheme.name = "Bibata-Modern-Ice";
 
     theme.package = pkgs.adw-gtk3;
     theme.name = "adw-gtk3-dark";

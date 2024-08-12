@@ -14,8 +14,9 @@ let
 in {pkgs, lib, config, ...}: {
   options.vfio.enable = lib.mkEnableOption "Configure machine for vfio";
 
-  config = let cfg = config.vfio;
-  in {
+  config = let 
+    cfg = config.vfio;
+  in lib.mkIf cfg.enable {
     boot = {
       initrd.kernelModules = [
         "vfio_pci"

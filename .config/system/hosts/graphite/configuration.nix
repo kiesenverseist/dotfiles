@@ -51,14 +51,15 @@ in
   # };
 
   # Enable the X11 windowing system.
+  services.displayManager.sddm = {
+    enable = true;
+  #   wayland.enable = true;
+    theme = "${import ../sddm-theme.nix {inherit pkgs;}}";
+  };
+  services.displayManager.defaultSession = "hyprland";
   services.xserver = {
     enable = true;
-    displayManager.sddm = {
-      enable = true;
-      theme = "${import ../sddm-theme.nix {inherit pkgs;}}";
-    };
-    desktopManager.plasma5.enable = true;
-    displayManager.defaultSession = "hyprland";
+  #   desktopManager.plasma5.enable = true;
     videoDrivers = ["amdgpu"];
   };
   
@@ -141,11 +142,11 @@ in
   };
 
   hardware = {
-    opengl = {
+    graphics = {
       package = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.mesa.drivers;
       package32 = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.pkgsi686Linux.mesa.drivers;
       enable = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
     };
 
     steam-hardware.enable = true;
@@ -265,7 +266,7 @@ in
   virtualisation = {
     libvirtd = {
       enable = true;
-      onBoot = "start";
+      onBoot = "ignore";
       onShutdown = "shutdown";
     };
     spiceUSBRedirection.enable = true;
