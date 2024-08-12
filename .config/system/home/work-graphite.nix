@@ -71,9 +71,9 @@ in {
     wl-clipboard
     playerctl
     xdg-user-dirs
-    gnome.gnome-calculator
-    gnome.nautilus
-    gnome.sushi
+    gnome-calculator
+    nautilus
+    sushi
     gnome-solanum
     xwvb # xwaylandvideobridge
     blueman
@@ -114,6 +114,8 @@ in {
     go
     devenv
     minikube
+    python39
+    python3
 
     nh
     nix-output-monitor
@@ -372,7 +374,7 @@ in {
 
   qt.enable = true;
 
-  qt.platformTheme = "gtk";
+  qt.platformTheme.name = "gtk";
   qt.style.name = "adwaita-dark";
   qt.style.package = pkgs.adwaita-qt;
 
