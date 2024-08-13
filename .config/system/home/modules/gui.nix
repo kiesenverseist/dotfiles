@@ -25,7 +25,6 @@ in
         "Gohu"
       ]; })
 
-      nixgl.${config.nixGLPrefix}
       (nixGl neovide)
       floorp
       obsidian

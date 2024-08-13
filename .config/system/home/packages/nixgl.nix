@@ -11,6 +11,9 @@ else
 # the outputs and derivation attributes.
   (pkg.overrideAttrs (old: {
     name = "nixGL-${pkg.name}";
+
+    nativeBuildInputs = old.nativeBuildInputs ++ [pkgs.nixgl.${config.nixGLPrefix}];
+
     buildCommand = ''
       set -eo pipefail
 
