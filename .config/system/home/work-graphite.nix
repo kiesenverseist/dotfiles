@@ -73,22 +73,20 @@ in {
     # teams
     # microsoft-edge
     todoist-electron
+    slack
+    slack-term
 
     # programming
     gf
     # clang 
     postgresql
     sqlite
-    texlab
-    tectonic
-    # (import (fetchTarball https://install.devenv.sh/latest)).default
-    nodejs
-    go
-    devenv
     minikube
     python39
     pulumi-bin
     # python3
+
+    postman
 
   ];
 
