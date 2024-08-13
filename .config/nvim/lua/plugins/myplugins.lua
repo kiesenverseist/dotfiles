@@ -297,7 +297,13 @@ local plugins = {
     "folke/flash.nvim",
     event = "VeryLazy",
     ---@type Flash.Config
-    opts = {},
+    opts = {
+      modes = {
+        char = {
+          enabled = false,
+        },
+      },
+    },
     -- stlua: ignore
     keys = {
       {
