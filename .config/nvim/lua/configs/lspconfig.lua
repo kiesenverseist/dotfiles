@@ -1,8 +1,16 @@
-local on_attach = require("nvchad.configs.lspconfig").on_attach
+local base_on_attach = require("nvchad.configs.lspconfig").on_attach
 local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
+
+local function on_attach(client, bufnr)
+  if client.server_capabilities.inlayHintProvider then
+    vim.lsp.inlay_hint.enable(true)
+  end
+
+  base_on_attach(client, bufnr)
+end
 
 -- if you just want default config for the servers then put them in a table
 local servers = {
@@ -19,7 +27,9 @@ local servers = {
   "rust_analyzer",
 
   -- "pylsp",
-  "pyright",
+  -- "pyright",
+  "basedpyright",
+  "ruff",
   -- "ruff_lsp",
 
   "gdscript",

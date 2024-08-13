@@ -152,19 +152,10 @@ end, { desc = "Test Debug nearest" })
 -- 	},
 -- }
 
--- -- lsp extra binds
--- M.lspconfig = {
--- 	plugin = true,
---
--- 	n = {
--- 		["<leader>lD"] = {
--- 			function()
--- 				vim.lsp.buf.type_definition()
--- 			end,
--- 			"LSP definition type",
--- 		},
--- 	},
--- }
+-- lsp extra binds
+map("n", "<leader>ci", function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, { desc = "Toggle inlay hints" })
 
 -- notify
 map("n", "<leader>D", function()
