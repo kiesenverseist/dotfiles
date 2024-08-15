@@ -8,6 +8,8 @@ require "nvchad.mappings"
 -- disable some of nvchad's mappings
 nomap("n", "<C-c>")
 nomap("n", "<C-s>")
+-- nomap({ "i", "t" }, "jj")
+-- nomap({ "i", "t" }, "jk")
 
 --
 -- M.general = {
@@ -37,8 +39,8 @@ map("n", "]L", "<cmd> lfirst <CR>", { desc = "First locationlist" })
 map("n", "[L", "<cmd> llast <CR>", { desc = "Last locationlist" })
 
 -- resize
-map("n", "<C->>", "<C-w>10>")
-map("n", "<C-<>", "<C-w>10<")
+map("n", "<C-.>", "<C-w>10>")
+map("n", "<C-,>", "<C-w>10<")
 -- map("n", "<C-t>", "<C-w>+")
 -- map("n", "<C-s>", "<C-w>-")
 
