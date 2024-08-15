@@ -111,12 +111,17 @@ in {
       "source" = "~/.config/hypr/main.conf";
     };
     systemd.variables = ["--all"];
-    # plugins = [
-    #   inputs.hyprland-plugins.packages.${pkgs.system}.hyprwinwrap
-    #   inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
-    # ];
+    plugins = [
+      # inputs.hypr-darkwindow.packages.${pkgs.system}.Hypr-DarkWindow
+      # inputs.hyprland-plugins.packages.${pkgs.system}.hyprwinwrap
+      inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
+      inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+    ];
   };
 
+
+  programs.hyprlock.enable = true;
+  services.hypridle.enable = true;
 
   xdg.systemDirs.data = [
     "var/lib/flatpak/exports/share"

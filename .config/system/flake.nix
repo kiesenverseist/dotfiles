@@ -5,6 +5,11 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs-stable.url = github:nixos/nixpkgs;
 
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # hyprland.url = github:hyprwm/Hyprland?submodules=1;
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     xdph.url = "github:hyprwm/xdg-desktop-portal-hyprland";
@@ -13,10 +18,14 @@
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
-    hypridle.url = "github:hyprwm/hypridle";
-    hyprlock = {
-      url = "github:hyprwm/hyprlock";
-      inputs.nixpkgs.follows = "nixpkgs";
+    # hypridle.url = "github:hyprwm/hypridle";
+    # hyprlock = {
+    #   url = "github:hyprwm/hyprlock";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    hypr-darkwindow = {
+      url = "github:micha4w/Hypr-DarkWindow/tags/v0.36.0";
+      inputs.hyprland.follows = "hyprland";
     };
 
     home-manager = {
@@ -88,6 +97,7 @@
         modules = [
           ./hosts/graphite
           inputs.foundryvtt.nixosModules.foundryvtt
+          inputs.lix-module.nixosModules.default
         ];
       };
       "live" = inputs.nixpkgs.lib.nixosSystem {

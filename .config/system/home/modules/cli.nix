@@ -7,7 +7,6 @@
 
   options = {
     cli.enable = lib.mkEnableOption "enables basic cli config";
-
   };
 
   config = lib.mkIf config.cli.enable {
@@ -23,7 +22,7 @@
     };
 
     nix = {
-      package = pkgs.nix;
+      package = pkgs.lix;
       settings.experimental-features = [ "nix-command" "flakes" ];
       # extraOptions = ''
       #   !include ${config.sops.secrets.nix_access_tokens.path}
@@ -61,6 +60,10 @@
       PATH = "$HOME/.nix-profile/bin:$PATH";
       FLAKE = "$HOME/.config/system";
     };
+
+    home.file.".config/nixpkgs/config.nix".text = ''
+      { allowUnfree = true; }
+    '';
 
     xdg.userDirs.enable = true;
 
