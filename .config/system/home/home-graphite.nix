@@ -151,11 +151,16 @@ in {
       "source" = "~/.config/hypr/main.conf";
     };
     systemd.variables = ["--all"];
-    # plugins = [
+    plugins = [
     #   inputs.hyprland-plugins.packages.${pkgs.system}.hyprwinwrap
     #   inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
-    # ];
+      inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
+      inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+    ];
   };
+
+  programs.hyprlock.enable = true;
+  services.hypridle.enable = true;
 
 
   # You can also manage environment variables but you will have to manually

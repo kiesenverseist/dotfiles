@@ -200,9 +200,6 @@
     polkit-kde-agent
     virtiofsd
 
-    inputs.hypridle.packages.${pkgs.system}.hypridle
-    inputs.hyprlock.packages.${pkgs.system}.hyprlock
-
     # hypr-plugins.hyprbars
   ];
 
@@ -258,11 +255,11 @@
   # systemd.user.tmpfiles.rules = ["f /dev/shm/looking-glass 0666 root qemu-libvirtd -"];
 
   systemd.tmpfiles.settings = {
-    "10-looking-glass" = {
+    "looking-glass-mem" = {
       "/dev/shm/"."looking-glass" = {
         group = "qemu-libvirtd";
         user = "root";
-        mode = "0665";
+        mode = "0765";
       };
     }; 
   };
