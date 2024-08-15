@@ -3,13 +3,11 @@
 # and in the NixOS manual (accessible by running `nixos-help`).
 
 { config, inputs, lib, pkgs, system, ... }:
-let
-  factorio-custom = pkgs.callPackage ./factorio-custom {releaseType="headless";};
-in 
 {
   imports =
   [ 
     ./hardware-configuration.nix
+    ./game-servers.nix
     ../cachix.nix
     ./logiops.nix
   ];
@@ -227,29 +225,8 @@ in
   #   enableSSHSupport = true;
   # };
 
-
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-
-  services.factorio = {
-    enable = true;
-    lan = true;
-    requireUserVerification = false;
-    nonBlockingSaving = true;
-    saveName = "save1";
-    admins = [ "kiesenverseist" ];
-    package = factorio-custom;
-  };
-
-  services.foundryvtt = {
-    enable = true;
-    # hostName = "graphite";
-    minifyStaticFiles = true;
-    package = inputs.foundryvtt.packages.${pkgs.system}.foundryvtt_12; # Sets the version to the latest FoundryVTT v12.
-    proxyPort = 443;
-    proxySSL = true;
-    upnp = false;
-  };
 
   services.harmonia = {
     enable = true;
@@ -278,7 +255,17 @@ in
     # };
   };
 
-  systemd.user.tmpfiles.rules = ["f /dev/shm/looking-glass 0666 root qemu-libvirtd -"];
+  # systemd.user.tmpfiles.rules = ["f /dev/shm/looking-glass 0666 root qemu-libvirtd -"];
+
+  systemd.tmpfiles.settings = {
+    "10-looking-glass" = {
+      "/dev/shm/"."looking-glass" = {
+        group = "qemu-libvirtd";
+        user = "root";
+        mode = "0665";
+      };
+    }; 
+  };
 
   services.udev.extraRules = ''
   KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
