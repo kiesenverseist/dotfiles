@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs-master.url = "github:nixos/nixpkgs/master";
     # nixpkgs-stable.url = github:nixos/nixpkgs;
 
     lix-module = {
@@ -79,6 +80,13 @@
 
       overlays = [inputs.nixgl.overlay];
     };
+
+    # pkgs-master = import inputs.nixpkgs-master {
+    #   inherit system;
+    #   config = {
+    #       allowUnfree = true;
+    #   };
+    # };
 
     nix-alien-pkg = inputs.nix-alien.packages.${system};
 

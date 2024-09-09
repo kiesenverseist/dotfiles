@@ -6,7 +6,6 @@ let
   gaming = inputs.nix-gaming.packages.${pkgs.system};
   xwvb = pkgs.libsForQt5.callPackage ./packages/xwaylandvideobridge.nix {};
   eww-custom = pkgs.callPackage ./packages/eww-custom {};
-  # godot-wayland = import ./packages/godot-wayland.nix {inherit pkgs;};
 in {
   imports = [
     inputs.anyrun.homeManagerModules.anyrun
@@ -74,6 +73,7 @@ in {
     obs-studio
     waypipe
 
+
     # lmms
     # ardour
     # lmms-nightly
@@ -117,10 +117,9 @@ in {
 #nvapi latencyflex
 
     # game dev
-    godot_4
-    # godot-wayland.godot-wayland
     pixelorama
     # unityhub
+    godot_4
     
     # making
     prusa-slicer
@@ -159,7 +158,7 @@ in {
     ];
   };
 
-  programs.hyprlock.enable = true;
+  # programs.hyprlock.enable = true;
   services.hypridle.enable = true;
 
 

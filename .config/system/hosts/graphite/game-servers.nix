@@ -18,7 +18,7 @@ in
   };
 
   services.foundryvtt = {
-    enable = true;
+    enable = false;
     # hostName = "graphite";
     minifyStaticFiles = true;
     package = inputs.foundryvtt.packages.${pkgs.system}.foundryvtt_12; # Sets the version to the latest FoundryVTT v12.

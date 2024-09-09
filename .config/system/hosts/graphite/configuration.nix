@@ -60,6 +60,8 @@
   #   desktopManager.plasma5.enable = true;
     videoDrivers = ["amdgpu"];
   };
+
+  services.fwupd.enable = true;
   
   # Configure keymap in X11
   # services.xserver.layout = "us";
@@ -167,12 +169,16 @@
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
 
+  nix.settings.trusted-users = ["root" "@wheel"];
+
   fonts.packages = with pkgs; [
     (nerdfonts.override {fonts = [ "FiraCode" ]; })
   ];
 
   nixpkgs.config.packageOverrides = pkgs: {
-    steam = pkgs.steam.override { extraPkgs = pkgs: with pkgs; [ libgdiplus keyutils libkrb5 libpng libpulseaudio libvorbis stdenv.cc.cc.lib xorg.libXcursor xorg.libXi xorg.libXinerama xorg.libXScrnSaver ]; }; # https://github.com/ValveSoftware/gamescope/issues/905
+    steam = pkgs.steam.override { extraPkgs = pkgs: with pkgs; [
+      libgdiplus keyutils libkrb5 libpng libpulseaudio libvorbis stdenv.cc.cc.lib xorg.libXcursor xorg.libXi xorg.libXinerama xorg.libXScrnSaver 
+    ]; }; # https://github.com/ValveSoftware/gamescope/issues/905
   };
 
 
@@ -226,8 +232,9 @@
   services.openssh.enable = true;
 
   services.harmonia = {
+    package = pkgs.harmonia;
     enable = true;
-    signKeyPath = "/var/lib/secrets/harmonia.secret";
+    signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
   };
 
   # Open ports in the firewall.
@@ -290,6 +297,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
 
