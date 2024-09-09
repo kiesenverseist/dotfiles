@@ -60,6 +60,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
   };
 
   outputs = {self, ...}@inputs:
@@ -148,14 +154,20 @@
       };
       "ibrahim.fuad@au-lap-0618.saberastronautics.net" = config {
         inherit pkgs;
-        modules = [ ./home/work-laptop.nix ];
+        modules = [
+          ./home/work-laptop.nix 
+          inputs.stylix.homeManagerModules.stylix
+        ];
         extraSpecialArgs = {
           inherit inputs;
         };
       };
       "ibrahim.fuad@graphite" = config {
         inherit pkgs;
-        modules = [ ./home/work-graphite.nix ];
+        modules = [ 
+          ./home/work-graphite.nix
+          inputs.stylix.homeManagerModules.stylix
+        ];
 
         extraSpecialArgs = {
           inherit inputs;

@@ -1,6 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   imports = [
+    inputs.hyprland.homeManagerModules.default
+    inputs.walker.homeManagerModules.default
     ./modules
   ];
 
@@ -39,7 +41,7 @@
     nixgl.nixGLIntel
   ];
 
-  programs.bash.enable = false;
+  # programs.bash.enable = true;
 
   programs.vscode = {
     enable =  true;
@@ -52,6 +54,29 @@
 
   programs.rofi = {
     enable = true;
+  };
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+    settings = {
+      "source" = "~/.config/hypr/main.conf";
+      "monitor" = [
+        "eDP1, preferred, 0x1440, 1"
+        "HDMI-A-1, preferred, 0x0, 1.333333"
+      ];
+    };
+    systemd.variables = ["--all"];
+    plugins = [
+      # inputs.hypr-darkwindow.packages.${pkgs.system}.Hypr-DarkWindow
+      # inputs.hyprland-plugins.packages.${pkgs.system}.hyprwinwrap
+      inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
+      inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+    ];
+  };
+
+  programs.walker = {
+    enable = true;
+    runAsService = true;
   };
 
   targets.genericLinux.enable = true;
