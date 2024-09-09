@@ -38,8 +38,6 @@ local servers = {
 
   "gopls",
   "templ",
-
-  "ocamllsp",
 }
 
 for _, lsp in ipairs(servers) do
@@ -130,6 +128,17 @@ require("lspconfig").yamlls.setup {
         ["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] = "*flow*.{yml,yaml}",
       },
     },
+  },
+}
+
+require("lspconfig").ocamllsp.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  on_init = on_init,
+
+  settings = {
+    codeLens = { enable = true },
+    inlayHints = { enable = true },
   },
 }
 
