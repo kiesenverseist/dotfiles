@@ -1,7 +1,6 @@
 { inputs, pkgs, lib, config, ... }:
 {
   imports = [
-    ../../hosts/cachix.nix
     inputs.sops-nix.homeManagerModules.sops
   ];
 

@@ -8,6 +8,7 @@
     ./programming.nix
     ./hyprland
     ./theme.nix
+    ../../hosts/cachix.nix
   ];
 
   cli.enable = lib.mkDefault true;

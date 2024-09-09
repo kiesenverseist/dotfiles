@@ -9,6 +9,7 @@
   guiMinimal.enable = true;
   programming.enable = true;
   cli.enable = true;
+  private-cache.enable = false;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -78,6 +79,8 @@
     enable = true;
     runAsService = true;
   };
+
+  gtk.enable = true;
 
   targets.genericLinux.enable = true;
 
