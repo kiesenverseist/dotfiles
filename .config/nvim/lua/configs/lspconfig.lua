@@ -17,7 +17,7 @@ local servers = {
   -- webdev stuff
   "html",
   -- "cssls",
-  "tsserver",
+  "ts_ls",
   "tailwindcss",
   "svelte",
   "prismals",
@@ -30,7 +30,6 @@ local servers = {
   -- "pyright",
   "basedpyright",
   "ruff",
-  -- "ruff_lsp",
 
   "gdscript",
   "nixd",

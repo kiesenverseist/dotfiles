@@ -160,7 +160,7 @@ map("n", "<leader>ci", function()
 end, { desc = "Toggle inlay hints" })
 
 -- notify
-map("n", "<leader>D", function()
+map("n", "<leader>X", function()
   require("notify").dismiss { pending = false, silent = false }
 end, { desc = "Dismiss notifications" })
 
@@ -192,6 +192,9 @@ map("t", "<M-ESC>", function()
   vim.api.nvim_win_close(win, true)
 end, { desc = "Terminal Close term in terminal mode" })
 map("t", "<ESC><ESC>", "<C-\\><C-n>", { desc = "Terminal escape mode" })
+map("t", "<ESC>", "<ESC>", { desc = "Terminal send escape" })
+map("t", "<C-[><C-[>", "<C-\\><C-n>", { desc = "Terminal escape mode" })
+map("t", "<C-[>", "<ESC>", { desc = "Terminal send escape" })
 
 map("n", "<M-t>", function()
   vim.fn.termopen(vim.o.shell)
