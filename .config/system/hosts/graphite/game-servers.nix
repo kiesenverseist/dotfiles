@@ -5,6 +5,7 @@ let
 in 
 {
   imports = [ 
+    ../modules/satisfactory.nix
   ];
 
   services.factorio = {
@@ -25,6 +26,10 @@ in
     proxyPort = 443;
     proxySSL = true;
     upnp = false;
+  };
+
+  services.satisfactory = {
+    enable = true;
   };
 
 }
