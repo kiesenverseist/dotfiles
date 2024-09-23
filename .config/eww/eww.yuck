@@ -1,7 +1,7 @@
 (include "stats.yuck")
 
 (defwindow bar1
-  :monitor 0 
+  :monitor 1 
   :stacking "fg"
   :exclusive true
   :focusable false
@@ -12,24 +12,32 @@
              :width "30px"
              :height "90%"
              :anchor "left center")
-  (vbar))
+  (vbar :monitor_id 1))
 
-;; (defwindow bar0
-;;   :monitor 0
-;;   :stacking "fg"
-;;   :exclusive true
-;;   :focusable false
-;;   :namespace "bar"
-;;   :geometry (geometry 
-;;              :x "0%"
-;;              :y "0%"
-;;              :width "100%"
-;;              :height "30px"
-;;              :anchor "top center")
-;;   (hbar))
+(defwindow bar0
+  :monitor 0
+  :stacking "fg"
+  :exclusive true
+  :focusable false
+  :namespace "bar"
+  ; :geometry (geometry 
+  ;            :x "0%"
+  ;            :y "0%"
+  ;            :width "100%"
+  ;            :height "30px"
+  ;            :anchor "top center")
+  ; (hbar :monitor_id 0)
+  :geometry (geometry 
+             :x "4px"
+             :y "0%"
+             :width "30px"
+             :height "90%"
+             :anchor "left center")
+  (vbar :monitor_id 0))
+  
 
 
-(defwidget vbar []
+(defwidget vbar [monitor_id]
   (box 
     :orientation "vertical"
     ;; :style "background: rgba(0.4,0.4,0.4,0.5)"
@@ -45,8 +53,8 @@
       :space-evenly false
       :vexpand true
       (button :onclick `pkill rofi || rofi -show drun -show-icons -sidebar-mode -hover-select & disown` "")
-      ;; (workspaces :dir "vertical" :monitor "DP-2"))
-      (workspaces :dir "vertical" :monitor "HDMI-A-1"))
+      (workspaces :dir "vertical" :monitor_id monitor_id))
+      ; (workspaces :dir "vertical" :monitor "HDMI-A-1"))
     
     (box 
       :orientation "horizontal"
@@ -75,7 +83,7 @@
       (clock :orientation "vertical")
       (power))))
 
-(defwidget hbar []
+(defwidget hbar [monitor_id]
   (box 
     :orientation "horizontal"
     :valign "fill"
@@ -84,7 +92,7 @@
       ;; :orientation dir
       :valign "center"
       :halign "start"
-      (workspaces :dir "horizontal" :monitor "HDMI-A-1"))
+      (workspaces :dir "horizontal" :monitor_id monitor_id))
     
     (box 
       :orientation "vertical"
@@ -117,7 +125,7 @@
   :inital ""
   "sh scripts/get-submap")
 
-(defwidget workspaces [dir monitor]
+(defwidget workspaces [dir monitor_id]
   (eventbox :onscroll ""
     (box 
       :orientation dir
@@ -127,7 +135,7 @@
       (for workspace in workspaces
         (button 
           :onclick "hyprctl dispatch workspace ${workspace.id}"
-          :visible {workspace.id > 0 && workspace.monitor =~ monitor}
+          :visible {workspace.id > 0 && workspace.monitorID == monitor_id}
           :style {workspace.id == current_workspace.id ? "color: #fbf1c7" : " "}
           "${workspace.id}")))))
       
