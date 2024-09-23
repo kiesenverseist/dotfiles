@@ -70,9 +70,9 @@
   in {
     nixosConfigurations = let 
       specialArgs = {inherit inputs system;};
-      conf = attrs: inputs.nixpkgs.lib.nixosSystem {
+      conf = attrs: inputs.nixpkgs.lib.nixosSystem ({
         inherit specialArgs;
-      } // attrs;
+      } // attrs);
     in {
       "halite" = conf {
         modules = [ ./hosts/halite ];
@@ -95,9 +95,9 @@
 
     homeConfigurations = let
       extraSpecialArgs = { inherit inputs; };
-      conf = attrs: inputs.home-manager.lib.homeManagerConfiguration {
+      conf = attrs: inputs.home-manager.lib.homeManagerConfiguration ({
           inherit pkgs extraSpecialArgs; 
-        } // attrs;
+      } // attrs);
       commonModules = [ inputs.stylix.homeManagerModules.stylix ];
     in {
       "kiesen@halite" = conf {
