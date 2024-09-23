@@ -41,13 +41,13 @@ in
       enable = true;
       package = (nixGL pkgs.kitty);
       # theme = "Gruvbox Material Dark Hard";
-      theme = "Flexoki (Dark)";
-      font = {
-        name = "FiraCode Nerd Font";
-        size = 16;
-      };
+      # theme = "Flexoki (Dark)";
+      # font = {
+      #   name = "FiraCode Nerd Font";
+      #   size = 16;
+      # };
       settings = {
-        background_opacity = "0.95";
+        # background_opacity = "0.95";
         shell = "fish";
       };
       shellIntegration.enableFishIntegration = true;
@@ -57,12 +57,12 @@ in
       # enable = true;
       cycle = true;
       # font = "FiraCode Nerd Font 16";
-      font = "GohuFont uni11 Nerd Font Propo 22";
+      font = lib.mkForce "GohuFont uni11 Nerd Font Propo 22";
       terminal = "${pkgs.kitty}/bin/kitty";
       theme =  let 
         inherit (config.lib.formats.rasi) mkLiteral;
       in {
-        "@theme" = "gruvbox-dark-hard";
+        # "@theme" = "gruvbox-dark-hard";
         element-icon = {
           size = mkLiteral "2.5ch";
         };

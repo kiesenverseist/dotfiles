@@ -1,4 +1,4 @@
-{ config, pkgs, nix-alien, inputs, ... }:
+{ config, pkgs, inputs, ... }:
 let
   gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
   gdlauncher = import ./packages/gdlauncher.nix {inherit pkgs;};
@@ -10,7 +10,7 @@ in {
   imports = [
     inputs.anyrun.homeManagerModules.anyrun
     inputs.walker.homeManagerModules.default
-    inputs.hyprland.homeManagerModules.default
+    # inputs.hyprland.homeManagerModules.default
     ./modules
   ];
 
@@ -43,7 +43,7 @@ in {
     # '')
 
     # cli stuff
-    nvtopPackages.amd
+    nvtopPackages.full
     lf 
     ctpv
 
@@ -72,6 +72,9 @@ in {
     vlc 
     obs-studio
     waypipe
+    nwg-displays
+    nwg-dock-hyprland
+    walker
 
 
     # lmms
@@ -126,7 +129,7 @@ in {
     kicad
 
 
-    nix-alien
+    inputs.nix-alien.packages.${system}.nix-alien
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -147,31 +150,20 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
-      "source" = "~/.config/hypr/main.conf";
+      "source" = [
+        "~/.config/hypr/main.conf"
+        "~/.config/hypr/monitors.conf"
+      ];
     };
     systemd.variables = ["--all"];
     plugins = [
-    #   inputs.hyprland-plugins.packages.${pkgs.system}.hyprwinwrap
-    #   inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
-      inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
-      inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+      pkgs.hyprlandPlugins.hyprspace
+      pkgs.hyprlandPlugins.hyprbars
     ];
   };
 
   # programs.hyprlock.enable = true;
   services.hypridle.enable = true;
-
-
-  # You can also manage environment variables but you will have to manually
-  # source
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/kiesen/etc/profile.d/hm-session-vars.sh
-  #
-  # if you don't want to manage your shell through Home Manager.
 
   xdg.mimeApps.defaultApplications = {
 
@@ -188,7 +180,6 @@ in {
   };
 
   ## CLI Tools
-
 
   programs.git = {
     userName = "Ibrahim Fuad";
@@ -221,6 +212,7 @@ in {
   programs.walker = {
     enable = true;
     runAsService = true;
+    package = pkgs.walker;
 
     # All options from the config.json can be used here.
     # config = {
@@ -240,6 +232,8 @@ in {
     #   }
     # '';
   };
+
+  programs.rofi.enable = true;
 
   programs.qutebrowser = {
     enable = true;
@@ -306,24 +300,24 @@ in {
 
   qt = {
     enable = true;
-    platformTheme.name = "gtk";
-    style.name = "adwaita-dark";
-    style.package = pkgs.adwaita-qt;
+    # platformTheme.name = "gtk";
+    # style.name = "adwaita-dark";
+    # style.package = pkgs.adwaita-qt;
   };
 
   home.pointerCursor = {
-    gtk.enable = true;
+    # gtk.enable = true;
     # x11.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Ice";
-    size = 16;
+    # package = pkgs.bibata-cursors;
+    # name = "Bibata-Modern-Ice";
+    # size = 16;
   };
 
   gtk = {
     enable = true;
 
-    theme.package = pkgs.adw-gtk3;
-    theme.name = "adw-gtk3-dark";
+    # theme.package = pkgs.adw-gtk3;
+    # theme.name = "adw-gtk3-dark";
 
     iconTheme.package = gruvboxplus;
     iconTheme.name = "GruvboxPlus";
