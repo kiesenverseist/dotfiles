@@ -11,24 +11,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # hyprland.url = github:hyprwm/Hyprland?submodules=1;
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    xdph.url = "github:hyprwm/xdg-desktop-portal-hyprland";
-
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
-    # hypridle.url = "github:hyprwm/hypridle";
-    # hyprlock = {
-    #   url = "github:hyprwm/hyprlock";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-    hypr-darkwindow = {
-      url = "github:micha4w/Hypr-DarkWindow/tags/v0.36.0";
-      inputs.hyprland.follows = "hyprland";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -68,22 +50,13 @@
 
   };
 
-  outputs = {self, ...}@inputs:
+  outputs = {...}@inputs:
   let 
     system = "x86_64-linux";
 
     pkgs = import inputs.nixpkgs {
       inherit system;
-
-      config = {
-          allowUnfree = true;
-      };
-
-      # TODO: remove
-      config.permittedInsecurePackages = [
-        "electron-24.8.6"
-      ];
-
+      config = { allowUnfree = true; };
       overlays = [inputs.nixgl.overlay];
     };
 
@@ -94,28 +67,24 @@
     #   };
     # };
 
-    nix-alien-pkg = inputs.nix-alien.packages.${system};
-
   in {
-    nixosConfigurations = {
-      "halite" = inputs.nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs system;};
-
-        modules = [
-          ./hosts/halite
-        ];
+    nixosConfigurations = let 
+      specialArgs = {inherit inputs system;};
+      conf = attrs: inputs.nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+      } // attrs;
+    in {
+      "halite" = conf {
+        modules = [ ./hosts/halite ];
       };
-      "graphite" = inputs.nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs system;};
-
+      "graphite" = conf {
         modules = [
           ./hosts/graphite
           inputs.foundryvtt.nixosModules.foundryvtt
           inputs.lix-module.nixosModules.default
         ];
       };
-      "live" = inputs.nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs system;};
+      "live" = conf {
         inherit system;
         modules = [
           (inputs.nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
@@ -125,56 +94,30 @@
     };
 
     homeConfigurations = let
-      config = inputs.home-manager.lib.homeManagerConfiguration;
+      extraSpecialArgs = { inherit inputs; };
+      conf = attrs: inputs.home-manager.lib.homeManagerConfiguration {
+          inherit pkgs extraSpecialArgs; 
+        } // attrs;
+      commonModules = [ inputs.stylix.homeManagerModules.stylix ];
     in {
-      "kiesen@halite" = config {
-        inherit pkgs;
-        modules = [ ./home/home-halite.nix ];
+      "kiesen@halite" = conf {
+        modules = [ ./home/home-halite.nix ] ++ commonModules;
 
-        extraSpecialArgs = {
+        extraSpecialArgs = extraSpecialArgs // { 
           nix-gaming = inputs.nix-gaming;
-          nix-alien = nix-alien-pkg.nix-alien;
         };
       };
-      "kiesen@graphite" = config {
-        inherit pkgs;
-        modules = [ ./home/home-graphite.nix ];
-
-        extraSpecialArgs = {
-          inherit inputs;
-          nix-alien = nix-alien-pkg.nix-alien;
-        };
+      "kiesen@graphite" = conf {
+        modules = [ ./home/home-graphite.nix ] ++ commonModules;
       };
-      "kiesen@kiesen-eos-laptop" = config {
-        inherit pkgs;
-        modules = [ 
-          ./home/home-laptop.nix 
-          inputs.stylix.homeManagerModules.stylix
-        ];
-        extraSpecialArgs = {
-          inherit inputs;
-        };
+      "kiesen@kiesen-eos-laptop" = conf {
+        modules = [ ./home/home-laptop.nix ] ++ commonModules;
       };
-      "ibrahim.fuad@au-lap-0618.saberastronautics.net" = config {
-        inherit pkgs;
-        modules = [
-          ./home/work-laptop.nix 
-          inputs.stylix.homeManagerModules.stylix
-        ];
-        extraSpecialArgs = {
-          inherit inputs;
-        };
+      "ibrahim.fuad@au-lap-0618.saberastronautics.net" = conf {
+        modules = [ ./home/work-laptop.nix ] ++ commonModules;
       };
-      "ibrahim.fuad@graphite" = config {
-        inherit pkgs;
-        modules = [ 
-          ./home/work-graphite.nix
-          inputs.stylix.homeManagerModules.stylix
-        ];
-
-        extraSpecialArgs = {
-          inherit inputs;
-        };
+      "ibrahim.fuad@graphite" = conf {
+        modules = [ ./home/work-graphite.nix ] ++ commonModules;
       };
     };
 
