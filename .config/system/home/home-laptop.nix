@@ -57,6 +57,7 @@ in {
     # teams
     # microsoft-edge
 
+    nixgl.nixGLIntel
 
   ];
 
@@ -155,9 +156,9 @@ in {
 
   qt = {
     enable = true;
-    platformTheme.name = "gtk3";
-    style.name = "adwaita-dark";
-    style.package = pkgs.adwaita-qt;
+    # platformTheme.name = "gtk3";
+    # style.name = "adwaita-dark";
+    # style.package = pkgs.adwaita-qt;
   };
 
   gtk = {
@@ -166,8 +167,8 @@ in {
     cursorTheme.package = pkgs.bibata-cursors;
     cursorTheme.name = "Bibata-Modern-Ice";
 
-    theme.package = pkgs.adw-gtk3;
-    theme.name = "adw-gtk3";
+    # theme.package = pkgs.adw-gtk3;
+    # theme.name = "adw-gtk3";
 
     iconTheme.package = gruvboxplus;
     iconTheme.name = "GruvboxPlus";

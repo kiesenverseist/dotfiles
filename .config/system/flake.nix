@@ -147,7 +147,10 @@
       };
       "kiesen@kiesen-eos-laptop" = config {
         inherit pkgs;
-        modules = [ ./home/home-laptop.nix ];
+        modules = [ 
+          ./home/home-laptop.nix 
+          inputs.stylix.homeManagerModules.stylix
+        ];
         extraSpecialArgs = {
           inherit inputs;
         };

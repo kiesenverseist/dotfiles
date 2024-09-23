@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 let
-  nixGl = import ../packages/nixgl.nix {inherit pkgs config;};
+  nixGL = import ../packages/nixgl.nix {inherit pkgs config;};
 in 
 {
   options = {
@@ -25,11 +25,11 @@ in
         "Gohu"
       ]; })
 
-      (nixGl neovide)
+      (nixGL neovide)
       floorp
       obsidian
       todoist-electron
-    ];
+    ] ++ lib.optional (config.nixGLPrefix != "") pkgs.nixgl.${config.nixGLPrefix};
 
     fonts.fontconfig.enable = true;
 
@@ -39,7 +39,7 @@ in
 
     programs.kitty = {
       enable = true;
-      package = (nixGl pkgs.kitty);
+      package = (nixGL pkgs.kitty);
       # theme = "Gruvbox Material Dark Hard";
       theme = "Flexoki (Dark)";
       font = {
