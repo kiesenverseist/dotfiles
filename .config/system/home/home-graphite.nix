@@ -10,7 +10,6 @@ in {
   imports = [
     inputs.anyrun.homeManagerModules.anyrun
     inputs.walker.homeManagerModules.default
-    # inputs.hyprland.homeManagerModules.default
     ./modules
   ];
 

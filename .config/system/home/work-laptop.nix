@@ -1,7 +1,6 @@
 { pkgs, inputs, ... }:
 {
   imports = [
-    inputs.hyprland.homeManagerModules.default
     inputs.walker.homeManagerModules.default
     ./modules
   ];
@@ -25,21 +24,24 @@
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-  home.packages = with pkgs; [
+  home.packages = [
     ## cli stuff
-    nvtopPackages.amd
+    pkgs.nvtopPackages.amd
     
     ## desktop
-    xclip
+    pkgs.xclip
+
+    ## hyprland desktop
+    pkgs.wl-clipboard
+    pkgs.eww
+    pkgs.nwg-displays
 
     ## programming
-    _1password
-    minikube
+    pkgs._1password
+    pkgs.minikube
 
     ## nix stuff
-    nixgl.nixGLIntel
+    pkgs.nixgl.nixGLIntel
   ];
 
   # programs.bash.enable = true;
@@ -60,23 +62,20 @@
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
-      "source" = "~/.config/hypr/main.conf";
-      "monitor" = [
-        "eDP1, preferred, 0x1440, 1"
-        "HDMI-A-1, preferred, 0x0, 1.333333"
+      "source" = [
+        "~/.config/hypr/main.conf"
+        "~/.config/hypr/monitors.conf"
       ];
     };
     systemd.variables = ["--all"];
     plugins = [
-      # inputs.hypr-darkwindow.packages.${pkgs.system}.Hypr-DarkWindow
-      # inputs.hyprland-plugins.packages.${pkgs.system}.hyprwinwrap
-      inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
-      inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+      pkgs.hyprlandPlugins.hyprspace
+      pkgs.hyprlandPlugins.hyprbars
     ];
   };
 
   programs.walker = {
-    enable = false;
+    enable = true;
     runAsService = true;
   };
 
