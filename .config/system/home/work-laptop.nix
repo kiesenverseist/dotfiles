@@ -76,7 +76,7 @@
   };
 
   programs.walker = {
-    enable = true;
+    enable = false;
     runAsService = true;
   };
 

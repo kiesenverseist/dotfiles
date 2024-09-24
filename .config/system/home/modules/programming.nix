@@ -24,7 +24,7 @@
       texlab
 
       ## nix stuff
-      nix
+      # nix
       nixd
       nh
       nix-output-monitor

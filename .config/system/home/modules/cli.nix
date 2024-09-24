@@ -46,7 +46,8 @@
       lazygit
 
       ## nix stuff
-      nix
+      # nix
+      lix
       nixd
       nh
       nix-output-monitor
@@ -119,6 +120,7 @@
     };
 
     programs.ripgrep = { enable = true; };
+    programs.fd = { enable = true; };
 
     programs.eza = {
       enable = true;
