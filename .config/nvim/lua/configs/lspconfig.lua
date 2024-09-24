@@ -29,7 +29,6 @@ local servers = {
   -- "pylsp",
   -- "pyright",
   "basedpyright",
-  "ruff",
 
   "gdscript",
   "nixd",
@@ -53,7 +52,7 @@ lspconfig.cssls.setup {
   on_init = on_init,
   capabilities = capabilities,
 }
---
+
 lspconfig.texlab.setup {
   settings = {
     textlab = {
@@ -79,7 +78,7 @@ lspconfig.texlab.setup {
 dofile(vim.g.base46_cache .. "lsp")
 require "nvchad.lsp"
 
-require("lspconfig").lua_ls.setup {
+lspconfig.lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   on_init = on_init,
@@ -104,7 +103,7 @@ require("lspconfig").lua_ls.setup {
   },
 }
 
-require("lspconfig").yamlls.setup {
+lspconfig.yamlls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   on_init = on_init,
@@ -130,7 +129,7 @@ require("lspconfig").yamlls.setup {
   },
 }
 
-require("lspconfig").ocamllsp.setup {
+lspconfig.ocamllsp.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   on_init = on_init,
@@ -141,4 +140,29 @@ require("lspconfig").ocamllsp.setup {
   },
 }
 
+lspconfig.ruff.setup {
+  on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+    client.server_capabilities.hoverProvider = false
+  end,
+  on_init = on_init,
+  capabilities = capabilities,
+}
+
 require("neodev").setup {}
+
+-- to get rid of the no information popups when multiple lsps are used
+-- https://github.com/neovim/neovim/issues/20457#issuecomment-1266782345
+-- vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
+--   config = config or {}
+--   config.focus_id = ctx.method
+--   if not (result and result.contents) then
+--     return
+--   end
+--   local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
+--   markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
+--   if vim.tbl_isempty(markdown_lines) then
+--     return
+--   end
+--   return vim.lsp.util.open_floating_preview(markdown_lines, "markdown", config)
+-- end
