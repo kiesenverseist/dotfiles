@@ -4,13 +4,20 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ 
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "bcache" "amdgpu" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" "vfio-pci" ];
+  # boot.kernelModules = [ "kvm-amd" "vfio-pci" ];
+  boot.kernelModules = [ "kvm-amd" ];
+
+  boot.kernelParams = [
+    # "video=DP-2:3440x1440@75"
+    # "video=HDMI-A-2:3440x1440@75"
+    "amdgpu.aspm=0" "amdgpu.runpm=0" "amdgpu.bapm=0" "pcie_aspm=off"
+  ];
 
   # obs virtual cam stuff
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
@@ -18,21 +25,20 @@
     options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
   '';
 
-  fileSystems."/" =
-    {
-      # device = "/dev/nvme0n1p1";
-      device = "UUID=19fcd4c7-6ca3-49bd-af34-9108177261be";
-      fsType = "bcachefs";
-    };
+  fileSystems."/" = {
+    # device = "/dev/nvme0n1p1";
+    device = "UUID=19fcd4c7-6ca3-49bd-af34-9108177261be";
+    fsType = "bcachefs";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-label/boot";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/boot";
+    fsType = "vfat";
+  };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-label/swap"; }
-    ];
+  swapDevices = [
+    { device = "/dev/disk/by-label/swap"; }
+  ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

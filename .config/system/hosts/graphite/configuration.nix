@@ -57,8 +57,8 @@
   services.displayManager.defaultSession = "hyprland";
   services.xserver = {
     enable = true;
-  #   desktopManager.plasma5.enable = true;
-    videoDrivers = ["amdgpu"];
+    # desktopManager.plasma5.enable = true;
+    # videoDrivers = ["amdgpu"];
   };
 
   services.fwupd.enable = true;
@@ -143,8 +143,6 @@
 
   hardware = {
     graphics = {
-      # package = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.mesa.drivers;
-      # package32 = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.pkgsi686Linux.mesa.drivers;
       enable = true;
       enable32Bit = true;
     };

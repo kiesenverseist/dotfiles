@@ -6,6 +6,8 @@
     # nixpkgs-master.url = "github:nixos/nixpkgs/master";
     # nixpkgs-stable.url = github:nixos/nixpkgs;
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
     lix-module = {
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -82,6 +84,7 @@
           ./hosts/graphite
           inputs.foundryvtt.nixosModules.foundryvtt
           inputs.lix-module.nixosModules.default
+          inputs.nixos-hardware.nixosModules.common-gpu-amd
         ];
       };
       "live" = conf {
