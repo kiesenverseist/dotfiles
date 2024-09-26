@@ -46,7 +46,6 @@ map("n", "<C-,>", "<C-w>10<")
 
 -- more telescope stuff
 map("n", "<C-p>", "<cmd> Telescope find_files <CR>", { desc = "Telescope Find files" })
-map("n", "<leader>pp", "<cmd> Telescope project <CR>", { desc = "Telescope Pick project" })
 map("n", "<leader>cd", "<cmd> Telescope zoxide list <CR>", { desc = "Telescope Change dir" })
 map("n", "<leader>u", "<cmd> Telescope undo <CR>", { desc = "Telescope Undo tree" })
 
@@ -165,10 +164,10 @@ map("n", "<leader>X", function()
 end, { desc = "Dismiss notifications" })
 
 -- compile mode
-map("n", "<leader>cc", "<CMD>Compile<CR>", { desc = "Compile in compile mode" })
-map("n", "<leader>cr", "<CMD>Recompile<CR>", { desc = "Recompile with last command" })
-map("n", "<leader>cn", "<CMD>NextError<CR>", { desc = "Next compile error" })
-map("n", "<leader>cp", "<CMD>PrevError<CR>", { desc = "Previous compile error" })
+map("n", "<leader>Cc", "<CMD>Compile<CR>", { desc = "Compile in compile mode" })
+map("n", "<leader>Cr", "<CMD>Recompile<CR>", { desc = "Recompile with last command" })
+map("n", "<leader>Cn", "<CMD>NextError<CR>", { desc = "Next compile error" })
+map("n", "<leader>Cp", "<CMD>PrevError<CR>", { desc = "Previous compile error" })
 
 -- overwrite default mapping for go to context
 map("n", "<leader>gc", function()
@@ -184,10 +183,18 @@ map("n", "<leader>gc", function()
 end, { desc = "Jump to current context" })
 
 -- treesitter context
-map("n", "<leader>tc", "<CMD>TSContextToggle<CR>", { desc = "Toggle Treesitter context" })
+map("n", "<leader>Tc", "<CMD>TSContextToggle<CR>", { desc = "Toggle Treesitter context" })
+
+-- auto session
+map("n", "<leader>sf", "<cmd>SessionSearch<CR>", { desc = "Session search" })
+map("n", "<leader>ss", "<cmd>SessionSave<CR>", { desc = "Save session" })
+map("n", "<leader>sa", "<cmd>SessionToggleAutoSave<CR>", { desc = "Toggle autosave" })
+
+-- lazygit
+map("n", "<leader>gl", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
 
 -- terminal bindings
-map("t", "<M-ESC>", function()
+map({ "t" }, "<M-ESC>", function()
   local win = vim.api.nvim_get_current_win()
   vim.api.nvim_win_close(win, true)
 end, { desc = "Terminal Close term in terminal mode" })

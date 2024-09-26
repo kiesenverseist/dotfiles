@@ -11,3 +11,5 @@ o.title = true
 
 o.foldtext = ""
 -- o.fillchars = "fold: "
+
+o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

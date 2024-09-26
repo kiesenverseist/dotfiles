@@ -59,7 +59,6 @@ local plugins = {
     "nvim-telescope/telescope.nvim",
     opts = overrides.telescope,
     dependencies = {
-      { "nvim-telescope/telescope-project.nvim" },
       { "nvim-telescope/telescope-bibtex.nvim" },
       { "jvgrootveld/telescope-zoxide" },
       { "debugloop/telescope-undo.nvim" },
@@ -101,6 +100,28 @@ local plugins = {
   {
     "folke/which-key.nvim",
     keys = { "<leader>", "<localleader>", '"', "'", "`", "c", "v", "g", "y", "z" },
+    config = function(_, opts)
+      dofile(vim.g.base46_cache .. "whichkey")
+      require("which-key").setup(opts)
+      local present, wk = pcall(require, "which-key")
+      if not present then
+        return
+      end
+      wk.register {
+        -- add groups
+        { "<leader>C", group = "compile" },
+        { "<leader>c", group = "code" },
+        { "<leader>d", group = "debug" },
+        { "<leader>f", group = "find" },
+        { "<leader>g", group = "git" },
+        { "<leader>s", group = "session" },
+        { "<leader>t", group = "test" },
+        { "<leader>w", group = "lsp workspace" },
+      }
+    end,
+    setup = function()
+      require("core.utils").load_mappings "whichkey"
+    end,
   },
 
   {
