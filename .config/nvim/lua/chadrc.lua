@@ -6,7 +6,7 @@ local M = {}
 
 M.ui = {
   theme = "flexoki",
-  theme_toggle = { "flexoki", "tokyonight" },
+  theme_toggle = { "flexoki", "gruvbox" },
   -- transparency = true,
   hl_override = require("highlights").override,
   hl_add = require("highlights").add,
@@ -24,16 +24,16 @@ M.ui = {
       table.insert(modules, cursor_position())
     end,
   },
+}
 
-  term = {
-    float = {
-      relative = "editor",
-      row = 0.1,
-      col = 0.1,
-      width = 0.8,
-      height = 0.7,
-      border = "single",
-    },
+M.term = {
+  float = {
+    relative = "editor",
+    row = 0.1,
+    col = 0.1,
+    width = 0.8,
+    height = 0.7,
+    border = "single",
   },
 }
 

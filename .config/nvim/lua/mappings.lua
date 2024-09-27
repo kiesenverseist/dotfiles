@@ -6,24 +6,13 @@ map("n", "<C-i>", "<C-I>")
 require "nvchad.mappings"
 
 -- disable some of nvchad's mappings
-nomap("n", "<C-c>")
-nomap("n", "<C-s>")
--- nomap({ "i", "t" }, "jj")
--- nomap({ "i", "t" }, "jk")
-
---
--- M.general = {
--- 	n = {
--- 		[";"] = { ":", "enter command mode", opts = { nowait = true } },
--- 		["<leader>G"] = {
--- 			function()
--- 				require("nvterm.terminal").send("lazygit", "float")
--- 			end,
--- 			"open lazygit",
--- 		},
--- 	},
--- }
---
+nomap("n", "<C-c>") -- copy file
+nomap("n", "<C-s>") -- save
+nomap("t", "<C-x>") -- exit term
+nomap("n", "<leader>n") -- line num
+nomap("n", "<leader>rn") -- rel line num
+nomap("n", "<leader>fm") -- fmt
+nomap("n", "<leader>e") -- nvim tree
 
 -- quickfix list nav
 map("n", "<M-j>", "<cmd> cnext <CR>", { desc = "Next quickfix" })
@@ -37,6 +26,10 @@ map("n", "]l", "<cmd> lnext <CR>", { desc = "Next locationlist" })
 map("n", "[l", "<cmd> lprev <CR>", { desc = "Previous locationlist" })
 map("n", "]L", "<cmd> lfirst <CR>", { desc = "First locationlist" })
 map("n", "[L", "<cmd> llast <CR>", { desc = "Last locationlist" })
+
+-- toggles
+map("n", "<leader>Tn", "<cmd>set nu!<CR>", { desc = "Toggle line number" })
+map("n", "<leader>Tr", "<cmd>set rnu!<CR>", { desc = "Toggle relative number" }) --
 
 -- resize
 map("n", "<C-.>", "<C-w>10>")
@@ -154,9 +147,14 @@ end, { desc = "Test Debug nearest" })
 -- }
 
 -- lsp extra binds
-map("n", "<leader>ci", function()
+map("n", "<leader>Ti", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Toggle inlay hints" })
+
+-- format
+map("n", "<leader>cf", function()
+  require("conform").format { lsp_fallback = true }
+end, { desc = "General Format file" })
 
 -- notify
 map("n", "<leader>X", function()
@@ -193,6 +191,22 @@ map("n", "<leader>sa", "<cmd>SessionToggleAutoSave<CR>", { desc = "Toggle autosa
 -- lazygit
 map("n", "<leader>gl", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
 
+-- M.general = {
+-- 	n = {
+-- 		[";"] = { ":", "enter command mode", opts = { nowait = true } },
+-- 		["<leader>G"] = {
+-- 			function()
+-- 				require("nvterm.terminal").send("lazygit", "float")
+-- 			end,
+-- 			"open lazygit",
+-- 		},
+-- 	},
+-- }
+
+map({ "n", "t" }, "<M-g>", function()
+  require("nvchad.term").toggle { pos = "float", id = "lazyTerm", cmd = "lazygit", clear_cmd = false }
+end, { desc = "toggle lazygit term" })
+
 -- terminal bindings
 map({ "t" }, "<M-ESC>", function()
   local win = vim.api.nvim_get_current_win()
@@ -206,6 +220,7 @@ map("t", "<C-[>", "<ESC>", { desc = "Terminal send escape" })
 map("n", "<M-t>", function()
   vim.fn.termopen(vim.o.shell)
 end, { desc = "Terminal open normal" })
+-- map("n", "<M-t>", "<CMD> term <CR>", { desc = "Terminal open normal" })
 
 -- neovide
 if vim.g.neovide then

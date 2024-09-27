@@ -107,15 +107,16 @@ local plugins = {
       if not present then
         return
       end
-      wk.register {
+      wk.add {
         -- add groups
-        { "<leader>C", group = "compile" },
+        { "<leader>C", group = "Compile" },
         { "<leader>c", group = "code" },
         { "<leader>d", group = "debug" },
         { "<leader>f", group = "find" },
         { "<leader>g", group = "git" },
         { "<leader>s", group = "session" },
         { "<leader>t", group = "test" },
+        { "<leader>T", group = "Toggle" },
         { "<leader>w", group = "lsp workspace" },
       }
     end,
