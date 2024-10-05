@@ -11,10 +11,12 @@
       socat 
       jq
       lazygit
+      dirdiff
 
       ## programming
       cachix
       neovim
+      neovim-remote
       clang 
       pre-commit
       nodejs

@@ -1,5 +1,7 @@
 { pkgs, inputs, ... }:
-{
+let 
+  nixGL = import ../packages/nixgl.nix {inherit pkgs config;};
+in {
   imports = [
     inputs.walker.homeManagerModules.default
     ./modules
@@ -61,6 +63,7 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
+    package = nixGL pkgs.hyprland;
     settings = {
       "source" = [
         "~/.config/hypr/main.conf"
@@ -79,6 +82,12 @@
     runAsService = true;
   };
 
+  services.syncthing = {
+    enable = true;
+    tray.enable = true; 
+  };
+
+  qt.enable = true;
   gtk.enable = true;
 
   targets.genericLinux.enable = true;
