@@ -58,7 +58,7 @@
   services.xserver = {
     enable = true;
     # desktopManager.plasma5.enable = true;
-    # videoDrivers = ["amdgpu"];
+    videoDrivers = ["amdgpu"];
   };
 
   services.fwupd.enable = true;
@@ -139,12 +139,22 @@
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
     FLAKE = "/home/kiesen/.config/system";
+
+    # VAAPI and VDPAU config for accelerated video.
+    # See https://wiki.archlinux.org/index.php/Hardware_video_acceleration
+    VDPAU_DRIVER = "radeonsi";
+    LIBVA_DRIVER_NAME = "radeonsi";
   };
 
   hardware = {
     graphics = {
       enable = true;
       enable32Bit = true;
+      extraPackages = with pkgs;[
+        vaapiVdpau 
+        libvdpau-va-gl
+        libva-vdpau-driver
+      ];
     };
 
     steam-hardware.enable = true;
@@ -282,6 +292,60 @@
   programs.dconf.enable = true;
   programs.nix-ld.enable = true;
   programs.nbd.enable = true;
+
+  services.restic.backups = let
+    paths = [
+      "/etc/group"
+      "/etc/machine-id"
+      "/etc/NetworkManager/system-connections"
+      "/etc/passwd"
+      "/etc/subgid"
+      "/etc/ssh"
+      "/home"
+      "/root"
+      "/var/lib"
+    ];
+    exclude = [
+      "/home/*/.cache"
+      "/home/*/.steam"
+      "/home/*/.local/share/Steam"
+    ];
+    passwordFile = "/var/lib/secrets/restic-password";
+  in{
+    local = {
+      inherit paths exclude passwordFile;
+      initialize = true;
+      repository = "/var/backup/restic";
+      timerConfig = {
+        OnCalendar = "00:05";
+        Persistent = true;
+        RandomizedDelaySec = "5h";
+      };
+      pruneOpts = [
+        "--keep-daily 7"
+        "--keep-weekly 5"
+        "--keep-monthly 12"
+        "--keep-yearly 75"
+      ];
+    };
+    backblaze = {
+      inherit paths exclude passwordFile;
+      initialize = true;
+      repository = "s3:s3.us-east-005.backblazeb2.com/kiesen";
+      environmentFile = "/var/lib/secrets/backblaze.env";
+      timerConfig = {
+        OnCalendar = "01:05";
+        Persistent = true;
+        RandomizedDelaySec = "5h";
+      };
+      pruneOpts = [
+        "--keep-daily 3"
+        "--keep-weekly 3"
+        "--keep-monthly 12"
+        "--keep-yearly 75"
+      ];
+    };
+  };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

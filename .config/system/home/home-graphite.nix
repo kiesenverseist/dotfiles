@@ -115,7 +115,7 @@ in {
     runelite
     modrinth-app
 
-    libva vaapiVdpau libvdpau-va-gl
+    libva vaapiVdpau libvdpau-va-gl libva-utils
 #nvapi latencyflex
 
     # game dev

@@ -9,7 +9,7 @@
   ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "bcache" "amdgpu" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = ["amdgpu"];
   # boot.kernelModules = [ "kvm-amd" "vfio-pci" ];
   boot.kernelModules = [ "kvm-amd" ];
 
@@ -18,6 +18,7 @@
     # "video=HDMI-A-2:3440x1440@75"
     "amdgpu.aspm=0" "amdgpu.runpm=0" "amdgpu.bapm=0" "pcie_aspm=off"
   ];
+
 
   # obs virtual cam stuff
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
