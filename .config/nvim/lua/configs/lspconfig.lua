@@ -1,6 +1,9 @@
-local base_on_attach = require("nvchad.configs.lspconfig").on_attach
-local on_init = require("nvchad.configs.lspconfig").on_init
-local capabilities = require("nvchad.configs.lspconfig").capabilities
+local nvlsp = require "nvchad.configs.lspconfig"
+
+nvlsp.defaults()
+
+local on_init = nvlsp.on_init
+local capabilities = nvlsp.capabilities
 
 local lspconfig = require "lspconfig"
 
@@ -9,7 +12,7 @@ local function on_attach(client, bufnr)
     vim.lsp.inlay_hint.enable(true)
   end
 
-  base_on_attach(client, bufnr)
+  nvlsp.on_attach(client, bufnr)
 end
 
 -- if you just want default config for the servers then put them in a table
@@ -149,7 +152,7 @@ lspconfig.ruff.setup {
   capabilities = capabilities,
 }
 
-require("neodev").setup {}
+-- require("neodev").setup {}
 
 -- to get rid of the no information popups when multiple lsps are used
 -- https://github.com/neovim/neovim/issues/20457#issuecomment-1266782345

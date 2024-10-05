@@ -72,15 +72,21 @@ return {
       },
     },
   },
+  -- {
+  --   "kdheepak/lazygit.nvim",
+  --   cmd = {
+  --     "LazyGit",
+  --     "LazyGitConfig",
+  --     "LazyGitCurrentFile",
+  --     "LazyGitFilter",
+  --     "LazyGitFilterCurrentFile",
+  --   },
+  --   dependencies = { "nvim-lua/plenary.nvim" },
+  -- },
   {
-    "kdheepak/lazygit.nvim",
-    cmd = {
-      "LazyGit",
-      "LazyGitConfig",
-      "LazyGitCurrentFile",
-      "LazyGitFilter",
-      "LazyGitFilterCurrentFile",
-    },
-    dependencies = { "nvim-lua/plenary.nvim" },
+    "ramilito/kubectl.nvim",
+    config = function()
+      require("kubectl").setup()
+    end,
   },
 }

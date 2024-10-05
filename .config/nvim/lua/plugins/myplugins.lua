@@ -383,7 +383,10 @@ local plugins = {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     event = "BufEnter",
-    opts = {},
+    config = function()
+      dofile(vim.g.base46_cache .. "todo")
+      require("todo-comments").setup()
+    end,
   },
 }
 
