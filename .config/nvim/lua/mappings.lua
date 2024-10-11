@@ -217,6 +217,11 @@ map("t", "<ESC>", "<ESC>", { desc = "Terminal send escape" })
 map("t", "<C-[><C-[>", "<C-\\><C-n>", { desc = "Terminal escape mode" })
 map("t", "<C-[>", "<ESC>", { desc = "Terminal send escape" })
 
+map("t", "<C-w>h", "<C-\\><C-n><C-w>h")
+map("t", "<C-w>j", "<C-\\><C-n><C-w>j")
+map("t", "<C-w>k", "<C-\\><C-n><C-w>k")
+map("t", "<C-w>l", "<C-\\><C-n><C-w>l")
+
 map("n", "<M-t>", function()
   vim.fn.termopen(vim.o.shell)
 end, { desc = "Terminal open normal" })

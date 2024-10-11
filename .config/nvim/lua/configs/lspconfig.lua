@@ -39,6 +39,8 @@ local servers = {
 
   "gopls",
   "templ",
+
+  "gleam",
 }
 
 for _, lsp in ipairs(servers) do
