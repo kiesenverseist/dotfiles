@@ -136,17 +136,18 @@ local plugins = {
     end,
   },
 
-  -- {
-  --   "windwp/nvim-projectconfig",
-  --   lazy = false,
-  --   config = function()
-  --     require("nvim-projectconfig").setup({autocmd = true})
-  --   end
-  -- },
-
   {
-    "direnv/direnv.vim",
+    "actionshrimp/direnv.nvim",
     lazy = false,
+    opts = {
+      async = true,
+      on_env_update = function()
+        vim.api.nvim_exec_autocmds("User", { pattern = "DirenvLoaded" })
+      end,
+      on_no_direnv = function()
+        vim.api.nvim_exec_autocmds("User", { pattern = "DirenvNotFound" })
+      end,
+    },
   },
 
   -- debugging support
