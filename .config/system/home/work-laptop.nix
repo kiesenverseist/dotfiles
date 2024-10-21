@@ -1,6 +1,6 @@
-{ pkgs, inputs, ... }:
+{ config, pkgs, inputs, ... }:
 let 
-  nixGL = import ../packages/nixgl.nix {inherit pkgs config;};
+  nixGL = import ./packages/nixgl.nix {inherit pkgs config;};
 in {
   imports = [
     inputs.walker.homeManagerModules.default
