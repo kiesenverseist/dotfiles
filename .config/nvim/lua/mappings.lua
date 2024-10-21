@@ -227,6 +227,11 @@ map("n", "<M-t>", function()
 end, { desc = "Terminal open normal" })
 -- map("n", "<M-t>", "<CMD> term <CR>", { desc = "Terminal open normal" })
 
+-- kubectl
+map("n", "<leader>K", function()
+  require("kubectl").toggle()
+end, { noremap = true, silent = true })
+
 -- neovide
 if vim.g.neovide then
   map("n", "<C-=>", function()
