@@ -15,6 +15,25 @@ local function on_attach(client, bufnr)
   nvlsp.on_attach(client, bufnr)
 end
 
+-- Start lsp only after direnv.nvim is finished
+vim.api.nvim_create_autocmd("User", {
+  pattern = { "DirenvLoaded", "DirenvNotFound" }, -- this starts the lsp when the direnv was loaded or when there is no .envrc found
+  callback = function()
+    vim.cmd "LspStart"
+  end,
+})
+
+local function setup_lsp(client, opts)
+  vim.tbl_deep_extend("keep", opts, {
+    autostart = false,
+    on_attach = on_attach,
+    on_init = on_init,
+    capabilities = capabilities,
+  })
+
+  lspconfig[client].setup(opts)
+end
+
 -- if you just want default config for the servers then put them in a table
 local servers = {
   -- webdev stuff
@@ -44,21 +63,14 @@ local servers = {
 }
 
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = on_attach,
-    on_init = on_init,
-    capabilities = capabilities,
-  }
+  setup_lsp(lsp, {})
 end
 
-lspconfig.cssls.setup {
+setup_lsp("cssls", {
   cmd = { "css-languageserver", "--stdio" },
-  on_attach = on_attach,
-  on_init = on_init,
-  capabilities = capabilities,
-}
+})
 
-lspconfig.texlab.setup {
+setup_lsp("texlab", {
   settings = {
     textlab = {
       build = {
@@ -67,11 +79,8 @@ lspconfig.texlab.setup {
       },
     },
   },
-  on_attach = on_attach,
-  on_init = on_init,
-  capabilities = capabilities,
-}
---
+})
+
 -- lspconfig.rust_analyzer.setup({
 --   cmd = { "rust-analyzer" },
 --   on_attach = on_attach,
@@ -84,6 +93,7 @@ dofile(vim.g.base46_cache .. "lsp")
 require "nvchad.lsp"
 
 lspconfig.lua_ls.setup {
+  autostart = false,
   on_attach = on_attach,
   capabilities = capabilities,
   on_init = on_init,
@@ -108,10 +118,7 @@ lspconfig.lua_ls.setup {
   },
 }
 
-lspconfig.yamlls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  on_init = on_init,
+setup_lsp("yamlls", {
   settings = {
     yaml = {
       schemas = {
@@ -132,27 +139,21 @@ lspconfig.yamlls.setup {
       },
     },
   },
-}
+})
 
-lspconfig.ocamllsp.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  on_init = on_init,
-
+setup_lsp("ocamllsp", {
   settings = {
     codeLens = { enable = true },
     inlayHints = { enable = true },
   },
-}
+})
 
-lspconfig.ruff.setup {
+setup_lsp("ruff", {
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
     client.server_capabilities.hoverProvider = false
   end,
-  on_init = on_init,
-  capabilities = capabilities,
-}
+})
 
 -- require("neodev").setup {}
 
