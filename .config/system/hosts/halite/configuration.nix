@@ -6,20 +6,12 @@
 
 {
   imports =
-  # let
-  #   logiops = builtins.fetchTarball {
-  #     url = "https://github.com/ckiee/nixpkgs/archive/refs/heads/logiops-nixos.tar.gz";
-  #   };
-  # in
   [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../cachix.nix
-    # (import "${logiops}/nixos/modules/hardware/logiops")
-    ./qbittorrent.nix
-    inputs.sops-nix.nixosModules.sops
+    # inputs.sops-nix.nixosModules.sops
   ];
 
-  # services.logiops.enable = true;
 
   # Use the GRUB 2 boot loader.
   # boot.loader.grub.enable = true;
@@ -44,28 +36,20 @@
   # Set your time zone.
   time.timeZone = "Australia/Sydney";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkbOptions in tty.
-  # };
-
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    displayManager.sddm = {
+  };
+
+  services.displayManager = {
+    sddm = {
       enable = true;
       theme = "${import ../sddm-theme.nix {inherit pkgs;}}";
     };
-    # desktopManager.plasma5.enable = true;
-    # displayManager.defaultSession = "plasmawayland";
+    defaultSession = "plasma";
   };
+
+  services.desktopManager.plasma6.enable = true;
   
   # Configure keymap in X11
   # services.xserver.layout = "us";
@@ -109,10 +93,10 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  services.harmonia = {
-    enable = true;
-    signKeyPath = "/var/lib/secrets/harmonia.secret";
-  };
+  # services.harmonia = {
+  #   enable = true;
+  #   signKeyPath = "/var/lib/secrets/harmonia.secret";
+  # };
 
   programs.zsh.enable = true;
   programs.fish.enable = true;
@@ -132,9 +116,9 @@
     after = ["graphical-session-pre.target"];
    };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  # services.xserver.videoDrivers = ["nvidia"];
 
-  # programs.steam.enable = true;
+  programs.steam.enable = true;
   # programs.gamemode.enable = true;
   # programs.gamescope = {
   #   enable = true;
@@ -158,24 +142,24 @@
   };
 
   hardware = {
-    opengl = {
+    graphics = {
       enable = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
     };
-    nvidia = {
-      modesetting.enable = true;
-      open = false;
-      nvidiaSettings = true;
-      # vgpu = {
-      #   enable = true;
-      #   unlock.enable = true;
-      #   fastapi-dls = {
-      #     enable = true;
-      #     local_ipv4 = "localhost";
-      #     timezone = "Australia/Sydney";
-      #   };
-      # };
-    };
+    # nvidia = {
+    #   modesetting.enable = true;
+    #   open = false;
+    #   nvidiaSettings = true;
+    #   # vgpu = {
+    #   #   enable = true;
+    #   #   unlock.enable = true;
+    #   #   fastapi-dls = {
+    #   #     enable = true;
+    #   #     local_ipv4 = "localhost";
+    #   #     timezone = "Australia/Sydney";
+    #   #   };
+    #   # };
+    # };
 
     bluetooth.enable = true;
   };
@@ -183,11 +167,21 @@
   nixpkgs.config.allowUnfree = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.kiesen = {
-    isNormalUser = true;
-    # shell = pkgs.defaultzsh;
-    shell = pkgs.fish;
-    extraGroups = [ "wheel" "libvirtd" ]; # Enable ‘sudo’ for the user.
+  users.users = {
+    kiesen = {
+      isNormalUser = true;
+      shell = pkgs.fish;
+      extraGroups = [ "wheel" "libvirtd" "media" ]; # Enable ‘sudo’ for the user.
+    };
+    zaky = {
+      isNormalUser = true;
+      shell = pkgs.fish;
+      extraGroups = [ "wheel" "libvirtd" ]; # Enable ‘sudo’ for the user.
+    };
+  };
+
+  users.groups = {
+    media = {};
   };
 
   fonts.packages = with pkgs; [
@@ -203,7 +197,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    neovim
 
     wget
     git
@@ -222,32 +216,39 @@
     # virt-manager
     polkit-kde-agent
     virtiofsd
-
-    # hypr-plugins.hyprbars
   ];
 
   # flatpak
   services.flatpak.enable = true;
 
-  services.jellyfin.enable = true;
-  services.plex.enable = true;
-  # services.jellyseerr = {
-  #   enable = true;
-  # };
-  # services.sonarr = {
-  #   enable = true;
-  # };
+  services.jellyfin = {
+    enable = true;
+    group = "media";
+  };
+
+  services.plex = {
+    enable = true;
+    group = "media";
+  };
+
+  services.jellyseerr = {
+    enable = true;
+  };
+
+  services.sonarr = {
+    enable = true;
+    group = "media";
+  };
+
+  services.deluge = {
+    enable = true; 
+    group = "media";
+    web.enable = true;
+    # web.port = 8000;
+  };
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
 
   # List services that you want to enable:
 
@@ -326,86 +327,86 @@
 
   programs.nbd.enable = true;
 
-  services.gitea = {
-    enable = true;
-    lfs.enable = true;
-    settings.server.ROOT_URL = "https://halite.ladon-minnow.ts.net/git/";
-  };
+  # services.gitea = {
+  #   enable = true;
+  #   lfs.enable = true;
+  #   settings.server.ROOT_URL = "https://halite.ladon-minnow.ts.net/git/";
+  # };
 
-  services.gitea-actions-runner = {
-    instances."first" = {
-      name = "first";
-      enable = true;
-      url = "https://halite.ladon-minnow.ts.net/git/";
-      token = "zk0hCo1VHHjdadQPH4X4IbMQ5u09Le7KSuinNyD5";
-      labels = [
-        "native:host"
-        "ubuntu-latest:docker://node:16-bullseye"
-        "ubuntu-22.04:docker://node:16-bullseye"
-        "ubuntu-20.04:docker://node:16-bullseye"
-        "ubuntu-18.04:docker://node:16-buster"
-      ];
-    };
-  };
+  # services.gitea-actions-runner = {
+  #   instances."first" = {
+  #     name = "first";
+  #     enable = true;
+  #     url = "https://halite.ladon-minnow.ts.net/git/";
+  #     token = "zk0hCo1VHHjdadQPH4X4IbMQ5u09Le7KSuinNyD5";
+  #     labels = [
+  #       "native:host"
+  #       "ubuntu-latest:docker://node:16-bullseye"
+  #       "ubuntu-22.04:docker://node:16-bullseye"
+  #       "ubuntu-20.04:docker://node:16-bullseye"
+  #       "ubuntu-18.04:docker://node:16-buster"
+  #     ];
+  #   };
+  # };
 
-  services.qbittorrent = {
-    enable = true;
-    user = "kiesen";
-  };
+  # services.qbittorrent = {
+  #   enable = true;
+  #   user = "kiesen";
+  # };
 
-  sops = {
-    defaultSopsFile = ../../secrets/secrets.yaml;
-    defaultSopsFormat = "yaml";
-
-    age.keyFile = "/home/kiesen/.config/sops/age/keys.txt";
-
-    secrets.cloudflare_tunnel_token.owner = config.services.cloudflared.user;
-  };
+  # sops = {
+  #   defaultSopsFile = ../../secrets/secrets.yaml;
+  #   defaultSopsFormat = "yaml";
+  #
+  #   age.keyFile = "/home/kiesen/.config/sops/age/keys.txt";
+  #
+  #   secrets.cloudflare_tunnel_token.owner = config.services.cloudflared.user;
+  # };
 
   services.tailscale = {
     enable = true;
-    permitCertUid = "caddy";
+    # permitCertUid = "caddy";
   };
 
-  services.caddy = {
-    enable = true;
-    virtualHosts."halite.ladon-minnow.ts.net" = {
-      extraConfig = ''
-        route /git/* {
-          uri strip_prefix /git
-          reverse_proxy localhost:3000
-        }
+  # services.caddy = {
+  #   enable = true;
+  #   virtualHosts."halite.ladon-minnow.ts.net" = {
+  #     extraConfig = ''
+  #       route /git/* {
+  #         uri strip_prefix /git
+  #         reverse_proxy localhost:3000
+  #       }
+  #
+  #       redir /jellyfin /jellyfin/
+  #       reverse_proxy /jellyfin/* localhost:8096
+  #     '';
+  #   };
+  #   virtualHosts."local-loopback" = {
+  #     extraConfig = ''
+  #       route /git/* {
+  #         uri strip_prefix /git
+  #         reverse_proxy localhost:3000
+  #       }
+  #
+  #       redir /jellyfin /jellyfin/
+  #       reverse_proxy /jellyfin/* localhost:8096
+  #     '';
+  #   };
+  # };
 
-        redir /jellyfin /jellyfin/
-        reverse_proxy /jellyfin/* localhost:8096
-      '';
-    };
-    virtualHosts."local-loopback" = {
-      extraConfig = ''
-        route /git/* {
-          uri strip_prefix /git
-          reverse_proxy localhost:3000
-        }
-
-        redir /jellyfin /jellyfin/
-        reverse_proxy /jellyfin/* localhost:8096
-      '';
-    };
-  };
-
-  services.cloudflared = {
-    enable = true;
-    tunnels = {
-      "halite" = {
-        credentialsFile = "${config.sops.secrets.cloudflare_tunnel_token.path}";
-        ingress = {
-          "*.kiesen.dev" = "halite.ladon-minnow.ts.net";
-          "jellyfin.kiesen.dev" = "local-loopback/jellyfin";
-        };
-        default = "http_status:404";
-      };
-    };
-  };
+  # services.cloudflared = {
+  #   enable = true;
+  #   tunnels = {
+  #     "halite" = {
+  #       credentialsFile = "${config.sops.secrets.cloudflare_tunnel_token.path}";
+  #       ingress = {
+  #         "*.kiesen.dev" = "halite.ladon-minnow.ts.net";
+  #         "jellyfin.kiesen.dev" = "local-loopback/jellyfin";
+  #       };
+  #       default = "http_status:404";
+  #     };
+  #   };
+  # };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

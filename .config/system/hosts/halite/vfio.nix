@@ -6,12 +6,13 @@
 
 let
   passthroughIDs = [
-    # "10de:1f06"
-    # "10de:10f9"
-    # "10de:1ada"
-    # "10de:1adb"
-    "10de:1c82" # 1050ti vga
-    "10de:0fb9" #  ^     audio
+    "10de:1f06"
+    "10de:10f9"
+    "10de:1ada"
+    "10de:1adb"
+
+    # "10de:1c82" # 1050ti vga
+    # "10de:0fb9" #  ^     audio
 
     # "1022:1457" # hd audio
     # "1022:145f" #usb ?
@@ -28,10 +29,10 @@ in {pkgs, lib, config, ...}: {
         "vfio_iommu_type1"
         # "vfio_virqfd"
 
-        "nvidia"
-        "nvidia_modeset"
-        "nvidia_uvm"
-        "nvidia_drm"
+        # "nvidia"
+        # "nvidia_modeset"
+        # "nvidia_uvm"
+        # "nvidia_drm"
       ];
 
       kernelParams = [
