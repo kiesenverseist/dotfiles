@@ -1,17 +1,16 @@
-{ pkgs, ... }: {
-
+{pkgs, ...}: {
   boot.tmp.cleanOnBoot = true;
   # zramSwap.enable = true;
   time.timeZone = "Australia/Sydney";
 
-  users.users.root.openssh.authorizedKeys.keys = [''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILB44rGxgd27wPLkuUrHXlnrpEhqVQX92k1F3TVNYIWQ kiesen@graphite'' ];
+  users.users.root.openssh.authorizedKeys.keys = [''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILB44rGxgd27wPLkuUrHXlnrpEhqVQX92k1F3TVNYIWQ kiesen@graphite''];
 
   users.users.kiesen = {
     isNormalUser = true;
     shell = pkgs.fish;
     extraGroups = ["wheel"];
 
-    openssh.authorizedKeys.keys = [''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILB44rGxgd27wPLkuUrHXlnrpEhqVQX92k1F3TVNYIWQ kiesen@graphite'' ];
+    openssh.authorizedKeys.keys = [''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILB44rGxgd27wPLkuUrHXlnrpEhqVQX92k1F3TVNYIWQ kiesen@graphite''];
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -53,7 +52,6 @@
     # virtualHosts."sf.kiesen.moe".extraConfig = ''
     #   reverse_proxy graphite.ladon-minnow.ts.net
     # '';
-
   };
 
   security.acme = {
@@ -61,7 +59,7 @@
     defaults.email = "creativeibi77@gmail.com";
   };
 
-  networking = let 
+  networking = let
     graphite = "100.119.227.45";
     halite = "100.120.252.116";
   in {
@@ -72,7 +70,7 @@
       enable = true;
       externalInterface = "tailscale0";
       internalInterfaces = ["ens3"];
-      forwardPorts = let 
+      forwardPorts = let
         entry = ip: src: dest: [
           {
             destination = "${ip}:${toString dest}";
@@ -86,10 +84,10 @@
           }
         ];
         dentry = ip: port: entry ip port port;
-      in [ ]
+      in
+        []
         ++ (dentry graphite 7777)
-        ++ (dentry halite 25565)
-       ;
+        ++ (dentry halite 25565);
     };
 
     nftables = {
@@ -100,13 +98,13 @@
           iifname "ens3" udp dport ${toString port} dnat to ${ip}:${toString port}
         '';
       in ''
-          table ip nat {
-            chain PREROUTING {
-              type nat hook prerouting priority dstnat; policy accept;
-              ${entry graphite 7777 }
-              ${entry halite 25565 }
-            }
+        table ip nat {
+          chain PREROUTING {
+            type nat hook prerouting priority dstnat; policy accept;
+            ${entry graphite 7777}
+            ${entry halite 25565}
           }
+        }
       '';
     };
 
@@ -116,10 +114,13 @@
         25565 # minecraft: vault hunters
       ];
     in {
-      allowedTCPPorts = [
-        80 443 # http and https
-      ] ++ common;
-      allowedUDPPorts = [ ] ++ common;
+      allowedTCPPorts =
+        [
+          80
+          443 # http and https
+        ]
+        ++ common;
+      allowedUDPPorts = [] ++ common;
     };
   };
 

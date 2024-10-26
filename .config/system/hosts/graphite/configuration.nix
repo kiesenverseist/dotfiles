@@ -1,11 +1,15 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
-
-{ config, inputs, lib, pkgs, system, ... }:
 {
-  imports =
-  [ 
+  config,
+  inputs,
+  lib,
+  pkgs,
+  system,
+  ...
+}: {
+  imports = [
     ./hardware-configuration.nix
     ./game-servers.nix
     ../cachix.nix
@@ -51,7 +55,7 @@
   # Enable the X11 windowing system.
   services.displayManager.sddm = {
     enable = true;
-  #   wayland.enable = true;
+    #   wayland.enable = true;
     theme = "${import ../sddm-theme.nix {inherit pkgs;}}";
   };
   services.displayManager.defaultSession = "hyprland";
@@ -62,7 +66,7 @@
   };
 
   services.fwupd.enable = true;
-  
+
   # Configure keymap in X11
   # services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e,caps:escape";
@@ -110,7 +114,7 @@
     bindsTo = ["graphical-session.target"];
     wants = ["graphical-session-pre.target"];
     after = ["graphical-session-pre.target"];
-   };
+  };
 
   programs.steam = {
     enable = true;
@@ -126,11 +130,13 @@
 
   nixpkgs.overlays = [
     (final: prev: {
-      steam = prev.steam.override ({ extraPkgs ? pkgs': [], ... }: {
-        extraPkgs = pkgs': (extraPkgs pkgs') ++ (with pkgs'; [
-          libconfig
-          openssl
-        ]);
+      steam = prev.steam.override ({extraPkgs ? pkgs': [], ...}: {
+        extraPkgs = pkgs':
+          (extraPkgs pkgs')
+          ++ (with pkgs'; [
+            libconfig
+            openssl
+          ]);
       });
     })
   ];
@@ -150,8 +156,8 @@
     graphics = {
       enable = true;
       enable32Bit = true;
-      extraPackages = with pkgs;[
-        vaapiVdpau 
+      extraPackages = with pkgs; [
+        vaapiVdpau
         libvdpau-va-gl
         libva-vdpau-driver
       ];
@@ -168,29 +174,40 @@
   users.users.kiesen = {
     isNormalUser = true;
     shell = pkgs.fish;
-    extraGroups = [ "wheel" "libvirtd" "qemu-libvirtd" "disk" "adbusers"]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "libvirtd" "qemu-libvirtd" "disk" "adbusers"]; # Enable ‘sudo’ for the user.
   };
 
   users.users."ibrahim.fuad" = {
     isNormalUser = true;
     shell = pkgs.fish;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
   };
 
   nix.settings.trusted-users = ["root" "@wheel"];
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = [ "FiraCode" ]; })
+    (nerdfonts.override {fonts = ["FiraCode"];})
   ];
 
   nixpkgs.config.packageOverrides = pkgs: {
-    steam = pkgs.steam.override { extraPkgs = pkgs: with pkgs; [
-      libgdiplus keyutils libkrb5 libpng libpulseaudio libvorbis stdenv.cc.cc.lib xorg.libXcursor xorg.libXi xorg.libXinerama xorg.libXScrnSaver 
-    ]; }; # https://github.com/ValveSoftware/gamescope/issues/905
+    steam = pkgs.steam.override {
+      extraPkgs = pkgs:
+        with pkgs; [
+          libgdiplus
+          keyutils
+          libkrb5
+          libpng
+          libpulseaudio
+          libvorbis
+          stdenv.cc.cc.lib
+          xorg.libXcursor
+          xorg.libXi
+          xorg.libXinerama
+          xorg.libXScrnSaver
+        ];
+    }; # https://github.com/ValveSoftware/gamescope/issues/905
   };
 
-
-  
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -216,7 +233,6 @@
 
     # hypr-plugins.hyprbars
   ];
-
 
   # List services that you want to enable:
 
@@ -276,18 +292,17 @@
         user = "root";
         mode = "0765";
       };
-    }; 
+    };
   };
 
   services.udev.extraRules = ''
-  KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
-  KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
 
   '';
 
-
   # enable core dumps
-  systemd.coredump.enable = true; 
+  systemd.coredump.enable = true;
 
   programs.dconf.enable = true;
   programs.nix-ld.enable = true;
@@ -311,7 +326,7 @@
       "/home/*/.local/share/Steam"
     ];
     passwordFile = "/var/lib/secrets/restic-password";
-  in{
+  in {
     local = {
       inherit paths exclude passwordFile;
       initialize = true;
@@ -360,4 +375,3 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 }
-

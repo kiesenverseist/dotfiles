@@ -1,5 +1,9 @@
-{ config, pkgs, inputs, ... }:
-let
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}: let
   gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
   gdlauncher = import ./packages/gdlauncher.nix {inherit pkgs;};
   # lmms-nightly = import ./packages/lmms.nix {inherit pkgs;};
@@ -43,14 +47,14 @@ in {
 
     # cli stuff
     nvtopPackages.full
-    lf 
+    lf
     ctpv
 
-    (eww-custom.override { withWayland = true; })
+    (eww-custom.override {withWayland = true;})
     # (pkgs.eww.override { withWayland = true; })
     libnotify
     wpaperd
-    grim 
+    grim
     slurp
     pavucontrol
     pulsemixer
@@ -68,13 +72,12 @@ in {
     zathura
     via
     chromium
-    vlc 
+    vlc
     obs-studio
     waypipe
     nwg-displays
     nwg-dock-hyprland
     walker
-
 
     # lmms
     # ardour
@@ -99,7 +102,6 @@ in {
     postgresql
     sqlite
 
-
     # gaming
     protontricks
     # gaming.proton-ge
@@ -115,18 +117,20 @@ in {
     runelite
     modrinth-app
 
-    libva vaapiVdpau libvdpau-va-gl libva-utils
-#nvapi latencyflex
+    libva
+    vaapiVdpau
+    libvdpau-va-gl
+    libva-utils
+    #nvapi latencyflex
 
     # game dev
     pixelorama
     # unityhub
     godot_4
-    
+
     # making
     prusa-slicer
     kicad
-
 
     inputs.nix-alien.packages.${system}.nix-alien
   ];
@@ -145,7 +149,7 @@ in {
     #   org.gradle.daemon.idletimeout=3600000
     # '';
   };
-  
+
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
@@ -165,7 +169,6 @@ in {
   services.hypridle.enable = true;
 
   xdg.mimeApps.defaultApplications = {
-
   };
 
   xdg.systemDirs.data = [
@@ -173,9 +176,8 @@ in {
     "/home/kiesen/.local/share/flatpak/exports/share"
   ];
 
-
   programs.vscode = {
-    enable =  true;
+    enable = true;
   };
 
   ## CLI Tools
@@ -189,12 +191,12 @@ in {
   #   enable = true;
   # };
 
-  services.swayosd = { enable = true; };
+  services.swayosd = {enable = true;};
 
   programs.anyrun = {
     enable = false;
-    config =  {
-      plugins =let
+    config = {
+      plugins = let
         anyrun-plugins = inputs.anyrun.packages.${pkgs.system};
       in [
         anyrun-plugins.applications
@@ -250,22 +252,22 @@ in {
   programs.mangohud = {
     enable = true;
   };
-  
+
   services.mako = {
     enable = false;
     anchor = "top-left";
 
-    font= "Fira Nerd Font 12";
+    font = "Fira Nerd Font 12";
 
-    padding="5";
+    padding = "5";
 
-    backgroundColor="#1D2021";
-    progressColor="#ebdbb2";
-    textColor="#d4be98";
+    backgroundColor = "#1D2021";
+    progressColor = "#ebdbb2";
+    textColor = "#d4be98";
 
-    borderColor="#ebdbb2";
-    borderSize=2;
-    borderRadius=5;
+    borderColor = "#ebdbb2";
+    borderSize = 2;
+    borderRadius = 5;
   };
 
   services.swaync.enable = true;
@@ -291,11 +293,11 @@ in {
   # };
 
   systemd.user.targets.tray = {
-		Unit = {
-			Description = "Home Manager System Tray";
-			Requires = [ "graphical-session-pre.target" ];
-		};
-	};
+    Unit = {
+      Description = "Home Manager System Tray";
+      Requires = ["graphical-session-pre.target"];
+    };
+  };
 
   qt = {
     enable = true;
@@ -321,7 +323,6 @@ in {
     iconTheme.package = gruvboxplus;
     iconTheme.name = "GruvboxPlus";
   };
-
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

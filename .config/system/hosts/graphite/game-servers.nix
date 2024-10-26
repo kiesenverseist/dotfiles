@@ -1,10 +1,14 @@
-
-{ config, lib, pkgs, modulesPath, inputs, ... }:
-let
-  factorio-custom = pkgs.callPackage ./factorio-custom {releaseType="headless";};
-in 
 {
-  imports = [ 
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  inputs,
+  ...
+}: let
+  factorio-custom = pkgs.callPackage ./factorio-custom {releaseType = "headless";};
+in {
+  imports = [
     ../modules/satisfactory.nix
   ];
 
@@ -14,7 +18,7 @@ in
     requireUserVerification = false;
     nonBlockingSaving = true;
     saveName = "spaceage";
-    admins = [ "kiesenverseist" ];
+    admins = ["kiesenverseist"];
     package = factorio-custom;
   };
 
@@ -31,5 +35,4 @@ in
   services.satisfactory = {
     enable = true;
   };
-
 }

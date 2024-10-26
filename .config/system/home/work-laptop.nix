@@ -1,5 +1,9 @@
-{ config, pkgs, inputs, ... }:
-let 
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}: let
   nixGL = import ./packages/nixgl.nix {inherit pkgs config;};
 in {
   imports = [
@@ -29,7 +33,7 @@ in {
   home.packages = [
     ## cli stuff
     pkgs.nvtopPackages.amd
-    
+
     ## desktop
     pkgs.xclip
 
@@ -49,7 +53,7 @@ in {
   # programs.bash.enable = true;
 
   programs.vscode = {
-    enable =  true;
+    enable = true;
   };
 
   programs.git = {
@@ -84,7 +88,7 @@ in {
 
   services.syncthing = {
     enable = true;
-    tray.enable = true; 
+    tray.enable = true;
   };
 
   qt.enable = true;

@@ -1,5 +1,9 @@
-{ inputs, pkgs, config, ... }:
-let
+{
+  inputs,
+  pkgs,
+  config,
+  ...
+}: let
   gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
   # gaming = nix-gaming.packages.${pkgs.system};
   xwvb = pkgs.libsForQt5.callPackage ./packages/xwaylandvideobridge.nix {};
@@ -42,7 +46,6 @@ in {
     # libnotify
     wpaperd
     xwvb # xwaylandvideobridge
-    
 
     # syncthingtray
     rofi-power-menu
@@ -58,7 +61,6 @@ in {
     # microsoft-edge
 
     nixgl.nixGLIntel
-
   ];
 
   # wayland.windowManager.hyprland = {
@@ -72,7 +74,6 @@ in {
   xdg.userDirs.enable = true;
 
   xdg.mimeApps.defaultApplications = {
-
   };
 
   # xdg.systemDirs.data = [
@@ -81,16 +82,15 @@ in {
   # ];
 
   programs.vscode = {
-    enable =  true;
+    enable = true;
   };
 
   programs.git = {
     userName = "Ibrahim Fuad";
     userEmail = "creativeibi77@gmail.com";
   };
-  
 
-  services.swayosd = { enable = true; };
+  services.swayosd = {enable = true;};
 
   programs.rofi = {
     enable = true;
@@ -145,12 +145,12 @@ in {
 
   # services.network-manager-applet.enable = true;
 
- #  systemd.user.targets.tray = {
-	# 	Unit = {
-	# 		Description = "Home Manager System Tray";
-	# 		Requires = [ "graphical-session-pre.target" ];
-	# 	};
-	# };
+  #  systemd.user.targets.tray = {
+  # 	Unit = {
+  # 		Description = "Home Manager System Tray";
+  # 		Requires = [ "graphical-session-pre.target" ];
+  # 	};
+  # };
 
   targets.genericLinux.enable = true;
 

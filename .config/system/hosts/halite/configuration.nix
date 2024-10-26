@@ -1,17 +1,18 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
-
-{ config, pkgs, inputs, ... }:
-
 {
-  imports =
-  [ # Include the results of the hardware scan.
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../cachix.nix
     # inputs.sops-nix.nixosModules.sops
   ];
-
 
   # Use the GRUB 2 boot loader.
   # boot.loader.grub.enable = true;
@@ -29,7 +30,7 @@
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-  networking.nameservers = [ "9.9.9.9" "1.1.1.1" ];
+  networking.nameservers = ["9.9.9.9" "1.1.1.1"];
 
   # networking.bridges.br0.interfaces = ["enp34s0"];
 
@@ -50,7 +51,7 @@
   };
 
   services.desktopManager.plasma6.enable = true;
-  
+
   # Configure keymap in X11
   # services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e,caps:escape";
@@ -114,7 +115,7 @@
     bindsTo = ["graphical-session.target"];
     wants = ["graphical-session-pre.target"];
     after = ["graphical-session-pre.target"];
-   };
+  };
 
   # services.xserver.videoDrivers = ["nvidia"];
 
@@ -171,12 +172,12 @@
     kiesen = {
       isNormalUser = true;
       shell = pkgs.fish;
-      extraGroups = [ "wheel" "libvirtd" "media" ]; # Enable ‘sudo’ for the user.
+      extraGroups = ["wheel" "libvirtd" "media"]; # Enable ‘sudo’ for the user.
     };
     zaky = {
       isNormalUser = true;
       shell = pkgs.fish;
-      extraGroups = [ "wheel" "libvirtd" ]; # Enable ‘sudo’ for the user.
+      extraGroups = ["wheel" "libvirtd"]; # Enable ‘sudo’ for the user.
     };
   };
 
@@ -185,15 +186,13 @@
   };
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = [ "FiraCode" ]; })
+    (nerdfonts.override {fonts = ["FiraCode"];})
   ];
 
   nixpkgs.config.packageOverrides = pkgs: {
-    steam = pkgs.steam.override { extraPkgs = pkgs: with pkgs; [ libgdiplus keyutils libkrb5 libpng libpulseaudio libvorbis stdenv.cc.cc.lib xorg.libXcursor xorg.libXi xorg.libXinerama xorg.libXScrnSaver ]; }; # https://github.com/ValveSoftware/gamescope/issues/905
+    steam = pkgs.steam.override {extraPkgs = pkgs: with pkgs; [libgdiplus keyutils libkrb5 libpng libpulseaudio libvorbis stdenv.cc.cc.lib xorg.libXcursor xorg.libXi xorg.libXinerama xorg.libXScrnSaver];}; # https://github.com/ValveSoftware/gamescope/issues/905
   };
 
-
-  
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -241,7 +240,7 @@
   };
 
   services.deluge = {
-    enable = true; 
+    enable = true;
     group = "media";
     web.enable = true;
     # web.port = 8000;
@@ -415,6 +414,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
-

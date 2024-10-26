@@ -1,6 +1,9 @@
-{ pkgs, lib, config, ... }:
-
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   options = {
     programming.enable = lib.mkEnableOption "enables programming config";
   };
@@ -8,7 +11,7 @@
   config = lib.mkIf config.programming.enable {
     home.packages = with pkgs; [
       curl
-      socat 
+      socat
       jq
       lazygit
       dirdiff
@@ -17,7 +20,7 @@
       cachix
       neovim
       neovim-remote
-      clang 
+      clang
       pre-commit
       nodejs
       go
@@ -30,7 +33,6 @@
       nixd
       nh
       nix-output-monitor
-
     ];
 
     home.sessionVariables = {
@@ -47,11 +49,11 @@
       ];
     };
 
-    programs.pyenv = { enable = true; };
+    programs.pyenv = {enable = true;};
 
     programs.opam.enable = true;
 
-    programs.direnv = { 
+    programs.direnv = {
       enable = true;
       nix-direnv.enable = true;
     };

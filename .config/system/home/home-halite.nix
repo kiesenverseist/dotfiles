@@ -1,5 +1,9 @@
-{ config, pkgs, inputs, ... }:
-let
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}: let
   gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
   gdlauncher = import ./packages/gdlauncher.nix {inherit pkgs;};
   xwvb = pkgs.libsForQt5.callPackage ./packages/xwaylandvideobridge.nix {};
@@ -40,13 +44,13 @@ in {
 
     # cli stuff
     nvtopPackages.full
-    lf 
+    lf
     ctpv
 
     qbittorrent
     zathura
     via
-    vlc 
+    vlc
     obs-studio
 
     syncthingtray
@@ -66,18 +70,19 @@ in {
     runelite
     modrinth-app
 
-    libva vaapiVdpau libvdpau-va-gl
-#nvapi latencyflex
+    libva
+    vaapiVdpau
+    libvdpau-va-gl
+    #nvapi latencyflex
 
     # game dev
     pixelorama
     # unityhub
     godot_4
-    
+
     # making
     prusa-slicer
     kicad
-
 
     inputs.nix-alien.packages.${system}.nix-alien
   ];
@@ -86,14 +91,12 @@ in {
   # services.hypridle.enable = true;
 
   xdg.mimeApps.defaultApplications = {
-
   };
 
   xdg.systemDirs.data = [
     "var/lib/flatpak/exports/share"
     "/home/kiesen/.local/share/flatpak/exports/share"
   ];
-
 
   ## CLI Tools
 
@@ -106,7 +109,7 @@ in {
   #   enable = true;
   # };
 
-  services.swayosd = { enable = true; };
+  services.swayosd = {enable = true;};
 
   programs.walker = {
     enable = false;
@@ -139,11 +142,11 @@ in {
   # };
 
   systemd.user.targets.tray = {
-		Unit = {
-			Description = "Home Manager System Tray";
-			Requires = [ "graphical-session-pre.target" ];
-		};
-	};
+    Unit = {
+      Description = "Home Manager System Tray";
+      Requires = ["graphical-session-pre.target"];
+    };
+  };
 
   qt = {
     enable = true;
@@ -169,7 +172,6 @@ in {
     iconTheme.package = gruvboxplus;
     iconTheme.name = "GruvboxPlus";
   };
-
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

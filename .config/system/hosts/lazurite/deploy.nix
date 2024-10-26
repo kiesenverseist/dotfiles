@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   _module.args.nixinate = {
     # host = "152.69.171.68";
     host = "lazurite";

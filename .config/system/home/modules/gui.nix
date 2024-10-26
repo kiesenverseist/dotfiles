@@ -1,8 +1,11 @@
-{ pkgs, lib, config, ... }:
-let
-  nixGL = import ../packages/nixgl.nix {inherit pkgs config;};
-in 
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  nixGL = import ../packages/nixgl.nix {inherit pkgs config;};
+in {
   options = {
     guiMinimal.enable = lib.mkEnableOption "enables basic cli config";
 
@@ -18,18 +21,21 @@ in
   };
 
   config = lib.mkIf config.guiMinimal.enable {
+    home.packages = with pkgs;
+      [
+        (nerdfonts.override {
+          fonts = [
+            "FiraCode"
+            "Gohu"
+          ];
+        })
 
-    home.packages = with pkgs; [
-      (nerdfonts.override { fonts = [ 
-        "FiraCode"
-        "Gohu"
-      ]; })
-
-      (nixGL neovide)
-      floorp
-      obsidian
-      todoist-electron
-    ] ++ lib.optional (config.nixGLPrefix != "") pkgs.nixgl.${config.nixGLPrefix};
+        (nixGL neovide)
+        floorp
+        obsidian
+        todoist-electron
+      ]
+      ++ lib.optional (config.nixGLPrefix != "") pkgs.nixgl.${config.nixGLPrefix};
 
     fonts.fontconfig.enable = true;
 
@@ -39,7 +45,7 @@ in
 
     programs.kitty = {
       enable = true;
-      package = (nixGL pkgs.kitty);
+      package = nixGL pkgs.kitty;
       # theme = "Gruvbox Material Dark Hard";
       # theme = "Flexoki (Dark)";
       # font = {
@@ -59,7 +65,7 @@ in
       # font = "FiraCode Nerd Font 16";
       font = lib.mkForce "GohuFont uni11 Nerd Font Propo 22";
       terminal = "${pkgs.kitty}/bin/kitty";
-      theme =  let 
+      theme = let
         inherit (config.lib.formats.rasi) mkLiteral;
       in {
         # "@theme" = "gruvbox-dark-hard";

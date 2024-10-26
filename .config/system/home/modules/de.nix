@@ -1,5 +1,12 @@
-{ config, pkgs, lib, nix-gaming, nix-alien, inputs, ... }:
-let
+{
+  config,
+  pkgs,
+  lib,
+  nix-gaming,
+  nix-alien,
+  inputs,
+  ...
+}: let
   gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
   gdlauncher = import ./packages/gdlauncher.nix {inherit pkgs;};
   # lmms-nightly = import ./packages/lmms.nix {inherit pkgs;};
@@ -39,10 +46,12 @@ in {
       # # overrides. You can do that directly here, just don't forget the
       # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
       # # fonts?
-      (pkgs.nerdfonts.override { fonts = [ 
-        "FiraCode"
-        "Gohu"
-      ]; })
+      (pkgs.nerdfonts.override {
+        fonts = [
+          "FiraCode"
+          "Gohu"
+        ];
+      })
       # font-awesome
       # comic-mono
       # cartograph
@@ -57,13 +66,15 @@ in {
       # cli stuff
       nvtopPackages.amd
       lazygit
-      lf ctpv
+      lf
+      ctpv
 
-      (eww-custom.override { withWayland = true; })
+      (eww-custom.override {withWayland = true;})
       # (pkgs.eww.override { withWayland = true; })
       libnotify
       wpaperd
-      grim slurp
+      grim
+      slurp
       pavucontrol
       pulsemixer
       yadm
@@ -81,7 +92,8 @@ in {
       zathura
       via
       chromium
-      vlc obs-studio
+      vlc
+      obs-studio
       waypipe
       floorp
 
@@ -113,13 +125,12 @@ in {
       cachix
       neovide
       gf
-      # clang 
+      # clang
       postgresql
       sqlite
       texlab
       tectonic
       # (import (fetchTarball https://install.devenv.sh/latest)).default
-
 
       # gaming
       protontricks
@@ -136,19 +147,20 @@ in {
       runelite
       modrinth-app
 
-      libva vaapiVdpau libvdpau-va-gl
-  #nvapi latencyflex
+      libva
+      vaapiVdpau
+      libvdpau-va-gl
+      #nvapi latencyflex
 
       # game dev
       godot_4
       # godot-wayland.godot-wayland
       pixelorama
       # unityhub
-      
+
       # making
       prusa-slicer
       kicad
-
 
       nix-alien
     ];
@@ -167,7 +179,7 @@ in {
       #   org.gradle.daemon.idletimeout=3600000
       # '';
     };
-    
+
     fonts.fontconfig.enable = true;
 
     wayland.windowManager.hyprland = {
@@ -182,7 +194,6 @@ in {
       # ];
     };
 
-
     # You can also manage environment variables but you will have to manually
     # source
     #
@@ -195,7 +206,6 @@ in {
     # if you don't want to manage your shell through Home Manager.
 
     xdg.mimeApps.defaultApplications = {
-
     };
 
     xdg.systemDirs.data = [
@@ -216,7 +226,6 @@ in {
 
     ## CLI Tools
 
-
     programs.git = {
       userName = "Ibrahim Fuad";
       userEmail = "creativeibi77@gmail.com";
@@ -226,7 +235,7 @@ in {
     #   enable = true;
     # };
 
-    services.swayosd = { enable = true; };
+    services.swayosd = {enable = true;};
 
     # programs.rofi = {
     #   enable = true;
@@ -239,7 +248,7 @@ in {
     #   # font = "FiraCode Nerd Font 16";
     #   font = "GohuFont uni11 Nerd Font Propo 22";
     #   terminal = "${pkgs.kitty}/bin/kitty";
-    #   theme =  let 
+    #   theme =  let
     #     inherit (config.lib.formats.rasi) mkLiteral;
     #   in {
     #     "@theme" = "gruvbox-dark-hard";
@@ -247,7 +256,7 @@ in {
     #       size = mkLiteral "2.5ch";
     #     };
     #   };
-    #   extraConfig = let 
+    #   extraConfig = let
     #     inherit (config.lib.formats.rasi) mkLiteral;
     #   in {
     #     # modes = "window,drun,run,ssh,calc,recursivebrowser";
@@ -311,7 +320,7 @@ in {
     programs.mangohud = {
       enable = true;
     };
-    
+
     # services.mako = {
     #   enable = true;
     #   anchor = "top-left";
@@ -354,7 +363,7 @@ in {
     systemd.user.targets.tray = {
       Unit = {
         Description = "Home Manager System Tray";
-        Requires = [ "graphical-session-pre.target" ];
+        Requires = ["graphical-session-pre.target"];
       };
     };
 

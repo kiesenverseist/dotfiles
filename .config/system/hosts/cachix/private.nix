@@ -1,5 +1,8 @@
-{ lib, config, ... }:
 {
+  lib,
+  config,
+  ...
+}: {
   options = {
     private-cache.enable = lib.mkEnableOption "enables private nix binary caches over tailscale";
   };

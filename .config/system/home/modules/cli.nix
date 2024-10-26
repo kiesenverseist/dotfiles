@@ -1,5 +1,10 @@
-{ inputs, pkgs, lib, config, ... }:
 {
+  inputs,
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   imports = [
     inputs.sops-nix.homeManagerModules.sops
   ];
@@ -9,7 +14,6 @@
   };
 
   config = lib.mkIf config.cli.enable {
-
     # sops = {
     #   age.sshKeyPaths = ["${config.home.homeDirectory}/.ssh/id_ed25519"];
     #   age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
@@ -22,7 +26,7 @@
 
     nix = {
       package = pkgs.lix;
-      settings.experimental-features = [ "nix-command" "flakes" ];
+      settings.experimental-features = ["nix-command" "flakes"];
       # extraOptions = ''
       #   !include ${config.sops.secrets.nix_access_tokens.path}
       # '';
@@ -34,13 +38,13 @@
       curl
       bc
       atool
-      # lf 
+      # lf
       # ctpv
-      socat 
+      socat
       jq
       unzip
       zstd
-          
+
       neovim
       yadm
       lazygit
@@ -51,9 +55,7 @@
       nixd
       nh
       nix-output-monitor
-
     ];
-
 
     home.sessionVariables = {
       EDITOR = "nvim";
@@ -100,7 +102,10 @@
         fish_hybrid_key_bindings
       '';
       plugins = [
-        {name = "gruvbox"; src = pkgs.fishPlugins.gruvbox.src;}
+        {
+          name = "gruvbox";
+          src = pkgs.fishPlugins.gruvbox.src;
+        }
       ];
     };
 
@@ -114,13 +119,13 @@
       };
     };
 
-    programs.zoxide = { 
+    programs.zoxide = {
       enable = true;
       enableFishIntegration = false; # because I manually set this up
     };
 
-    programs.ripgrep = { enable = true; };
-    programs.fd = { enable = true; };
+    programs.ripgrep = {enable = true;};
+    programs.fd = {enable = true;};
 
     programs.eza = {
       enable = true;
@@ -143,6 +148,5 @@
     };
 
     programs.nix-index.enable = true;
-
   };
 }

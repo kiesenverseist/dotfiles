@@ -1,5 +1,9 @@
-{ config, pkgs, inputs, ... }:
-let
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}: let
   gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
   xwvb = pkgs.libsForQt5.callPackage ./packages/xwaylandvideobridge.nix {};
   eww-custom = pkgs.callPackage ./packages/eww-custom {};
@@ -34,16 +38,18 @@ in {
     gcalcli
 
     # de stuff
-    (waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+    (
+      waybar.overrideAttrs (oldAttrs: {
+        mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
       })
     )
-    
-    (eww-custom.override { withWayland = true; })
+
+    (eww-custom.override {withWayland = true;})
     # (pkgs.eww.override { withWayland = true; })
     libnotify
     wpaperd
-    grim slurp
+    grim
+    slurp
     pavucontrol
     pulsemixer
     yadm
@@ -60,7 +66,8 @@ in {
     zathura
     via
     chromium
-    vlc obs-studio
+    vlc
+    obs-studio
     waypipe
     floorp
 
@@ -78,7 +85,7 @@ in {
 
     # programming
     gf
-    # clang 
+    # clang
     postgresql
     sqlite
     minikube
@@ -87,7 +94,6 @@ in {
     # python3
 
     postman
-
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -119,7 +125,6 @@ in {
     ];
   };
 
-
   programs.hyprlock.enable = true;
   services.hypridle.enable = true;
 
@@ -135,7 +140,7 @@ in {
     userEmail = "ibrahim.fuad@saberastro.com";
   };
 
-  services.swayosd = { enable = true; };
+  services.swayosd = {enable = true;};
 
   programs.walker = {
     enable = true;
@@ -177,17 +182,17 @@ in {
     enable = true;
     anchor = "top-left";
 
-    font= "Fira Nerd Font 12";
+    font = "Fira Nerd Font 12";
 
-    padding="5";
+    padding = "5";
 
-    backgroundColor="#689d6a";
-    progressColor="#ebdbb2";
-    textColor="#1d2021";
+    backgroundColor = "#689d6a";
+    progressColor = "#ebdbb2";
+    textColor = "#1d2021";
 
-    borderColor="#ebdbb2";
-    borderSize=2;
-    borderRadius=5;
+    borderColor = "#ebdbb2";
+    borderSize = 2;
+    borderRadius = 5;
   };
 
   programs.awscli.enable = true;
@@ -197,11 +202,11 @@ in {
   services.network-manager-applet.enable = true;
 
   systemd.user.targets.tray = {
-		Unit = {
-			Description = "Home Manager System Tray";
-			Requires = [ "graphical-session-pre.target" ];
-		};
-	};
+    Unit = {
+      Description = "Home Manager System Tray";
+      Requires = ["graphical-session-pre.target"];
+    };
+  };
 
   qt = {
     enable = true;

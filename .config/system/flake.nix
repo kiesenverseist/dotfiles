@@ -27,7 +27,7 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
     nix-alien.url = "github:thiagokokada/nix-alien";
     nixgl.url = "github:guibou/nixGL";
-    
+
     foundryvtt.url = "github:reckenrode/nix-foundryvtt";
 
     anyrun = {
@@ -44,39 +44,36 @@
     nixinate.url = "github:matthewcroughan/nixinate";
 
     sops-nix = {
-      url = "github:Mic92/sops-nix"; 
+      url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-
   };
 
-  outputs = {self, ...}@inputs:
-  let 
+  outputs = {self, ...} @ inputs: let
     system = "x86_64-linux";
 
     pkgs = import inputs.nixpkgs {
       inherit system;
-      config = { allowUnfree = true; };
+      config = {allowUnfree = true;};
       overlays = [inputs.nixgl.overlay];
     };
-
     # pkgs-master = import inputs.nixpkgs-master {
     #   inherit system;
     #   config = {
     #       allowUnfree = true;
     #   };
     # };
-
   in {
-    nixosConfigurations = let 
+    nixosConfigurations = let
       specialArgs = {inherit inputs system;};
-      conf = attrs: inputs.nixpkgs.lib.nixosSystem ({
-        inherit specialArgs system;
-      } // attrs);
+      conf = attrs:
+        inputs.nixpkgs.lib.nixosSystem ({
+            inherit specialArgs system;
+          }
+          // attrs);
     in {
       "halite" = conf {
-        modules = [ ./hosts/halite ];
+        modules = [./hosts/halite];
       };
       "graphite" = conf {
         modules = [
@@ -94,53 +91,59 @@
       };
       "lazurite" = inputs.nixpkgs-stable.lib.nixosSystem {
         inherit specialArgs system;
-        modules = [ ./hosts/lazurite ];
+        modules = [./hosts/lazurite];
       };
     };
 
     homeConfigurations = let
-      extraSpecialArgs = { inherit inputs; };
-      conf = attrs: inputs.home-manager.lib.homeManagerConfiguration ({
-          inherit pkgs extraSpecialArgs; 
-      } // attrs);
-      commonModules = [ inputs.stylix.homeManagerModules.stylix ];
+      extraSpecialArgs = {inherit inputs;};
+      conf = attrs:
+        inputs.home-manager.lib.homeManagerConfiguration ({
+            inherit pkgs extraSpecialArgs;
+          }
+          // attrs);
+      commonModules = [inputs.stylix.homeManagerModules.stylix];
     in {
       "kiesen@halite" = conf {
-        modules = [ ./home/home-halite.nix ] ++ commonModules;
+        modules = [./home/home-halite.nix] ++ commonModules;
 
-        extraSpecialArgs = extraSpecialArgs // { 
-          nix-gaming = inputs.nix-gaming;
-        };
+        extraSpecialArgs =
+          extraSpecialArgs
+          // {
+            nix-gaming = inputs.nix-gaming;
+          };
       };
       "kiesen@graphite" = conf {
-        modules = [ ./home/home-graphite.nix ] ++ commonModules;
+        modules = [./home/home-graphite.nix] ++ commonModules;
       };
       "kiesen@kiesen-eos-laptop" = conf {
-        modules = [ ./home/home-laptop.nix ] ++ commonModules;
+        modules = [./home/home-laptop.nix] ++ commonModules;
       };
       "ibrahim.fuad@au-lap-0618.saberastronautics.net" = conf {
-        modules = [ ./home/work-laptop.nix ] ++ commonModules;
+        modules = [./home/work-laptop.nix] ++ commonModules;
       };
       "ibrahim.fuad@graphite" = conf {
-        modules = [ ./home/work-graphite.nix ] ++ commonModules;
+        modules = [./home/work-graphite.nix] ++ commonModules;
       };
     };
 
     packages.${system} = {
       vm = inputs.nixos-generators.nixosGenerate {
         inherit system pkgs;
-        specialArgs = { inherit inputs; };
+        specialArgs = {inherit inputs;};
         modules = [
           ./hosts/vm
-          ({lib, ...}: {system.build.qcow = lib.mkDefault {
-            diskSize = lib.mkForce "auto";
-            additionalSpace = "10G";
-          };})
+          ({lib, ...}: {
+            system.build.qcow = lib.mkDefault {
+              diskSize = lib.mkForce "auto";
+              additionalSpace = "10G";
+            };
+          })
         ];
         format = "qcow";
       };
     };
-    
+
     apps = inputs.nixinate.nixinate.${system} self;
 
     formatter.${system} = pkgs.alejandra;

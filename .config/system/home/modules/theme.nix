@@ -1,11 +1,15 @@
-{ inputs, pkgs, lib, config, ... }:
 {
+  inputs,
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   options = {
     theme.enable = lib.mkEnableOption "enables stylix themeing";
   };
 
   config = lib.mkIf config.theme.enable {
-
     stylix.enable = true;
 
     # flexoki
@@ -29,7 +33,7 @@
     };
 
     # stylix.base16Scheme =  "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-hard.yaml";
-    
+
     # stylix.image = "${config.home.homeDirectory}/Pictures/wallpapers/solar-system.jpg";
 
     stylix.image = ../../solar-system.jpg;
@@ -39,9 +43,9 @@
     stylix.fonts = {
       monospace = {
         name = "FiraCode Nerd Font";
-        package = (pkgs.nerdfonts.override { 
-          fonts = [ "FiraCode" ];
-        });
+        package = pkgs.nerdfonts.override {
+          fonts = ["FiraCode"];
+        };
       };
 
       sizes = {
@@ -52,6 +56,5 @@
     stylix.targets = {
       fish.enable = false;
     };
-
   };
 }

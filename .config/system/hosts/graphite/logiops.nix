@@ -1,8 +1,6 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # Install logiops package
-  environment.systemPackages = [ pkgs.logiops ];
+  environment.systemPackages = [pkgs.logiops];
 
   # Create systemd service
   systemd.services.logiops = {
@@ -42,7 +40,7 @@
       };
 
       buttons: (
-        { cid: 0xc4; action = 
+        { cid: 0xc4; action =
           {
             type: "Gestures";
             gestures: (
@@ -95,7 +93,7 @@
             );
           };
         },
-        { cid: 0xc3; action = 
+        { cid: 0xc3; action =
           {
             type: "Gestures";
             gestures: (
@@ -149,7 +147,7 @@
             );
           };
         },
-        { cid: 0x53; action = 
+        { cid: 0x53; action =
           {
             type: "Gestures";
             gestures: (
@@ -196,9 +194,9 @@
               {
                 direction: "None";
                 mode: "OnRelease";
-                action = 
-                { 
-                  type: "CycleDPI"; 
+                action =
+                {
+                  type: "CycleDPI";
                   dpis: [1000, 2000, 3000, 4000];
                 };
               }

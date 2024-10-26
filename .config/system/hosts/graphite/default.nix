@@ -1,7 +1,10 @@
-
-{ config, lib, pkgs, system, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  system,
+  ...
+}: {
   imports = [
     ./configuration.nix
     # ./vfio.nix

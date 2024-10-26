@@ -1,11 +1,15 @@
-{lib, config, ...}: {
+{
+  lib,
+  config,
+  ...
+}: {
   config = lib.mkIf (! config.vfio.enable) {
     hardware.nvidia = {
       modesetting.enable = true;
       open = false;
       nvidiaSettings = true;
       # prime = {
-      #   sync.enable = true;        
+      #   sync.enable = true;
       #   amdgpuBusId = "PCI:11:0:0";
       #   nvidiaBusId = "PCI:1:0:0";
       # };
@@ -22,7 +26,7 @@
       XDG_SESSION_TYPE = "wayland";
       GBM_BACKEND = "nvidia-drm";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    }; 
+    };
 
     boot.blacklistedKernelModules = [
       "amdgpu"
@@ -33,7 +37,5 @@
       "nvidia-drm.modeset=1"
       "nvidia-drm.fbdev=1"
     ];
-
   };
 }
-
