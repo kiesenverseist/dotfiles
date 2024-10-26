@@ -13,7 +13,7 @@ in
     lan = true;
     requireUserVerification = false;
     nonBlockingSaving = true;
-    saveName = "save1";
+    saveName = "spaceage";
     admins = [ "kiesenverseist" ];
     package = factorio-custom;
   };

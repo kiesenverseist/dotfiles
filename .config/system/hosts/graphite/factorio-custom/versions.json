@@ -1,57 +1,13 @@
 {
   "x86_64-linux": {
-    "alpha": {
-      "experimental": {
-        "name": "factorio_alpha_x64-1.1.94.tar.xz",
-        "needsAuth": true,
-        "sha256": "06z3l828drnqv075qa3sg8l1877dlakqnppr79y031jlp8vg19pm",
-        "tarDirectory": "x64",
-        "url": "https://factorio.com/get-download/1.1.94/alpha/linux64",
-        "version": "1.1.94"
-      },
-      "stable": {
-        "name": "factorio_alpha_x64-1.1.94.tar.xz",
-        "needsAuth": true,
-        "sha256": "06z3l828drnqv075qa3sg8l1877dlakqnppr79y031jlp8vg19pm",
-        "tarDirectory": "x64",
-        "url": "https://factorio.com/get-download/1.1.94/alpha/linux64",
-        "version": "1.1.94"
-      }
-    },
-    "demo": {
-      "experimental": {
-        "name": "factorio_demo_x64-1.1.94.tar.xz",
-        "needsAuth": false,
-        "sha256": "1z2l8xj3vvrd1m3q1rypczzqdzrmldmyipfg54qly8cfj3pxvk4w",
-        "tarDirectory": "x64",
-        "url": "https://factorio.com/get-download/1.1.94/demo/linux64",
-        "version": "1.1.94"
-      },
-      "stable": {
-        "name": "factorio_demo_x64-1.1.94.tar.xz",
-        "needsAuth": false,
-        "sha256": "1z2l8xj3vvrd1m3q1rypczzqdzrmldmyipfg54qly8cfj3pxvk4w",
-        "tarDirectory": "x64",
-        "url": "https://factorio.com/get-download/1.1.94/demo/linux64",
-        "version": "1.1.94"
-      }
-    },
     "headless": {
-      "experimental": {
-        "name": "factorio_headless_x64-1.1.94.tar.xz",
-        "needsAuth": false,
-        "sha256": "0ajs883dnz2ak1mxqvsw6hmpahcxqq243ravp5gb3iyiaaprqa4n",
-        "tarDirectory": "x64",
-        "url": "https://factorio.com/get-download/1.1.94/headless/linux64",
-        "version": "1.1.94"
-      },
       "stable": {
-        "name": "factorio_headless_x64-1.1.109.tar.xz",
+        "name": "factorio_headless_x64-2.0.10.tar.xz",
         "needsAuth": false,
-        "sha256": "EFo4UzyRb+ZuL7K5/o+TwRZWgEeiDE2qdGMgcsB3vz8=",
+        "sha256": "LX3SEvpvcVIYpeM7rX1ZOviZj6e/fOcnNDFZ7h+MI/Q=",
         "tarDirectory": "x64",
-        "url": "https://factorio.com/get-download/1.1.109/headless/linux64",
-        "version": "1.1.109"
+        "url": "https://factorio.com/get-download/stable/headless/linux64",
+        "version": "2.0.10"
       }
     }
   }
