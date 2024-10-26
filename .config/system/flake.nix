@@ -4,18 +4,24 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs-master.url = "github:nixos/nixpkgs/master";
-    # nixpkgs-stable.url = github:nixos/nixpkgs;
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-1.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
 
     nix-gaming.url = "github:fufexan/nix-gaming";
@@ -35,21 +41,17 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixinate.url = "github:matthewcroughan/nixinate";
 
     sops-nix = {
       url = "github:Mic92/sops-nix"; 
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
 
   };
 
-  outputs = {...}@inputs:
+  outputs = {self, ...}@inputs:
   let 
     system = "x86_64-linux";
 
@@ -70,7 +72,7 @@
     nixosConfigurations = let 
       specialArgs = {inherit inputs system;};
       conf = attrs: inputs.nixpkgs.lib.nixosSystem ({
-        inherit specialArgs;
+        inherit specialArgs system;
       } // attrs);
     in {
       "halite" = conf {
@@ -85,11 +87,14 @@
         ];
       };
       "live" = conf {
-        inherit system;
         modules = [
           (inputs.nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
           ./hosts/live
         ];
+      };
+      "lazurite" = inputs.nixpkgs-stable.lib.nixosSystem {
+        inherit specialArgs system;
+        modules = [ ./hosts/lazurite ];
       };
     };
 
@@ -135,5 +140,9 @@
         format = "qcow";
       };
     };
+    
+    apps = inputs.nixinate.nixinate.${system} self;
+
+    formatter.${system} = pkgs.alejandra;
   };
 }
