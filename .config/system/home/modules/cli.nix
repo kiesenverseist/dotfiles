@@ -27,9 +27,15 @@
     nix = {
       package = pkgs.lix;
       settings.experimental-features = ["nix-command" "flakes"];
+      registry.nixpkgs.flake = inputs.nixpkgs; 
+      nixPath = ["nixpkgs=${inputs.nixpkgs}"];
       # extraOptions = ''
       #   !include ${config.sops.secrets.nix_access_tokens.path}
       # '';
+    };
+
+    nixpkgs.config = {
+      allowUnfree = true;
     };
 
     home.packages = with pkgs; [
@@ -63,9 +69,9 @@
       FLAKE = "$HOME/.config/system";
     };
 
-    home.file.".config/nixpkgs/config.nix".text = ''
-      { allowUnfree = true; }
-    '';
+    # home.file.".config/nixpkgs/config.nix".text = ''
+    #   { allowUnfree = true; }
+    # '';
 
     xdg.userDirs.enable = true;
 
@@ -90,12 +96,9 @@
     programs.fish = {
       enable = true;
       functions = {
-        icat = {
-          body = "kitten icat $argv[1]";
-        };
-        kssh = {
-          body = "kitten ssh $argv";
-        };
+        icat.body = "kitten icat $argv[1]";
+        kssh.body = "kitten ssh $argv";
+        # starship_transient_rprompt_func.body = "starship module time";
       };
       interactiveShellInit = ''
         zoxide init fish --cmd=cd | source
@@ -114,9 +117,9 @@
     programs.starship = {
       enable = true;
       enableTransience = true;
-      settings = {
-        right_format = "$time";
-      };
+      # settings = {
+      #   right_format = "$time";
+      # };
     };
 
     programs.zoxide = {
@@ -132,7 +135,7 @@
       enableFishIntegration = true;
       enableZshIntegration = true;
       git = true;
-      icons = true;
+      icons = "auto";
     };
 
     programs.bat.enable = true;

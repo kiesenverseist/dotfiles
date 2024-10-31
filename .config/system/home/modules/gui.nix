@@ -68,7 +68,7 @@ in {
       theme = let
         inherit (config.lib.formats.rasi) mkLiteral;
       in {
-        # "@theme" = "gruvbox-dark-hard";
+        "@theme" = lib.mkForce "gruvbox-dark-hard";
         element-icon = {
           size = mkLiteral "2.5ch";
         };

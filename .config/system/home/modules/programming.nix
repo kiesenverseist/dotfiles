@@ -10,26 +10,31 @@
 
   config = lib.mkIf config.programming.enable {
     home.packages = with pkgs; [
+      # cli tools
       curl
       socat
       jq
       lazygit
       dirdiff
+      pre-commit
 
-      ## programming
-      cachix
+      # tui tools
       neovim
       neovim-remote
+
+      # langs
       clang
-      pre-commit
       nodejs
       go
-      devenv
-      tectonic
-      texlab
+      tectonic # modern latex compiler
+      texlab # latex
+      basedpyright # python lsp
+      ruff # python formatter
 
       ## nix stuff
       # nix
+      devenv
+      cachix
       nixd
       nh
       nix-output-monitor
@@ -48,8 +53,6 @@
         ms-vsliveshare.vsliveshare
       ];
     };
-
-    programs.pyenv = {enable = true;};
 
     programs.opam.enable = true;
 
