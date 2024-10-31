@@ -183,14 +183,22 @@ local plugins = {
     -- init = function()
     -- 	require("core.utils").load_mappings("notify")
     -- end,
-    config = function()
+    opts = {
+      render = "wrapped-compact",
+      timeout = 3000,
+    },
+    config = function(_, opts)
+      local notify = require "notify"
+      notify.setup(opts)
+
+      ---@diagnostic disable-next-line: duplicate-set-field
       vim.notify = function(msg, ...)
         if
           msg:match "warning: multiple different client offset_encodings detected for buffer, this is not supported yet"
         then
           return
         end
-        require "notify"(msg, ...)
+        notify(msg, ...)
       end
     end,
   },
