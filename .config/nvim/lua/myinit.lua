@@ -111,8 +111,7 @@ vim.g.vimtex_mappings_prefix = "<S-Space>"
 vim.g.vimtex_compiler_method = "tectonic"
 vim.g.vimtex_view_method = "zathura"
 
--- hypr treesitter stuff
 vim.filetype.add {
-  pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+  pattern = { [".*/hypr/.*%.conf"] = "hyprlang" }, -- hypr treesitter stuff
   extension = { templ = "templ" },
 }
