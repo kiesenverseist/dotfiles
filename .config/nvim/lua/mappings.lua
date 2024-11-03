@@ -230,7 +230,7 @@ end, { desc = "Terminal open normal" })
 -- kubectl
 map("n", "<leader>K", function()
   require("kubectl").toggle()
-end, { noremap = true, silent = true })
+end, { desc = "Kubectl", noremap = true, silent = true })
 
 -- neovide
 if vim.g.neovide then

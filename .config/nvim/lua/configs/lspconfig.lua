@@ -3,7 +3,8 @@ local nvlsp = require "nvchad.configs.lspconfig"
 nvlsp.defaults()
 
 local on_init = nvlsp.on_init
-local capabilities = nvlsp.capabilities
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+local map = vim.keymap.set
 
 local lspconfig = require "lspconfig"
 
@@ -12,7 +13,34 @@ local function on_attach(client, bufnr)
     vim.lsp.inlay_hint.enable(true)
   end
 
-  nvlsp.on_attach(client, bufnr)
+  local function opts(desc)
+    return { buffer = bufnr, desc = "LSP " .. desc }
+  end
+
+  map("n", "gD", vim.lsp.buf.declaration, opts "Go to declaration")
+  map("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
+  map("n", "grd", vim.lsp.buf.type_definition, opts "Go to type definition")
+  map("n", "grn", require "nvchad.lsp.renamer", opts "NvRenamer")
+  map("n", "gri", vim.lsp.buf.implementation, opts "Go to implementation")
+  map("n", "grr", vim.lsp.buf.references, opts "Go to implementation")
+  map({ "n", "v" }, "gra", vim.lsp.buf.code_action, opts "Code action")
+  map("n", "<leader>cH", vim.lsp.buf.signature_help, opts "Show signature help")
+
+  -- workspaces
+  map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
+  map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
+  map("n", "<leader>wl", function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, opts "List workspace folders")
+
+  -- map("n", "<leader>D", vim.lsp.buf.type_definition, opts "Go to type definition")
+  -- now: grn
+  -- map("n", "<leader>ra", require "nvchad.lsp.renamer", opts "NvRenamer")
+  -- now: gri
+  -- map("n", "gi", vim.lsp.buf.implementation, opts "Go to implementation")
+  -- goto references is not grr
+  -- now: gra
+  -- map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts "Code action")
 end
 
 -- Start lsp only after direnv.nvim is finished
