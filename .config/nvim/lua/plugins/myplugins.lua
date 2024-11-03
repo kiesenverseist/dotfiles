@@ -141,12 +141,6 @@ local plugins = {
     lazy = false,
     opts = {
       async = true,
-      on_env_update = function()
-        vim.api.nvim_exec_autocmds("User", { pattern = "DirenvLoaded" })
-      end,
-      on_no_direnv = function()
-        vim.api.nvim_exec_autocmds("User", { pattern = "DirenvNotFound" })
-      end,
     },
   },
 

@@ -1,68 +1,4 @@
-local nvlsp = require "nvchad.configs.lspconfig"
-
-nvlsp.defaults()
-
-local on_init = nvlsp.on_init
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-local map = vim.keymap.set
-
-local lspconfig = require "lspconfig"
-
-local function on_attach(client, bufnr)
-  if client.server_capabilities.inlayHintProvider then
-    vim.lsp.inlay_hint.enable(true)
-  end
-
-  local function opts(desc)
-    return { buffer = bufnr, desc = "LSP " .. desc }
-  end
-
-  map("n", "gD", vim.lsp.buf.declaration, opts "Go to declaration")
-  map("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
-  map("n", "grd", vim.lsp.buf.type_definition, opts "Go to type definition")
-  map("n", "grn", require "nvchad.lsp.renamer", opts "NvRenamer")
-  map("n", "gri", vim.lsp.buf.implementation, opts "Go to implementation")
-  map("n", "grr", vim.lsp.buf.references, opts "Go to implementation")
-  map({ "n", "v" }, "gra", vim.lsp.buf.code_action, opts "Code action")
-  map("n", "<leader>cH", vim.lsp.buf.signature_help, opts "Show signature help")
-
-  -- workspaces
-  map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
-  map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
-  map("n", "<leader>wl", function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, opts "List workspace folders")
-
-  -- map("n", "<leader>D", vim.lsp.buf.type_definition, opts "Go to type definition")
-  -- now: grn
-  -- map("n", "<leader>ra", require "nvchad.lsp.renamer", opts "NvRenamer")
-  -- now: gri
-  -- map("n", "gi", vim.lsp.buf.implementation, opts "Go to implementation")
-  -- goto references is not grr
-  -- now: gra
-  -- map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts "Code action")
-end
-
--- Start lsp only after direnv.nvim is finished
-vim.api.nvim_create_autocmd("User", {
-  pattern = { "DirenvLoaded", "DirenvNotFound" }, -- this starts the lsp when the direnv was loaded or when there is no .envrc found
-  callback = function()
-    vim.cmd "LspStart"
-  end,
-})
-
-local function setup_lsp(client, opts)
-  vim.tbl_deep_extend("keep", opts, {
-    autostart = false,
-    on_attach = on_attach,
-    on_init = on_init,
-    capabilities = capabilities,
-  })
-
-  lspconfig[client].setup(opts)
-end
-
--- if you just want default config for the servers then put them in a table
+-- servers with default config
 local servers = {
   -- webdev stuff
   "html",
@@ -90,15 +26,69 @@ local servers = {
   "gleam",
 }
 
-for _, lsp in ipairs(servers) do
-  setup_lsp(lsp, {})
+local nvlsp = require "nvchad.configs.lspconfig"
+
+nvlsp.defaults()
+
+local on_init = nvlsp.on_init
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+local map = vim.keymap.set
+
+local function on_attach(client, bufnr)
+  if client.server_capabilities.inlayHintProvider then
+    vim.lsp.inlay_hint.enable(true)
+  end
+
+  local function opts(desc)
+    return { buffer = bufnr, desc = "LSP " .. desc }
+  end
+
+  map("n", "gD", vim.lsp.buf.declaration, opts "Go to declaration")
+  map("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
+  map("n", "grd", vim.lsp.buf.type_definition, opts "Go to type definition")
+  map("n", "grn", require "nvchad.lsp.renamer", opts "NvRenamer")
+  map("n", "gri", vim.lsp.buf.implementation, opts "Go to implementation")
+  map("n", "grr", vim.lsp.buf.references, opts "Go to implementation")
+  map({ "n", "v" }, "gra", vim.lsp.buf.code_action, opts "Code action")
+  map("n", "grs", vim.lsp.buf.signature_help, opts "Show signature help")
+
+  -- workspaces
+  map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
+  map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
+  map("n", "<leader>wl", function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, opts "List workspace folders")
 end
 
-setup_lsp("cssls", {
-  cmd = { "css-languageserver", "--stdio" },
+-- Start lsp only after direnv.nvim is finished
+vim.api.nvim_create_autocmd("User", {
+  group = "direnv-nvim",
+  -- pattern = { "DirenvLoaded", "DirenvNotFound"},
+  -- this starts the lsp when the direnv was loaded or when there is no .envrc found
+  pattern = { "DirenvReady", "DirenvNotFound" },
+  callback = function()
+    vim.cmd "LspStart"
+  end,
 })
 
-setup_lsp("texlab", {
+local lspconfig = require "lspconfig"
+
+lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
+  autostart = false, -- so that it can be loaded after direnv
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+})
+
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {}
+end
+
+lspconfig["cssls"].setup {
+  cmd = { "css-languageserver", "--stdio" },
+}
+
+lspconfig["texlab"].setup {
   settings = {
     textlab = {
       build = {
@@ -107,14 +97,7 @@ setup_lsp("texlab", {
       },
     },
   },
-})
-
--- lspconfig.rust_analyzer.setup({
---   cmd = { "rust-analyzer" },
---   on_attach = on_attach,
---   on_init = on_init,
---   capabilities = capabilities,
--- })
+}
 
 -- from: require("nvchad.configs.lspconfig").defaults()
 dofile(vim.g.base46_cache .. "lsp")
@@ -146,7 +129,7 @@ lspconfig.lua_ls.setup {
   },
 }
 
-setup_lsp("yamlls", {
+lspconfig["yamlls"].setup {
   settings = {
     yaml = {
       schemas = {
@@ -167,21 +150,21 @@ setup_lsp("yamlls", {
       },
     },
   },
-})
+}
 
-setup_lsp("ocamllsp", {
+lspconfig["ocamllsp"].setup {
   settings = {
     codeLens = { enable = true },
     inlayHints = { enable = true },
   },
-})
+}
 
-setup_lsp("ruff", {
+lspconfig["ruff"].setup {
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
     client.server_capabilities.hoverProvider = false
   end,
-})
+}
 
 -- require("neodev").setup {}
 
