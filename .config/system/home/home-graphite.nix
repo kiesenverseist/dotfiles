@@ -7,8 +7,8 @@
   gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
   gdlauncher = import ./packages/gdlauncher.nix {inherit pkgs;};
   # lmms-nightly = import ./packages/lmms.nix {inherit pkgs;};
-  gaming = inputs.nix-gaming.packages.${pkgs.system};
-  xwvb = pkgs.libsForQt5.callPackage ./packages/xwaylandvideobridge.nix {};
+  # gaming = inputs.nix-gaming.packages.${pkgs.system};
+  # xwvb = pkgs.libsForQt5.callPackage ./packages/xwaylandvideobridge.nix {};
   eww-custom = pkgs.callPackage ./packages/eww-custom {};
 in {
   imports = [
@@ -67,7 +67,7 @@ in {
     nautilus
     sushi
     gnome-solanum
-    xwvb # xwaylandvideobridge
+    xwaylandvideobridge # xwvb 
     blueman
     zathura
     via
@@ -82,7 +82,7 @@ in {
     # lmms
     # ardour
     # lmms-nightly
-    distrho
+    # distrho # TODO: broke, check.
     cardinal
     vcv-rack
     carla
@@ -105,8 +105,8 @@ in {
     # gaming
     protontricks
     # gaming.proton-ge
-    gaming.osu-stable
-    gaming.osu-lazer-bin
+    # gaming.osu-stable # TODO: broke, check
+    # gaming.osu-lazer-bin # TODO: broke, check
     gdlauncher
     prismlauncher
     wine
@@ -116,6 +116,7 @@ in {
     looking-glass-client
     runelite
     modrinth-app
+    bottles
 
     libva
     vaapiVdpau
@@ -131,6 +132,7 @@ in {
     # making
     prusa-slicer
     kicad
+    freecad-wayland
 
     inputs.nix-alien.packages.${system}.nix-alien
   ];
