@@ -86,8 +86,9 @@
         dentry = ip: port: entry ip port port;
       in
         []
-        ++ (dentry graphite 7777)
-        ++ (dentry halite 25565);
+        ++ (dentry graphite 7777) # satisfactory
+        ++ (dentry halite 25565) # minecraft vault hunters
+        ++ (dentry graphite 34197); # factorio
     };
 
     nftables = {
@@ -103,6 +104,7 @@
             type nat hook prerouting priority dstnat; policy accept;
             ${entry graphite 7777}
             ${entry halite 25565}
+            ${entry graphite 34197}
           }
         }
       '';
@@ -120,7 +122,7 @@
           443 # http and https
         ]
         ++ common;
-      allowedUDPPorts = [] ++ common;
+      allowedUDPPorts = [34197] ++ common;
     };
   };
 

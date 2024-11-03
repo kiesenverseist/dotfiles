@@ -17,7 +17,8 @@ in {
     lan = true;
     requireUserVerification = false;
     nonBlockingSaving = true;
-    saveName = "spaceage";
+    saveName = "spaceage-m";
+    game-password = "apple";
     admins = ["kiesenverseist"];
     package = factorio-custom;
   };
