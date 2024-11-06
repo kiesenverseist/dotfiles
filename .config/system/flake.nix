@@ -29,6 +29,7 @@
     nixgl.url = "github:guibou/nixGL";
 
     foundryvtt.url = "github:reckenrode/nix-foundryvtt";
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
     anyrun = {
       url = "github:Kirottu/anyrun";
