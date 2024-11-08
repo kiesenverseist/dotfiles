@@ -208,7 +208,7 @@ map("n", "<leader>cf", function()
 end, { desc = "General Format file" })
 
 -- notify
-map("n", "<leader>X", function()
+map("n", "<leader>D", function()
   require("notify").dismiss { pending = false, silent = false }
 end, { desc = "Dismiss notifications" })
 
