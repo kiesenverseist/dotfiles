@@ -47,7 +47,8 @@ in {
       enable = true;
       package = nixGL pkgs.kitty;
       # theme = "Gruvbox Material Dark Hard";
-      theme = lib.mkForce "Flexoki (Dark)";
+      # theme = lib.mkForce "Flexoki (Dark)";
+      themeFile = lib.mkForce "flexoki_dark";
       # font = {
       #   name = "FiraCode Nerd Font";
       #   size = 16;

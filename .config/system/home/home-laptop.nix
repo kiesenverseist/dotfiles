@@ -8,7 +8,7 @@
   # gaming = nix-gaming.packages.${pkgs.system};
   xwvb = pkgs.libsForQt5.callPackage ./packages/xwaylandvideobridge.nix {};
   # eww-custom = pkgs.callPackage ./eww-custom {};
-  nixGl = import ./packages/nixgl.nix {inherit pkgs config;};
+  nixGL = import ./packages/nixgl.nix {inherit pkgs config;};
 in {
   imports = [
     inputs.walker.homeManagerModules.default
@@ -63,13 +63,21 @@ in {
     nixgl.nixGLIntel
   ];
 
-  # wayland.windowManager.hyprland = {
-  #   enable = true;
-  #   settings = {
-  #     "source" = "~/.config/hypr/main.conf";
-  #   };
-  #   systemd.variables = ["--all"];
-  # };
+  wayland.windowManager.hyprland = {
+    enable = true;
+    package = nixGL pkgs.hyprland;
+    settings = {
+      "source" = [
+        "~/.config/hypr/main.conf"
+        "~/.config/hypr/monitors.conf"
+      ];
+    };
+    systemd.variables = ["--all"];
+    plugins = [
+      pkgs.hyprlandPlugins.hyprspace
+      pkgs.hyprlandPlugins.hyprbars
+    ];
+  };
 
   xdg.userDirs.enable = true;
 
