@@ -28,8 +28,58 @@ map("n", "]L", "<cmd> lfirst <CR>", { desc = "First locationlist" })
 map("n", "[L", "<cmd> llast <CR>", { desc = "Last locationlist" })
 
 -- toggles
-map("n", "<leader>Tn", "<cmd>set nu!<CR>", { desc = "Toggle line number" })
-map("n", "<leader>Tr", "<cmd>set rnu!<CR>", { desc = "Toggle relative number" }) --
+-- This is to get a nice working toggle icon in whichkey
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  callback = function()
+    Snacks.toggle.option("spell", { name = "Spelling" }):map "<leader>Ts"
+    Snacks.toggle.option("wrap", { name = "Wrap" }):map "<leader>Tw"
+    Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map "<leader>Tr"
+    Snacks.toggle.diagnostics():map "<leader>Td"
+    Snacks.toggle.line_number():map "<leader>Tn"
+    Snacks.toggle.inlay_hints():map "<leader>Ti"
+    Snacks.toggle.treesitter():map "<leader>Tt"
+
+    Snacks.toggle
+      .new({
+        name = "Buffer Autoformat",
+        get = function()
+          return not vim.b.disable_autoformat
+        end,
+        set = function(state)
+          vim.b.disable_autoformat = not state
+        end,
+      })
+      :map "<leader>Tf"
+    Snacks.toggle
+      .new({
+        name = "Global Autoformat",
+        get = function()
+          return not vim.g.disable_autoformat
+        end,
+        set = function(state)
+          vim.g.disable_autoformat = not state
+        end,
+      })
+      :map "<leader>TF"
+    Snacks.toggle
+      .new({
+        name = "Treesitter Context",
+        get = function()
+          return require("treesitter-context").enabled()
+        end,
+        set = function(state)
+          local tc = require "treesitter-context"
+          if state then
+            tc.enable()
+          else
+            tc.disable()
+          end
+        end,
+      })
+      :map "<leader>Tc"
+  end,
+})
 
 -- resize
 map("n", "<C-.>", "<C-w>10>")
@@ -49,6 +99,7 @@ map("n", "<C-n>", function()
   end
 end, { desc = "MiniFiles toggle" })
 
+-- oil
 map("n", "<leader>o", require("oil").toggle_float, { desc = "Oil" })
 map("n", "<M-->", "<cmd> Oil <CR>", { desc = "Oil" })
 
@@ -180,31 +231,14 @@ map("n", "<leader>gc", function()
   end
 end, { desc = "Jump to current context" })
 
--- treesitter context
-map("n", "<leader>Tc", "<CMD>TSContextToggle<CR>", { desc = "Toggle Treesitter context" })
-
 -- auto session
 map("n", "<leader>sf", "<cmd>SessionSearch<CR>", { desc = "Session search" })
 map("n", "<leader>ss", "<cmd>SessionSave<CR>", { desc = "Save session" })
 map("n", "<leader>sa", "<cmd>SessionToggleAutoSave<CR>", { desc = "Toggle autosave" })
 
 -- lazygit
-map("n", "<leader>gl", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
-
--- M.general = {
--- 	n = {
--- 		[";"] = { ":", "enter command mode", opts = { nowait = true } },
--- 		["<leader>G"] = {
--- 			function()
--- 				require("nvterm.terminal").send("lazygit", "float")
--- 			end,
--- 			"open lazygit",
--- 		},
--- 	},
--- }
-
 map({ "n", "t" }, "<M-g>", function()
-  require("nvchad.term").toggle { pos = "float", id = "lazyTerm", cmd = "lazygit", clear_cmd = false }
+  Snacks.lazygit()
 end, { desc = "toggle lazygit term" })
 
 -- terminal bindings

@@ -251,13 +251,6 @@ local plugins = {
       require("remote-nvim").setup()
     end,
   },
-  {
-    "stevearc/conform.nvim",
-    event = "BufWritePre",
-    config = function()
-      require "configs.conform"
-    end,
-  },
 
   -- To make a plugin not be loaded
   -- {

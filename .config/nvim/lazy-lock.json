@@ -48,6 +48,7 @@
   "plenary.nvim": { "branch": "master", "commit": "2d9b06177a975543726ce5c73fca176cedbffe9d" },
   "popup.nvim": { "branch": "master", "commit": "b7404d35d5d3548a82149238289fa71f7f6de4ac" },
   "remote-nvim.nvim": { "branch": "main", "commit": "66fc20fd259401c7bb6ac5189ecb6283c2eb65d2" },
+  "snacks.nvim": { "branch": "main", "commit": "e8ea0910e0fdb020da06664ed9f5250e5d8fc43c" },
   "telescope-bibtex.nvim": { "branch": "master", "commit": "289a6f86ebec06e8ae1590533b732b9981d84900" },
   "telescope-project.nvim": { "branch": "master", "commit": "796200876bb0fe8157b8eb1ce03d927d3827a052" },
   "telescope-undo.nvim": { "branch": "main", "commit": "51be9ae7c42fc27c0b05505e3a0162e0f05fbb6a" },
