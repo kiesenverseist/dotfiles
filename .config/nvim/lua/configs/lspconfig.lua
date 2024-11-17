@@ -17,7 +17,6 @@ local servers = {
   "basedpyright",
 
   "gdscript",
-  "nixd",
   "regols",
 
   "gopls",
@@ -27,6 +26,7 @@ local servers = {
 }
 
 local nvlsp = require "nvchad.configs.lspconfig"
+-- local util = require 'lspconfig.util'
 
 nvlsp.defaults()
 
@@ -94,6 +94,36 @@ lspconfig["texlab"].setup {
       build = {
         executable = "tectonic",
         args = { "--synctex", "--keep-logs", "--keep-intermediates", "main.tex" },
+      },
+    },
+  },
+}
+
+lspconfig["nixd"].setup {
+  cmd = { "nixd" },
+  settings = {
+    nixd = {
+      -- nixpkgs = util.root_pattern("flake.nix")(fname)
+      nixpkgs = {
+        -- expr = [[
+        --   let
+        --     local = builtins.tryEval(import (builtins.getFlake ("git+file://" + toString ./.)).inputs.nixpkgs { });
+        --   in
+        --     if local.success then local.value else import <nixpkgs> { }
+        -- ]],
+        expr = "import <nixpkgs> { }",
+      },
+      formatting = {
+        -- command = { "nix", "fmt" },
+        command = { "alejandra" },
+      },
+      options = {
+        nixos = {
+          expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.graphite.options',
+        },
+        home_manager = {
+          expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations."kiesen@graphite".options',
+        },
       },
     },
   },
