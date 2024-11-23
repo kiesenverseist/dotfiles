@@ -6,6 +6,7 @@
     ./programming.nix
     ./hyprland
     ./theme.nix
+    ./walker.nix
     ../../hosts/cachix.nix
   ];
 
