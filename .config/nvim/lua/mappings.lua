@@ -81,6 +81,11 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
+-- more snack binds
+map("n", "gX", function()
+  Snacks.gitbrowse()
+end)
+
 -- resize
 map("n", "<C-.>", "<C-w>10>")
 map("n", "<C-,>", "<C-w>10<")
