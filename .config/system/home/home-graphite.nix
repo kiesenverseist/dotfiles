@@ -73,7 +73,7 @@ in {
     via
     chromium
     vlc
-    obs-studio
+    # obs-studio
     waypipe
     nwg-displays
     nwg-dock-hyprland
@@ -133,6 +133,8 @@ in {
     prusa-slicer
     kicad
     freecad-wayland
+
+    edl
 
     inputs.nix-alien.packages.${system}.nix-alien
   ];
