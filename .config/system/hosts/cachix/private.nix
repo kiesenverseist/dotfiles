@@ -16,7 +16,7 @@
         ];
         trusted-public-keys = [
           "graphite:FnIo5szy8arpdbZ/2Y5TvXaQvGUxQ5n8ks0csr7G1aI="
-          "halite:LNYbnhzlELsnb/V+Hc/KbQJSnIt+rBLvkVdCTyW2gV4="
+          "halite:91osPE75cUphmG7/39DPx18BrrwcJKXUem1tFqI+8eo="
         ];
       };
     };

@@ -1,6 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running `nixos-help`).
 {
   config,
   pkgs,
@@ -94,13 +91,14 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  # services.harmonia = {
-  #   enable = true;
-  #   signKeyPath = "/var/lib/secrets/harmonia.secret";
-  # };
+  services.harmonia = {
+    enable = true;
+    signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
+  };
 
   programs.zsh.enable = true;
   programs.fish.enable = true;
+  programs.direnv.enable = true;
 
   programs.hyprland = {
     enable = true;
@@ -184,6 +182,8 @@
   users.groups = {
     media = {};
   };
+
+  nix.settings.trusted-users = ["root" "@wheel"];
 
   fonts.packages = with pkgs; [
     (nerdfonts.override {fonts = ["FiraCode"];})
@@ -406,6 +406,62 @@
   #     };
   #   };
   # };
+
+  services.restic.backups = let
+    paths = [
+      "/etc/group"
+      "/etc/machine-id"
+      "/etc/NetworkManager/system-connections"
+      "/etc/passwd"
+      "/etc/subgid"
+      "/etc/ssh"
+      "/home"
+      "/root"
+      "/var/lib"
+      "/var/lib/plex/Plex Media Server/Preferences.xml"
+    ];
+    exclude = [
+      "/home/*/.cache"
+      "/home/*/.steam"
+      "/home/*/.local/share/Steam"
+      "/var/lib/plex"
+    ];
+    passwordFile = "/var/lib/secrets/restic-password";
+  in {
+    local = {
+      inherit paths exclude passwordFile;
+      initialize = true;
+      repository = "/var/backup/restic";
+      timerConfig = {
+        OnCalendar = "01:05";
+        Persistent = true;
+        RandomizedDelaySec = "5h";
+      };
+      pruneOpts = [
+        "--keep-daily 7"
+        "--keep-weekly 5"
+        "--keep-monthly 12"
+        "--keep-yearly 75"
+      ];
+    };
+    backblaze = {
+      inherit paths exclude passwordFile;
+      initialize = true;
+      repository = "s3:s3.us-east-005.backblazeb2.com/kiesen";
+      environmentFile = "/var/lib/secrets/backblaze.env";
+      timerConfig = {
+        OnCalendar = "02:05";
+        Persistent = true;
+        RandomizedDelaySec = "5h";
+      };
+      pruneOpts = [
+        "--keep-daily 3"
+        "--keep-weekly 3"
+        "--keep-monthly 12"
+        "--keep-yearly 75"
+      ];
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
