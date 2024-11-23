@@ -58,6 +58,10 @@ opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.wo.relativenumber = true
 opt.scrolloff = 10
 
+-- spelling
+vim.opt_global.spelllang = "en_au,en_gb"
+vim.opt_global.spell = true
+
 local function nvim_create_augroups(definitions)
   for group_name, definition in pairs(definitions) do
     api.nvim_command("augroup " .. group_name)
