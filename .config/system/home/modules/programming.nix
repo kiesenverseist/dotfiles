@@ -38,6 +38,7 @@
       nixd
       nh
       nix-output-monitor
+      alejandra
     ];
 
     home.sessionVariables = {

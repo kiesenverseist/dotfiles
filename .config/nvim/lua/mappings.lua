@@ -81,6 +81,11 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
+-- more snack binds
+map("n", "gX", function()
+  Snacks.gitbrowse()
+end)
+
 -- resize
 map("n", "<C-.>", "<C-w>10>")
 map("n", "<C-,>", "<C-w>10<")
@@ -208,7 +213,7 @@ map("n", "<leader>cf", function()
 end, { desc = "General Format file" })
 
 -- notify
-map("n", "<leader>X", function()
+map("n", "<leader>D", function()
   require("notify").dismiss { pending = false, silent = false }
 end, { desc = "Dismiss notifications" })
 

@@ -1,12 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  system,
-  ...
-}: {
+{lib, ...}: {
   imports = [
     ./configuration.nix
+    ./game-servers.nix
     ./vfio.nix
   ];
 

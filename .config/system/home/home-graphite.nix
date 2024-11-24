@@ -13,13 +13,13 @@
 in {
   imports = [
     inputs.anyrun.homeManagerModules.anyrun
-    inputs.walker.homeManagerModules.default
     ./modules
   ];
 
   guiMinimal.enable = true;
   programming.enable = true;
   # de.enable = false;
+  walker.enable = true;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -73,7 +73,7 @@ in {
     via
     chromium
     vlc
-    obs-studio
+    # obs-studio
     waypipe
     nwg-displays
     nwg-dock-hyprland
@@ -133,6 +133,8 @@ in {
     prusa-slicer
     kicad
     freecad-wayland
+
+    edl
 
     inputs.nix-alien.packages.${system}.nix-alien
   ];
@@ -212,29 +214,6 @@ in {
     };
   };
 
-  programs.walker = {
-    enable = true;
-    runAsService = true;
-    package = pkgs.walker;
-
-    # All options from the config.json can be used here.
-    # config = {
-    #   search.placeholder = "Example";
-    #   ui.fullscreen = true;
-    #   list = {
-    #     height = 200;
-    #   };
-    #   websearch.prefix = "?";
-    #   switcher.prefix = "/";
-    # };
-
-    # If this is not set the default styling is used.
-    # style = ''
-    #   * {
-    #     color: #dcd7ba;
-    #   }
-    # '';
-  };
 
   programs.rofi.enable = true;
 

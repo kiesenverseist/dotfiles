@@ -43,7 +43,7 @@ in {
     pkgs.nwg-displays
 
     ## programming
-    pkgs._1password
+    pkgs._1password-cli
     pkgs.minikube
 
     ## nix stuff
