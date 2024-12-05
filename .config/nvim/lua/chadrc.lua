@@ -17,23 +17,27 @@ M.base46 = {
 M.ui = {
   statusline = {
     theme = "vscode_colored",
-    -- theme = "default",
-    -- separator_style = "default",
+    -- order = { "mode", "file", "git", "%=", "lsp_msg", "%=", "diagnostics", "lsp", "cursor", "cwd" },
+    modules = {
+      file = function()
+        local icon = "󰈚"
+        local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid or 0)
+        local raw_path = vim.api.nvim_buf_get_name(bufnr)
+        local path = (raw_path == "" and "Empty") or raw_path
+        local name = raw_path:match "([^/\\]+)[/\\]*$"
 
-    -- overidden_modlesd = function(modules)
-    --   local cursor_position = function()
-    --     local left_sep = "%#St_pos_sep#" .. "" .. "%#St_pos_icon#" .. " "
-    --     return left_sep .. "%#St_pos_text#" .. " " .. "%l:%c" .. " "
-    --   end
-    --   -- table.remove(modules, 10
-    --   table.insert(modules, 10, cursor_position())
-    --   table.insert(modules, 2, function()
-    --     local path = vim.api.nvim_buf_get_name(0):match "^.*/"
-    --     return "%#St_LspStatus#" .. path -- https://github.com/NvChad/base46/blob/v2.0/lua/base46/integrations/statusline.lua
-    --   end)()
-    --
-    --   return modules
-    -- end,
+        if path ~= "Empty" then
+          local devicons_present, devicons = pcall(require, "nvim-web-devicons")
+
+          if devicons_present then
+            local ft_icon = devicons.get_icon(name)
+            icon = (ft_icon ~= nil and ft_icon) or icon
+          end
+        end
+
+        return table.concat { "%#StText# ", icon, " ", "%f" }
+      end,
+    },
   },
 }
 
