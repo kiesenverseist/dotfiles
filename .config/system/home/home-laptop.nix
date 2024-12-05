@@ -6,17 +6,16 @@
 }: let
   gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
   # gaming = nix-gaming.packages.${pkgs.system};
-  xwvb = pkgs.libsForQt5.callPackage ./packages/xwaylandvideobridge.nix {};
   # eww-custom = pkgs.callPackage ./eww-custom {};
   nixGL = import ./packages/nixgl.nix {inherit pkgs config;};
 in {
   imports = [
-    inputs.walker.homeManagerModules.default
     ./modules
   ];
 
   guiMinimal.enable = true;
   programming.enable = true;
+  walker.enable = true;
 
   nixGLPrefix = "nixGLIntel";
 
@@ -45,7 +44,7 @@ in {
     # (pkgs.eww.override { withWayland = true; })
     # libnotify
     wpaperd
-    xwvb # xwaylandvideobridge
+    xwaylandvideobridge
 
     # syncthingtray
     rofi-power-menu
@@ -102,29 +101,6 @@ in {
 
   programs.rofi = {
     enable = true;
-  };
-
-  programs.walker = {
-    enable = true;
-    runAsService = true;
-
-    # All options from the config.json can be used here.
-    # config = {
-    #   search.placeholder = "Example";
-    #   ui.fullscreen = true;
-    #   list = {
-    #     height = 200;
-    #   };
-    #   websearch.prefix = "?";
-    #   switcher.prefix = "/";
-    # };
-
-    # If this is not set the default styling is used.
-    # style = ''
-    #   * {
-    #     color: #dcd7ba;
-    #   }
-    # '';
   };
 
   programs.qutebrowser = {
