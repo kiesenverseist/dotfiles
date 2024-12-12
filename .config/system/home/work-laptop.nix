@@ -1,20 +1,21 @@
 {
   config,
   pkgs,
-  inputs,
+  # inputs,
   ...
 }: let
   nixGL = import ./packages/nixgl.nix {inherit pkgs config;};
 in {
   imports = [
-    inputs.walker.homeManagerModules.default
     ./modules
+    ./modules/plasma.nix
   ];
 
   guiMinimal.enable = true;
   programming.enable = true;
   cli.enable = true;
   private-cache.enable = false;
+  walker.enable = true;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -46,11 +47,16 @@ in {
     pkgs._1password-cli
     pkgs.minikube
 
+    pkgs.jira-cli-go
+
     ## nix stuff
     pkgs.nixgl.nixGLIntel
   ];
 
   # programs.bash.enable = true;
+  programs.bash.profileExtra = ''
+    source .config/secrets
+  '';
 
   programs.vscode = {
     enable = true;
@@ -81,11 +87,6 @@ in {
     ];
   };
 
-  programs.walker = {
-    enable = true;
-    runAsService = true;
-  };
-
   services.syncthing = {
     enable = true;
     tray.enable = true;
@@ -95,6 +96,8 @@ in {
   gtk.enable = true;
 
   targets.genericLinux.enable = true;
+
+  xdg.systemDirs.data = ["${config.home.homeDirectory}/.nix-profile/share/applications"];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

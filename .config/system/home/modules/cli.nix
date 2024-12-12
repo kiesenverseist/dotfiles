@@ -27,7 +27,7 @@
     nix = {
       package = pkgs.lix;
       settings.experimental-features = ["nix-command" "flakes"];
-      registry.nixpkgs.flake = inputs.nixpkgs; 
+      registry.nixpkgs.flake = inputs.nixpkgs;
       nixPath = ["nixpkgs=${inputs.nixpkgs}"];
       # extraOptions = ''
       #   !include ${config.sops.secrets.nix_access_tokens.path}
@@ -65,7 +65,7 @@
 
     home.sessionVariables = {
       EDITOR = "nvim";
-      PATH = "$HOME/.nix-profile/bin:$PATH";
+      PATH = "$HOME/.nix-profile/bin:$HOME/.local/bin:$PATH";
       FLAKE = "$HOME/.config/system";
     };
 

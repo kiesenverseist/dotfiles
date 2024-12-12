@@ -7,7 +7,8 @@ local autocmd = vim.api.nvim_create_autocmd
 -- })
 
 if vim.g.neovide == true then
-  vim.o.guifont = "FiraCode Nerd Font:h16"
+  -- vim.o.guifont = "FiraCode Nerd Font Mono"
+  -- vim.o.guifont = "FiraCode_Nerd_Font"
   vim.o.winblend = 30
   vim.o.pumblend = 30
 
@@ -106,7 +107,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
     require "nvchad.term"
     vim.cmd "startinsert"
-    vim.cmd "setlocal nonumber norelativenumber"
+    vim.cmd "setlocal nonumber norelativenumber nospell"
   end,
 })
 

@@ -23,12 +23,8 @@ in {
   config = lib.mkIf config.guiMinimal.enable {
     home.packages = with pkgs;
       [
-        (nerdfonts.override {
-          fonts = [
-            "FiraCode"
-            "Gohu"
-          ];
-        })
+        nerd-fonts.fira-code
+        nerd-fonts.gohufont
 
         (nixGL neovide)
         floorp
@@ -64,7 +60,7 @@ in {
       # enable = true;
       cycle = true;
       # font = "FiraCode Nerd Font 16";
-      font = lib.mkForce "GohuFont uni11 Nerd Font Propo 22";
+      font = lib.mkForce "GohuFont 11 Nerd Font Propo 22";
       terminal = "${pkgs.kitty}/bin/kitty";
       theme = let
         inherit (config.lib.formats.rasi) mkLiteral;

@@ -38,6 +38,12 @@
 
     walker.url = "github:abenz1267/walker";
 
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager/plasma-5";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
