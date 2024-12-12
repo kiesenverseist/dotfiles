@@ -67,7 +67,7 @@ in {
     nautilus
     sushi
     gnome-solanum
-    xwaylandvideobridge # xwvb 
+    xwaylandvideobridge # xwvb
     blueman
     zathura
     via
@@ -117,6 +117,7 @@ in {
     runelite
     modrinth-app
     bottles
+    xivlauncher
 
     libva
     vaapiVdpau
@@ -213,7 +214,6 @@ in {
       closeOnClick = true;
     };
   };
-
 
   programs.rofi.enable = true;
 
