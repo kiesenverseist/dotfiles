@@ -1,16 +1,19 @@
 * {
-  /*font-family: "FiraCode Nerd Font";*/
-  font-family: "GohuFont uni14 Nerd Font Propo";
-  /*font-family: "Font Awesome 6 Free";*/
+  // font-family: "FiraCode Nerd Font";
+  // font-family: "GohuFont uni14 Nerd Font";
+  // font-family: "Symbols Nerd Font";
+  font-family: "GohuFont", "Symbols Nerd Font";
+  // font-family: "Font Awesome 6 Free";
   font-size: 14px;
   /*color: rgba(0.5,0.5,0.5,1);*/
   /*background-color: rgba(0.1,0.1,0.1,0.7);*/
 }
 
 .submap {
-  background-color: green;
+  background-color: #5E409D;
   /*background-color: -gtk-bg1();*/
-  padding: 2px;
+  padding: 0.5rem 0.1rem;
+  font-size: 22px;
 }
 
 /*.background {*/

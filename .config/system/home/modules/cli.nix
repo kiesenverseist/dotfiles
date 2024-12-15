@@ -73,6 +73,13 @@
     #   { allowUnfree = true; }
     # '';
 
+    home.file = let
+      dotfiles = "${config.home.homeDirectory}/.config/system/config";
+      sym = dir: config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${dir}";
+    in {
+      ".config/nvim".source = sym "nvim";
+    };
+
     xdg.userDirs.enable = true;
 
     programs.zsh = {
@@ -113,6 +120,8 @@
     };
 
     programs.bash.enable = lib.mkDefault true;
+
+    programs.nushell.enable = lib.mkDefault true;
 
     programs.starship = {
       enable = true;

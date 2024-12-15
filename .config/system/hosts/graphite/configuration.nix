@@ -29,7 +29,7 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.configurationLimit = 100;
+  boot.loader.systemd-boot.configurationLimit = 20;
 
   networking.hostName = "graphite"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -125,14 +125,19 @@
     enable = true;
     # capSysNice = true;
   };
+  services.joycond.enable = true;
+
+  # vr
+  services.monado.enable = false;
+  services.wivrn.enable = false;
 
   programs.alvr.enable = true;
 
   programs.obs-studio = {
     enable = true;
-    enableVirtualCamera = true;
+    # enableVirtualCamera = true;
     plugins = [
-      pkgs.obs-studio-plugins.wlrobs 
+      pkgs.obs-studio-plugins.wlrobs
       pkgs.obs-studio-plugins.obs-backgroundremoval
       # input-overlay requires x11 which i don't use.
       # pkgs.obs-studio-plugins.input-overlay
@@ -198,8 +203,8 @@
 
   nix.settings.trusted-users = ["root" "@wheel"];
 
-  fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["FiraCode"];})
+  fonts.packages = [
+    pkgs.nerd-fonts.fira-code
   ];
 
   nixpkgs.config.packageOverrides = pkgs: {
@@ -231,7 +236,7 @@
 
     firefox
 
-    nixd
+    # nixd
     home-manager
     nh
 

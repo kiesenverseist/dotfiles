@@ -1,15 +1,10 @@
 {
-  config,
   pkgs,
   inputs,
   ...
 }: let
-  gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
-  gdlauncher = import ./packages/gdlauncher.nix {inherit pkgs;};
-  # lmms-nightly = import ./packages/lmms.nix {inherit pkgs;};
-  # gaming = inputs.nix-gaming.packages.${pkgs.system};
-  # xwvb = pkgs.libsForQt5.callPackage ./packages/xwaylandvideobridge.nix {};
-  eww-custom = pkgs.callPackage ./packages/eww-custom {};
+  # gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
+  # eww-custom = pkgs.callPackage ./packages/eww-custom {};
 in {
   imports = [
     inputs.anyrun.homeManagerModules.anyrun
@@ -50,8 +45,9 @@ in {
     lf
     ctpv
 
-    (eww-custom.override {withWayland = true;})
+    # (eww-custom.override {withWayland = true;})
     # (pkgs.eww.override { withWayland = true; })
+    pkgs.eww
     libnotify
     wpaperd
     grim
@@ -107,7 +103,7 @@ in {
     # gaming.proton-ge
     # gaming.osu-stable # TODO: broke, check
     # gaming.osu-lazer-bin # TODO: broke, check
-    gdlauncher
+    # gdlauncher
     prismlauncher
     wine
     lutris
@@ -166,7 +162,7 @@ in {
     systemd.variables = ["--all"];
     plugins = [
       pkgs.hyprlandPlugins.hyprspace
-      pkgs.hyprlandPlugins.hyprbars
+      # pkgs.hyprlandPlugins.hyprbars
     ];
   };
 
@@ -234,23 +230,6 @@ in {
     enable = true;
   };
 
-  services.mako = {
-    enable = false;
-    anchor = "top-left";
-
-    font = "Fira Nerd Font 12";
-
-    padding = "5";
-
-    backgroundColor = "#1D2021";
-    progressColor = "#ebdbb2";
-    textColor = "#d4be98";
-
-    borderColor = "#ebdbb2";
-    borderSize = 2;
-    borderRadius = 5;
-  };
-
   services.swaync.enable = true;
 
   # remember to do the manual setup of this on first setup on computer
@@ -301,8 +280,8 @@ in {
     # theme.package = pkgs.adw-gtk3;
     # theme.name = "adw-gtk3-dark";
 
-    iconTheme.package = gruvboxplus;
-    iconTheme.name = "GruvboxPlus";
+    # iconTheme.package = gruvboxplus;
+    # iconTheme.name = "GruvboxPlus";
   };
 
   # Let Home Manager install and manage itself.

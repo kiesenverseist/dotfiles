@@ -55,5 +55,11 @@
       fish.enable = false;
       kitty.enable = false;
     };
+
+    stylix.iconTheme = {
+      enable = true;
+      package = pkgs.zafiro-icons;
+      dark = "Zafiro-icons";
+    };
   };
 }

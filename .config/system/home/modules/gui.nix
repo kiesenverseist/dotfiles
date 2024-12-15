@@ -23,8 +23,11 @@ in {
   config = lib.mkIf config.guiMinimal.enable {
     home.packages = with pkgs;
       [
+        fira-code
+        gohufont
         nerd-fonts.fira-code
         nerd-fonts.gohufont
+        nerd-fonts.symbols-only
 
         (nixGL neovide)
         floorp
@@ -33,7 +36,13 @@ in {
       ]
       ++ lib.optional (config.nixGLPrefix != "") pkgs.nixgl.${config.nixGLPrefix};
 
-    fonts.fontconfig.enable = true;
+    fonts.fontconfig = {
+      enable = true;
+      defaultFonts = {
+        monospace = ["FiraCode Nerd Font Mono" "Symbols Nerd Font Mono"];
+        sansSerif = ["FiraCode Nerd Font" "Symbols Nerd Font"];
+      };
+    };
 
     home.sessionVariables = {
       TERMINAL = "kitty";
@@ -45,13 +54,14 @@ in {
       # theme = "Gruvbox Material Dark Hard";
       # theme = lib.mkForce "Flexoki (Dark)";
       themeFile = lib.mkForce "flexoki_dark";
-      # font = {
-      #   name = "FiraCode Nerd Font";
-      #   size = 16;
-      # };
+      font = {
+        name = "FiraCode Nerd Font";
+        size = 16;
+      };
       settings = {
         # background_opacity = "0.95";
         shell = "fish";
+        disable_ligatures = "cursor";
       };
       shellIntegration.enableFishIntegration = true;
     };
