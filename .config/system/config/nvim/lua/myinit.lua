@@ -40,6 +40,22 @@ if vim.g.neovide == true then
 			end)
 		end,
 	})
+
+	-- get rid of smooth scroll in term
+	vim.api.nvim_create_autocmd("TermEnter", {
+		callback = function()
+			vim.g.neovide_scroll_animation_length = 0
+			vim.g.neovide_cursor_animation_length = 0
+		end,
+	})
+	vim.api.nvim_create_autocmd("TermLeave", {
+		callback = function()
+			vim.fn.timer_start(70, function()
+				vim.g.neovide_scroll_animation_length = 0.20
+				vim.g.neovide_cursor_animation_length = 0.05
+			end)
+		end,
+	})
 end
 
 local opt = vim.opt

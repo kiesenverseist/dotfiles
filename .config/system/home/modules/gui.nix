@@ -55,7 +55,8 @@ in {
       # theme = lib.mkForce "Flexoki (Dark)";
       themeFile = lib.mkForce "flexoki_dark";
       font = {
-        name = "FiraCode Nerd Font";
+        # name = "FiraCode Nerd Font";
+        name = "FiraCode Mono,Symbols Nerd Font";
         size = 16;
       };
       settings = {

@@ -154,8 +154,8 @@ in {
     # theme.package = pkgs.adw-gtk3;
     # theme.name = "adw-gtk3";
 
-    iconTheme.package = gruvboxplus;
-    iconTheme.name = "GruvboxPlus";
+    # iconTheme.package = gruvboxplus;
+    # iconTheme.name = "GruvboxPlus";
   };
 
   # Let Home Manager install and manage itself.
