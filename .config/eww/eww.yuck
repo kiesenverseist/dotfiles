@@ -78,7 +78,7 @@
       :halign "center"
       :space-evenly false
       :vexpand true
-      (systray :pack-direction "ttb")
+      (systray :orientation "v")
       (stats :dir "v")
       (clock :orientation "vertical")
       (power))))
