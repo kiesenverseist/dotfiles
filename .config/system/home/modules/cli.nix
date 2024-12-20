@@ -155,6 +155,8 @@
       lfs.enable = true;
     };
 
+    programs.jujutsu.enable = true;
+
     programs.fzf = {
       enable = true;
     };
