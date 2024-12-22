@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs-master.url = "github:nixos/nixpkgs/master";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
@@ -48,7 +48,6 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixinate.url = "github:matthewcroughan/nixinate";
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -64,12 +63,6 @@
       config = {allowUnfree = true;};
       overlays = [inputs.nixgl.overlay];
     };
-    # pkgs-master = import inputs.nixpkgs-master {
-    #   inherit system;
-    #   config = {
-    #       allowUnfree = true;
-    #   };
-    # };
   in {
     nixosConfigurations = let
       specialArgs = {inherit inputs system;};
@@ -95,10 +88,6 @@
           (inputs.nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
           ./hosts/live
         ];
-      };
-      "lazurite" = inputs.nixpkgs-stable.lib.nixosSystem {
-        inherit specialArgs system;
-        modules = [./hosts/lazurite];
       };
     };
 
@@ -151,7 +140,7 @@
       };
     };
 
-    apps = inputs.nixinate.nixinate.${system} self;
+    colmena = import ./hosts/colmena.nix {inherit inputs;};
 
     formatter.${system} = pkgs.alejandra;
   };

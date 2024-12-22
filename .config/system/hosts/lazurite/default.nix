@@ -1,7 +1,7 @@
 {...}: {
   imports = [
     ./configuration.nix
-    ./deploy.nix
+    # ./deploy.nix
     ./hardware-configuration.nix
   ];
 }

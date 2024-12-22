@@ -60,10 +60,10 @@
   };
 
   networking = let
+    # real ips are used as nat doesn't understand domains
     graphite = "100.119.227.45";
     halite = "100.120.252.116";
   in {
-    hostName = "lazurite";
     domain = "subnet09102314.vcn09102314.oraclevcn.com";
 
     nat = {

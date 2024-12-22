@@ -39,6 +39,7 @@
       nh
       nix-output-monitor
       alejandra
+      colmena
     ];
 
     home.sessionVariables = {
