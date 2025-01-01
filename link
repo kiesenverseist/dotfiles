@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# mv ~/.config/anyrun ~/.config/anyrun.bak
+# mv ~/.config/doom ~/.config/doom.bak
+# mv ~/.config/eww ~/.config/eww.bak
+# mv ~/.config/ironbar ~/.config/ironbar.bak
+# mv ~/.config/hypr ~/.config/hypr.bak
+# mv ~/.config/lf ~/.config/lf.bak
+# mv ~/.config/qutebrowser ~/.config/qutebrowser.bak
+# mv ~/.config/waybar ~/.config/waybar.bak
+
+mkdir -p ~/.config/hypr
+mkdir -p ~/.config/qutebrowser
+mkdir -p ~/.config/anyrun
+
+ln -s ~/dotfiles/config/anyrun/* ~/.config/anyrun/
+ln -s ~/dotfiles/config/doom ~/.config/doom
+ln -s ~/dotfiles/config/eww ~/.config/eww
+ln -s ~/dotfiles/config/ironbar ~/.config/ironbar
+ln -s ~/dotfiles/config/hypr/* ~/.config/hypr/
+ln -s ~/dotfiles/config/lf ~/.config/lf
+ln -s ~/dotfiles/config/qutebrowser/* ~/.config/qutebrowser/
+ln -s ~/dotfiles/config/waybar ~/.config/waybar

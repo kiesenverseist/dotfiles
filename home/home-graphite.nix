@@ -2,10 +2,7 @@
   pkgs,
   inputs,
   ...
-}: let
-  # gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
-  # eww-custom = pkgs.callPackage ./packages/eww-custom {};
-in {
+}: {
   imports = [
     inputs.anyrun.homeManagerModules.anyrun
     ./modules
@@ -13,7 +10,7 @@ in {
 
   guiMinimal.enable = true;
   programming.enable = true;
-  # de.enable = false;
+  de.enable = true;
   walker.enable = true;
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -33,47 +30,13 @@ in {
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
-
     # cli stuff
-    nvtopPackages.full
     lf
     ctpv
 
-    # (eww-custom.override {withWayland = true;})
-    # (pkgs.eww.override { withWayland = true; })
-    pkgs.eww
-    libnotify
-    wpaperd
-    grim
-    slurp
-    pavucontrol
-    pulsemixer
-    dolphin
-    wl-clipboard
-    playerctl
-    xdg-user-dirs
     qbittorrent
-    gnome-calculator
-    nautilus
-    sushi
-    gnome-solanum
-    xwaylandvideobridge # xwvb
-    blueman
-    zathura
     via
     chromium
-    vlc
-    # obs-studio
-    waypipe
-    nwg-displays
-    nwg-dock-hyprland
-    walker
 
     # lmms
     # ardour
@@ -83,15 +46,12 @@ in {
     vcv-rack
     carla
 
-    syncthingtray
-
     # proprietary stuffs
     vesktop
-    (discord.override {
-      withOpenASAR = false;
-    })
-    # teams
-    # microsoft-edge
+    # (discord.override {
+    #   withOpenASAR = false;
+    # })
+    discord-ptb
 
     # programming
     gf
@@ -109,11 +69,12 @@ in {
     lutris
     moonlight-qt
     protonup-qt
-    looking-glass-client
+    # looking-glass-client
     runelite
     modrinth-app
-    bottles
+    # bottles
     xivlauncher
+    wlx-overlay-s
 
     libva
     vaapiVdpau
@@ -131,7 +92,7 @@ in {
     kicad
     freecad-wayland
 
-    edl
+    # edl
 
     inputs.nix-alien.packages.${system}.nix-alien
   ];
@@ -151,31 +112,8 @@ in {
     # '';
   };
 
-  wayland.windowManager.hyprland = {
-    enable = true;
-    settings = {
-      "source" = [
-        "~/.config/hypr/main.conf"
-        "~/.config/hypr/monitors.conf"
-      ];
-    };
-    systemd.variables = ["--all"];
-    plugins = [
-      pkgs.hyprlandPlugins.hyprspace
-      # pkgs.hyprlandPlugins.hyprbars
-    ];
-  };
-
-  # programs.hyprlock.enable = true;
-  services.hypridle.enable = true;
-
   xdg.mimeApps.defaultApplications = {
   };
-
-  xdg.systemDirs.data = [
-    "var/lib/flatpak/exports/share"
-    "/home/kiesen/.local/share/flatpak/exports/share"
-  ];
 
   programs.vscode = {
     enable = true;
@@ -191,8 +129,6 @@ in {
   # programs.lf = {
   #   enable = true;
   # };
-
-  services.swayosd = {enable = true;};
 
   programs.anyrun = {
     enable = false;
@@ -213,37 +149,9 @@ in {
 
   programs.rofi.enable = true;
 
-  programs.qutebrowser = {
-    enable = true;
-    # package = pkgs.qutebrowser-qt6;
-    settings = {
-      colors.webpage.darkmode.enabled = true;
-      fonts.default_size = "12pt";
-      tabs = {
-        position = "left";
-        show = "switching";
-      };
-    };
-  };
-
   programs.mangohud = {
     enable = true;
   };
-
-  services.swaync.enable = true;
-
-  # remember to do the manual setup of this on first setup on computer
-  services.syncthing = {
-    enable = true;
-    tray = {
-      enable = true;
-      command = "WAYLAND_DISPLAY= syncthingtray";
-    };
-  };
-
-  # services.udiskie.enable = true;
-
-  services.network-manager-applet.enable = true;
 
   # dconf.settings = {
   #   "org/virt-manager/virt-manager/connections" = {
@@ -251,39 +159,4 @@ in {
   #     uris = ["qemu:///system"];
   #   };
   # };
-
-  systemd.user.targets.tray = {
-    Unit = {
-      Description = "Home Manager System Tray";
-      Requires = ["graphical-session-pre.target"];
-    };
-  };
-
-  qt = {
-    enable = true;
-    # platformTheme.name = "gtk";
-    # style.name = "adwaita-dark";
-    # style.package = pkgs.adwaita-qt;
-  };
-
-  home.pointerCursor = {
-    # gtk.enable = true;
-    # x11.enable = true;
-    # package = pkgs.bibata-cursors;
-    # name = "Bibata-Modern-Ice";
-    # size = 16;
-  };
-
-  gtk = {
-    enable = true;
-
-    # theme.package = pkgs.adw-gtk3;
-    # theme.name = "adw-gtk3-dark";
-
-    # iconTheme.package = gruvboxplus;
-    # iconTheme.name = "GruvboxPlus";
-  };
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }

@@ -54,12 +54,38 @@
     stylix.targets = {
       fish.enable = false;
       kitty.enable = false;
+      kde.enable = false;
     };
 
     stylix.iconTheme = {
       enable = true;
-      package = pkgs.zafiro-icons;
-      dark = "Zafiro-icons";
+      # package = pkgs.zafiro-icons;
+      # dark = "Zafiro-icons";
+      package = pkgs.gruvbox-plus-icons;
+      dark = "Gruvbox-Plus-Dark";
+    };
+
+    stylix.cursor = {
+      package = pkgs.kdePackages.breeze;
+      name = "breeze_cursors";
+      size = 24;
+    };
+
+    qt = {
+      enable = true;
+      platformTheme.name = "qtct";
+      style.name = "kvantum-dark";
+      style.package = [
+        pkgs.qt6ct
+        pkgs.kdePackages.qtstyleplugin-kvantum
+        pkgs.libsForQt5.qtstyleplugin-kvantum
+        pkgs.gruvbox-kvantum
+        pkgs.plasma-integration
+      ];
+    };
+
+    gtk = {
+      enable = true;
     };
   };
 }

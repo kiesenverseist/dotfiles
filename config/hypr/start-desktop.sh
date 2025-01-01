@@ -7,14 +7,14 @@ eww daemon
 eww open-many bar0 bar1
 hypridle &
 wpaperd &
-polkit-agent-helper-1 &
+# polkit-agent-helper-1 &
 # waybar &
-nm-applet --indicator &
 # dunst &
 kitty btop &
 # discord &
 vesktop &
-firefox &
+# firefox &
+floorp &
 obsidian &
 todoist-electron &
 # udiskie &

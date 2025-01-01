@@ -73,9 +73,18 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  services.avahi.enable = true;
-  services.avahi.nssmdns4 = true;
-  services.avahi.openFirewall = true;
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      domain = true;
+      userServices = true;
+      workstation = true;
+    };
+  };
 
   # services.onedrive.enable = true;
 
@@ -87,6 +96,27 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
+
+    extraConfig.pipewire-pulse."30-network-publish" = {
+      "pulse.cmd" = [
+        {
+          cmd = "load-module";
+          args = "module-native-protocol-tcp";
+        }
+        {
+          cmd = "load-module";
+          args = "module-zeroconf-publish";
+        }
+      ];
+      "pulse.properties" = [
+        {
+          server.address = [
+            "unix:native"
+            "tcp:0.0.0.0:4713"
+          ];
+        }
+      ];
+    };
   };
 
   security.polkit.enable = true;
@@ -100,11 +130,7 @@
   programs.zsh.enable = true;
   programs.fish.enable = true;
 
-  programs.hyprland = {
-    enable = true;
-    # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    # portalPackage = inputs.xdph.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
-  };
+  programs.hyprland.enable = true;
 
   programs.adb.enable = true;
 
@@ -145,19 +171,6 @@
   };
 
   programs.wshowkeys.enable = true;
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      steam = prev.steam.override ({extraPkgs ? pkgs': [], ...}: {
-        extraPkgs = pkgs':
-          (extraPkgs pkgs')
-          ++ (with pkgs'; [
-            libconfig
-            openssl
-          ]);
-      });
-    })
-  ];
 
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
@@ -211,12 +224,15 @@
     steam = pkgs.steam.override {
       extraPkgs = pkgs:
         with pkgs; [
+          libconfig
+          openssl
           libgdiplus
           keyutils
           libkrb5
           libpng
           libpulseaudio
           libvorbis
+          fuse
           stdenv.cc.cc.lib
           xorg.libXcursor
           xorg.libXi

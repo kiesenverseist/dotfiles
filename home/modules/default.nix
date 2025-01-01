@@ -2,9 +2,8 @@
   imports = [
     ./cli.nix
     ./gui.nix
-    # ./de.nix
+    ./de.nix
     ./programming.nix
-    ./hyprland
     ./theme.nix
     ./walker.nix
     ../../hosts/cachix.nix

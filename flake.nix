@@ -37,6 +37,10 @@
     };
 
     walker.url = "github:abenz1267/walker";
+    hyprpanel = {
+      url = "github:Jas-SinghFSU/HyprPanel";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     plasma-manager = {
       url = "github:nix-community/plasma-manager/plasma-5";
@@ -61,7 +65,7 @@
     pkgs = import inputs.nixpkgs {
       inherit system;
       config = {allowUnfree = true;};
-      overlays = [inputs.nixgl.overlay];
+      overlays = [inputs.nixgl.overlay inputs.hyprpanel.overlay];
     };
   in {
     nixosConfigurations = let

@@ -33,6 +33,7 @@ in {
         floorp
         obsidian
         todoist-electron
+        hyprpanel
       ]
       ++ lib.optional (config.nixGLPrefix != "") pkgs.nixgl.${config.nixGLPrefix};
 

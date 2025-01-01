@@ -15,7 +15,7 @@
       socat
       jq
       lazygit
-      dirdiff
+      # dirdiff
       pre-commit
 
       # tui tools

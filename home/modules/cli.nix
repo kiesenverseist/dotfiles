@@ -66,7 +66,7 @@
     home.sessionVariables = {
       EDITOR = "nvim";
       PATH = "$HOME/.nix-profile/bin:$HOME/.local/bin:$PATH";
-      FLAKE = "$HOME/.config/system";
+      FLAKE = "$HOME/dotfiles";
     };
 
     # home.file.".config/nixpkgs/config.nix".text = ''
@@ -162,5 +162,8 @@
     };
 
     programs.nix-index.enable = true;
+
+    # Let Home Manager install and manage itself.
+    programs.home-manager.enable = true;
   };
 }
