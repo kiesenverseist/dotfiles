@@ -3,9 +3,7 @@
   lib,
   config,
   ...
-}: let
-  nixGL = import ../packages/nixgl.nix {inherit pkgs config;};
-in {
+}: {
   options = {
     guiMinimal.enable = lib.mkEnableOption "enables basic cli config";
 
@@ -21,21 +19,19 @@ in {
   };
 
   config = lib.mkIf config.guiMinimal.enable {
-    home.packages = with pkgs;
-      [
-        fira-code
-        gohufont
-        nerd-fonts.fira-code
-        nerd-fonts.gohufont
-        nerd-fonts.symbols-only
+    home.packages = with pkgs; [
+      fira-code
+      gohufont
+      nerd-fonts.fira-code
+      nerd-fonts.gohufont
+      nerd-fonts.symbols-only
 
-        (nixGL neovide)
-        floorp
-        obsidian
-        todoist-electron
-        hyprpanel
-      ]
-      ++ lib.optional (config.nixGLPrefix != "") pkgs.nixgl.${config.nixGLPrefix};
+      (config.lib.nixGL.wrap neovide)
+      floorp
+      obsidian
+      todoist-electron
+      hyprpanel
+    ];
 
     fonts.fontconfig = {
       enable = true;
@@ -51,7 +47,7 @@ in {
 
     programs.kitty = {
       enable = true;
-      package = nixGL pkgs.kitty;
+      package = config.lib.nixGL.wrap pkgs.kitty;
       # theme = "Gruvbox Material Dark Hard";
       # theme = lib.mkForce "Flexoki (Dark)";
       themeFile = lib.mkForce "flexoki_dark";

@@ -1,11 +1,9 @@
 {
   config,
   pkgs,
-  # inputs,
+  inputs,
   ...
-}: let
-  nixGL = import ./packages/nixgl.nix {inherit pkgs config;};
-in {
+}: {
   imports = [
     ./modules
     ./modules/plasma.nix
@@ -16,11 +14,18 @@ in {
   cli.enable = true;
   private-cache.enable = false;
   walker.enable = true;
+  de.enable = true;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "ibrahim.fuad";
   home.homeDirectory = "/home/ibrahim.fuad";
+
+  # nixgl config
+  nixGL = {
+    packages = inputs.nixgl.packages;
+    defaultWrapper = "mesa";
+  };
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -51,6 +56,7 @@ in {
 
     ## nix stuff
     pkgs.nixgl.nixGLIntel
+    pkgs.nixgl.nixVulkanIntel
   ];
 
   # programs.bash.enable = true;
@@ -69,22 +75,6 @@ in {
 
   programs.rofi = {
     enable = true;
-  };
-
-  wayland.windowManager.hyprland = {
-    enable = true;
-    package = nixGL pkgs.hyprland;
-    settings = {
-      "source" = [
-        "~/.config/hypr/main.conf"
-        "~/.config/hypr/monitors.conf"
-      ];
-    };
-    systemd.variables = ["--all"];
-    plugins = [
-      pkgs.hyprlandPlugins.hyprspace
-      pkgs.hyprlandPlugins.hyprbars
-    ];
   };
 
   services.syncthing = {
