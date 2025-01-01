@@ -26,9 +26,14 @@
 
     nix-gaming.url = "github:fufexan/nix-gaming";
     nix-alien.url = "github:thiagokokada/nix-alien";
+
     nixgl = {
       url = "github:guibou/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixgl-stable = {
+      url = "github:guibou/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     foundryvtt.url = "github:reckenrode/nix-foundryvtt";

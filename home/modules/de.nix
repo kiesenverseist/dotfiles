@@ -23,7 +23,7 @@
     # environment.
     home.packages = with pkgs; [
       # cli stuff
-      nvtopPackages.full
+      # nvtopPackages.full
 
       pkgs.eww
       wpaperd
@@ -55,9 +55,9 @@
       syncthingtray
     ];
 
-
     wayland.windowManager.hyprland = {
       enable = true;
+      package = config.lib.nixGL.wrap pkgs.hyprland;
       settings = {
         "source" = [
           "~/.config/hypr/main.conf"
@@ -125,7 +125,7 @@
       enable = true;
     };
 
-    services.swaync.enable = true;
+    # services.swaync.enable = true;
 
     # remember to do the manual setup of this on first setup on computer
     services.syncthing = {
@@ -152,8 +152,7 @@
     };
 
     systemd.user.services.hyprpolkitagent = {
-      Install = { WantedBy = ["graphical-session.target"]; };
+      Install = {WantedBy = ["graphical-session.target"];};
     };
-
   };
 }

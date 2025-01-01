@@ -2,23 +2,19 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }: {
   options = {
     guiMinimal.enable = lib.mkEnableOption "enables basic cli config";
-
-    nixGLPrefix = lib.mkOption {
-      type = lib.types.str;
-      default = "";
-      description = ''
-        Will be prepended to commands which require working OpenGL.
-
-        This needs to be set to the right nixGL package on non-NixOS systems.
-      '';
-    };
   };
 
   config = lib.mkIf config.guiMinimal.enable {
+    # nixgl config
+    nixGL = {
+      packages = lib.mkDefault inputs.nixgl.packages;
+    };
+
     home.packages = with pkgs; [
       fira-code
       gohufont
