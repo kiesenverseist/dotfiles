@@ -25,7 +25,7 @@
     # };
 
     nix = {
-      package = pkgs.lix;
+      package = lib.mkDefault pkgs.lix;
       settings.experimental-features = ["nix-command" "flakes"];
       registry.nixpkgs.flake = inputs.nixpkgs;
       nixPath = ["nixpkgs=${inputs.nixpkgs}"];
@@ -56,8 +56,7 @@
       lazygit
 
       ## nix stuff
-      # nix
-      lix
+      config.nix.package
       nixd
       nh
       nix-output-monitor

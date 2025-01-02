@@ -29,6 +29,8 @@
     defaultWrapper = "mesa";
   };
 
+  nix = {package = pkgs.nix;};
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -114,7 +116,7 @@
         "kwalletd6"
         "${pkgs.hyprpanel}/bin/hyprpanel"
         "[workspace special silent] NIXOS_OZONE_WL=1 ${pkgs.slack}/bin/slack"
-        "[workspace 1 silent] ${pkgs.floorp}/bin/floorp"
+        "[workspace 1 silent; group set] ${pkgs.floorp}/bin/floorp"
         "[workspace 2 silent] ${pkgs.neovide}/bin/neovide"
         "[workspace 3 silent] ${pkgs.kitty}/bin/kitty"
       ];
