@@ -43,7 +43,6 @@
       gnome-solanum
       xwaylandvideobridge # xwvb
       blueman
-      zathura
       vlc
       waypipe
       nwg-displays
@@ -120,6 +119,8 @@
         hm = "https://home-manager-options.extranix.com/?={}";
       };
     };
+
+    programs.zathura.enable = true;
 
     programs.mangohud = {
       enable = true;
