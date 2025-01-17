@@ -100,39 +100,7 @@
   programs.fish.enable = true;
   programs.direnv.enable = true;
 
-  programs.hyprland = {
-    enable = true;
-    # enableNvidiaPatches = true;
-    # xwayland.enable = true;
-    # xwayland.hidpi = true;
-  };
-
-  systemd.targets.hyprland-session = {
-    description = "Hyprland compositor session";
-    documentation = ["man:systemd.special(7)"];
-    bindsTo = ["graphical-session.target"];
-    wants = ["graphical-session-pre.target"];
-    after = ["graphical-session-pre.target"];
-  };
-
-  # services.xserver.videoDrivers = ["nvidia"];
-
-  programs.steam.enable = true;
-  # programs.gamemode.enable = true;
-  # programs.gamescope = {
-  #   enable = true;
-  #   # capSysNice = true;
-  # };
-
-  # nixpkgs.overlays = [
-  #   (final: prev: {
-  #     steam = prev.steam.override ({ extraPkgs ? pkgs': [], ... }: {
-  #       extraPkgs = pkgs': (extraPkgs pkgs') ++ (with pkgs'; [
-  #         libconfig
-  #       ]);
-  #     });
-  #   })
-  # ];
+  programs.hyprland.enable = true;
 
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
@@ -145,25 +113,17 @@
       enable = true;
       enable32Bit = true;
     };
-    # nvidia = {
-    #   modesetting.enable = true;
-    #   open = false;
-    #   nvidiaSettings = true;
-    #   # vgpu = {
-    #   #   enable = true;
-    #   #   unlock.enable = true;
-    #   #   fastapi-dls = {
-    #   #     enable = true;
-    #   #     local_ipv4 = "localhost";
-    #   #     timezone = "Australia/Sydney";
-    #   #   };
-    #   # };
-    # };
 
     bluetooth.enable = true;
   };
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+     "aspnetcore-runtime-6.0.36"
+     "aspnetcore-runtime-wrapped-6.0.36"
+     "dotnet-sdk-6.0.428"
+     "dotnet-sdk-wrapped-6.0.428"
+  ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users = {
@@ -186,7 +146,8 @@
   nix.settings.trusted-users = ["root" "@wheel"];
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["FiraCode"];})
+    # (nerdfonts.override {fonts = ["FiraCode"];})
+    nerd-fonts.fira-code
   ];
 
   nixpkgs.config.packageOverrides = pkgs: {
@@ -220,6 +181,31 @@
   # flatpak
   services.flatpak.enable = true;
 
+  services.home-assistant = {
+    enable = true;
+    config = null;
+    lovelaceConfig = null;
+    extraComponents = [
+      "analytics"
+      "default_config"
+      "esphome"
+      "shopping_list"
+      "wled"
+      "met"
+      "radio_browser"
+      "google_translate"
+      "isal"
+      "cloud"
+      "network"
+      "config"
+      "mobile_app"
+      "tuya"
+      "nanoleaf"
+      "octoprint"
+      "ipp"
+    ];
+  };
+
   services.jellyfin = {
     enable = true;
     group = "media";
@@ -236,6 +222,12 @@
 
   services.sonarr = {
     enable = true;
+    package = pkgs.sonarr.overrideAttrs (pkgs.lib.const {doCheck = false;});
+    group = "media";
+  };
+
+  services.radarr = {
+    enable = true;
     group = "media";
   };
 
@@ -244,6 +236,12 @@
     group = "media";
     web.enable = true;
     # web.port = 8000;
+  };
+
+  services.komga = {
+    enable = true;
+    group = "media";
+    settings.server.port = 8080;
   };
 
   xdg.portal.enable = true;
@@ -314,39 +312,30 @@
   #   };
   # };
 
-  # virtualisation.sharedDirectories = {
-  #   my-share = {
-  #     source = "/home/kiesen/old-ssd/shared";
-  #     target = "shared";
-  #   };
-  # };
-
   programs.dconf.enable = true;
   programs.nix-ld.enable = true;
 
   programs.nbd.enable = true;
 
-  # services.gitea = {
-  #   enable = true;
-  #   lfs.enable = true;
-  #   settings.server.ROOT_URL = "https://halite.ladon-minnow.ts.net/git/";
-  # };
+  services.gitea = {
+    enable = true;
+    lfs.enable = true;
+    settings.server.ROOT_URL = "https://halite.ladon-minnow.ts.net/git/";
+  };
 
-  # services.gitea-actions-runner = {
-  #   instances."first" = {
-  #     name = "first";
-  #     enable = true;
-  #     url = "https://halite.ladon-minnow.ts.net/git/";
-  #     token = "zk0hCo1VHHjdadQPH4X4IbMQ5u09Le7KSuinNyD5";
-  #     labels = [
-  #       "native:host"
-  #       "ubuntu-latest:docker://node:16-bullseye"
-  #       "ubuntu-22.04:docker://node:16-bullseye"
-  #       "ubuntu-20.04:docker://node:16-bullseye"
-  #       "ubuntu-18.04:docker://node:16-buster"
-  #     ];
-  #   };
-  # };
+  services.gitea-actions-runner = {
+    instances."main" = {
+      name = "main";
+      enable = true;
+      url = config.services.gitea.settings.server.ROOT_URL;
+      token = "zk0hCo1VHHjdadQPH4X4IbMQ5u09Le7KSuinNyD5";
+      labels = [
+        "native:host"
+        "ubuntu-latest:docker://node:16-bullseye"
+        "ubuntu-22.04:docker://node:16-bullseye"
+      ];
+    };
+  };
 
   # services.qbittorrent = {
   #   enable = true;
@@ -364,48 +353,37 @@
 
   services.tailscale = {
     enable = true;
-    # permitCertUid = "caddy";
+    permitCertUid = "caddy";
   };
 
-  # services.caddy = {
-  #   enable = true;
-  #   virtualHosts."halite.ladon-minnow.ts.net" = {
-  #     extraConfig = ''
-  #       route /git/* {
-  #         uri strip_prefix /git
-  #         reverse_proxy localhost:3000
-  #       }
-  #
-  #       redir /jellyfin /jellyfin/
-  #       reverse_proxy /jellyfin/* localhost:8096
-  #     '';
-  #   };
-  #   virtualHosts."local-loopback" = {
-  #     extraConfig = ''
-  #       route /git/* {
-  #         uri strip_prefix /git
-  #         reverse_proxy localhost:3000
-  #       }
-  #
-  #       redir /jellyfin /jellyfin/
-  #       reverse_proxy /jellyfin/* localhost:8096
-  #     '';
-  #   };
-  # };
+  services.caddy = {
+    enable = true;
+    virtualHosts."halite.ladon-minnow.ts.net" = {
+      extraConfig = ''
+        route /git/* {
+          uri strip_prefix /git
+          reverse_proxy localhost:3000
+        }
 
-  # services.cloudflared = {
-  #   enable = true;
-  #   tunnels = {
-  #     "halite" = {
-  #       credentialsFile = "${config.sops.secrets.cloudflare_tunnel_token.path}";
-  #       ingress = {
-  #         "*.kiesen.dev" = "halite.ladon-minnow.ts.net";
-  #         "jellyfin.kiesen.dev" = "local-loopback/jellyfin";
-  #       };
-  #       default = "http_status:404";
-  #     };
-  #   };
-  # };
+        route /jellyseerr/* {
+          uri strip_prefix /jellyseerr
+          reverse_proxy localhost:5055
+        }
+
+        redir /jellyfin /jellyfin/
+        reverse_proxy /jellyfin/* localhost:8096
+
+        redir /sonarr /sonarr/
+        reverse_proxy /sonarr/* localhost:8989
+
+        redir /radarr /radarr/
+        reverse_proxy /radarr/* localhost:7878
+
+        redir /komga /komga/
+        reverse_proxy /komga/* localhost:8080
+      '';
+    };
+  };
 
   services.restic.backups = let
     paths = [
