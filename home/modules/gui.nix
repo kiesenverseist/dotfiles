@@ -26,7 +26,7 @@
       floorp
       obsidian
       todoist-electron
-      hyprpanel
+      # hyprpanel
     ];
 
     fonts.fontconfig = {
