@@ -65,8 +65,8 @@
       };
       systemd.variables = ["--all"];
       plugins = [
-        pkgs.hyprlandPlugins.hyprspace
-        pkgs.hyprlandPlugins.hyprbars
+        # pkgs.hyprlandPlugins.hyprspace
+        # pkgs.hyprlandPlugins.hyprbars
       ];
     };
 

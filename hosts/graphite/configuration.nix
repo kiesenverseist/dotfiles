@@ -300,9 +300,9 @@
     signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
   };
 
+  nixpkgs.config.rocmSupport = true;
   services.ollama = {
     enable = true;
-    acceleration = "rocm";
     rocmOverrideGfx = "11.0.1";
   };
 

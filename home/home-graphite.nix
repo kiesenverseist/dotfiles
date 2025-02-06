@@ -81,6 +81,7 @@
     libvdpau-va-gl
     libva-utils
     #nvapi latencyflex
+    nvtopPackages.amd
 
     # game dev
     pixelorama
