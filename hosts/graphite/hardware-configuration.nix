@@ -24,6 +24,9 @@
     "amdgpu.runpm=0"
     "amdgpu.bapm=0"
     "pcie_aspm=off"
+
+    # turn of usb autosuspend
+    "usbcore.autosuspend=-1"
   ];
 
   # # obs virtual cam stuff

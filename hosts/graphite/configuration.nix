@@ -210,7 +210,7 @@
   users.users.kiesen = {
     isNormalUser = true;
     shell = pkgs.fish;
-    extraGroups = ["wheel" "libvirtd" "qemu-libvirtd" "disk" "adbusers"]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "libvirtd" "qemu-libvirtd" "disk" "adbusers" "dialout"];
   };
 
   users.users."ibrahim.fuad" = {
