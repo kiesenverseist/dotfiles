@@ -66,7 +66,7 @@
       systemd.variables = ["--all"];
       plugins = [
         # pkgs.hyprlandPlugins.hyprspace
-        # pkgs.hyprlandPlugins.hyprbars
+        pkgs.hyprlandPlugins.hyprbars
       ];
     };
 
@@ -133,7 +133,6 @@
       enable = true;
       tray = {
         enable = true;
-        command = "WAYLAND_DISPLAY= syncthingtray";
       };
     };
 

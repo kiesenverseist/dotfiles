@@ -54,6 +54,7 @@
       neovim
       yadm
       lazygit
+      isd
 
       ## nix stuff
       config.nix.package

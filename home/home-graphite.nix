@@ -37,6 +37,7 @@
     qbittorrent
     via
     chromium
+    restic-browser
 
     # lmms
     # ardour

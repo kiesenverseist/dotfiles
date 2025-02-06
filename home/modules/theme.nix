@@ -71,22 +71,7 @@
       size = 24;
     };
 
-    qt = {
-      enable = true;
-      platformTheme.name = "qtct";
-      style.name = "kvantum-dark";
-      style.package = [
-        pkgs.qt6ct
-        pkgs.libsForQt5.qt5ct
-        pkgs.kdePackages.qtstyleplugin-kvantum
-        pkgs.libsForQt5.qtstyleplugin-kvantum
-        pkgs.gruvbox-kvantum
-        pkgs.plasma-integration
-      ];
-    };
-
-    gtk = {
-      enable = true;
-    };
+    qt.enable = true;
+    gtk.enable = true;
   };
 }
