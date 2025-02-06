@@ -152,6 +152,10 @@
       };
     };
 
+    devShells.${system}.default = pkgs.mkShellNoCC {
+      packages = [pkgs.age pkgs.ssh-to-age pkgs.sops];
+    };
+
     colmena = import ./hosts/colmena.nix {inherit inputs;};
 
     formatter.${system} = pkgs.alejandra;

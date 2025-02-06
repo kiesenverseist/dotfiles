@@ -4,9 +4,7 @@
 {
   config,
   inputs,
-  lib,
   pkgs,
-  system,
   ...
 }: {
   imports = [
@@ -14,6 +12,7 @@
     ./game-servers.nix
     ../cachix.nix
     ./logiops.nix
+    inputs.sops-nix.nixosModules.sops
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_testing;
@@ -294,10 +293,18 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  sops.secrets."harmonia/secret" = {
+    mode = "0440";
+    owner = "harmonia";
+    group = "harmonia";
+  };
   services.harmonia = {
     package = pkgs.harmonia;
     enable = true;
-    signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
+    signKeyPaths = [
+      "/var/lib/secrets/harmonia.secret"
+      config.sops.secrets."harmonia/secret".path
+    ];
   };
 
   nixpkgs.config.rocmSupport = true;
@@ -369,6 +376,7 @@
       "/home/*/.cache"
       "/home/*/.steam"
       "/home/*/.local/share/Steam"
+      "/var/lib/private/ollama"
     ];
     passwordFile = "/var/lib/secrets/restic-password";
   in {
@@ -406,6 +414,9 @@
       ];
     };
   };
+
+  sops.defaultSopsFile = ../../secrets/graphite.yaml;
+  sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
