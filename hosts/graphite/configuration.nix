@@ -12,6 +12,7 @@
     ./game-servers.nix
     ../cachix.nix
     ./logiops.nix
+    ../modules/backups.nix
     inputs.sops-nix.nixosModules.sops
     inputs.foundryvtt.nixosModules.foundryvtt
     inputs.lix-module.nixosModules.default
@@ -363,60 +364,7 @@
   programs.nix-ld.enable = true;
   programs.nbd.enable = true;
 
-  services.restic.backups = let
-    paths = [
-      "/etc/group"
-      "/etc/machine-id"
-      "/etc/NetworkManager/system-connections"
-      "/etc/passwd"
-      "/etc/subgid"
-      "/etc/ssh"
-      "/home"
-      "/root"
-      "/var/lib"
-    ];
-    exclude = [
-      "/home/*/.cache"
-      "/home/*/.steam"
-      "/home/*/.local/share/Steam"
-      "/var/lib/private/ollama"
-    ];
-    passwordFile = "/var/lib/secrets/restic-password";
-  in {
-    local = {
-      inherit paths exclude passwordFile;
-      initialize = true;
-      repository = "/var/backup/restic";
-      timerConfig = {
-        OnCalendar = "00:05";
-        Persistent = true;
-        RandomizedDelaySec = "5h";
-      };
-      pruneOpts = [
-        "--keep-daily 7"
-        "--keep-weekly 5"
-        "--keep-monthly 12"
-        "--keep-yearly 75"
-      ];
-    };
-    backblaze = {
-      inherit paths exclude passwordFile;
-      initialize = true;
-      repository = "s3:s3.us-east-005.backblazeb2.com/kiesen";
-      environmentFile = "/var/lib/secrets/backblaze.env";
-      timerConfig = {
-        OnCalendar = "01:05";
-        Persistent = true;
-        RandomizedDelaySec = "5h";
-      };
-      pruneOpts = [
-        "--keep-daily 3"
-        "--keep-weekly 3"
-        "--keep-monthly 12"
-        "--keep-yearly 75"
-      ];
-    };
-  };
+  services.backups.enable = true;
 
   sops.defaultSopsFile = ../../secrets/graphite.yaml;
   sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];

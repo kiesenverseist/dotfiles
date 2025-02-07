@@ -8,7 +8,8 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../cachix.nix
-    # inputs.sops-nix.nixosModules.sops
+    ../modules/backups.nix
+    inputs.sops-nix.nixosModules.sops
   ];
 
   # Use the GRUB 2 boot loader.
@@ -119,10 +120,10 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [
-     "aspnetcore-runtime-6.0.36"
-     "aspnetcore-runtime-wrapped-6.0.36"
-     "dotnet-sdk-6.0.428"
-     "dotnet-sdk-wrapped-6.0.428"
+    "aspnetcore-runtime-6.0.36"
+    "aspnetcore-runtime-wrapped-6.0.36"
+    "dotnet-sdk-6.0.428"
+    "dotnet-sdk-wrapped-6.0.428"
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -385,61 +386,9 @@
     };
   };
 
-  services.restic.backups = let
-    paths = [
-      "/etc/group"
-      "/etc/machine-id"
-      "/etc/NetworkManager/system-connections"
-      "/etc/passwd"
-      "/etc/subgid"
-      "/etc/ssh"
-      "/home"
-      "/root"
-      "/var/lib"
-      "/var/lib/plex/Plex Media Server/Preferences.xml"
-    ];
-    exclude = [
-      "/home/*/.cache"
-      "/home/*/.steam"
-      "/home/*/.local/share/Steam"
-      "/var/lib/plex"
-    ];
-    passwordFile = "/var/lib/secrets/restic-password";
-  in {
-    local = {
-      inherit paths exclude passwordFile;
-      initialize = true;
-      repository = "/var/backup/restic";
-      timerConfig = {
-        OnCalendar = "01:05";
-        Persistent = true;
-        RandomizedDelaySec = "5h";
-      };
-      pruneOpts = [
-        "--keep-daily 7"
-        "--keep-weekly 5"
-        "--keep-monthly 12"
-        "--keep-yearly 75"
-      ];
-    };
-    backblaze = {
-      inherit paths exclude passwordFile;
-      initialize = true;
-      repository = "s3:s3.us-east-005.backblazeb2.com/kiesen";
-      environmentFile = "/var/lib/secrets/backblaze.env";
-      timerConfig = {
-        OnCalendar = "02:05";
-        Persistent = true;
-        RandomizedDelaySec = "5h";
-      };
-      pruneOpts = [
-        "--keep-daily 3"
-        "--keep-weekly 3"
-        "--keep-monthly 12"
-        "--keep-yearly 75"
-      ];
-    };
-  };
+  services.backups.enable = true;
+
+  sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
