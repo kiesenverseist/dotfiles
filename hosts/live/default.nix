@@ -9,6 +9,6 @@
   ];
 
   boot.supportedFilesystems = ["bcachefs"];
-  boot.kernelPackages = lib.mkOverride 0 pkgs.linuxPackages_testing_bcachefs;
+  boot.kernelPackages = lib.mkOverride 0 pkgs.linuxPackages_latest;
   isoImage.squashfsCompression = "gzip -Xcompression-level 1";
 }

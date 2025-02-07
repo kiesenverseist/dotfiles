@@ -119,9 +119,7 @@
     initialPassword = "";
   };
 
-  fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["FiraCode"];})
-  ];
+  fonts.packages = [pkgs.nerd-fonts.fira-code];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -145,9 +143,6 @@
     tailscale
 
     polkit-kde-agent
-
-    inputs.hypridle.packages.${pkgs.system}.hypridle
-    inputs.hyprlock.packages.${pkgs.system}.hyprlock
   ];
 
   # List services that you want to enable:
