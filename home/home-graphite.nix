@@ -38,6 +38,7 @@
     via
     chromium
     restic-browser
+    restic
 
     # lmms
     # ardour

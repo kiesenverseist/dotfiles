@@ -13,6 +13,9 @@
     ../cachix.nix
     ./logiops.nix
     inputs.sops-nix.nixosModules.sops
+    inputs.foundryvtt.nixosModules.foundryvtt
+    inputs.lix-module.nixosModules.default
+    inputs.nixos-hardware.nixosModules.common-gpu-amd
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_testing;

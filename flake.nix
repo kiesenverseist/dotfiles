@@ -76,64 +76,9 @@
       overlays = [inputs.nixgl.overlay inputs.hyprpanel.overlay];
     };
   in {
-    nixosConfigurations = let
-      specialArgs = {inherit inputs system;};
-      conf = attrs:
-        inputs.nixpkgs.lib.nixosSystem ({
-            inherit specialArgs system;
-          }
-          // attrs);
-    in {
-      "halite" = conf {
-        modules = [./hosts/halite];
-      };
-      "graphite" = conf {
-        modules = [
-          ./hosts/graphite
-          inputs.foundryvtt.nixosModules.foundryvtt
-          inputs.lix-module.nixosModules.default
-          inputs.nixos-hardware.nixosModules.common-gpu-amd
-        ];
-      };
-      "live" = conf {
-        modules = [
-          (inputs.nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
-          ./hosts/live
-        ];
-      };
-    };
+    nixosConfigurations = import ./hosts {inherit inputs system;};
 
-    homeConfigurations = let
-      extraSpecialArgs = {inherit inputs;};
-      conf = attrs:
-        inputs.home-manager.lib.homeManagerConfiguration ({
-            inherit pkgs extraSpecialArgs;
-          }
-          // attrs);
-      commonModules = [inputs.stylix.homeManagerModules.stylix];
-    in {
-      "kiesen@halite" = conf {
-        modules = [./home/home-halite.nix] ++ commonModules;
-
-        extraSpecialArgs =
-          extraSpecialArgs
-          // {
-            nix-gaming = inputs.nix-gaming;
-          };
-      };
-      "kiesen@graphite" = conf {
-        modules = [./home/home-graphite.nix] ++ commonModules;
-      };
-      "kiesen@kiesen-eos-laptop" = conf {
-        modules = [./home/home-laptop.nix] ++ commonModules;
-      };
-      "ibrahim.fuad@au-lap-0618.saberastronautics.net" = conf {
-        modules = [./home/work-laptop.nix] ++ commonModules;
-      };
-      "ibrahim.fuad@graphite" = conf {
-        modules = [./home/work-graphite.nix] ++ commonModules;
-      };
-    };
+    homeConfigurations = import ./home {inherit inputs pkgs;};
 
     packages.${system} = {
       vm = inputs.nixos-generators.nixosGenerate {

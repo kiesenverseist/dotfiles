@@ -3,11 +3,7 @@
   pkgs,
   inputs,
   ...
-}: let
-  gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
-  gdlauncher = import ./packages/gdlauncher.nix {inherit pkgs;};
-  xwvb = pkgs.libsForQt5.callPackage ./packages/xwaylandvideobridge.nix {};
-in {
+}: {
   imports = [
     inputs.anyrun.homeManagerModules.anyrun
     inputs.walker.homeManagerModules.default
@@ -60,7 +56,6 @@ in {
 
     # gaming
     protontricks
-    gdlauncher
     prismlauncher
     wine
     lutris
@@ -146,31 +141,6 @@ in {
       Description = "Home Manager System Tray";
       Requires = ["graphical-session-pre.target"];
     };
-  };
-
-  qt = {
-    enable = true;
-    # platformTheme.name = "gtk";
-    # style.name = "adwaita-dark";
-    # style.package = pkgs.adwaita-qt;
-  };
-
-  home.pointerCursor = {
-    # gtk.enable = true;
-    # x11.enable = true;
-    # package = pkgs.bibata-cursors;
-    # name = "Bibata-Modern-Ice";
-    # size = 16;
-  };
-
-  gtk = {
-    enable = true;
-
-    # theme.package = pkgs.adw-gtk3;
-    # theme.name = "adw-gtk3-dark";
-
-    iconTheme.package = gruvboxplus;
-    iconTheme.name = "GruvboxPlus";
   };
 
   # Let Home Manager install and manage itself.
