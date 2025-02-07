@@ -11,7 +11,7 @@
   ];
 
   guiMinimal.enable = true;
-  # programming.enable = true;
+  programming.enable = true;
   # de.enable = false;
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -43,41 +43,16 @@
     lf
     ctpv
 
-    qbittorrent
-    zathura
-    via
-    vlc
-    obs-studio
-
-    syncthingtray
-
     # proprietary stuffs
     vesktop
 
     # gaming
-    protontricks
-    prismlauncher
-    wine
-    lutris
-    moonlight-qt
-    protonup-qt
     looking-glass-client
-    runelite
-    modrinth-app
 
     libva
     vaapiVdpau
     libvdpau-va-gl
     #nvapi latencyflex
-
-    # game dev
-    pixelorama
-    # unityhub
-    godot_4
-
-    # making
-    prusa-slicer
-    kicad
 
     inputs.nix-alien.packages.${system}.nix-alien
   ];
@@ -85,24 +60,16 @@
   # programs.hyprlock.enable = true;
   # services.hypridle.enable = true;
 
-  xdg.mimeApps.defaultApplications = {
-  };
-
   xdg.systemDirs.data = [
     "var/lib/flatpak/exports/share"
     "/home/kiesen/.local/share/flatpak/exports/share"
   ];
 
   ## CLI Tools
-
   programs.git = {
     userName = "Ibrahim Fuad";
     userEmail = "creativeibi77@gmail.com";
   };
-
-  # programs.lf = {
-  #   enable = true;
-  # };
 
   services.swayosd = {enable = true;};
 
@@ -119,13 +86,10 @@
   # remember to do the manual setup of this on first setup on computer
   services.syncthing = {
     enable = true;
-    tray = {
-      enable = true;
-      command = "WAYLAND_DISPLAY= syncthingtray";
-    };
+    tray.enable = true;
   };
 
-  # services.udiskie.enable = true;
+  services.udiskie.enable = true;
 
   services.network-manager-applet.enable = true;
 
