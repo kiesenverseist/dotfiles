@@ -65,7 +65,7 @@
     pkgs.slack
 
     ## nix stuff
-    # pkgs.nixgl.nixGLIntel
+    pkgs.nixgl.nixGLIntel
     # pkgs.nixgl.nixVulkanIntel
   ];
 
