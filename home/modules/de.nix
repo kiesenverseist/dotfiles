@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }: {
   options = {
@@ -49,7 +48,6 @@
       walker
 
       hyprpolkitagent
-      hypr
 
       syncthingtray
     ];

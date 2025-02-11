@@ -1,23 +1,18 @@
 {
   inputs,
   pkgs,
-  config,
+  lib,
   ...
-}: let
-  gruvboxplus = import ./packages/gruvbox-plus.nix {inherit pkgs;};
-  # gaming = nix-gaming.packages.${pkgs.system};
-  # eww-custom = pkgs.callPackage ./eww-custom {};
-  nixGL = import ./packages/nixgl.nix {inherit pkgs config;};
-in {
-  imports = [
-    ./modules
-  ];
+}: {
+  imports = [./modules];
 
-  guiMinimal.enable = true;
-  programming.enable = true;
-  walker.enable = true;
+  de.enable = true;
 
-  nixGLPrefix = "nixGLIntel";
+  # nixgl config
+  nixGL = {
+    packages = lib.mkForce inputs.nixgl-stable.packages;
+    defaultWrapper = "mesa";
+  };
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -36,57 +31,16 @@ in {
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    # theming
-    kdePackages.qtstyleplugin-kvantum
-    kdePackages.qt6ct
-
-    # (eww-custom.override { withWayland = true; })
-    # (pkgs.eww.override { withWayland = true; })
-    # libnotify
-    wpaperd
-    xwaylandvideobridge
-
-    # syncthingtray
-    rofi-power-menu
-    rofi-pulse-select
-
-    # proprietary stuffs
     vesktop
-    # (discord.override {
-    #   withOpenASAR = true;
-    # })
-    # obsidian
-    # teams
-    # microsoft-edge
-
-    nixgl.nixGLIntel
+    weechat
   ];
 
   wayland.windowManager.hyprland = {
-    enable = true;
-    package = nixGL pkgs.hyprland;
+    plugins = lib.mkForce [];
     settings = {
-      "source" = [
-        "~/.config/hypr/main.conf"
-        "~/.config/hypr/monitors.conf"
-      ];
+      exec-once = ["waybar & blueberry-tray & nm-applet --indicator & wpaperd & hypridle & wluma"];
     };
-    systemd.variables = ["--all"];
-    plugins = [
-      pkgs.hyprlandPlugins.hyprspace
-      pkgs.hyprlandPlugins.hyprbars
-    ];
   };
-
-  xdg.userDirs.enable = true;
-
-  xdg.mimeApps.defaultApplications = {
-  };
-
-  # xdg.systemDirs.data = [
-  #   "var/lib/flatpak/exports/share"
-  #   "/home/kiesen/.local/share/flatpak/exports/share"
-  # ];
 
   programs.vscode = {
     enable = true;
@@ -97,66 +51,7 @@ in {
     userEmail = "creativeibi77@gmail.com";
   };
 
-  services.swayosd = {enable = true;};
-
-  programs.rofi = {
-    enable = true;
-  };
-
-  programs.qutebrowser = {
-    enable = true;
-    # package = pkgs.qutebrowser-qt6;
-    settings = {
-      colors.webpage.darkmode.enabled = true;
-      fonts.default_size = "12pt";
-      tabs = {
-        position = "left";
-        show = "switching";
-      };
-    };
-  };
-
-  # remember to do the manual setup of this on first setup on computer
-  # services.syncthing = {
-  #   enable = true;
-  #   tray = {
-  #     enable = true;
-  #     command = "WAYLAND_DISPLAY= syncthingtray";
-  #   };
-  # };
-
-  services.udiskie.enable = true;
-
-  # services.network-manager-applet.enable = true;
-
-  #  systemd.user.targets.tray = {
-  # 	Unit = {
-  # 		Description = "Home Manager System Tray";
-  # 		Requires = [ "graphical-session-pre.target" ];
-  # 	};
-  # };
-
   targets.genericLinux.enable = true;
-
-  qt = {
-    enable = true;
-    # platformTheme.name = "gtk3";
-    # style.name = "adwaita-dark";
-    # style.package = pkgs.adwaita-qt;
-  };
-
-  gtk = {
-    enable = true;
-
-    cursorTheme.package = pkgs.bibata-cursors;
-    cursorTheme.name = "Bibata-Modern-Ice";
-
-    # theme.package = pkgs.adw-gtk3;
-    # theme.name = "adw-gtk3";
-
-    # iconTheme.package = gruvboxplus;
-    # iconTheme.name = "GruvboxPlus";
-  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
