@@ -18,10 +18,12 @@
       base01 = "#1c1b1a"; # ---
       base02 = "#282726"; # --
       base03 = "#343331"; # -
+      # base04 = "#403e3c"; # +
+      # base05 = "#575653"; # ++
       base04 = "#878580"; # +
       base05 = "#cecdc3"; # ++
-      base06 = "#403e3c"; # +++
-      base07 = "#575653"; # ++++
+      base06 = "#878580"; # +++
+      base07 = "#cecdc3"; # ++++
       base08 = "#D14D41"; # red
       base09 = "#DA702C"; # orange
       base0A = "#D0A215"; # yellow
