@@ -155,7 +155,13 @@
       lfs.enable = true;
     };
 
-    programs.jujutsu.enable = true;
+    programs.jujutsu = {
+      enable = true;
+      settings = {
+        user.name = config.programs.git.userName;
+        user.email = config.programs.git.userEmail;
+      };
+    };
 
     programs.fzf = {
       enable = true;
