@@ -30,6 +30,7 @@
   };
 
   nix = {package = pkgs.nix;};
+  xdg.configFile."nix/nix.conf".target = "nix/generated.conf";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
