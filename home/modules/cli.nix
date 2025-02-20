@@ -52,8 +52,10 @@
       zstd
 
       neovim
+      neovim-remote
       yadm
       lazygit
+      jjui
       isd
 
       ## nix stuff
@@ -61,6 +63,14 @@
       nixd
       nh
       nix-output-monitor
+
+      (writeShellApplication {
+        name = "nvr-wait";
+        runtimeInputs = [neovim-remote];
+        text = ''
+          nvr -cc vsplit +"setlocal bufhidden=delete" --remote-wait "$@"
+        '';
+      })
     ];
 
     home.sessionVariables = {
@@ -110,6 +120,10 @@
       interactiveShellInit = ''
         zoxide init fish --cmd=cd | source
         fish_hybrid_key_bindings
+        if test -n "$NVIM"
+          alias nvim="nvr"
+          set -gx EDITOR "nvr-wait"
+        end
       '';
       plugins = [
         {
@@ -160,6 +174,9 @@
       settings = {
         user.name = config.programs.git.userName;
         user.email = config.programs.git.userEmail;
+        # ui.diff-editor = ["nvr" "-s" "-c" "DiffEditor $left $right $output"];
+
+        # merge-tools.nvr.merge-args = config.programs.jujutsu.settings.ui.diff-editor;
       };
     };
 
