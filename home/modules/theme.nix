@@ -61,10 +61,10 @@
 
     stylix.iconTheme = {
       enable = true;
-      # package = pkgs.zafiro-icons;
-      # dark = "Zafiro-icons";
-      package = pkgs.gruvbox-plus-icons;
-      dark = "Gruvbox-Plus-Dark";
+      package = pkgs.zafiro-icons;
+      dark = "Zafiro-icons";
+      # package = pkgs.gruvbox-plus-icons;
+      # dark = "Gruvbox-Plus-Dark";
     };
 
     stylix.cursor = {

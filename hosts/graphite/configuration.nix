@@ -278,6 +278,8 @@
 
   # List services that you want to enable:
 
+  services.weechat.enable = true;
+
   # flatpak
   services.flatpak.enable = true;
 
