@@ -25,7 +25,7 @@
     # };
 
     nix = {
-      package = lib.mkDefault pkgs.lix;
+      package = pkgs.nix;
       settings.experimental-features = ["nix-command" "flakes"];
       registry.nixpkgs.flake = inputs.nixpkgs;
       nixPath = ["nixpkgs=${inputs.nixpkgs}"];
