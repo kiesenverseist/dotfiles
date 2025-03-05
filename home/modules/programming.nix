@@ -46,7 +46,7 @@
       EDITOR = "nvim";
     };
 
-    programs.vscode = {
+    programs.vscode.profiles.default = {
       extensions = with pkgs.vscode-extensions; [
         arrterian.nix-env-selector
         jdinhlife.gruvbox

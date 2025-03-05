@@ -34,7 +34,7 @@
       base0F = "#CE5D97"; # brown/magenta
     };
 
-    # stylix.base16Scheme =  "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-hard.yaml";
+    # stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-hard.yaml";
 
     # stylix.image = "${config.home.homeDirectory}/Pictures/wallpapers/solar-system.jpg";
 
@@ -50,6 +50,7 @@
 
       sizes = {
         terminal = 16;
+        applications = 14;
       };
     };
 

@@ -142,7 +142,7 @@
 
     tailscale
 
-    polkit-kde-agent
+    kdePackages.polkit-kde-agent-1
   ];
 
   # List services that you want to enable:

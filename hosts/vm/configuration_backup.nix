@@ -159,7 +159,7 @@
 
     tailscale
 
-    polkit-kde-agent
+    polkit-kde-agent-1
 
     inputs.hypridle.packages.${pkgs.system}.hypridle
     inputs.hyprlock.packages.${pkgs.system}.hyprlock

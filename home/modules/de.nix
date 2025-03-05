@@ -32,7 +32,6 @@
       slurp
       pavucontrol
       pulsemixer
-      dolphin
       wl-clipboard
       playerctl
       xdg-user-dirs
@@ -40,7 +39,6 @@
       nautilus
       sushi
       gnome-solanum
-      xwaylandvideobridge # xwvb
       blueman
       vlc
       waypipe
@@ -50,6 +48,9 @@
       hyprpolkitagent
 
       syncthingtray
+
+      kdePackages.dolphin
+      kdePackages.xwaylandvideobridge
     ];
 
     wayland.windowManager.hyprland = {
@@ -90,7 +91,7 @@
       enable = true;
       settings = {
         colors.webpage.darkmode.enabled = true;
-        fonts.default_size = "12pt";
+        # fonts.default_size = "12pt";
         tabs = {
           position = "left";
           show = "switching";

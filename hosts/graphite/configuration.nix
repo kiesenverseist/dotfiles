@@ -269,7 +269,7 @@
     tailscale
 
     virt-manager
-    polkit-kde-agent
+    kdePackages.polkit-kde-agent-1
     virtiofsd
 
     # hypr-plugins.hyprbars

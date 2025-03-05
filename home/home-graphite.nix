@@ -129,9 +129,13 @@
     userEmail = "creativeibi77@gmail.com";
   };
 
-  # programs.lf = {
-  #   enable = true;
-  # };
+  wayland.windowManager.hyprland = {
+    settings = {
+      "exec-once" = [
+        "bash ~/.config/hypr/start-desktop.sh"
+      ];
+    };
+  };
 
   programs.anyrun = {
     enable = false;
