@@ -68,6 +68,8 @@
       # dark = "Gruvbox-Plus-Dark";
     };
 
+    stylix.targets.vscode.profileNames = ["default"];
+
     stylix.cursor = {
       package = pkgs.kdePackages.breeze;
       name = "breeze_cursors";

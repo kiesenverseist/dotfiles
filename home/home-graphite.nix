@@ -73,7 +73,7 @@
     protonup-qt
     # looking-glass-client
     runelite
-    modrinth-app
+    # modrinth-app
     # bottles
     xivlauncher
     wlx-overlay-s

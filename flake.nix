@@ -56,10 +56,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    sops-nix.url = "github:Mic92/sops-nix";
+
+    colmena.url = "github:zhaofengli/colmena";
   };
 
   outputs = {self, ...} @ inputs: let
@@ -96,6 +95,7 @@
       packages = [pkgs.age pkgs.ssh-to-age pkgs.sops];
     };
 
+    colmenaHive = inputs.colmena.lib.makeHive self.outputs.colmena;
     colmena = import ./hosts/colmena.nix {inherit inputs;};
 
     formatter.${system} = pkgs.alejandra;
