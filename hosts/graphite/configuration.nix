@@ -10,7 +10,6 @@
   imports = [
     ./hardware-configuration.nix
     ./game-servers.nix
-    ../cachix.nix
     ./logiops.nix
     ../modules/backups.nix
     inputs.sops-nix.nixosModules.sops
@@ -68,10 +67,6 @@
   };
 
   services.fwupd.enable = true;
-
-  # Configure keymap in X11
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e,caps:escape";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;

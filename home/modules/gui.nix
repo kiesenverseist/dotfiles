@@ -6,7 +6,7 @@
   ...
 }: {
   options = {
-    guiMinimal.enable = lib.mkEnableOption "enables basic cli config";
+    guiMinimal.enable = lib.mkEnableOption "enables basic gui config";
   };
 
   config = lib.mkIf config.guiMinimal.enable {

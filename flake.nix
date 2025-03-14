@@ -92,7 +92,7 @@
     };
 
     devShells.${system}.default = pkgs.mkShellNoCC {
-      packages = [pkgs.age pkgs.ssh-to-age pkgs.sops];
+      packages = [pkgs.age pkgs.ssh-to-age pkgs.sops pkgs.nh];
     };
 
     colmenaHive = inputs.colmena.lib.makeHive self.outputs.colmena;

@@ -84,8 +84,8 @@
     # '';
 
     home.file = let
-      dotfiles = "${config.home.homeDirectory}/.config/system/config";
-      sym = dir: config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${dir}";
+      dotfiles = "${config.home.homeDirectory}/dotfiles";
+      sym = dir: config.lib.file.mkOutOfStoreSymlink "${dotfiles}/config/${dir}";
     in {
       ".config/nvim".source = sym "nvim";
     };

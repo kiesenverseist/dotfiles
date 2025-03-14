@@ -7,7 +7,7 @@
     inputs.home-manager.lib.homeManagerConfiguration (
       {inherit pkgs extraSpecialArgs;} // attrs
     );
-  commonModules = [inputs.stylix.homeManagerModules.stylix];
+  commonModules = [inputs.stylix.homeManagerModules.stylix ./modules];
 in {
   "kiesen@halite" = conf {
     modules = [./home-halite.nix] ++ commonModules;
@@ -20,6 +20,9 @@ in {
   };
   "kiesen@kiesen-eos-laptop" = conf {
     modules = [./home-laptop.nix] ++ commonModules;
+  };
+  "kiesen@fluorite" = conf {
+    modules = [./home-fluorite.nix] ++ commonModules;
   };
   "ibrahim.fuad@au-lap-0618.saberastronautics.net" = conf {
     modules = [./work-laptop.nix] ++ commonModules;
