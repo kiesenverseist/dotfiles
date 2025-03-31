@@ -93,7 +93,7 @@
         colors.webpage.darkmode.enabled = true;
         # fonts.default_size = "12pt";
         tabs = {
-          position = "left";
+          position = "right";
           show = "switching";
         };
       };

@@ -30,6 +30,7 @@
       texlab # latex
       basedpyright # python lsp
       ruff # python formatter
+      lua-language-server
 
       ## nix stuff
       # nix
