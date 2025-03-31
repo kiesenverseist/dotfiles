@@ -1,0 +1,25 @@
+return {
+	'echasnovski/mini.nvim',
+	version = '*',
+	config = function()
+		-- mini icons
+		require("mini.icons").setup()
+		MiniIcons.mock_nvim_web_devicons()
+
+		-- mini files
+		require("mini.files").setup({
+			options = { use_as_default_explorer = false, },
+			windows = { preview = true, },
+		})
+		vim.keymap.set("n", "<C-n>", function()
+			if not MiniFiles.close() then
+				MiniFiles.open()
+			end
+		end)
+
+		require("mini.statusline").setup({ use_icons = true })
+		require("mini.ai").setup({})
+		require("mini.surround").setup({})
+		require("mini.move").setup({})
+	end,
+}
