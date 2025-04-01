@@ -10,11 +10,7 @@
     ./modules/plasma.nix
   ];
 
-  guiMinimal.enable = true;
-  programming.enable = true;
-  cli.enable = true;
   private-cache.enable = false;
-  walker.enable = true;
   de.enable = true;
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -24,12 +20,11 @@
 
   # nixgl config
   nixGL = {
-    packages = lib.mkForce inputs.nixgl-stable.packages;
+    packages = inputs.nixgl-stable.packages;
     # packages = lib.mkForce inputs.nixgl.packages;
     defaultWrapper = "mesa";
   };
 
-  nix = {package = pkgs.nix;};
   xdg.configFile."nix/nix.conf".target = "nix/generated.conf";
 
   # This value determines the Home Manager release that your configuration is
@@ -57,6 +52,8 @@
     pkgs.swww
     pkgs.grimblast
     pkgs.hyprsunset
+    pkgs.asciinema
+    pkgs.asciinema-agg
 
     ## programming
     pkgs._1password-cli
@@ -117,21 +114,23 @@
         "kwalletd6"
         "${pkgs.hyprpanel}/bin/hyprpanel"
         "[workspace special silent] NIXOS_OZONE_WL=1 ${pkgs.slack}/bin/slack"
-        "[workspace 1 silent; group set] ${pkgs.floorp}/bin/floorp"
+        "[workspace 1 silent] ${pkgs.floorp}/bin/floorp"
         "[workspace 2 silent] ${pkgs.neovide}/bin/neovide"
-        "[workspace 3 silent] ${pkgs.kitty}/bin/kitty"
+      ];
+      bind = [
+        "SUPER, grave, overview:toggle,"
       ];
     };
   };
 
   programs.hyprlock.enable = true;
 
-  targets.genericLinux.enable = true;
-
   xdg.systemDirs.data = ["${config.home.homeDirectory}/.nix-profile/share/applications"];
 
   qt.enable = lib.mkForce false;
   gtk.enable = lib.mkForce false;
+
+  targets.genericLinux.enable = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

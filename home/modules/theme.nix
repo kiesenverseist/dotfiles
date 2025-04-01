@@ -76,7 +76,7 @@
       size = 24;
     };
 
-    qt.enable = true;
-    gtk.enable = true;
+    qt.enable = lib.mkDefault true;
+    gtk.enable = lib.mkDefault true;
   };
 }
