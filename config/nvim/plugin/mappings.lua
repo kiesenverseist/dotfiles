@@ -6,9 +6,9 @@ map("t", "<esc><esc>", "<C-\\><C-n>", { desc = 'Exit terminal mode' })
 map("t", "<C-[><C-[>", "<C-\\><C-n>", { desc = 'Exit terminal mode' })
 
 -- go to tab
-map("n", "<M-1>", "1gt")
-map("n", "<M-2>", "2gt")
-map("n", "<M-3>", "3gt")
+map({"n", "i", "t"}, "<M-1>", "<cmd>tabnext 1<CR>")
+map({"n", "i", "t"}, "<M-2>", "<cmd>tabnext 2<CR>")
+map({"n", "i", "t"}, "<M-3>", "<cmd>tabnext 3<CR>")
 
 -- formatting
 map("n", "<leader>bf", vim.lsp.buf.format, { desc = "Format buffer" })
