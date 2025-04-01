@@ -4,26 +4,35 @@ return {
 	lazy = false,
 	--@type snacks.Config
 	opts = {
-		styles = {enabled = true},
-		bigfile = {enabled = true},
-		notifier = {enabled = true},
-		quickfile = {enabled = true},
-		statuscolumn = {enabled = true},
-		rename = {enabled = true},
-		picker = {enabled = true},
-		indent = {enabled = true},
-		image = {enabled = true},
+		styles = {},
+		bigfile = {},
+		notifier = {},
+		quickfile = {},
+		statuscolumn = {},
+		picker = {},
+		indent = {},
+		image = {},
+		input = {},
 	},
 	keys = {
 		-- pickers
 		{"<C-p>", function() Snacks.picker.smart() end, desc = "Smart find files"},
-		{"<leader>fw", function() Snacks.picker.grep() end, desc = "Grep words"},
-		{"<leader>fb", function() Snacks.picker.buffers() end, desc = "Find buffers"},
-		{"<leader>fc", function() Snacks.picker.files({cwd=vim.fn.stdpath("config")}) end, desc = "Find nvim config"},
-		{"<leader>fh", function() Snacks.picker.help() end, desc = "Find help"},
-		{"<leader>fp", function() Snacks.picker.projects(require("configs.projects")) end, desc = "Projects"},
-		{"<leader>fz", function() Snacks.picker.zoxide() end, desc = "Find zoxide"},
-		{"<leader>fn", function() Snacks.picker.notifications() end, desc = "Find notifications"},
+		{"<leader>fw", function() Snacks.picker.grep() end, desc = "Grep [w]ords"},
+		{"<leader>fb", function() Snacks.picker.buffers() end, desc = "Find [b]uffers"},
+		{"<leader>fc", function() Snacks.picker.files({cwd=vim.fn.stdpath("config")}) end, desc = "Find in nvim [c]onfig"},
+		{"<leader>fh", function() Snacks.picker.help() end, desc = "Find [h]elp"},
+		{"<leader>fp", function() Snacks.picker.projects(require("configs.projects")) end, desc = "Open [p]roject"},
+		{"<leader>fz", function() Snacks.picker.zoxide() end, desc = "Open [z]oxide project"},
+		{"<leader>fn", function() Snacks.picker.notifications() end, desc = "Find [n]otifications"},
+
+		-- misc
+		{"gX", function() Snacks.gitbrowse.open() end, desc = "Open git in browser"},
+		{"<leader>d", function() Snacks.notifier.hide() end, desc = "[d]ismiss notifications"},
+		{"<leader>x", function() Snacks.bufdelete.delete() end, desc = "Close buffer"},
+
+		-- command toggle
+		{"<leader>j", function() Snacks.terminal.toggle({"jjui"}) end, desc = "Toggle [j]jui"},
+		{"<leader>g", function() Snacks.lazygit.open() end, desc = "Toggle lazy[g]it"},
 	},
 	init = function()
 		vim.api.nvim_create_autocmd("User", {
@@ -42,9 +51,18 @@ return {
 				Snacks.toggle.line_number():map("<leader>tl")
 				Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>tc")
 				Snacks.toggle.treesitter():map("<leader>tT")
-				Snacks.toggle.inlay_hints():map("<leader>th")
+				Snacks.toggle.inlay_hints():map("<leader>ti")
 				Snacks.toggle.indent():map("<leader>tg")
 				Snacks.toggle.dim():map("<leader>tD")
+
+				vim.api.nvim_create_autocmd("User", {
+				  pattern = "MiniFilesActionRename",
+				  callback = function(event)
+					Snacks.rename.on_rename_file(event.data.from, event.data.to)
+				  end,
+				})
+
+
 			end,
 		})
 	end,

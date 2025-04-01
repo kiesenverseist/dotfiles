@@ -1,9 +1,9 @@
 local M = {}
 
 -- folders
-M.dev = {"~/repositories"}
+M.dev = { "~/repositories" }
 
 -- individually marked
-M.projects = {"~/dotfiles", "~/.config/nvim"}
+M.projects = { "~/dotfiles", "~/.config/nvim" }
 
 return M
