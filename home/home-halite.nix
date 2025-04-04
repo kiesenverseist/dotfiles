@@ -1,12 +1,11 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   ...
 }: {
   imports = [
-    inputs.anyrun.homeManagerModules.anyrun
-    inputs.walker.homeManagerModules.default
     ./modules
   ];
 
@@ -74,9 +73,7 @@
   services.swayosd = {enable = true;};
 
   programs.walker = {
-    enable = false;
-    runAsService = true;
-    package = pkgs.walker;
+    enable = lib.mkForce false;
   };
 
   programs.mangohud = {
