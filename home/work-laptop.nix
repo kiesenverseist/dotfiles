@@ -48,6 +48,8 @@
     pkgs.wl-clipboard
     pkgs.eww
     pkgs.nwg-displays
+    pkgs.nwg-panel
+    pkgs.swaynotificationcenter
     pkgs.hyprpanel
     pkgs.swww
     pkgs.grimblast
@@ -112,7 +114,7 @@
       input = {kb_options = ["ctrl:nocaps"];};
       exec-once = [
         "kwalletd6"
-        "${pkgs.hyprpanel}/bin/hyprpanel"
+        "${pkgs.nwg-panel}/bin/nwg-panel"
         "[workspace special silent] NIXOS_OZONE_WL=1 ${pkgs.slack}/bin/slack"
         "[workspace 1 silent] ${pkgs.floorp}/bin/floorp"
         "[workspace 2 silent] ${pkgs.neovide}/bin/neovide"

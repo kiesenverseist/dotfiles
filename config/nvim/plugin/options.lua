@@ -48,3 +48,6 @@ vim.filetype.add({
 
 -- diagnostic config
 vim.diagnostic.config({ virtual_lines = true })
+
+-- set colour scheme
+vim.cmd("colorscheme retrobox")

@@ -167,6 +167,9 @@
       enable = true;
       delta.enable = true;
       lfs.enable = true;
+      ignores = [
+        "Session.vim"
+      ];
     };
 
     programs.jujutsu = {
