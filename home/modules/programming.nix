@@ -31,6 +31,7 @@
       basedpyright # python lsp
       ruff # python formatter
       lua-language-server
+      yaml-language-server
 
       ## nix stuff
       # nix

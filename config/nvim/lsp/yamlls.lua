@@ -20,7 +20,7 @@ return {
 				["https://json.schemastore.org/dependabot-v2"] = ".github/dependabot.{yml,yaml}",
 				["https://json.schemastore.org/gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
 				["https://bitbucket.org/atlassianlabs/intellij-bitbucket-references-plugin/raw/master/src/main/resources/schemas/bitbucket-pipelines.schema.json"] =
-				"*bitbucket-pipelines*.{yml, yaml}",
+				"*bitbucket-pipelines*.{yml,yaml}",
 				["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] =
 				"*api*.{yml,yaml}",
 				["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] =
