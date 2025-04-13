@@ -111,7 +111,7 @@
     ];
 
     settings = {
-      input = {kb_options = ["ctrl:nocaps"];};
+      input.kb_options = ["ctrl:nocaps"];
       exec-once = [
         "kwalletd6"
         "${pkgs.nwg-panel}/bin/nwg-panel"
@@ -119,15 +119,10 @@
         "[workspace 1 silent] ${pkgs.floorp}/bin/floorp"
         "[workspace 2 silent] ${pkgs.neovide}/bin/neovide"
       ];
-      bind = [
-        "SUPER, grave, overview:toggle,"
-      ];
     };
   };
 
   programs.hyprlock.enable = true;
-
-  xdg.systemDirs.data = ["${config.home.homeDirectory}/.nix-profile/share/applications"];
 
   qt.enable = lib.mkForce false;
   gtk.enable = lib.mkForce false;

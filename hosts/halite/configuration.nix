@@ -136,7 +136,7 @@
     zaky = {
       isNormalUser = true;
       shell = pkgs.fish;
-      extraGroups = ["wheel" "libvirtd"]; # Enable ‘sudo’ for the user.
+      extraGroups = ["libvirtd"]; # Enable ‘sudo’ for the user.
     };
   };
 

@@ -71,10 +71,6 @@ in {
     waypipe
     floorp
 
-    syncthingtray
-    # rofi-power-menu
-    # rofi-pulse-select
-
     # proprietary stuffs
     vesktop
     # teams

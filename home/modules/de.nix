@@ -16,18 +16,13 @@
   config = lib.mkIf config.de.enable {
     guiMinimal.enable = true;
     programming.enable = true;
-    walker.enable = true;
+    walker.enable = false;
 
     # The home.packages option allows you to install Nix packages into your
     # environment.
     home.packages = with pkgs; [
-      # cli stuff
-      # nvtopPackages.full
-
       pkgs.eww
-      wpaperd
       libnotify
-      wpaperd
       grim
       slurp
       pavucontrol
@@ -43,47 +38,44 @@
       vlc
       waypipe
       nwg-displays
-      walker
-
-      hyprpolkitagent
-
-      syncthingtray
-
-      kdePackages.dolphin
+      rofi-pulse-select
       kdePackages.xwaylandvideobridge
+      woomer
     ];
 
     wayland.windowManager.hyprland = {
       enable = true;
       package = config.lib.nixGL.wrap pkgs.hyprland;
       settings = {
-        "source" = [
+        source = [
           "~/.config/hypr/main.conf"
           "~/.config/hypr/monitors.conf"
+        ];
+        exec-once = [
+          "${pkgs.kdePackages.xwaylandvideobridge}/bin/xwaylandvideobridge"
+        ];
+        bind = [
+          "SUPER, grave, overview:toggle,"
         ];
       };
       systemd.variables = ["--all"];
       plugins = [
-        # pkgs.hyprlandPlugins.hyprspace
+        pkgs.hyprlandPlugins.hyprspace
         pkgs.hyprlandPlugins.hyprbars
       ];
     };
 
     # programs.hyprlock.enable = true;
     services.hypridle.enable = true;
+    services.hyprpolkitagent.enable = true;
 
     xdg.systemDirs.data = [
-      "var/lib/flatpak/exports/share"
+      "/var/lib/flatpak/exports/share"
       "${config.home.homeDirectory}/.local/share/flatpak/exports/share"
+      "${config.home.homeDirectory}/.nix-profile/share"
     ];
 
     ## CLI Tools
-
-    # programs.lf = {
-    #   enable = true;
-    # };
-
-    services.swayosd = {enable = true;};
 
     programs.rofi.enable = true;
 
@@ -115,24 +107,21 @@
         g = "https://www.google.com/search?hl=en&q={}";
         no = "https://search.nixos.org/options?channel=unstable&size=50&sort=relevance&type=options&query={}";
         np = "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=options&query={}";
-        hm = "https://home-manager-options.extranix.com/?={}";
+        ho = "https://home-manager-options.extranix.com/?={}";
       };
     };
 
     programs.zathura.enable = true;
 
-    programs.mangohud = {
-      enable = true;
-    };
+    programs.mangohud.enable = true;
 
-    # services.swaync.enable = true;
+    services.swaync.enable = true;
+    services.swayosd.enable = true;
 
     # remember to do the manual setup of this on first setup on computer
     services.syncthing = {
       enable = true;
-      tray = {
-        enable = true;
-      };
+      tray.enable = true;
     };
 
     services.udiskie.enable = true;
@@ -150,8 +139,5 @@
       };
     };
 
-    systemd.user.services.hyprpolkitagent = {
-      Install = {WantedBy = ["graphical-session.target"];};
-    };
   };
 }

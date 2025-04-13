@@ -39,14 +39,12 @@
 
     home.sessionVariables = {
       TERMINAL = "kitty";
+      TERMCMD = "kitty";
     };
 
     programs.kitty = {
       enable = true;
       package = config.lib.nixGL.wrap pkgs.kitty;
-      # theme = "Gruvbox Material Dark Hard";
-      # theme = lib.mkForce "Flexoki (Dark)";
-      themeFile = lib.mkForce "flexoki_dark";
       font = {
         # name = "FiraCode Nerd Font";
         name = "FiraCode Mono,Symbols Nerd Font";
@@ -62,6 +60,7 @@
 
     programs.rofi = {
       # enable = true;
+      package = pkgs.rofi-wayland;
       cycle = true;
       # font = "FiraCode Nerd Font 16";
       font = lib.mkForce "GohuFont 11 Nerd Font Propo 22";
@@ -77,6 +76,10 @@
       extraConfig = {
         modes = "window,drun,run,ssh";
       };
+      plugins = [
+        pkgs.rofi-calc
+        pkgs.rofi-power-menu
+      ];
     };
   };
 }

@@ -3,15 +3,9 @@
   inputs,
   ...
 }: {
-  imports = [
-    inputs.anyrun.homeManagerModules.anyrun
-    ./modules
-  ];
+  imports = [ ./modules ];
 
-  guiMinimal.enable = true;
-  programming.enable = true;
   de.enable = true;
-  walker.enable = true;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -55,11 +49,6 @@
     # })
     discord-ptb
 
-    # programming
-    gf
-    postgresql
-    sqlite
-
     # gaming
     protontricks
     # gaming.proton-ge
@@ -100,29 +89,7 @@
     inputs.nix-alien.packages.${system}.nix-alien
   ];
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-  };
-
-  xdg.mimeApps.defaultApplications = {
-  };
-
-  programs.vscode = {
-    enable = true;
-  };
-
-  ## CLI Tools
+  programs.vscode.enable = true;
 
   programs.git = {
     userName = "Ibrahim Fuad";
@@ -131,33 +98,13 @@
 
   wayland.windowManager.hyprland = {
     settings = {
-      "exec-once" = [
+      exec-once = [
+        "[workspace special silent] kitty btop"
+        "[workspace 7 silent] vesktop"
+        "[workspace special:memo silent] obsidian"
         "bash ~/.config/hypr/start-desktop.sh"
       ];
     };
-  };
-
-  programs.anyrun = {
-    enable = false;
-    config = {
-      plugins = let
-        anyrun-plugins = inputs.anyrun.packages.${pkgs.system};
-      in [
-        anyrun-plugins.applications
-        anyrun-plugins.randr
-      ];
-      x = {fraction = 0.5;};
-      y = {fraction = 0.3;};
-      layer = "overlay";
-      showResultsImmediately = true;
-      closeOnClick = true;
-    };
-  };
-
-  programs.rofi.enable = true;
-
-  programs.mangohud = {
-    enable = true;
   };
 
   # dconf.settings = {
