@@ -2,7 +2,8 @@ return {
 	"folke/snacks.nvim",
 	priority = 1000,
 	lazy = false,
-	--@type snacks.Config
+	---@module "snacks"
+	---@type snacks.Config
 	opts = {
 		styles = {},
 		bigfile = {},
@@ -22,7 +23,7 @@ return {
 		{"<leader>fc", function() Snacks.picker.files({cwd=vim.fn.stdpath("config")}) end, desc = "Find in nvim [c]onfig"},
 		{"<leader>fh", function() Snacks.picker.help() end, desc = "Find [h]elp"},
 		{"<leader>fp", function() Snacks.picker.projects(require("configs.projects")) end, desc = "Open [p]roject"},
-		{"<leader>fz", function() Snacks.picker.zoxide() end, desc = "Open [z]oxide project"},
+		{"<leader>fz", function() Snacks.picker.zoxide({confirm=require("configs.projects").confirm}) end, desc = "Open [z]oxide project"},
 		-- {"<leader>fn", function() Snacks.picker.notifications() end, desc = "Find [n]otifications"},
 
 		-- misc
