@@ -39,7 +39,19 @@ return {
 		opts = {
 			async = true,
 			type = "dir",
-			on_direnv_finished = function () vim.cmd("LspEnable") end,
+			on_direnv_finished = function() vim.cmd("LspEnable") end,
 		},
 	},
+
+	{
+		"j-hui/fidget.nvim",
+		lazy = false,
+		opts = {
+			notification = { override_vim_notify = true, },
+		},
+		keys = {
+			{ "<leader>fn", function() Snacks.picker(require("configs.notifications")) end, desc = "Find [n]otifications" },
+			{ "<leader>d",  function() require("fidget").notification.clear() end,          desc = "[d]ismiss notifications" },
+		},
+	}
 }

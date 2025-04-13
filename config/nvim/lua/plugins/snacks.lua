@@ -6,7 +6,7 @@ return {
 	opts = {
 		styles = {},
 		bigfile = {},
-		notifier = {},
+		-- notifier = {},
 		quickfile = {},
 		statuscolumn = {},
 		picker = {},
@@ -23,7 +23,7 @@ return {
 		{"<leader>fh", function() Snacks.picker.help() end, desc = "Find [h]elp"},
 		{"<leader>fp", function() Snacks.picker.projects(require("configs.projects")) end, desc = "Open [p]roject"},
 		{"<leader>fz", function() Snacks.picker.zoxide() end, desc = "Open [z]oxide project"},
-		{"<leader>fn", function() Snacks.picker.notifications() end, desc = "Find [n]otifications"},
+		-- {"<leader>fn", function() Snacks.picker.notifications() end, desc = "Find [n]otifications"},
 
 		-- misc
 		{"gX", function() Snacks.gitbrowse.open() end, desc = "Open git in browser"},
