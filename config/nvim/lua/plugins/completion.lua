@@ -26,6 +26,8 @@ return {
 		opts_extend = { "sources.default" },
 	},
 
+	{ "neovim/nvim-lspconfig" },
+
 	{
 		"folke/lazydev.nvim",
 		ft = "lua",
@@ -41,7 +43,7 @@ return {
 		opts = {
 			async = true,
 			type = "dir",
-			on_direnv_finished = function() vim.cmd("LspEnable") end,
+			on_direnv_finished = function() vim.cmd("LspStart") end,
 		},
 	},
 
