@@ -62,7 +62,7 @@
   networking = let
     # real ips are used as nat doesn't understand domains
     graphite = "100.119.227.45";
-    halite = "100.120.252.116";
+    # halite = "100.120.252.116";
   in {
     domain = "subnet09102314.vcn09102314.oraclevcn.com";
 
@@ -87,7 +87,8 @@
       in
         []
         ++ (dentry graphite 7777) # satisfactory
-        ++ (dentry halite 25565) # minecraft vault hunters
+        # ++ (dentry halite 25565) # minecraft vault hunters
+        ++ (dentry graphite 25565) # minecraft custom modded
         ++ (dentry graphite 34197); # factorio
     };
 
@@ -103,7 +104,7 @@
           chain PREROUTING {
             type nat hook prerouting priority dstnat; policy accept;
             ${entry graphite 7777}
-            ${entry halite 25565}
+            ${entry graphite 25565}
             ${entry graphite 34197}
           }
         }
@@ -113,7 +114,7 @@
     firewall = let
       common = [
         7777 # satisfactory
-        25565 # minecraft: vault hunters
+        25565 # minecraft
       ];
     in {
       allowedTCPPorts =
