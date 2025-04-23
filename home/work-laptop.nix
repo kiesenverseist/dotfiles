@@ -122,7 +122,7 @@
     };
   };
 
-  programs.hyprlock.enable = true;
+  programs.hyprlock.enable = false;
 
   qt.enable = lib.mkForce false;
   gtk.enable = lib.mkForce false;
