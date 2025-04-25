@@ -8,7 +8,8 @@
       inherit specialArgs system;
       modules = [
         module
-	./cachix.nix
+        ./cachix.nix
+        ./modules
       ];
     };
 in {

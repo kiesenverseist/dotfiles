@@ -1,15 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ config, lib, pkgs, inputs, ... }:
-
-{
-  imports = [
-    ./hardware-configuration.nix
-    inputs.nixos-hardware.nixosModules.framework-12th-gen-intel
-  ];
-
+{pkgs, ...}: {
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
@@ -34,6 +26,11 @@
   services.desktopManager.plasma6.enable = true;
 
   services.fwupd.enable = true;
+  services.openssh.enable = true;
+  services.tailscale.enable = true;
+  services.flatpak.enable = true;
+  services.backups.enable = true;
+
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
@@ -90,22 +87,11 @@
     nh
   ];
 
-  # List services that you want to enable:
-
-  services.openssh.enable = true;
-  services.tailscale.enable = true;
-  services.flatpak.enable = true;
-
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
@@ -125,6 +111,4 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.11"; # Did you read the comment?
-
 }
-
