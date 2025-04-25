@@ -6,7 +6,7 @@
     ./programming.nix
     ./theme.nix
     ./walker.nix
-    ../../hosts/cachix.nix
+    ../../hosts/modules/cachix.nix
   ];
 
   cli.enable = lib.mkDefault true;

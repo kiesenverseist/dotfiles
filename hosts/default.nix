@@ -6,11 +6,7 @@
   conf = module:
     inputs.nixpkgs.lib.nixosSystem {
       inherit specialArgs system;
-      modules = [
-        module
-        ./cachix.nix
-        ./modules
-      ];
+      modules = [module ./modules];
     };
 in {
   "halite" = conf ./halite;
