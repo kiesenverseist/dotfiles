@@ -6,5 +6,5 @@
 
 config_version: 2
 settings:
-  tabs.show:
-    global: switching
+  content.javascript.clipboard:
+    https://github.com: access-paste

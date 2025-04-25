@@ -34,6 +34,6 @@ in {
   };
 
   services.satisfactory = {
-    enable = true;
+    enable = false;
   };
 }

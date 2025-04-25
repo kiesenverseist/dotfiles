@@ -1,4 +1,7 @@
-{lib, ...}: {
+{...}: {
+
+  imports = [./which-key.nix];
+  
   services.hypridle = {
     # enable = true;
     settings = {

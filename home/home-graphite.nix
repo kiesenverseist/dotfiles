@@ -33,6 +33,7 @@
     chromium
     restic-browser
     restic
+    jellyfin-media-player
 
     # lmms
     # ardour
@@ -83,6 +84,7 @@
     prusa-slicer
     kicad
     freecad-wayland
+    openscad-unstable
 
     # edl
 

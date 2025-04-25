@@ -44,6 +44,10 @@
       url = "github:Jas-SinghFSU/HyprPanel";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprhook = {
+      url = "github:hyprhook/hyprhook";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     plasma-manager = {
       url = "github:nix-community/plasma-manager/plasma-5";

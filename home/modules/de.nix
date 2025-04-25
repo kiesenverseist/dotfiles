@@ -103,7 +103,7 @@
       searchEngines = {
         w = "https://en.wikipedia.org/wiki/Special:Search?search={}&go=Go&ns0=1";
         aw = "https://wiki.archlinux.org/?search={}";
-        nw = "https://wiki.nixos.org/index.php?search={}";
+        nw = "https://wiki.nixos.org/w/index.php?search={}";
         g = "https://www.google.com/search?hl=en&q={}";
         no = "https://search.nixos.org/options?channel=unstable&size=50&sort=relevance&type=options&query={}";
         np = "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=options&query={}";
