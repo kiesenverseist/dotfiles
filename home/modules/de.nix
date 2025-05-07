@@ -47,22 +47,11 @@
       enable = true;
       package = config.lib.nixGL.wrap pkgs.hyprland;
       settings = {
-        source = [
-          "~/.config/hypr/main.conf"
-          "~/.config/hypr/monitors.conf"
-        ];
         exec-once = [
           "${pkgs.kdePackages.xwaylandvideobridge}/bin/xwaylandvideobridge"
         ];
-        bind = [
-          "SUPER, grave, overview:toggle,"
-        ];
       };
       systemd.variables = ["--all"];
-      plugins = [
-        pkgs.hyprlandPlugins.hyprspace
-        pkgs.hyprlandPlugins.hyprbars
-      ];
     };
 
     # programs.hyprlock.enable = true;
