@@ -10,7 +10,9 @@
 in {
   imports = [
     ../modules/satisfactory.nix
+    inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
+  nixpkgs.overlays = [inputs.nix-minecraft.overlay];
 
   services.factorio = {
     enable = true;
@@ -36,4 +38,15 @@ in {
   services.satisfactory = {
     enable = false;
   };
+
+  services.minecraft-servers = {
+    enable = true;
+    eula = true;
+    servers = {
+      maryam = {
+        enable = true;
+      };
+    };
+  };
+
 }
