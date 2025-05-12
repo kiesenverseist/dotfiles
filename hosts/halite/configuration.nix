@@ -32,9 +32,6 @@
 
   # networking.bridges.br0.interfaces = ["enp34s0"];
 
-  # Set your time zone.
-  time.timeZone = "Australia/Sydney";
-
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
@@ -56,9 +53,6 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  services.avahi.enable = true;
-  services.avahi.nssmdns4 = true;
-  services.avahi.openFirewall = true;
 
   # networking
   # services.create_ap = {
@@ -78,47 +72,30 @@
   # sound.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
-    enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
-    pulse.enable = true;
     jack.enable = true;
   };
 
-  security.polkit.enable = true;
-
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
-
-  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   services.harmonia = {
     enable = true;
     signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
   };
 
-  programs.zsh.enable = true;
-  programs.fish.enable = true;
-  programs.direnv.enable = true;
-
   programs.hyprland.enable = true;
 
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
-    FLAKE = "/home/kiesen/.config/system";
   };
 
   hardware = {
-    graphics = {
-      enable = true;
-      enable32Bit = true;
-    };
-
     bluetooth.enable = true;
   };
 
-  nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [
     "aspnetcore-runtime-6.0.36"
     "aspnetcore-runtime-wrapped-6.0.36"
@@ -129,8 +106,6 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users = {
     kiesen = {
-      isNormalUser = true;
-      shell = pkgs.fish;
       extraGroups = ["wheel" "libvirtd" "media"]; # Enable ‘sudo’ for the user.
     };
     zaky = {
@@ -144,13 +119,6 @@
     media = {};
   };
 
-  nix.settings.trusted-users = ["root" "@wheel"];
-
-  fonts.packages = with pkgs; [
-    # (nerdfonts.override {fonts = ["FiraCode"];})
-    nerd-fonts.fira-code
-  ];
-
   nixpkgs.config.packageOverrides = pkgs: {
     steam = pkgs.steam.override {extraPkgs = pkgs: with pkgs; [libgdiplus keyutils libkrb5 libpng libpulseaudio libvorbis stdenv.cc.cc.lib xorg.libXcursor xorg.libXi xorg.libXinerama xorg.libXScrnSaver];}; # https://github.com/ValveSoftware/gamescope/issues/905
   };
@@ -158,29 +126,17 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    neovim
-
-    wget
-    git
-
     firefox
 
     nixd
-    home-manager
-    nh
 
     libsForQt5.qt5.qtquickcontrols2
     libsForQt5.qt5.qtgraphicaleffects
-
-    tailscale
 
     # virt-manager
     kdePackages.polkit-kde-agent-1
     virtiofsd
   ];
-
-  # flatpak
-  services.flatpak.enable = true;
 
   services.home-assistant = {
     enable = true;
@@ -250,9 +206,6 @@
 
   # List services that you want to enable:
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -313,9 +266,6 @@
   #   };
   # };
 
-  programs.dconf.enable = true;
-  programs.nix-ld.enable = true;
-
   programs.nbd.enable = true;
 
   services.gitea = {
@@ -353,7 +303,6 @@
   # };
 
   services.tailscale = {
-    enable = true;
     permitCertUid = "caddy";
   };
 

@@ -10,11 +10,6 @@
   networking.hostName = "fluorite";
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
-  time.timeZone = "Australia/Sydney";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_AU.UTF-8";
   # console = {
   #   font = "Lat2-Terminus16";
   #   keyMap = "us";
@@ -25,49 +20,15 @@
   services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
 
-  services.fwupd.enable = true;
-  services.openssh.enable = true;
-  services.tailscale.enable = true;
-  services.flatpak.enable = true;
   services.backups.enable = true;
-
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
-  # Enable sound.
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-  };
-
-  nix = {
-    settings = {
-      experimental-features = ["nix-command" "flakes"];
-      trusted-users = ["root" "@wheel"];
-    };
-    optimise = {
-      automatic = true;
-      dates = ["3:00"];
-    };
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
-    };
-  };
-
-  nixpkgs.config.allowUnfree = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kiesen = {
-    isNormalUser = true;
-    shell = pkgs.fish;
     extraGroups = ["wheel" "libvirtd" "qemu-libvirtd" "dialout"];
   };
-
-  programs.firefox.enable = true;
-  programs.fish.enable = true;
 
   programs.steam = {
     enable = true;
@@ -76,16 +37,6 @@
   programs.gamemode.enable = true;
 
   services.joycond.enable = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    neovim
-    wget
-    git
-    home-manager
-    nh
-  ];
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

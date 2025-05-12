@@ -42,9 +42,6 @@
   networking.bridges."br0".interfaces = ["eno2"];
   networking.interfaces."br0".useDHCP = true;
 
-  # Set your time zone.
-  time.timeZone = "Australia/Sydney";
-
   # Select internationalisation properties.
   # i18n.defaultLocale = "en_US.UTF-8";
   # console = {
@@ -66,21 +63,13 @@
     videoDrivers = ["amdgpu"];
   };
 
-  services.fwupd.enable = true;
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
-    publish = {
-      enable = true;
-      addresses = true;
-      domain = true;
-      userServices = true;
-      workstation = true;
-    };
+  services.avahi.publish = {
+    addresses = true;
+    domain = true;
+    userServices = true;
+    workstation = true;
   };
 
   # services.onedrive.enable = true;
@@ -88,10 +77,8 @@
   # Enable sound.
   security.rtkit.enable = true;
   services.pipewire = {
-    enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
-    pulse.enable = true;
     jack.enable = true;
 
     extraConfig.pipewire-pulse."30-network-publish" = {
@@ -115,22 +102,6 @@
       ];
     };
   };
-
-  security.polkit.enable = true;
-
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-  nix.optimise = {
-    automatic = true;
-    dates = ["3:00"];
-  };
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
-  };
-
-  programs.zsh.enable = true;
-  programs.fish.enable = true;
 
   programs.hyprland.enable = true;
 
@@ -177,7 +148,6 @@
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
-    FLAKE = "/home/kiesen/.config/system";
 
     # VAAPI and VDPAU config for accelerated video.
     # See https://wiki.archlinux.org/index.php/Hardware_video_acceleration
@@ -187,8 +157,6 @@
 
   hardware = {
     graphics = {
-      enable = true;
-      enable32Bit = true;
       extraPackages = with pkgs; [
         vaapiVdpau
         libvdpau-va-gl
@@ -201,12 +169,8 @@
     keyboard.qmk.enable = true;
   };
 
-  nixpkgs.config.allowUnfree = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kiesen = {
-    isNormalUser = true;
-    shell = pkgs.fish;
     extraGroups = ["wheel" "libvirtd" "qemu-libvirtd" "disk" "adbusers" "dialout"];
   };
 
@@ -215,12 +179,6 @@
     shell = pkgs.fish;
     extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
   };
-
-  nix.settings.trusted-users = ["root" "@wheel"];
-
-  fonts.packages = [
-    pkgs.nerd-fonts.fira-code
-  ];
 
   nixpkgs.config.packageOverrides = pkgs: {
     steam = pkgs.steam.override {
@@ -247,37 +205,19 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    neovim
-
-    wget
-    git
-
-    firefox
-
     # nixd
-    home-manager
-    nh
 
     libsForQt5.qt5.qtquickcontrols2
     libsForQt5.qt5.qtgraphicaleffects
 
-    tailscale
-
     virt-manager
     kdePackages.polkit-kde-agent-1
     virtiofsd
-
-    # hypr-plugins.hyprbars
   ];
 
   # List services that you want to enable:
 
   services.weechat.enable = true;
-
-  # flatpak
-  services.flatpak.enable = true;
-
-  services.tailscale.enable = true;
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
@@ -289,9 +229,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
 
   sops.secrets."harmonia/secret" = {
     mode = "0440";
@@ -356,8 +293,6 @@
   # enable core dumps
   systemd.coredump.enable = true;
 
-  programs.dconf.enable = true;
-  programs.nix-ld.enable = true;
   programs.nbd.enable = true;
 
   services.backups.enable = true;
