@@ -77,6 +77,7 @@
       EDITOR = "nvim";
       PATH = "$HOME/.nix-profile/bin:$HOME/.local/bin:$PATH";
       NH_FLAKE = "$HOME/dotfiles";
+      SHELL = "fish";
     };
 
     # home.file.".config/nixpkgs/config.nix".text = ''
