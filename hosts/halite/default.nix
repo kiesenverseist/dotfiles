@@ -3,6 +3,7 @@
     ./configuration.nix
     ./game-servers.nix
     ./vfio.nix
+	./pg.nix
   ];
 
   vfio.enable = lib.mkDefault true;
