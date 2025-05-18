@@ -26,6 +26,8 @@
   # environment.
   home.packages = [
     pkgs.vesktop
+    pkgs.jellyfin-media-player
+    pkgs.prusa-slicer
   ];
 
   programs.git = {
