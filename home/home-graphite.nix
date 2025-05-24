@@ -40,7 +40,7 @@
     # lmms-nightly
     # distrho # TODO: broke, check.
     cardinal
-    vcv-rack
+    # vcv-rack
     carla
 
     # proprietary stuffs
@@ -84,7 +84,7 @@
     prusa-slicer
     kicad
     freecad-wayland
-    openscad-unstable
+    # openscad-unstable
 
     # edl
 

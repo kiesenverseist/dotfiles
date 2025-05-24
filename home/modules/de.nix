@@ -16,7 +16,6 @@
   config = lib.mkIf config.de.enable {
     guiMinimal.enable = true;
     programming.enable = true;
-    walker.enable = false;
 
     # The home.packages option allows you to install Nix packages into your
     # environment.

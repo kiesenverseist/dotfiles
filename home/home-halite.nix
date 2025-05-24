@@ -72,10 +72,6 @@
 
   services.swayosd = {enable = true;};
 
-  programs.walker = {
-    enable = lib.mkForce false;
-  };
-
   programs.mangohud = {
     enable = true;
   };

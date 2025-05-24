@@ -76,7 +76,7 @@
     home.sessionVariables = {
       EDITOR = "nvim";
       PATH = "$HOME/.nix-profile/bin:$HOME/.local/bin:$PATH";
-      FLAKE = "$HOME/dotfiles";
+      NH_FLAKE = "$HOME/dotfiles";
     };
 
     # home.file.".config/nixpkgs/config.nix".text = ''

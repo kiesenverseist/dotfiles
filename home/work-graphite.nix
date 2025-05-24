@@ -11,7 +11,6 @@ in {
   imports = [
     inputs.anyrun.homeManagerModules.anyrun
     inputs.hyprland.homeManagerModules.default
-    inputs.walker.homeManagerModules.default
     ./modules
   ];
 
@@ -137,29 +136,6 @@ in {
   };
 
   services.swayosd = {enable = true;};
-
-  programs.walker = {
-    enable = true;
-    runAsService = true;
-
-    # All options from the config.json can be used here.
-    # config = {
-    #   search.placeholder = "Example";
-    #   ui.fullscreen = true;
-    #   list = {
-    #     height = 200;
-    #   };
-    #   websearch.prefix = "?";
-    #   switcher.prefix = "/";
-    # };
-
-    # If this is not set the default styling is used.
-    # style = ''
-    #   * {
-    #     color: #dcd7ba;
-    #   }
-    # '';
-  };
 
   programs.qutebrowser = {
     enable = true;

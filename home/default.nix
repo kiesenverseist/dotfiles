@@ -8,7 +8,7 @@
       extraSpecialArgs = {inherit inputs;};
       modules = [
         module
-        inputs.stylix.homeManagerModules.stylix
+        inputs.stylix.homeModules.stylix
         ./modules
       ];
     };

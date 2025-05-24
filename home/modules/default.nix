@@ -5,7 +5,6 @@
     ./de.nix
     ./programming.nix
     ./theme.nix
-    ./walker.nix
     ../../hosts/modules/cachix.nix
   ];
 

@@ -174,11 +174,11 @@
     extraGroups = ["wheel" "libvirtd" "qemu-libvirtd" "disk" "adbusers" "dialout"];
   };
 
-  users.users."ibrahim.fuad" = {
-    isNormalUser = true;
-    shell = pkgs.fish;
-    extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
-  };
+  # users.users."ibrahim.fuad" = {
+  #   isNormalUser = true;
+  #   shell = pkgs.fish;
+  #   extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
+  # };
 
   nixpkgs.config.packageOverrides = pkgs: {
     steam = pkgs.steam.override {
