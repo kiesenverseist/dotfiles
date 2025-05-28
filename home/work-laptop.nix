@@ -115,7 +115,7 @@
       exec-once = [
         "kwalletd6"
         "${pkgs.nwg-panel}/bin/nwg-panel"
-        "[workspace special silent] NIXOS_OZONE_WL=1 ${pkgs.slack}/bin/slack"
+        "[workspace special silent] XDG_SESSION_TYPE=X11 ${pkgs.slack}/bin/slack"
         "[workspace 1 silent] ${pkgs.floorp}/bin/floorp"
         "[workspace 2 silent] ${pkgs.neovide}/bin/neovide"
       ];
