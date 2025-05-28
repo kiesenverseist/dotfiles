@@ -103,6 +103,8 @@
     };
   };
 
+  services.blueman.enable = true;
+
   programs.hyprland.enable = true;
 
   programs.adb.enable = true;
@@ -167,6 +169,8 @@
     steam-hardware.enable = true;
 
     keyboard.qmk.enable = true;
+
+    bluetooth.enable = true;
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

@@ -46,6 +46,8 @@
     # Select internationalisation properties.
     i18n.defaultLocale = lib.mkDefault "en_AU.UTF-8";
 
+    networking.networkmanager.enable = true;
+
     nix = {
       settings = {
         experimental-features = ["nix-command" "flakes"];
