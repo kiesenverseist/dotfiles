@@ -63,6 +63,11 @@
       "${config.home.homeDirectory}/.nix-profile/share"
     ];
 
+    xdg.portal = {
+      enable = true;
+      extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    };
+
     ## CLI Tools
 
     programs.rofi.enable = true;
@@ -127,6 +132,5 @@
         Requires = ["graphical-session-pre.target"];
       };
     };
-
   };
 }
