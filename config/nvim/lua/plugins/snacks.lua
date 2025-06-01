@@ -32,7 +32,7 @@ return {
 		{"<leader>x", function() Snacks.bufdelete.delete() end, desc = "Close buffer"},
 
 		-- command toggle
-		{"<leader>j", function() Snacks.terminal.toggle({"jjui"}) end, desc = "Toggle [j]jui"},
+		{"<leader>j", function() Snacks.terminal.toggle("jjui") end, desc = "Toggle [j]jui"},
 		{"<leader>g", function() Snacks.lazygit.open() end, desc = "Toggle lazy[g]it"},
 	},
 	init = function()
