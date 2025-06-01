@@ -4,7 +4,7 @@
   ];
 
   programs.plasma = {
-    enable = true;
+    enable = false;
     shortcuts = {
       "ActivityManager"."switch-to-activity-b765eb5c-5fc1-468d-82ce-40fbc47b48ab" = [ ];
       "KDE Keyboard Layout Switcher"."Switch to Next Keyboard Layout" = "Meta+Alt+K";

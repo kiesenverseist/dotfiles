@@ -12,9 +12,9 @@
           "~/.config/hypr/main.conf"
           "~/.config/hypr/monitors.conf"
         ];
-        bind = [
-          "SUPER, grave, overview:toggle,"
-        ];
+        # bind = [
+        #   "SUPER, grave, overview:toggle,"
+        # ];
 
         # smart gaps from wiki
         workspace = [
