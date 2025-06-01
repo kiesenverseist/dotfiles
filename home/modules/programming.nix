@@ -14,13 +14,14 @@
       curl
       socat
       jq
-      lazygit
       # dirdiff
       pre-commit
+      just
 
       # tui tools
       neovim
       neovim-remote
+      lazygit
 
       # langs
       clang
