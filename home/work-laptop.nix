@@ -20,8 +20,9 @@
 
   # nixgl config
   nixGL = {
-    packages = inputs.nixgl-stable.packages;
+    # packages = inputs.nixgl-stable.packages;
     # packages = lib.mkForce inputs.nixgl.packages;
+    packages = inputs.nixgl-fix.packages;
     defaultWrapper = "mesa";
   };
 
@@ -98,17 +99,17 @@
 
   wayland.windowManager.hyprland = let
     # pkgs-stable = pkgs;
-    pkgs-stable = import inputs.nixpkgs-stable {
-      inherit (pkgs) system;
-      overlays = [inputs.nixgl-stable.overlay];
-    };
+    # pkgs-stable = import inputs.nixpkgs-stable {
+    #   inherit (pkgs) system;
+    #   overlays = [inputs.nixgl-stable.overlay];
+    # };
   in {
-    package = lib.mkForce (config.lib.nixGL.wrap pkgs-stable.hyprland);
+    # package = lib.mkForce (config.lib.nixGL.wrap pkgs.hyprland);
 
-    plugins = lib.mkForce [
-      pkgs-stable.hyprlandPlugins.hyprspace
-      pkgs-stable.hyprlandPlugins.hyprbars
-    ];
+    # plugins = lib.mkForce [
+    #   pkgs-stable.hyprlandPlugins.hyprspace
+    #   pkgs-stable.hyprlandPlugins.hyprbars
+    # ];
 
     settings = {
       input.kb_options = ["ctrl:nocaps"];

@@ -22,12 +22,12 @@
     nix-alien.url = "github:thiagokokada/nix-alien";
 
     nixgl = {
-      url = "github:guibou/nixGL";
+      url = "github:nix-community/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixgl-stable = {
-      url = "github:guibou/nixGL";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+    nixgl-fix = {
+      url = "github:johanneshorner/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     foundryvtt.url = "github:reckenrode/nix-foundryvtt";
