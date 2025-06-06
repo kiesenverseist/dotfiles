@@ -33,6 +33,7 @@
       ruff # python formatter
       lua-language-server
       yaml-language-server
+      rust-analyzer
 
       ## nix stuff
       # nix
