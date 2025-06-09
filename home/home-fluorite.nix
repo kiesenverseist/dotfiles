@@ -27,7 +27,9 @@
   home.packages = [
     pkgs.vesktop
     pkgs.jellyfin-media-player
+
     pkgs.prusa-slicer
+    pkgs.freecad
   ];
 
   programs.git = {
