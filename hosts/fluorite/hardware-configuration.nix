@@ -25,6 +25,12 @@
       options = [ "compress=zstd" "subvol=nixos-home" ];
     };
 
+  fileSystems."/mnt/shared" =
+    { device = "/dev/disk/by-uuid/6036e43a-2a75-441f-97ab-9f802e5431e2";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "subvol=shared" ];
+    };
+
   fileSystems."/nix" =
     { device = "/dev/disk/by-uuid/6036e43a-2a75-441f-97ab-9f802e5431e2";
       fsType = "btrfs";
