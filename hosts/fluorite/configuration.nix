@@ -10,6 +10,8 @@
   networking.hostName = "fluorite";
   networking.networkmanager.enable = true;
 
+  hardware.bluetooth.enable = true;
+
   # console = {
   #   font = "Lat2-Terminus16";
   #   keyMap = "us";
