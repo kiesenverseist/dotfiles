@@ -6,6 +6,7 @@ vim.lsp.enable {
 	"yamlls",
 	"ruby_lsp",
 	"rust_analyzer",
+	"vtsls",
 }
 
 vim.lsp.config("nixd", {

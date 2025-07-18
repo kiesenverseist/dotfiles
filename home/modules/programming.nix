@@ -34,6 +34,7 @@
       lua-language-server
       yaml-language-server
       rust-analyzer
+      vtsls
 
       ## nix stuff
       # nix

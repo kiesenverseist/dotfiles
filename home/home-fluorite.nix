@@ -27,6 +27,7 @@
   home.packages = [
     pkgs.vesktop
     pkgs.jellyfin-media-player
+    pkgs.ferdium
 
     pkgs.prusa-slicer
     pkgs.freecad
