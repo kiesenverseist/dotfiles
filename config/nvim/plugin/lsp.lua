@@ -1,8 +1,8 @@
 vim.lsp.enable {
 	"lua_ls",
 	"basedpyright",
-	"nixd",
 	"ruff",
+	"nixd",
 	"yamlls",
 	"ruby_lsp",
 	"rust_analyzer",

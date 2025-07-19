@@ -22,6 +22,12 @@
       neovim
       neovim-remote
       lazygit
+      imagemagick
+      mermaid-cli
+      ghostscript
+      sqlite
+      tree-sitter
+      wl-clipboard
 
       # langs
       clang

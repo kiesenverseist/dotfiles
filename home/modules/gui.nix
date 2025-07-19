@@ -27,8 +27,6 @@
       obsidian
       todoist-electron
       # hyprpanel
-
-      wl-clipboard
     ];
 
     fonts.fontconfig = {
