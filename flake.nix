@@ -2,7 +2,7 @@
   description = "My system configuration flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -11,11 +11,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+  
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
     };
 
     nix-gaming.url = "github:fufexan/nix-gaming";
@@ -33,10 +32,6 @@
     foundryvtt.url = "github:reckenrode/nix-foundryvtt";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
-    hyprpanel = {
-      url = "github:Jas-SinghFSU/HyprPanel";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     hyprhook = {
       url = "github:hyprhook/hyprhook";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -64,7 +59,7 @@
     pkgs = import inputs.nixpkgs {
       inherit system;
       config = {allowUnfree = true;};
-      overlays = [inputs.nixgl.overlay inputs.hyprpanel.overlay];
+      overlays = [inputs.nixgl.overlay];
     };
   in {
     nixosConfigurations = import ./hosts {inherit inputs system;};
