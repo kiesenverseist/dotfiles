@@ -37,8 +37,12 @@
     extraCompatPackages = [pkgs.proton-ge-bin];
   };
   programs.gamemode.enable = true;
-
   services.joycond.enable = true;
+
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
