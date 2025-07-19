@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   lib,
   ...
@@ -7,6 +6,9 @@
   # de.enable = true;
   guiMinimal.enable = true;
   programming.enable = true;
+
+  # TODO: Enable
+  private-cache.enable = false;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
