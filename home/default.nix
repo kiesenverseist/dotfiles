@@ -12,11 +12,10 @@
         ./modules
       ];
     };
-in {
-  "kiesen@halite" = conf ./home-halite.nix;
-  "kiesen@graphite" = conf ./home-graphite.nix;
-  "kiesen@kiesen-eos-laptop" = conf ./home-laptop.nix;
-  "kiesen@fluorite" = conf ./home-fluorite.nix;
-  "ibrahim.fuad@au-lap-0618.saberastronautics.net" = conf ./work-laptop.nix;
-  "ibrahim.fuad@graphite" = conf ./work-graphite.nix;
-}
+in
+  builtins.mapAttrs (_: module: conf module) {
+    "kiesen@halite" = ./home-halite.nix;
+    "kiesen@graphite" = ./home-graphite.nix;
+    "kiesen@kiesen-eos-laptop" = ./home-laptop.nix;
+    "kiesen@fluorite" = ./home-fluorite.nix;
+  }
