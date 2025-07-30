@@ -1,9 +1,15 @@
-{lib, ...}: {
+{
+  lib,
+  inputs,
+  ...
+}: {
   imports = [
     ./configuration.nix
     ./game-servers.nix
     ./vfio.nix
-	./pg.nix
+    ./pg.nix
+    ./hardware-configuration.nix
+    inputs.sops-nix.nixosModules.sops
   ];
 
   vfio.enable = lib.mkDefault true;

@@ -1,17 +1,8 @@
 {
   config,
   pkgs,
-  inputs,
   ...
 }: {
-  imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-    ../cachix.nix
-    ../modules/backups.nix
-    inputs.sops-nix.nixosModules.sops
-  ];
-
   # Use the GRUB 2 boot loader.
   # boot.loader.grub.enable = true;
   # boot.loader.grub.efiSupport = true;
@@ -158,10 +149,49 @@
       "mobile_app"
       "tuya"
       "nanoleaf"
-      "octoprint"
+      "aussie_broadband"
       "ipp"
+      "discord"
+      "epson"
+      "homeassistant_hardware"
+      "islamic_prayer_times"
+      "jellyfin"
+      "mqtt"
+      "music_assistant"
+      "prusalink"
+      "samsungtv"
+      "smlight"
+      "tailscale"
+      "syncthing"
+      "transport_nsw"
+      "unifi"
+      "zeroconf"
+      "thread"
     ];
   };
+
+  services.zigbee2mqtt = {
+    enable = true;
+    package = pkgs.zigbee2mqtt_2;
+    settings = {
+      homeassistant = config.services.home-assistant.enable;
+      permit_join = true;
+      serial = {
+        port = "tcp://192.168.1.35:7638";
+        baudrate = 115200;
+        adapter = "zstack";
+        disable_led = false;
+      };
+      advanced.transmit_power = 20;
+      frontend = {
+        package = "zigbee2mqtt-windfront";
+        enabled = true;
+        port = 8099;
+      };
+    };
+  };
+
+  services.mosquitto.enable = true;
 
   services.jellyfin = {
     enable = true;
@@ -196,10 +226,41 @@
   };
 
   services.komga = {
-    enable = true;
+    enable = false;
     group = "media";
     settings.server.port = 8080;
   };
+
+  services.gitea = {
+    enable = true;
+    lfs.enable = true;
+    settings.server.ROOT_URL = "https://halite.ladon-minnow.ts.net/git/";
+  };
+
+  services.gitea-actions-runner = {
+    instances."main" = {
+      name = "main";
+      enable = true;
+      url = config.services.gitea.settings.server.ROOT_URL;
+      token = "zk0hCo1VHHjdadQPH4X4IbMQ5u09Le7KSuinNyD5";
+      labels = [
+        "native:host"
+        "ubuntu-latest:docker://node:16-bullseye"
+        "ubuntu-22.04:docker://node:16-bullseye"
+      ];
+    };
+  };
+
+  # services.qbittorrent = {
+  #   enable = true;
+  #   user = "kiesen";
+  # };
+
+  services.immich = {
+    enable = true;
+    accelerationDevices = null;
+  };
+  users.users.immich.extraGroups = ["video" "render"];
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
@@ -268,31 +329,6 @@
 
   programs.nbd.enable = true;
 
-  services.gitea = {
-    enable = true;
-    lfs.enable = true;
-    settings.server.ROOT_URL = "https://halite.ladon-minnow.ts.net/git/";
-  };
-
-  services.gitea-actions-runner = {
-    instances."main" = {
-      name = "main";
-      enable = true;
-      url = config.services.gitea.settings.server.ROOT_URL;
-      token = "zk0hCo1VHHjdadQPH4X4IbMQ5u09Le7KSuinNyD5";
-      labels = [
-        "native:host"
-        "ubuntu-latest:docker://node:16-bullseye"
-        "ubuntu-22.04:docker://node:16-bullseye"
-      ];
-    };
-  };
-
-  # services.qbittorrent = {
-  #   enable = true;
-  #   user = "kiesen";
-  # };
-
   # sops = {
   #   defaultSopsFile = ../../secrets/secrets.yaml;
   #   defaultSopsFormat = "yaml";
@@ -329,8 +365,8 @@
         redir /radarr /radarr/
         reverse_proxy /radarr/* localhost:7878
 
-        redir /komga /komga/
-        reverse_proxy /komga/* localhost:8080
+        # redir /komga /komga/
+        # reverse_proxy /komga/* localhost:8080
       '';
     };
   };
