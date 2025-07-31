@@ -31,7 +31,6 @@
     qbittorrent
     via
     chromium
-    restic-browser
     restic
     jellyfin-media-player
 
