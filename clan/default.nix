@@ -6,6 +6,7 @@
 
     modules = {
       "@kiesen/restic" = import ./restic.nix;
+      "@kiesen/harmonia" = import ./harmonia.nix;
     };
 
     inventory = {
@@ -70,6 +71,12 @@
           module.name = "@kiesen/restic";
           module.input = "self";
           roles.default.tags.all = {};
+        };
+
+        harmonia = {
+          module.name = "@kiesen/harmonia";
+          module.input = "self";
+          roles.server.machines.graphite = {};
         };
 
         syncthing = {

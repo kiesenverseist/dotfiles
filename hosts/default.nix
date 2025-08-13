@@ -10,7 +10,7 @@
         };
     in {
       "halite" = conf ./halite;
-      "graphite" = conf ./graphite;
+      # "graphite" = conf ./graphite;
       "live" = conf ./live;
     };
   };

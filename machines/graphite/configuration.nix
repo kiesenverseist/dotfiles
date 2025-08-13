@@ -11,6 +11,7 @@
     ./hardware-configuration.nix
     ./game-servers.nix
     ./logiops.nix
+    ../../hosts/modules
     # ../../hosts/modules/backups.nix
     # inputs.sops-nix.nixosModules.sops
     inputs.nixos-hardware.nixosModules.common-gpu-amd
@@ -53,7 +54,7 @@
   services.displayManager.sddm = {
     enable = true;
     #   wayland.enable = true;
-    theme = "${import ../sddm-theme.nix {inherit pkgs;}}";
+    theme = "${import ../../hosts/sddm-theme.nix {inherit pkgs;}}";
   };
   services.displayManager.defaultSession = "hyprland";
   services.xserver = {
@@ -232,20 +233,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  sops.secrets."harmonia/secret" = {
-    mode = "0440";
-    owner = "harmonia";
-    group = "harmonia";
-  };
-  services.harmonia = {
-    package = pkgs.harmonia;
-    enable = true;
-    signKeyPaths = [
-      "/var/lib/secrets/harmonia.secret"
-      config.sops.secrets."harmonia/secret".path
-    ];
-  };
 
   nixpkgs.config.rocmSupport = true;
   services.ollama = {
