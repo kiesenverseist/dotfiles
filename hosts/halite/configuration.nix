@@ -21,8 +21,6 @@
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
   networking.nameservers = ["9.9.9.9" "1.1.1.1"];
 
-  # networking.bridges.br0.interfaces = ["enp34s0"];
-
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;

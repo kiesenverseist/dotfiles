@@ -9,6 +9,7 @@
     ./vfio.nix
     ./pg.nix
     ./hardware-configuration.nix
+    ./proxmox.nix
     inputs.sops-nix.nixosModules.sops
   ];
 

@@ -51,6 +51,11 @@
     sops-nix.url = "github:Mic92/sops-nix";
 
     colmena.url = "github:zhaofengli/colmena";
+
+    proxmox-nixos = {
+      url = "github:SaumonNet/proxmox-nixos";
+      inputs.nixpkgs-unstable.follows = "nixpkgs";
+    };
   };
 
   outputs = {self, ...} @ inputs: let
@@ -91,5 +96,17 @@
     colmena = import ./hosts/colmena.nix {inherit inputs;};
 
     formatter.${system} = pkgs.alejandra;
+  };
+
+  nixConfig = {
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+      "https://cache.saumon.network/proxmox-nixos"
+    ];
+
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
+    ];
   };
 }
