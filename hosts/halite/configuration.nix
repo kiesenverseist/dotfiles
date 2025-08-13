@@ -153,6 +153,9 @@
       "ipp"
       "discord"
       "epson"
+      "assist_pipeline"
+      "assist_satellite"
+      "homeassistant"
       "homeassistant_hardware"
       "islamic_prayer_times"
       "jellyfin"
@@ -167,6 +170,9 @@
       "unifi"
       "zeroconf"
       "thread"
+      "ollama"
+      "roborock"
+      "immich"
     ];
   };
 
@@ -192,6 +198,11 @@
   };
 
   services.mosquitto.enable = true;
+
+  services.music-assistant = {
+    enable = true;
+    providers = ["ytmusic"];
+  };
 
   services.jellyfin = {
     enable = true;
@@ -258,9 +269,18 @@
 
   services.immich = {
     enable = true;
+    host = "0.0.0.0";
     accelerationDevices = null;
   };
   users.users.immich.extraGroups = ["video" "render"];
+
+  services.searx = {
+    enable = true;
+    redisCreateLocally = true;
+    settings = {
+      server.bind_address = "0.0.0.0";
+    };
+  };
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
