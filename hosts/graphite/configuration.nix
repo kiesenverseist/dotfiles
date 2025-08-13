@@ -251,7 +251,13 @@
   nixpkgs.config.rocmSupport = true;
   services.ollama = {
     enable = true;
+    host = "0.0.0.0";
     rocmOverrideGfx = "11.0.1";
+  };
+  services.open-webui = {
+    enable = true;
+    host = "0.0.0.0";
+    environment.OLLAMA_API_BASE_URL = "http://localhost:${builtins.toString config.services.ollama.port}";
   };
 
   # Open ports in the firewall.
