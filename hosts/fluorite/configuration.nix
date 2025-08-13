@@ -44,6 +44,19 @@
     setSocketVariable = true;
   };
 
+  # virtualisation
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      ovmf.enable = true;
+    };
+    onBoot = "ignore";
+    onShutdown = "shutdown";
+  };
+  virtualisation.spiceUSBRedirection.enable = true;
+  programs.virt-manager.enable = true;
+
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
