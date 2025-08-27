@@ -30,6 +30,9 @@
 
     pkgs.prusa-slicer
     pkgs.freecad
+
+    pkgs.virt-viewer
+    pkgs.mathpix-snipping-tool
   ];
 
   programs.git = {

@@ -56,6 +56,9 @@
   virtualisation.spiceUSBRedirection.enable = true;
   programs.virt-manager.enable = true;
 
+  services.zerotierone = {
+    enable = true;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
