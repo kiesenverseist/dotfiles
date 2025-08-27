@@ -74,19 +74,10 @@
     # };
   };
 
-  outputs = {self, ...} @ inputs: let
-    system = "x86_64-linux";
-
-  in
+  outputs = {self, ...} @ inputs:
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = [system];
-      imports = [./home];
-
-      flake = {
-        nixosConfigurations = import ./hosts {inherit inputs system;};
-        colmenaHive = inputs.colmena.lib.makeHive self.outputs.colmena;
-        colmena = import ./hosts/colmena.nix {inherit inputs;};
-      };
+      systems = ["x86_64-linux"];
+      imports = [./home ./hosts];
 
       perSystem = {
         pkgs,
@@ -120,6 +111,11 @@
         };
 
         formatter = pkgs.alejandra;
+      };
+
+      flake = {
+        colmenaHive = inputs.colmena.lib.makeHive self.outputs.colmena;
+        colmena = import ./hosts/colmena.nix {inherit inputs;};
       };
     };
 
