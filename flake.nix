@@ -10,6 +10,8 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    devenv.url = "github:cachix/devenv";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
@@ -67,17 +69,22 @@
       inputs.nixpkgs-unstable.follows = "nixpkgs";
     };
 
-    # clan-core = {
-    #   url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.flake-parts.follows = "flake-parts";
-    # };
+    clan-core = {
+      url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
   };
 
   outputs = {self, ...} @ inputs:
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux"];
-      imports = [./home ./hosts];
+      imports = [
+        ./home
+        ./hosts
+        ./clan
+        inputs.devenv.flakeModule
+      ];
 
       perSystem = {
         pkgs,
@@ -101,7 +108,7 @@
           };
         };
 
-        devShells.default = pkgs.mkShellNoCC {
+        devenv.shells.default = {
           packages = [
             pkgs.age
             pkgs.ssh-to-age
