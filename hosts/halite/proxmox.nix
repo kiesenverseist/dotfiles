@@ -13,6 +13,6 @@
   services.proxmox-ve = {
     enable = true;
     ipAddress = "0.0.0.0";
-    bridges = ["br0"];
+    bridges = ["br0" "virbr0"];
   };
 }

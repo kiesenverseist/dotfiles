@@ -308,7 +308,7 @@
 
   programs.virt-manager.enable = true;
 
-  networking.useDHCP = false;
+  networking.interfaces."enp34s0".useDHCP = true;
   networking.bridges."br0".interfaces = ["enp34s0"];
   networking.interfaces."br0".useDHCP = true;
 
