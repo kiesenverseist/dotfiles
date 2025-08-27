@@ -77,18 +77,13 @@
   outputs = {self, ...} @ inputs: let
     system = "x86_64-linux";
 
-    pkgs = import inputs.nixpkgs {
-      inherit system;
-      config = {allowUnfree = true;};
-      overlays = [inputs.nixgl.overlay];
-    };
   in
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       systems = [system];
+      imports = [./home];
 
       flake = {
         nixosConfigurations = import ./hosts {inherit inputs system;};
-        homeConfigurations = import ./home {inherit inputs pkgs;};
         colmenaHive = inputs.colmena.lib.makeHive self.outputs.colmena;
         colmena = import ./hosts/colmena.nix {inherit inputs;};
       };
