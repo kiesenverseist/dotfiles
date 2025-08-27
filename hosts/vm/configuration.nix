@@ -8,7 +8,7 @@
 }: {
   imports = [
     # ./hardware-configuration.nix
-    ../cachix.nix
+    ../modules/cachix.nix
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_testing;

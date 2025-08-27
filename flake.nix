@@ -5,19 +5,29 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  
+
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
 
-    nix-gaming.url = "github:fufexan/nix-gaming";
+    nix-gaming = {
+      url = "github:fufexan/nix-gaming";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+
     nix-alien.url = "github:thiagokokada/nix-alien";
 
     nixgl = {
@@ -56,6 +66,12 @@
       url = "github:SaumonNet/proxmox-nixos";
       inputs.nixpkgs-unstable.follows = "nixpkgs";
     };
+
+    # clan-core = {
+    #   url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.flake-parts.follows = "flake-parts";
+    # };
   };
 
   outputs = {self, ...} @ inputs: let
@@ -66,37 +82,51 @@
       config = {allowUnfree = true;};
       overlays = [inputs.nixgl.overlay];
     };
-  in {
-    nixosConfigurations = import ./hosts {inherit inputs system;};
+  in
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = [system];
 
-    homeConfigurations = import ./home {inherit inputs pkgs;};
+      flake = {
+        nixosConfigurations = import ./hosts {inherit inputs system;};
+        homeConfigurations = import ./home {inherit inputs pkgs;};
+        colmenaHive = inputs.colmena.lib.makeHive self.outputs.colmena;
+        colmena = import ./hosts/colmena.nix {inherit inputs;};
+      };
 
-    packages.${system} = {
-      vm = inputs.nixos-generators.nixosGenerate {
-        inherit system pkgs;
-        specialArgs = {inherit inputs;};
-        modules = [
-          ./hosts/vm
-          ({lib, ...}: {
-            system.build.qcow = lib.mkDefault {
-              diskSize = lib.mkForce "auto";
-              additionalSpace = "10G";
-            };
-          })
-        ];
-        format = "qcow";
+      perSystem = {
+        pkgs,
+        system,
+        ...
+      }: {
+        packages = {
+          vm = inputs.nixos-generators.nixosGenerate {
+            inherit system pkgs;
+            specialArgs = {inherit inputs;};
+            modules = [
+              ./hosts/vm
+              ({lib, ...}: {
+                system.build.qcow = lib.mkDefault {
+                  diskSize = lib.mkForce "auto";
+                  additionalSpace = "10G";
+                };
+              })
+            ];
+            format = "qcow";
+          };
+        };
+
+        devShells.default = pkgs.mkShellNoCC {
+          packages = [
+            pkgs.age
+            pkgs.ssh-to-age
+            pkgs.sops
+            pkgs.nh
+          ];
+        };
+
+        formatter = pkgs.alejandra;
       };
     };
-
-    devShells.${system}.default = pkgs.mkShellNoCC {
-      packages = [pkgs.age pkgs.ssh-to-age pkgs.sops pkgs.nh];
-    };
-
-    colmenaHive = inputs.colmena.lib.makeHive self.outputs.colmena;
-    colmena = import ./hosts/colmena.nix {inherit inputs;};
-
-    formatter.${system} = pkgs.alejandra;
-  };
 
   nixConfig = {
     extra-substituters = [
