@@ -11,7 +11,6 @@
     in {
       "halite" = conf ./halite;
       "graphite" = conf ./graphite;
-      "fluorite" = conf ./fluorite;
       "live" = conf ./live;
     };
   };
