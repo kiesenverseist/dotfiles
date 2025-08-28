@@ -6,6 +6,15 @@
       meta = {
         name = "kiesnet";
       };
+
+      machines = {
+        lazurite = {
+          deploy = {
+            targetHost = "lazurite";
+            buildHost = "kiesen@graphite";
+          };
+        };
+      };
     };
   };
 

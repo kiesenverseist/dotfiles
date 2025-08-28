@@ -62,8 +62,6 @@
 
     sops-nix.url = "github:Mic92/sops-nix";
 
-    colmena.url = "github:zhaofengli/colmena";
-
     proxmox-nixos = {
       url = "github:SaumonNet/proxmox-nixos";
       inputs.nixpkgs-unstable.follows = "nixpkgs";
@@ -88,24 +86,24 @@
 
       perSystem = {
         pkgs,
-        system,
+        # system,
         ...
       }: {
         packages = {
-          vm = inputs.nixos-generators.nixosGenerate {
-            inherit system pkgs;
-            specialArgs = {inherit inputs;};
-            modules = [
-              ./hosts/vm
-              ({lib, ...}: {
-                system.build.qcow = lib.mkDefault {
-                  diskSize = lib.mkForce "auto";
-                  additionalSpace = "10G";
-                };
-              })
-            ];
-            format = "qcow";
-          };
+          # vm = inputs.nixos-generators.nixosGenerate {
+          #   inherit system pkgs;
+          #   specialArgs = {inherit inputs;};
+          #   modules = [
+          #     ./hosts/vm
+          #     ({lib, ...}: {
+          #       system.build.qcow = lib.mkDefault {
+          #         diskSize = lib.mkForce "auto";
+          #         additionalSpace = "10G";
+          #       };
+          #     })
+          #   ];
+          #   format = "qcow";
+          # };
         };
 
         devenv.shells.default = {
@@ -118,11 +116,6 @@
         };
 
         formatter = pkgs.alejandra;
-      };
-
-      flake = {
-        colmenaHive = inputs.colmena.lib.makeHive self.outputs.colmena;
-        colmena = import ./hosts/colmena.nix {inherit inputs;};
       };
     };
 
