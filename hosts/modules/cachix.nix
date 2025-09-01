@@ -21,7 +21,7 @@ in {
   ];
 
   nix.settings = {
-    connect-timeout = 1;
+    # connect-timeout = 1;
     fallback = true;
     log-lines = 25;
     min-free = 128000000;

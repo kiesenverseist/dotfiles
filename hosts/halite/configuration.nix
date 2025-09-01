@@ -43,18 +43,6 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # networking
-  # services.create_ap = {
-  #   enable = false;
-  #   settings = {
-  #     INTERNET_IFACE = "enp34s0";
-  #     WIFI_IFACE = "wlo1";
-  #     SSID = "kiesen-ap";
-  #     PASSPHRASE = "apple100";
-  #     # WPA_PAIRWISE = "CCMP";
-  #   };
-  # };
-
   # services.onedrive.enable = true;
 
   # Enable sound.
@@ -338,7 +326,7 @@
   #         subnet = "192.168.122.0/24";
   #         pools = [
   #           {pool = "192.168.122.100 - 192.168.122.200";}
-  #         ];
+  #         
   #       }
   #     ];
   #     valid-lifetime = 4000;
