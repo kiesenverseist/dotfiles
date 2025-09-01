@@ -4,8 +4,12 @@
   clan = {
     specialArgs = {inherit inputs;};
 
+    modules = {
+      "@kiesen/restic" = import ./restic.nix;
+    };
+
     inventory = {
-      meta = { name = "kiesnet"; };
+      meta = {name = "kiesnet";};
 
       machines = {
         lazurite = {
@@ -29,8 +33,20 @@
           };
         };
 
+        # sshd = {
+        #   module = {
+        #     name = "sshd";
+        #     input = "clan-core";
+        #   };
+        #   roles.server.tags.all = {};
+        #   roles.client.tags.all = {};
+        # };
+
         kiesen-user = {
-          module.name = "users";
+          module = {
+            name = "users";
+            input = "clan-core";
+          };
 
           roles.default.tags.all = {};
           roles.default.settings = {
@@ -45,6 +61,25 @@
               "qemu-libvirtd"
               "dialout"
             ];
+
+            share = true;
+          };
+        };
+
+        restic = {
+          module.name = "@kiesen/restic";
+          module.input = "self";
+          roles.default.tags.all = {};
+        };
+
+        syncthing = {
+          roles.peer.machines = {
+            fluorite = {};
+          };
+          roles.peer.settings.folders = {
+            documents = {
+              path = "~/Documents/";
+            };
           };
         };
       };

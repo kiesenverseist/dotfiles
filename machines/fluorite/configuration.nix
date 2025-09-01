@@ -3,11 +3,9 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
   pkgs,
-  inputs,
   ...
 }: {
   imports = [
-    inputs.sops-nix.nixosModules.sops
     ../../hosts/modules
   ];
 
@@ -31,15 +29,10 @@
   services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
 
-  services.backups.enable = true;
+  services.backups.enable = false;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.kiesen = {
-    extraGroups = ["wheel" "libvirtd" "qemu-libvirtd" "dialout"];
-  };
 
   programs.steam = {
     enable = true;
@@ -68,12 +61,6 @@
   services.zerotierone = {
     enable = true;
   };
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
