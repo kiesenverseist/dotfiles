@@ -86,11 +86,11 @@
     };
   };
 
-  perSystem = {inputs', ...}: {
-    devenv.shells.default = {
-      packages = [
-        inputs'.clan-core.packages.clan-cli
-      ];
-    };
-  };
+  # perSystem = {inputs', ...}: {
+  #   devenv.shells.default = {
+  #     packages = [
+  #       inputs'.clan-core.packages.clan-cli
+  #     ];
+  #   };
+  # };
 }

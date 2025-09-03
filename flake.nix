@@ -36,10 +36,10 @@
       url = "github:nix-community/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixgl-fix = {
-      url = "github:johanneshorner/nixGL";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # nixgl-fix = {
+    #   url = "github:johanneshorner/nixGL";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     foundryvtt.url = "github:reckenrode/nix-foundryvtt";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
@@ -74,49 +74,15 @@
     };
   };
 
-  outputs = {self, ...} @ inputs:
+  outputs = inputs:
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux"];
       imports = [
         ./home
         ./hosts
         ./clan
-        inputs.devenv.flakeModule
+        ./dev.nix
       ];
-
-      perSystem = {
-        pkgs,
-        # system,
-        ...
-      }: {
-        packages = {
-          # vm = inputs.nixos-generators.nixosGenerate {
-          #   inherit system pkgs;
-          #   specialArgs = {inherit inputs;};
-          #   modules = [
-          #     ./hosts/vm
-          #     ({lib, ...}: {
-          #       system.build.qcow = lib.mkDefault {
-          #         diskSize = lib.mkForce "auto";
-          #         additionalSpace = "10G";
-          #       };
-          #     })
-          #   ];
-          #   format = "qcow";
-          # };
-        };
-
-        devenv.shells.default = {
-          packages = [
-            pkgs.age
-            pkgs.ssh-to-age
-            pkgs.sops
-            pkgs.nh
-          ];
-        };
-
-        formatter = pkgs.alejandra;
-      };
     };
 
   nixConfig = {

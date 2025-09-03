@@ -1,0 +1,20 @@
+default_scope = "nixos"
+
+[scopes.flake-parts]
+description = "flake-parts config for NixOS configuration"
+options-list-cmd = "nix eval --json .#optnix.options-doc"
+evaluator = "nix eval .#debug.config.{{ .Option }}"
+
+[scopes.nixos]
+description = "NixOS flake configuration for halite"
+options-list-cmd = '''
+nix eval ".#nixosConfigurations.graphite" --json --apply 'input: let
+  inherit (input) options pkgs;
+
+  optionsList = builtins.filter
+    (v: v.visible && !v.internal)
+    (pkgs.lib.optionAttrSetToDocList options);
+in
+  optionsList'
+'''
+evaluator = "nix eval .#nixosConfigurations.graphite.config.{{ .Option }}"

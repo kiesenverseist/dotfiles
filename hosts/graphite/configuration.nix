@@ -13,7 +13,6 @@
     ./logiops.nix
     ../modules/backups.nix
     inputs.sops-nix.nixosModules.sops
-    inputs.foundryvtt.nixosModules.foundryvtt
     inputs.nixos-hardware.nixosModules.common-gpu-amd
   ];
 

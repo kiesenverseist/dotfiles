@@ -11,6 +11,7 @@ in {
   imports = [
     ../modules/satisfactory.nix
     inputs.nix-minecraft.nixosModules.minecraft-servers
+    # inputs.foundryvtt.nixosModules.foundryvtt
   ];
   nixpkgs.overlays = [inputs.nix-minecraft.overlay];
 
@@ -25,15 +26,15 @@ in {
     package = factorio-custom;
   };
 
-  services.foundryvtt = {
-    enable = false;
-    # hostName = "graphite";
-    minifyStaticFiles = true;
-    package = inputs.foundryvtt.packages.${pkgs.system}.foundryvtt_12; # Sets the version to the latest FoundryVTT v12.
-    proxyPort = 443;
-    proxySSL = true;
-    upnp = false;
-  };
+  # services.foundryvtt = {
+  #   enable = false;
+  #   # hostName = "graphite";
+  #   minifyStaticFiles = true;
+  #   package = inputs.foundryvtt.packages.${pkgs.system}.foundryvtt_12; # Sets the version to the latest FoundryVTT v12.
+  #   proxyPort = 443;
+  #   proxySSL = true;
+  #   upnp = false;
+  # };
 
   services.satisfactory = {
     enable = false;
