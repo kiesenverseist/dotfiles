@@ -12,14 +12,17 @@
     '';
   };
 
+  clan.core.vars.generators.pgadmin = {
+    prompts.password = {
+      description = "Initial password for pgadmin";
+      persist = true;
+    };
+  };
+
   services.pgadmin = {
     enable = true;
     openFirewall = true;
     initialEmail = "creativeibi77@gmail.com";
-    initialPasswordFile = config.sops.secrets."pgadminPassword".path;
-  };
-
-  sops.secrets."pgadminPassword" = {
-    sopsFile = ../../secrets/halite.yaml;
+    initialPasswordFile = config.clan.core.vars.generators.pgadmin.files.password.path;
   };
 }
