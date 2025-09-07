@@ -15,12 +15,8 @@
       machines = {
         lazurite = {
           deploy = {
-            targetHost = "lazurite";
             buildHost = "kiesen@graphite";
           };
-        };
-        fluorite = {
-          deploy = {targetHost = "fluorite";};
         };
       };
 
@@ -42,6 +38,13 @@
         #   roles.server.tags.all = {};
         #   roles.client.tags.all = {};
         # };
+
+        internet.roles.default.machines = {
+          halite.settings.host = "halite";
+          graphite.settings.host = "graphite";
+          fluorite.settings.host = "fluorite";
+          lazurite.settings.host = "lazurite";
+        };
 
         kiesen-user = {
           module = {
