@@ -76,7 +76,10 @@
         harmonia = {
           module.name = "@kiesen/harmonia";
           module.input = "self";
-          roles.server.machines.graphite = {};
+          roles.server.machines = {
+            graphite = {};
+            halite = {};
+          };
           roles.client.tags.all = {};
         };
 

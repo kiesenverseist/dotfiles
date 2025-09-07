@@ -9,8 +9,6 @@
           modules = [module ./modules];
         };
     in {
-      "halite" = conf ./halite;
-      # "graphite" = conf ./graphite;
       "live" = conf ./live;
     };
   };

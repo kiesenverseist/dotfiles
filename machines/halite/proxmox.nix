@@ -1,13 +1,13 @@
 {
   inputs,
   pkgs,
-  system,
+  config,
   ...
 }: {
   imports = [inputs.proxmox-nixos.nixosModules.proxmox-ve];
 
   nixpkgs.overlays = [
-    inputs.proxmox-nixos.overlays.${system}
+    inputs.proxmox-nixos.overlays."x86_64-linux"
   ];
 
   services.proxmox-ve = {

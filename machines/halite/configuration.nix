@@ -1,11 +1,24 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
     ./hass.nix
+    ./game-servers.nix
+    ./vfio.nix
+    ./pg.nix
+    ./hardware-configuration.nix
+    ./proxmox.nix
+    ../../hosts/modules
   ];
+
+  vfio.enable = lib.mkDefault true;
+  specialisation."NO_VFIO".configuration = {
+    system.nixos.tags = ["without-vfio"];
+    vfio.enable = false;
+  };
 
   # Use the GRUB 2 boot loader.
   # boot.loader.grub.enable = true;
@@ -33,7 +46,7 @@
   services.displayManager = {
     sddm = {
       enable = true;
-      theme = "${import ../sddm-theme.nix {inherit pkgs;}}";
+      theme = "${import ../../hosts/sddm-theme.nix {inherit pkgs;}}";
     };
     defaultSession = "plasma";
   };
@@ -61,11 +74,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  services.harmonia = {
-    enable = true;
-    signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
-  };
-
   programs.hyprland.enable = true;
 
   environment.sessionVariables = {
@@ -87,21 +95,12 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users = {
     kiesen = {
-      extraGroups = ["wheel" "libvirtd" "media"]; # Enable ‘sudo’ for the user.
-    };
-    zaky = {
-      isNormalUser = true;
-      shell = pkgs.fish;
-      extraGroups = ["libvirtd"]; # Enable ‘sudo’ for the user.
+      extraGroups = ["media"]; # Enable ‘sudo’ for the user.
     };
   };
 
   users.groups = {
     media = {};
-  };
-
-  nixpkgs.config.packageOverrides = pkgs: {
-    steam = pkgs.steam.override {extraPkgs = pkgs: with pkgs; [libgdiplus keyutils libkrb5 libpng libpulseaudio libvorbis stdenv.cc.cc.lib xorg.libXcursor xorg.libXi xorg.libXinerama xorg.libXScrnSaver];}; # https://github.com/ValveSoftware/gamescope/issues/905
   };
 
   # List packages installed in system profile. To search, run:
@@ -264,15 +263,6 @@
 
   programs.nbd.enable = true;
 
-  # sops = {
-  #   defaultSopsFile = ../../secrets/secrets.yaml;
-  #   defaultSopsFormat = "yaml";
-  #
-  #   age.keyFile = "/home/kiesen/.config/sops/age/keys.txt";
-  #
-  #   secrets.cloudflare_tunnel_token.owner = config.services.cloudflared.user;
-  # };
-
   services.tailscale = {
     permitCertUid = "caddy";
   };
@@ -305,10 +295,6 @@
       '';
     };
   };
-
-  services.backups.enable = true;
-
-  sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
