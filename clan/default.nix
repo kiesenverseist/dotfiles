@@ -77,6 +77,7 @@
           module.name = "@kiesen/harmonia";
           module.input = "self";
           roles.server.machines.graphite = {};
+          roles.client.tags.all = {};
         };
 
         syncthing = {
