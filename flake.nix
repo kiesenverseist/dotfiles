@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
+    # TODO: remove when https://github.com/NixOS/nixpkgs/pull/332296 is merged
     otbr.url = "github:mrene/nixpkgs/openthread-border-router";
 
     flake-parts = {
@@ -38,10 +39,6 @@
       url = "github:nix-community/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # nixgl-fix = {
-    #   url = "github:johanneshorner/nixGL";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
 
     foundryvtt.url = "github:reckenrode/nix-foundryvtt";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";

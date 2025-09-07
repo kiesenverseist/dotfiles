@@ -9,7 +9,7 @@
   factorio-custom = pkgs.callPackage ./factorio-custom {releaseType = "headless";};
 in {
   imports = [
-    ../modules/satisfactory.nix
+    ../../hosts/modules/satisfactory.nix
     inputs.nix-minecraft.nixosModules.minecraft-servers
     # inputs.foundryvtt.nixosModules.foundryvtt
   ];

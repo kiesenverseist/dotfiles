@@ -11,8 +11,8 @@
     ./hardware-configuration.nix
     ./game-servers.nix
     ./logiops.nix
-    ../modules/backups.nix
-    inputs.sops-nix.nixosModules.sops
+    # ../../hosts/modules/backups.nix
+    # inputs.sops-nix.nixosModules.sops
     inputs.nixos-hardware.nixosModules.common-gpu-amd
   ];
 
@@ -304,10 +304,10 @@
 
   programs.nbd.enable = true;
 
-  services.backups.enable = true;
+  # services.backups.enable = true;
 
-  sops.defaultSopsFile = ../../secrets/graphite.yaml;
-  sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+  # sops.defaultSopsFile = ../../secrets/graphite.yaml;
+  # sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

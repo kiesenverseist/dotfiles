@@ -1,12 +1,12 @@
 {
-  inputs,
+  # inputs,
   lib,
   options,
   ...
 }: {
-  imports = [
-    # inputs.devenv.flakeModule
-  ];
+  # imports = [
+  #   inputs.devenv.flakeModule
+  # ];
 
   # Required for evaluating module option values.
   debug = true;
@@ -18,7 +18,7 @@
 
   perSystem = {
     pkgs,
-    system,
+    # system,
     inputs',
     ...
   }: {
