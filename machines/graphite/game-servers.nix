@@ -1,8 +1,8 @@
 {
   config,
-  lib,
+  # lib,
   pkgs,
-  modulesPath,
+  # modulesPath,
   inputs,
   ...
 }: let
@@ -15,6 +15,21 @@ in {
   ];
   nixpkgs.overlays = [inputs.nix-minecraft.overlay];
 
+  clan.core.vars.generators.factorio = {
+    prompts.password = {
+      description = "the password for the factorio game";
+    };
+
+    files.settings.secret = true;
+    script = ''
+      cat << EOF > $out/settings
+        {
+          "game-password": "$(cat $prompts/password)"
+        }
+      EOF
+    '';
+  };
+  
   services.factorio = {
     enable = true;
     lan = true;
@@ -22,6 +37,7 @@ in {
     nonBlockingSaving = true;
     saveName = "spaceage-m";
     game-password = "apple";
+    extraSettingsFile = config.clan.core.vars.generators.factorio.files.settings.path;
     admins = ["kiesenverseist"];
     package = factorio-custom;
   };
