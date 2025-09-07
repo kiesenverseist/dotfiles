@@ -60,7 +60,7 @@
     enable = true;
     package = pkgs.zigbee2mqtt_2;
     settings = {
-      homeassistant = config.services.home-assistant.enable;
+      homeassistant.enabled = config.services.home-assistant.enable;
       permit_join = true;
       serial = {
         port = "tcp://192.168.1.35:7638";
@@ -81,7 +81,10 @@
 
   services.music-assistant = {
     enable = true;
-    providers = ["ytmusic"];
+    providers = [
+      "ytmusic"
+      "hass"
+    ];
   };
 
   services.matter-server = {
