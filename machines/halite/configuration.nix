@@ -188,11 +188,19 @@
   };
   users.users.immich.extraGroups = ["video" "render"];
 
+  clan.core.vars.generators.searx = {
+    files.key.secret = true;
+    script = ''
+      ${pkgs.openssl}/bin/openssl rand -base64 32 > $out/key
+    '';
+  };
+
   services.searx = {
     enable = true;
     redisCreateLocally = true;
     settings = {
       server.bind_address = "0.0.0.0";
+      server.secret_key = config.clan.core.vars.generators.searx.files.key.path;
     };
   };
 
