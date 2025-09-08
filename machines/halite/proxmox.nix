@@ -1,9 +1,4 @@
-{
-  inputs,
-  pkgs,
-  config,
-  ...
-}: {
+{inputs, ...}: {
   imports = [inputs.proxmox-nixos.nixosModules.proxmox-ve];
 
   nixpkgs.overlays = [
@@ -12,7 +7,16 @@
 
   services.proxmox-ve = {
     enable = true;
-    ipAddress = "0.0.0.0";
+    ipAddress = "100.120.252.116";
     bridges = ["br0" "virbr0"];
+    ceph = {
+      enable = true;
+      mgr.enable = true;
+      mon.enable = true;
+      osd = {
+        enable = true;
+        daemons = ["1"];
+      };
+    };
   };
 }
