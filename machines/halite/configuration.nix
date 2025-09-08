@@ -156,25 +156,25 @@
     settings.server.port = 8080;
   };
 
-  services.gitea = {
-    enable = true;
-    lfs.enable = true;
-    settings.server.ROOT_URL = "https://halite.ladon-minnow.ts.net/git/";
-  };
+  # services.gitea = {
+  #   enable = true;
+  #   lfs.enable = true;
+  #   settings.server.ROOT_URL = "https://halite.ladon-minnow.ts.net/git/";
+  # };
 
-  services.gitea-actions-runner = {
-    instances."main" = {
-      name = "main";
-      enable = true;
-      url = config.services.gitea.settings.server.ROOT_URL;
-      token = "zk0hCo1VHHjdadQPH4X4IbMQ5u09Le7KSuinNyD5";
-      labels = [
-        "native:host"
-        "ubuntu-latest:docker://node:16-bullseye"
-        "ubuntu-22.04:docker://node:16-bullseye"
-      ];
-    };
-  };
+  # services.gitea-actions-runner = {
+  #   instances."main" = {
+  #     name = "main";
+  #     enable = true;
+  #     url = config.services.gitea.settings.server.ROOT_URL;
+  #     token = "zk0hCo1VHHjdadQPH4X4IbMQ5u09Le7KSuinNyD5";
+  #     labels = [
+  #       "native:host"
+  #       "ubuntu-latest:docker://node:16-bullseye"
+  #       "ubuntu-22.04:docker://node:16-bullseye"
+  #     ];
+  #   };
+  # };
 
   # services.qbittorrent = {
   #   enable = true;
