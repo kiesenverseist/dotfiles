@@ -12,8 +12,6 @@
     ./game-servers.nix
     ./logiops.nix
     ../../hosts/modules
-    # ../../hosts/modules/backups.nix
-    # inputs.sops-nix.nixosModules.sops
     inputs.nixos-hardware.nixosModules.common-gpu-amd
   ];
 
@@ -33,28 +31,22 @@
   boot.loader.systemd-boot.configurationLimit = 20;
 
   networking.hostName = "graphite"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-  # networking.nameservers = [ "9.9.9.9" "1.1.1.1" ];
 
   networking.useDHCP = false;
   networking.bridges."br0".interfaces = ["eno2"];
   networking.interfaces."br0".useDHCP = true;
 
   # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
   # console = {
   #   font = "Lat2-Terminus16";
   #   keyMap = "us";
   #   useXkbConfig = true; # use xkbOptions in tty.
   # };
 
-  # Enable the X11 windowing system.
   services.displayManager.sddm = {
     enable = true;
     #   wayland.enable = true;
-    theme = "${import ../../hosts/sddm-theme.nix {inherit pkgs;}}";
+    theme = "${pkgs.sddm-sugar-dark}";
   };
   services.displayManager.defaultSession = "hyprland";
   services.xserver = {
@@ -178,12 +170,6 @@
     extraGroups = ["wheel" "libvirtd" "qemu-libvirtd" "disk" "adbusers" "dialout"];
   };
 
-  # users.users."ibrahim.fuad" = {
-  #   isNormalUser = true;
-  #   shell = pkgs.fish;
-  #   extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
-  # };
-
   nixpkgs.config.packageOverrides = pkgs: {
     steam = pkgs.steam.override {
       extraPkgs = pkgs:
@@ -290,16 +276,6 @@
   systemd.coredump.enable = true;
 
   programs.nbd.enable = true;
-
-  # services.backups.enable = true;
-
-  # sops.defaultSopsFile = ../../secrets/graphite.yaml;
-  # sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true; # incompatible with flakes :(
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

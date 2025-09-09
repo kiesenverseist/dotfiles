@@ -34,10 +34,7 @@
   boot.loader.systemd-boot.configurationLimit = 10;
 
   networking.hostName = "halite"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-  networking.nameservers = ["9.9.9.9" "1.1.1.1"];
 
   # Enable the X11 windowing system.
   services.xserver = {
@@ -47,7 +44,7 @@
   services.displayManager = {
     sddm = {
       enable = true;
-      theme = "${import ../../hosts/sddm-theme.nix {inherit pkgs;}}";
+      theme = "${pkgs.sddm-sugar-dark}";
     };
     defaultSession = "plasma";
   };
