@@ -192,7 +192,7 @@
   #         subnet = "192.168.122.0/24";
   #         pools = [
   #           {pool = "192.168.122.100 - 192.168.122.200";}
-  #         
+  #
   #       }
   #     ];
   #     valid-lifetime = 4000;
@@ -205,31 +205,71 @@
     permitCertUid = "caddy";
   };
 
+  clan.core.vars.generators.caddy = {
+    prompts = {
+      porkbun_key = {
+        description = "The key to manage porkbun dns records. For use with DNS challenges with caddy.";
+      };
+      porkbun_secret = {
+        description = "The secret to manage porkbun dns records.";
+      };
+    };
+
+    files.env.secret = true;
+
+    script = ''
+      cat << EOF > $out/env
+        PORKBUN_API_KEY=$(cat $prompts/porkbun_key)
+        PORKBUN_API_SECRET_KEY=$(cat $prompts/porkbun_secret)
+      EOF
+    '';
+  };
+
   services.caddy = {
     enable = true;
-    virtualHosts."halite.ladon-minnow.ts.net" = {
-      extraConfig = ''
-        route /git/* {
-          uri strip_prefix /git
-          reverse_proxy localhost:3000
+    package = pkgs.caddy.withPlugins {
+      plugins = ["github.com/caddy-dns/porkbun@v0.3.1"];
+      hash = "sha256-g/Nmi4X/qlqqjY/zoG90iyP5Y5fse6Akr8exG5Spf08=";
+    };
+    environmentFile = config.clan.core.vars.generators.caddy.files.env.path;
+    extraConfig = ''
+      (porkbun) {
+        tls {
+          dns porkbun {
+            api_key {env.PORKBUN_API_KEY}
+            api_secret_key {env.PORKBUN_API_SECRET_KEY}
+          }
+          resolvers 1.1.1.1 # https://caddy.community/t/notimp-reponse-to-route53-acme-challenge/25589
         }
-
-        route /jellyseerr/* {
-          uri strip_prefix /jellyseerr
-          reverse_proxy localhost:5055
-        }
-
-        redir /jellyfin /jellyfin/
-        reverse_proxy /jellyfin/* localhost:8096
-
-        redir /sonarr /sonarr/
-        reverse_proxy /sonarr/* localhost:8989
-
-        redir /radarr /radarr/
-        reverse_proxy /radarr/* localhost:7878
-
-        # redir /komga /komga/
-        # reverse_proxy /komga/* localhost:8080
+      }
+    '';
+    virtualHosts = let
+      str = builtins.toString;
+      inherit (config.services) jellyseerr sonarr radarr komga;
+    in {
+      "jellyfin.kiesen.moe".extraConfig = ''
+        reverse_proxy http://127.0.0.1:8096
+        import porkbun
+      ''; # there is no port config for jellyfin
+      "jellyseerr.kiesen.moe".extraConfig = ''
+        reverse_proxy http://127.0.0.1:${str jellyseerr.port}
+        import porkbun
+      '';
+      "sonarr.kiesen.moe".extraConfig = ''
+        reverse_proxy http://127.0.0.1:${str sonarr.settings.server.port}
+        import porkbun
+      '';
+      "radarr.kiesen.moe".extraConfig = ''
+        reverse_proxy http://127.0.0.1:${str radarr.settings.server.port}
+        import porkbun
+      '';
+      "komga.kiesen.moe".extraConfig = ''
+        reverse_proxy http://127.0.0.1:${str komga.settings.server.port}
+        import porkbun
+      '';
+      "git.kiesen.moe".extraConfig = ''
+        reverse_proxy http://127.0.0.1:3000
+        import porkbun
       '';
     };
   };
