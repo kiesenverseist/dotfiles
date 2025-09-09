@@ -4,7 +4,6 @@
   inputs,
   ...
 }: {
-
   imports = [
     (inputs.otbr + "/nixos/modules/services/home-automation/openthread-border-router.nix")
   ];
@@ -53,6 +52,7 @@
       "ollama"
       "roborock"
       "immich"
+      "daikin"
     ];
   };
 
@@ -77,7 +77,48 @@
     };
   };
 
-  services.mosquitto.enable = true;
+  clan.core.vars.generators = let
+    mkPasswordGenerator = user: {
+      files.password = {
+        secret = true;
+        # deploy = false;
+      };
+      files.password-hash.secret = true;
+
+      runtimeInputs = [
+        pkgs.mosquitto
+        pkgs.xkcdpass
+      ];
+
+      script = ''
+        xkcdpass --numwords 4 --delimiter - --count 1 | tr -d "\n" > "$out"/password
+        mosquitto_passwd -c -b "$out"/password-hash ${user} $(cat "$out"/password)
+      '';
+    }; 
+  in {
+    mosquitto-user-garage-ac = mkPasswordGenerator "garage-ac";
+    mosquitto-user-hass = mkPasswordGenerator "hass";
+  };
+
+  services.mosquitto = {
+    enable = true;
+    listeners = [
+      {
+        users = {
+          garage-ac = {
+            acl = [ "readwrite #" ];
+            # hashedPasswordFile = config.clan.core.vars.generators.mosquitto-user-garage-ac.files.password-hash.path;
+            passwordFile = config.clan.core.vars.generators.mosquitto-user-garage-ac.files.password.path;
+          };
+          hass = {
+            acl = [ "readwrite #" ];
+            # hashedPasswordFile = config.clan.core.vars.generators.mosquitto-user-hass.files.password-hash.path;
+            passwordFile = config.clan.core.vars.generators.mosquitto-user-hass.files.password.path;
+          };
+        };
+      }
+    ];
+  };
 
   services.music-assistant = {
     enable = true;
@@ -103,14 +144,13 @@
 
   systemd.services.otbr-network = {
     description = "otbr network to tty";
-    requires = [ "network-online.target" ];
-    after = [ "network-online.target" ];
-    wantedBy = [ "otbr-agent.service" ];
-    before = [ "otbr-agent.service" ];
+    requires = ["network-online.target"];
+    after = ["network-online.target"];
+    wantedBy = ["otbr-agent.service"];
+    before = ["otbr-agent.service"];
     path = [pkgs.socat];
     script = ''
       socat -d pty,raw,echo=0,link=/tmp/ttyOTBR,ignoreeof "tcp:192.168.1.35:6638"
     '';
   };
-
 }
