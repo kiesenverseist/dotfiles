@@ -10,7 +10,18 @@
 
   services.home-assistant = {
     enable = true;
-    config = null;
+    config = {
+      default_config = {};
+      frontend.themes = "!include_dir_merge_named themes";
+      automation = "!include automations.yaml";
+      script = "!include scripts.yaml";
+      scene = "!include scenes.yaml";
+      http = {
+        use_x_forwarded_for = true;
+        trusted_proxies = ["::1"];
+      };
+    };
+    # config = null;
     lovelaceConfig = null;
     extraComponents = [
       "analytics"
@@ -53,6 +64,7 @@
       "roborock"
       "immich"
       "daikin"
+      "http"
     ];
   };
 
@@ -74,6 +86,11 @@
         enabled = true;
         port = 8099;
       };
+      mqtt = {
+        server = "mqtt://localhost:1883";
+        user = "z2m";
+        password = "!${config.clan.core.vars.generators.mosquitto-user-z2m.files."secret.yaml".path} password";
+      };
     };
   };
 
@@ -83,7 +100,11 @@
         secret = true;
         # deploy = false;
       };
-      files.password-hash.secret = true;
+      files.password-hash = {
+        secret = true;
+        # owner = "mosquitto";
+        # mode = "0400";
+      };
 
       runtimeInputs = [
         pkgs.mosquitto
@@ -94,10 +115,40 @@
         xkcdpass --numwords 4 --delimiter - --count 1 | tr -d "\n" > "$out"/password
         mosquitto_passwd -c -b "$out"/password-hash ${user} $(cat "$out"/password)
       '';
-    }; 
+    };
   in {
     mosquitto-user-garage-ac = mkPasswordGenerator "garage-ac";
     mosquitto-user-hass = mkPasswordGenerator "hass";
+    mosquitto-user-z2m = {
+      files.password = {
+        secret = true;
+        # deploy = false;
+      };
+      files.password-hash = {
+        secret = true;
+        # owner = "mosquitto";
+        # mode = "0400";
+      };
+      files."secret.yaml" = {
+        secret = true;
+        owner = "zigbee2mqtt";
+        mode = "0400";
+        restartUnits = ["zigbee2mqtt.service"];
+      };
+
+      runtimeInputs = [
+        pkgs.xkcdpass
+        pkgs.mosquitto
+      ];
+
+      script = ''
+        xkcdpass --numwords 4 --delimiter - --count 1 | tr -d "\n" > "$out"/password
+        mosquitto_passwd -c -b "$out"/password-hash z2m $(cat "$out"/password)
+        cat << EOF > $out/secret.yaml
+          password: $(cat $out/password)
+        EOF
+      '';
+    };
   };
 
   services.mosquitto = {
@@ -106,14 +157,18 @@
       {
         users = {
           garage-ac = {
-            acl = [ "readwrite #" ];
+            acl = ["readwrite #"];
             # hashedPasswordFile = config.clan.core.vars.generators.mosquitto-user-garage-ac.files.password-hash.path;
             passwordFile = config.clan.core.vars.generators.mosquitto-user-garage-ac.files.password.path;
           };
           hass = {
-            acl = [ "readwrite #" ];
+            acl = ["readwrite #"];
             # hashedPasswordFile = config.clan.core.vars.generators.mosquitto-user-hass.files.password-hash.path;
             passwordFile = config.clan.core.vars.generators.mosquitto-user-hass.files.password.path;
+          };
+          z2m = {
+            acl = ["readwrite #"];
+            passwordFile = config.clan.core.vars.generators.mosquitto-user-z2m.files.password.path;
           };
         };
       }
@@ -151,6 +206,27 @@
     path = [pkgs.socat];
     script = ''
       socat -d pty,raw,echo=0,link=/tmp/ttyOTBR,ignoreeof "tcp:192.168.1.35:6638"
+    '';
+  };
+
+  services.caddy.virtualHosts = let
+    inherit (config.services) zigbee2mqtt openthread-border-router;
+  in {
+    "z2m.kiesen.moe".extraConfig = ''
+      reverse_proxy http://localhost:${builtins.toString zigbee2mqtt.settings.frontend.port}
+      import porkbun
+    '';
+    "otbr.kiesen.moe".extraConfig = ''
+      reverse_proxy http://localhost:${builtins.toString openthread-border-router.web.listenPort}
+      import porkbun
+    '';
+    "hass.kiesen.moe".extraConfig = ''
+      reverse_proxy http://[::1]:8123
+      import porkbun
+    '';
+    "mass.kiesen.moe".extraConfig = ''
+      reverse_proxy http://localhost:8095
+      import porkbun
     '';
   };
 }
