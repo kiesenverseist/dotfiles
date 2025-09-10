@@ -7,6 +7,7 @@
     modules = {
       "@kiesen/restic" = import ./restic.nix;
       "@kiesen/harmonia" = import ./harmonia.nix;
+      "@kiesen/prometheus" = import ./prometheus.nix;
     };
 
     inventory = {
@@ -95,6 +96,17 @@
               path = "~/Documents/";
             };
           };
+        };
+
+        prometheus = {
+          module.name = "@kiesen/prometheus";
+          module.input = "self";
+          roles.exporter.machines = {
+            graphite = {};
+            halite = {};
+            lazurite = {};
+          };
+          roles.scraper.machines.halite = {};
         };
       };
     };

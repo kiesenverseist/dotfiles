@@ -12,6 +12,7 @@
     ./hardware-configuration.nix
     ./proxmox.nix
     ./media.nix
+    ./monitoring.nix
     ../../hosts/modules
   ];
 

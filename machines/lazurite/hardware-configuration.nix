@@ -5,6 +5,9 @@
     efiSupport = true;
     efiInstallAsRemovable = true;
     device = "nodev";
+
+    # there isn't space for more
+    configurationLimit = 1;
   };
 
   boot.initrd.availableKernelModules = ["ata_piix" "uhci_hcd" "xen_blkfront" "vmw_pvscsi"];
