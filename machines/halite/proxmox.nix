@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  config,
+  ...
+}: {
   imports = [inputs.proxmox-nixos.nixosModules.proxmox-ve];
 
   nixpkgs.overlays = [
@@ -18,5 +22,12 @@
         daemons = ["1"];
       };
     };
+  };
+
+  services.caddy.virtualHosts = {
+    "proxmox.kiesen.moe".extraConfig = ''
+      reverse_proxy http://${config.services.proxmox-ve.ipAddress}:8006
+      import porkbun
+    '';
   };
 }

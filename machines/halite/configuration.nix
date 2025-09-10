@@ -246,7 +246,7 @@
     '';
     virtualHosts = let
       str = builtins.toString;
-      inherit (config.services) jellyseerr sonarr radarr komga;
+      inherit (config.services) jellyseerr sonarr radarr deluge komga immich;
     in {
       "jellyfin.kiesen.moe".extraConfig = ''
         reverse_proxy http://127.0.0.1:8096
@@ -264,12 +264,20 @@
         reverse_proxy http://127.0.0.1:${str radarr.settings.server.port}
         import porkbun
       '';
+      "deluge.kiesen.moe".extraConfig = ''
+        reverse_proxy http://127.0.0.1:${str deluge.web.port}
+        import porkbun
+      '';
       "komga.kiesen.moe".extraConfig = ''
         reverse_proxy http://127.0.0.1:${str komga.settings.server.port}
         import porkbun
       '';
-      "git.kiesen.moe".extraConfig = ''
-        reverse_proxy http://127.0.0.1:3000
+      # "git.kiesen.moe".extraConfig = ''
+      #   reverse_proxy http://127.0.0.1:3000
+      #   import porkbun
+      # ''; # for when we have a git forge
+      "immich.kiesen.moe".extraConfig = ''
+        reverse_proxy http://[::1]:${str immich.port}
         import porkbun
       '';
     };

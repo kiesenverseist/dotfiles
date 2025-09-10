@@ -71,6 +71,20 @@
           };
         };
 
+        media-user = {
+          module = {
+            name = "users";
+            input = "clan-core";
+          };
+
+          roles.default.machines.halite = {};
+          roles.default.settings = {
+            user = "media";
+            groups = ["media"];
+            share = true;
+          };
+        };
+
         restic = {
           module.name = "@kiesen/restic";
           module.input = "self";

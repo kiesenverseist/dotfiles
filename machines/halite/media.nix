@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   nixpkgs.config.permittedInsecurePackages = [
     "aspnetcore-runtime-6.0.36"
     "aspnetcore-runtime-wrapped-6.0.36"
@@ -62,12 +67,65 @@
 
   services.immich = {
     enable = true;
-    host = "0.0.0.0";
     accelerationDevices = null;
   };
   users.users.immich.extraGroups = ["video" "render"];
 
   services.samba = {
     enable = true;
+    openFirewall = true;
+    settings = {
+      global = {
+        "workgroup" = "WORKGROUP";
+        "server string" = "smbnix";
+        "netbios name" = "smbnix";
+        "security" = "user";
+        #"use sendfile" = "yes";
+        #"max protocol" = "smb2";
+        # note: localhost is the ipv6 localhost ::1
+        "hosts allow" = "192.168.1. 127.0.0.1 localhost";
+        # "hosts deny" = "0.0.0.0/0";
+        "guest account" = "nobody";
+        "map to guest" = "bad user";
+      };
+      "media" = {
+        "path" = "/var/media";
+        "browseable" = "yes";
+        "read only" = "no";
+        "guest ok" = "no";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+        "force user" = "username";
+        "force group" = "groupname";
+      };
+    };
+  };
+
+  users.users.media = {
+    description = "write access to the media samba share";
+  };
+
+  services.samba-wsdd = {
+    enable = true;
+    openFirewall = true;
+  };
+
+  services.avahi = {
+    enable = true;
+    openFirewall = true;
+    publish = {
+      enable = true;
+      userServices = true;
+    };
+  };
+
+  clan.core.vars.generators.user-password-media.files.user-password.deploy = lib.mkForce true;
+
+  system.activationScripts = {
+    init_smbpasswd.text = let
+      passwordFile = config.clan.core.vars.generators.user-password-media.files.user-password.path;
+    in ''
+      /run/current-system/sw/bin/printf "$(/run/current-system/sw/bin/cat ${passwordFile})\n$(/run/current-system/sw/bin/cat ${passwordFile})\n" | /run/current-system/sw/bin/smbpasswd -sa media
+    '';
   };
 }
