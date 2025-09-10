@@ -13,6 +13,7 @@
     ./proxmox.nix
     ./media.nix
     ./monitoring.nix
+    ./homepage.nix
     ../../hosts/modules
   ];
 
@@ -282,6 +283,7 @@
       '';
     };
   };
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
