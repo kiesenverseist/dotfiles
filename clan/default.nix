@@ -8,6 +8,7 @@
       "@kiesen/restic" = import ./restic.nix;
       "@kiesen/harmonia" = import ./harmonia.nix;
       "@kiesen/prometheus" = import ./prometheus.nix;
+      "@kiesen/proxmox" = import ./proxmox.nix;
     };
 
     inventory = {
@@ -28,6 +29,7 @@
             allowedKeys = {
               "kiesen" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjmUayWr1sJxYNqGeqtp6fOTT38n/5iGJudDrgf630M";
             };
+            # certificateSearchDomains = ["ladon-minnow.ts.net"];
           };
         };
 
@@ -38,6 +40,9 @@
         #   };
         #   roles.server.tags.all = {};
         #   roles.client.tags.all = {};
+        #
+        #   # roles.server.settings.certificate.searchDomains = ["ladon-minnow.ts.net"];
+        #   roles.client.settings.certificate.searchDomains = ["ladon-minnow.ts.net"];
         # };
 
         internet.roles.default.machines = {
@@ -121,6 +126,16 @@
             lazurite = {};
           };
           roles.scraper.machines.halite = {};
+        };
+
+        proxmox = {
+          module.name = "@kiesen/proxmox";
+          module.input = "self";
+          roles.default.machines = {
+            # use the tailscale network as the proxmox backbone
+            graphite.settings.ipAddress = "100.119.227.45";
+            halite.settings.ipAddress = "100.120.252.116";
+          };
         };
       };
     };

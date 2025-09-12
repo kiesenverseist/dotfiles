@@ -10,7 +10,6 @@
     ./vfio.nix
     ./pg.nix
     ./hardware-configuration.nix
-    ./proxmox.nix
     ./media.nix
     ./monitoring.nix
     ./homepage.nix
@@ -281,9 +280,18 @@
         reverse_proxy http://[::1]:${str immich.port}
         import porkbun
       '';
+      "proxmox.kiesen.moe".extraConfig = ''
+        reverse_proxy ${config.services.proxmox-ve.ipAddress}:8006 {
+          transport http {
+            tls
+            tls_insecure_skip_verify
+            # tls_trusted_ca_certs /etc/pve/pve-root-ca.pem # Path to PVE root cert
+          }
+        }
+        import porkbun
+      '';
     };
   };
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

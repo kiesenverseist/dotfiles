@@ -207,7 +207,7 @@
 
   # List services that you want to enable:
 
-  services.weechat.enable = true;
+  # services.weechat.enable = true;
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
