@@ -4,13 +4,6 @@
   lib,
   ...
 }: {
-  nixpkgs.config.permittedInsecurePackages = [
-    "aspnetcore-runtime-6.0.36"
-    "aspnetcore-runtime-wrapped-6.0.36"
-    "dotnet-sdk-6.0.428"
-    "dotnet-sdk-wrapped-6.0.428"
-  ];
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users = {
     kiesen = {
@@ -55,9 +48,9 @@
   };
 
   services.komga = {
-    enable = false;
+    enable = true;
     group = "media";
-    settings.server.port = 8080;
+    settings.server.port = 8084;
   };
 
   # services.qbittorrent = {
@@ -73,6 +66,7 @@
 
   services.samba = {
     enable = true;
+    package = pkgs.samba4Full;
     openFirewall = true;
     settings = {
       global = {
@@ -81,22 +75,23 @@
         "netbios name" = "smbnix";
         "security" = "user";
         #"use sendfile" = "yes";
-        #"max protocol" = "smb2";
+        # "min protocol" = "smb2";
         # note: localhost is the ipv6 localhost ::1
-        "hosts allow" = "192.168.1. 127.0.0.1 localhost";
+        # "hosts allow" = "192.168.1. 127.0.0.1 localhost";
         # "hosts deny" = "0.0.0.0/0";
         "guest account" = "nobody";
         "map to guest" = "bad user";
       };
       "media" = {
         "path" = "/var/media";
-        "browseable" = "yes";
+        "browsable" = "yes";
+        "writable" = "yes";
         "read only" = "no";
         "guest ok" = "no";
         "create mask" = "0644";
         "directory mask" = "0755";
-        "force user" = "username";
-        "force group" = "groupname";
+        "force user" = "media";
+        "force group" = "media";
       };
     };
   };
@@ -112,10 +107,13 @@
 
   services.avahi = {
     enable = true;
+    nssmdns4 = true;
     openFirewall = true;
     publish = {
       enable = true;
+      addresses = true;
       userServices = true;
+      workstation = true;
     };
   };
 

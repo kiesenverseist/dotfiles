@@ -20,6 +20,11 @@
         use_x_forwarded_for = true;
         trusted_proxies = ["::1"];
       };
+      homeassistant = {
+        media_dirs = {
+          media = "/var/media";
+        };
+      };
     };
     # config = null;
     lovelaceConfig = null;
@@ -180,8 +185,13 @@
     providers = [
       "ytmusic"
       "hass"
+      "snapcast"
     ];
   };
+
+  # services.snapserver = {
+  #   enable = true;
+  # };
 
   services.matter-server = {
     enable = true;
