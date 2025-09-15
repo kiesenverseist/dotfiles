@@ -97,7 +97,7 @@
     environment.systemPackages = [
       pkgs.wget
       pkgs.curl
-      pkgs.btop
+      pkgs.btop-rocm
       pkgs.firefox
       pkgs.home-manager
     ];

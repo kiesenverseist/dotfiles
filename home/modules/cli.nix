@@ -40,7 +40,6 @@
 
     home.packages = with pkgs; [
       ## cli stuff
-      btop
       curl
       bc
       atool
