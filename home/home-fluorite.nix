@@ -25,7 +25,7 @@
   # environment.
   home.packages = [
     pkgs.vesktop
-    pkgs.jellyfin-media-player
+    # pkgs.jellyfin-media-player
     pkgs.ferdium
     pkgs.pdfslicer
 

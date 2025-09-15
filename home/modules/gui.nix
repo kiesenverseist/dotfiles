@@ -23,7 +23,7 @@
       nerd-fonts.symbols-only
 
       (config.lib.nixGL.wrap neovide)
-      floorp
+      floorp-bin
       obsidian
       todoist-electron
       # hyprpanel

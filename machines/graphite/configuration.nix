@@ -124,7 +124,7 @@
   services.monado.enable = false;
   services.wivrn.enable = false;
 
-  programs.alvr.enable = true;
+  # programs.alvr.enable = true;
 
   programs.obs-studio = {
     enable = true;

@@ -70,6 +70,7 @@
       "immich"
       "daikin"
       "http"
+      "local_todo"
     ];
     customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
       bubble-card
@@ -196,9 +197,10 @@
     ];
   };
 
-  # services.snapserver = {
-  #   enable = true;
-  # };
+  services.snapserver = {
+    enable = true;
+    settings.stream.source = ["pipe:///tmp/snapfifo?name=default"];
+  };
 
   services.matter-server = {
     enable = true;
