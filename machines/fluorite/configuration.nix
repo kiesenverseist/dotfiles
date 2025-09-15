@@ -64,7 +64,7 @@
 
   services.samba = {
     enable = true;
-    package = pkgs.samba4Full;
+    # package = pkgs.samba4Full;
     settings.global = {
       "client min protocol" = "smb2";
     };

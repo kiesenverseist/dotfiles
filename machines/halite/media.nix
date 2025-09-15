@@ -66,7 +66,7 @@
 
   services.samba = {
     enable = true;
-    package = pkgs.samba4Full;
+    # package = pkgs.samba4Full;
     openFirewall = true;
     settings = {
       global = {
