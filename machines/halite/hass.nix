@@ -71,6 +71,13 @@
       "daikin"
       "http"
     ];
+    customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
+      bubble-card
+      zigbee2mqtt-networkmap
+    ];
+    customComponents = with pkgs.home-assistant-custom-components; [
+      samsungtv-smart
+    ];
   };
 
   services.zigbee2mqtt = {
