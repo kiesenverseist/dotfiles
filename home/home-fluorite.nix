@@ -27,6 +27,7 @@
     pkgs.vesktop
     pkgs.jellyfin-media-player
     pkgs.ferdium
+    pkgs.pdfslicer
 
     pkgs.prusa-slicer
     pkgs.freecad
