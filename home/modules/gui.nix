@@ -60,7 +60,6 @@
 
     programs.rofi = {
       # enable = true;
-      package = pkgs.rofi-wayland;
       cycle = true;
       # font = "FiraCode Nerd Font 16";
       font = lib.mkForce "GohuFont 11 Nerd Font Propo 22";

@@ -32,7 +32,7 @@
     via
     chromium
     restic
-    jellyfin-media-player
+    # jellyfin-media-player
 
     # lmms
     # ardour
