@@ -199,7 +199,17 @@
 
   services.snapserver = {
     enable = true;
-    settings.stream.source = ["pipe:///tmp/snapfifo?name=default"];
+    settings = {
+      stream.source = ["pipe:///tmp/snapfifo?name=default"];
+      http = {
+        enabled = true;
+        port = 1706;
+      };
+      tcp = {
+        enabled = true;
+        port = 1705;
+      };
+    };
   };
 
   services.matter-server = {
