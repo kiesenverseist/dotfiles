@@ -118,7 +118,7 @@
       };
 
       enableRedistributableFirmware = true;
-      usb-modeswitch.enable = true;
+      # usb-modeswitch.enable = true;
     };
   };
 }

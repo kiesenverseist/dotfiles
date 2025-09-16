@@ -21,7 +21,7 @@
   };
 
   services.plex = {
-    enable = true;
+    # enable = true;
     group = "media";
   };
 
