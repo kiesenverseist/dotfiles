@@ -7,6 +7,7 @@ vim.lsp.enable {
 	"ruby_lsp",
 	"rust_analyzer",
 	"vtsls",
+	"gleam",
 }
 
 vim.lsp.config("nixd", {

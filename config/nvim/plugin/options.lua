@@ -15,7 +15,7 @@ o.showmode = false
 
 -- indent
 o.smartindent = false
-o.tabstop = 4
+-- o.tabstop = 4
 o.shiftwidth = 4
 o.breakindent = true
 
