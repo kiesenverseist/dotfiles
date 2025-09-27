@@ -15,7 +15,7 @@ o.showmode = false
 
 -- indent
 o.smartindent = false
--- o.tabstop = 4
+o.tabstop = 4
 o.shiftwidth = 4
 o.breakindent = true
 
@@ -34,7 +34,8 @@ o.ignorecase = true
 o.smartcase = true
 
 -- session management
-o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+-- o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+o.sessionoptions = "curdir,tabpages,terminal"
 
 -- custom filetypes
 vim.filetype.add({

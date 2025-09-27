@@ -11,7 +11,11 @@ return {
 				ghost_text = { enabled = true },
 			},
 			sources = {
-				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+				default = {
+					"avante", -- ai
+					"lazydev", -- neovim dev
+					"lsp", "path", "snippets", "buffer",
+				},
 				providers = {
 					lazydev = {
 						name = "LazyDev",
