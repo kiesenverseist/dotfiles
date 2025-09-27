@@ -70,6 +70,7 @@
               "libvirtd"
               "qemu-libvirtd"
               "dialout"
+              "docker"
             ];
 
             share = true;

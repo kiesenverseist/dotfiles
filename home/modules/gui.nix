@@ -80,5 +80,7 @@
         pkgs.rofi-power-menu
       ];
     };
+
+    services.trayscale.enable = true;
   };
 }

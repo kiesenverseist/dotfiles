@@ -34,6 +34,7 @@
 
     pkgs.virt-viewer
     pkgs.mathpix-snipping-tool
+    pkgs.claude-code
   ];
 
   programs.git = {
