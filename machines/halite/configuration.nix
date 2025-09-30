@@ -81,6 +81,14 @@
   };
 
   hardware = {
+    graphics = {
+      extraPackages = [
+        pkgs.vaapiVdpau
+        pkgs.libvdpau-va-gl
+        pkgs.libva-vdpau-driver
+      ];
+    };
+
     bluetooth.enable = true;
   };
 
