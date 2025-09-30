@@ -43,14 +43,12 @@
       vtsls
 
       ## nix stuff
-      # nix
       devenv
       cachix
       nixd
       nh
       nix-output-monitor
       alejandra
-      colmena
     ];
 
     home.sessionVariables = {

@@ -58,7 +58,6 @@
       isd
 
       ## nix stuff
-      config.nix.package
       nixd
       nh
       nix-output-monitor

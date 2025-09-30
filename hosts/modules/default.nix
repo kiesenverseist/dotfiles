@@ -2,11 +2,13 @@
   lib,
   pkgs,
   config,
+  inputs,
   ...
 }: {
   imports = [
     ./backups.nix
     ./cachix.nix
+    inputs.determinate.nixosModules.default
   ];
 
   options.default.enable = lib.mkOption {
