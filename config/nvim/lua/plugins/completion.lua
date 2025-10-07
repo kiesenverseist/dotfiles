@@ -12,7 +12,7 @@ return {
 			},
 			sources = {
 				default = {
-					"avante", -- ai
+					-- "avante", -- ai
 					"lazydev", -- neovim dev
 					"lsp", "path", "snippets", "buffer",
 				},
