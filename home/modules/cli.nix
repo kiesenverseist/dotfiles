@@ -25,7 +25,7 @@
     # };
 
     nix = {
-      package = pkgs.nix;
+      package = lib.mkDefault pkgs.nix;
       settings.experimental-features = ["nix-command" "flakes"];
       registry.nixpkgs.flake = inputs.nixpkgs;
       nixPath = ["nixpkgs=${inputs.nixpkgs}"];
@@ -187,8 +187,5 @@
     };
 
     programs.nix-index.enable = true;
-
-    # Let Home Manager install and manage itself.
-    programs.home-manager.enable = true;
   };
 }

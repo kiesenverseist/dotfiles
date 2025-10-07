@@ -77,6 +77,38 @@
           };
         };
 
+        talux-user = {
+          module = {
+            name = "users";
+            input = "clan-core";
+          };
+
+          roles.default.machines.fluorite = {};
+          roles.default.settings = {
+            user = "talux";
+
+            groups = [
+              "wheel"
+              "networkmanager"
+              "video"
+              "input"
+              "libvirtd"
+              "qemu-libvirtd"
+              "docker"
+            ];
+
+            share = true;
+          };
+
+          roles.default.extraModules = [
+            {
+              imports = [inputs.home-manager.nixosModules.default];
+              home-manager.extraSpecialArgs = {inherit inputs;};
+              home-manager.users.talux.imports = [../home/talux.nix];
+            }
+          ];
+        };
+
         media-user = {
           module = {
             name = "users";
