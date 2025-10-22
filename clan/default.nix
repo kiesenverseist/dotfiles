@@ -139,17 +139,6 @@
           roles.client.tags.all = {};
         };
 
-        syncthing = {
-          roles.peer.machines = {
-            fluorite = {};
-          };
-          roles.peer.settings.folders = {
-            documents = {
-              path = "~/Documents/";
-            };
-          };
-        };
-
         prometheus = {
           module.name = "@kiesen/prometheus";
           module.input = "self";

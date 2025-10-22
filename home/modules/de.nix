@@ -113,7 +113,7 @@
 
     # remember to do the manual setup of this on first setup on computer
     services.syncthing = {
-      enable = true;
+      enable = lib.mkDefault true;
       tray.enable = true;
     };
 

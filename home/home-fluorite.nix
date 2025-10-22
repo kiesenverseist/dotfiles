@@ -42,6 +42,11 @@
     userEmail = "creativeibi77@gmail.com";
   };
 
+  services.syncthing = {
+    enable = true;
+    tray.enable = true;
+  };
+
   gtk.enable = lib.mkForce false;
   qt.enable = lib.mkForce false;
 
