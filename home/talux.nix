@@ -37,12 +37,20 @@
 
     pkgs.bun
     pkgs.vtsls
+    pkgs.awscli2
+    pkgs.mongodb-compass
   ];
 
   programs.git = {
     userName = "Ibrahim Fuad";
     userEmail = "ibrahim@taluxiq.com";
+    signing = {
+      format = "ssh";
+      signByDefault = true;
+    };
   };
+
+  services.syncthing.enable = false;
 
   gtk.enable = lib.mkForce false;
   qt.enable = lib.mkForce false;
