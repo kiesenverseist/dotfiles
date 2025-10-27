@@ -15,7 +15,7 @@
     inputs.nixos-hardware.nixosModules.common-gpu-amd
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_testing;
+  # boot.kernelPackages = pkgs.linuxPackages_testing;
 
   # Use the GRUB 2 boot loader.
   # boot.loader.grub.enable = true;
@@ -220,14 +220,14 @@
   #   enableSSHSupport = true;
   # };
 
-  nixpkgs.config.rocmSupport = true;
+  nixpkgs.config.rocmSupport = false;
   services.ollama = {
-    enable = true;
+    enable = false;
     host = "0.0.0.0";
     rocmOverrideGfx = "11.0.1";
   };
   services.open-webui = {
-    enable = true;
+    enable = false;
     host = "0.0.0.0";
     environment.OLLAMA_API_BASE_URL = "http://localhost:${builtins.toString config.services.ollama.port}";
   };

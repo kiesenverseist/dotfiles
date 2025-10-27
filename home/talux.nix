@@ -42,8 +42,10 @@
   ];
 
   programs.git = {
-    userName = "Ibrahim Fuad";
-    userEmail = "ibrahim@taluxiq.com";
+    settings.user = {
+      name = "Ibrahim Fuad";
+      email = "ibrahim@taluxiq.com";
+    };
     signing = {
       format = "ssh";
       signByDefault = true;

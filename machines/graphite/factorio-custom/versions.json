@@ -4,7 +4,7 @@
       "stable": {
         "name": "factorio_headless_x64-2.0.13.tar.xz",
         "needsAuth": false,
-        "sha256": "8bOXbqzE4jOADTmdkABsNW+jZvXWQ0HFBMlcDLoyHAY=",
+        "sha256": "I1FHuz7WtfCmmTiTxskv3+U1upWrhmBG9R+GUoS1c0E=",
         "tarDirectory": "x64",
         "url": "https://factorio.com/get-download/stable/headless/linux64",
         "version": "2.0.13"

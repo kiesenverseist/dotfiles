@@ -65,9 +65,9 @@
   ];
 
   ## CLI Tools
-  programs.git = {
-    userName = "Ibrahim Fuad";
-    userEmail = "creativeibi77@gmail.com";
+  programs.git.settings.user = {
+    name = "Ibrahim Fuad";
+    email = "creativeibi77@gmail.com";
   };
 
   services.swayosd = {enable = true;};

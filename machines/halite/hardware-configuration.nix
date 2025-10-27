@@ -12,7 +12,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_testing;
+  # boot.kernelPackages = pkgs.linuxPackages_testing;
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "bcache"];
   # boot.initrd.kernelModules = [ ];

@@ -46,9 +46,9 @@
     enable = true;
   };
 
-  programs.git = {
-    userName = "Ibrahim Fuad";
-    userEmail = "creativeibi77@gmail.com";
+  programs.git.settings.user = {
+    name = "Ibrahim Fuad";
+    email = "creativeibi77@gmail.com";
   };
 
   targets.genericLinux.enable = true;

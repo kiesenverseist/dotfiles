@@ -164,18 +164,22 @@
 
     programs.git = {
       enable = true;
-      delta.enable = true;
       lfs.enable = true;
       ignores = [
         "Session.vim"
       ];
     };
 
+    programs.delta = {
+      enable = true;
+      enableGitIntegration = true;
+    };
+
     programs.jujutsu = {
       enable = true;
       settings = {
-        user.name = config.programs.git.userName;
-        user.email = config.programs.git.userEmail;
+        user.name = config.programs.git.settings.user.name;
+        user.email = config.programs.git.settings.user.email;
         # ui.diff-editor = ["nvr" "-s" "-c" "DiffEditor $left $right $output"];
 
         # merge-tools.nvr.merge-args = config.programs.jujutsu.settings.ui.diff-editor;
