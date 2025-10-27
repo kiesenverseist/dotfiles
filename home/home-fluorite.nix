@@ -27,14 +27,14 @@
     pkgs.vesktop
     # pkgs.jellyfin-media-player
     pkgs.ferdium
-    pkgs.pdfslicer
+    # pkgs.pdfslicer
+
+    (pkgs.prismlauncher.override {jdks = [pkgs.jdk25];})
 
     pkgs.prusa-slicer
     pkgs.freecad
 
     pkgs.virt-viewer
-    pkgs.mathpix-snipping-tool
-    pkgs.claude-code
   ];
 
   programs.git.settings.user = {

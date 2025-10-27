@@ -29,7 +29,7 @@ in {
       EOF
     '';
   };
-  
+
   services.factorio = {
     enable = true;
     lan = true;
@@ -62,8 +62,18 @@ in {
     servers = {
       maryam = {
         enable = true;
+        autoStart = false;
+      };
+      gtnh = {
+        enable = true;
+        package = pkgs.writeShellApplication {
+          name = "gtnh-runner";
+          text = ''java "$@" -jar lwjgl3ify-forgePatches.jar nogui'';
+          runtimeInputs = [pkgs.jdk25];
+        };
+        autoStart = false;
+        jvmOpts = "-Xms6G -Xmx6G -Dfml.readTimeout=180 @java9args.txt";
       };
     };
   };
-
 }

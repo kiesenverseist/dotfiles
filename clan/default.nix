@@ -71,6 +71,7 @@
               "qemu-libvirtd"
               "dialout"
               "docker"
+              "minecraft"
             ];
 
             share = true;
