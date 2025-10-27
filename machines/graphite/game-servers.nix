@@ -36,7 +36,6 @@ in {
     requireUserVerification = false;
     nonBlockingSaving = true;
     saveName = "spaceage-m";
-    game-password = "apple";
     extraSettingsFile = config.clan.core.vars.generators.factorio.files.settings.path;
     admins = ["kiesenverseist"];
     package = factorio-custom;
