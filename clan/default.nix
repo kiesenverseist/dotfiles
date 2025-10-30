@@ -72,6 +72,7 @@
               "dialout"
               "docker"
               "minecraft"
+              "adbusers"
             ];
 
             share = true;
