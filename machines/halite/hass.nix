@@ -36,7 +36,7 @@
       "wled"
       "met"
       "radio_browser"
-      "google_translate"
+      # "google_translate"
       "isal"
       "cloud"
       "network"
@@ -223,7 +223,10 @@
     backboneInterface = "br0";
     radio.url = "spinel+hdlc+uart:///tmp/ttyOTBR?uart-baudrate=460800";
     rest.listenAddress = "0.0.0.0";
-    web.listenAddress = "0.0.0.0";
+    web = {
+      enable =true;
+      listenAddress = "0.0.0.0";
+    };
   };
 
   systemd.services.otbr-network = {

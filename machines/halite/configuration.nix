@@ -159,7 +159,6 @@
   virtualisation.libvirtd = {
     enable = true;
     qemu = {
-      ovmf.enable = true;
       # runAsRoot = false;
     };
     onBoot = "start";
@@ -239,7 +238,7 @@
     enable = true;
     package = pkgs.caddy.withPlugins {
       plugins = ["github.com/caddy-dns/porkbun@v0.3.1"];
-      hash = "sha256-PUHu+KPywdJMuPLHPtQhUaw3Cv1pED5XQ1MOzlT/6h4=";
+      hash = "sha256-j/GODingW5BhfjQRajinivX/9zpiLGgyxvAjX0+amRU=";
     };
     environmentFile = config.clan.core.vars.generators.caddy.files.env.path;
     extraConfig = ''
