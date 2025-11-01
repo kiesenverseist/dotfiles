@@ -13,7 +13,7 @@ map({ "n", "i", "t" }, "<M-w>", "<cmd>tabnext 2<CR>")
 map({ "n", "i", "t" }, "<M-e>", "<cmd>tabnext 3<CR>")
 
 -- formatting
-map("n", "<leader>bf", vim.lsp.buf.format, { desc = "[f]ormat buffer" })
+-- map("n", "<leader>bf", vim.lsp.buf.format, { desc = "[f]ormat buffer" })
 
 -- lsp mappings
 map("n", "<leader>lx", "<cmd>LspStop<cr>", { desc = "Stop lsp clients" }) -- run custom lsp command
@@ -23,11 +23,11 @@ map("n", "<leader>lwr", function()
 	vim.ui.select(
 		vim.lsp.buf.list_workspace_folders(),
 		{ prompt = "select workspace to delete" },
-		function(ws) vim.lsp.buf.remove_workspace_folder(ws) end
-	)
+		function(ws) vim.lsp.buf.remove_workspace_folder(ws) end)
 end, { desc = "[r]emove workspace" })
 
 -- clipboard
-map("n", "<leader>p", "\"+p", {desc = "[p]aste from system clipboard"})
-map("n", "<leader>P", "\"+P", {desc = "[P]aste from system clipboard"})
-map("n", "<leader>y", "\"+y", {desc = "[y]ank to system clipboard"})
+map("", "<leader>p", "\"+p", { desc = "[p]aste from system clipboard" })
+map("", "<leader>P", "\"+P", { desc = "[P]aste from system clipboard" })
+map("", "<leader>y", "\"+y", { desc = "[y]ank to system clipboard" })
+map("", "<leader>Y", "\"+Y", { desc = "[Y]ank to end of line to system clipboard" })
