@@ -1,4 +1,36 @@
+local toggle_key = "<C-,>"
 return {
+	{
+		"coder/claudecode.nvim",
+		dependencies = { "folke/snacks.nvim" },
+		keys = {
+			{ toggle_key, "<cmd>ClaudeCodeFocus<cr>", desc = "Claude Code", mode = { "n", "x" } },
+		},
+		opts = {
+			terminal_cmd = "direnv exec . claude",
+			terminal = {
+				---@module "snacks"
+				---@type snacks.win.Config|{}
+				snacks_win_opts = {
+					position = "float",
+					width = 0.9,
+					height = 0.9,
+					keys = {
+						claude_hide = {
+							toggle_key,
+							function(self) self:hide() end,
+							mode = "t",
+							desc = "Hide",
+						},
+					},
+				},
+			},
+			diff_opts = {
+				open_in_current_tab = false,
+				-- keep_terminal_focus = true,
+			},
+		},
+	},
 	-- {
 	-- 	'saghen/blink.cmp',
 	-- 	dependencies = {
@@ -18,15 +50,21 @@ return {
 	-- 		}
 	-- 	}
 	-- },
-	{
-		"greggh/claude-code.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim", -- Required for git operations
-		},
-		opts = {
-			window = { position = "float", },
-		},
-	},
+	-- {
+	-- 	"greggh/claude-code.nvim",
+	-- 	dependencies = {
+	-- 		"nvim-lua/plenary.nvim", -- Required for git operations
+	-- 	},
+	-- 	opts = {
+	-- 		window = {
+	-- 			position = "float",
+	-- 			float = {
+	-- 				width = "90%",
+	-- 				height = "90%",
+	-- 			},
+	-- 		},
+	-- 	},
+	-- },
 	-- {
 	-- 	"yetone/avante.nvim",
 	-- 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
