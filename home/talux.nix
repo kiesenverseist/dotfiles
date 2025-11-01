@@ -30,7 +30,7 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    pkgs.pdfslicer
+    # pkgs.pdfslicer
     pkgs.virt-viewer
     pkgs.claude-code
     pkgs.slack
