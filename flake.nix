@@ -61,8 +61,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    sops-nix.url = "github:Mic92/sops-nix";
-
     proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
 
     clan-core = {
@@ -79,7 +77,6 @@
       systems = ["x86_64-linux"];
       imports = [
         ./home
-        ./hosts
         ./clan
         ./dev.nix
       ];

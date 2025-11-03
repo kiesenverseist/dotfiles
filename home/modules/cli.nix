@@ -5,34 +5,17 @@
   config,
   ...
 }: {
-  imports = [
-    inputs.sops-nix.homeManagerModules.sops
-  ];
-
   options = {
     cli.enable = lib.mkEnableOption "enables basic cli config";
   };
 
   config = lib.mkIf config.cli.enable {
-    # sops = {
-    #   age.sshKeyPaths = ["${config.home.homeDirectory}/.ssh/id_ed25519"];
-    #   age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
-    #   age.generateKey = true;
-    #
-    #   secrets.nix_access_tokens = {
-    #     sopsFile = ../../secrets/secrets.yaml;
-    #   };
-    # };
-
     nix = {
       package = lib.mkDefault pkgs.nix;
       settings.experimental-features = ["nix-command" "flakes"];
       registry.nixpkgs.flake = inputs.nixpkgs;
       nixPath = ["nixpkgs=${inputs.nixpkgs}"];
-      # extraOptions = ''
-      #   !include ${config.sops.secrets.nix_access_tokens.path}
-      # '';
-    };
+   };
 
     nixpkgs.config = {
       allowUnfree = true;

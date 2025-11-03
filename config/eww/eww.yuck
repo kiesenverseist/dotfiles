@@ -12,7 +12,7 @@
              :width "30px"
              :height "90%"
              :anchor "left center")
-  (vbar :monitor_id 1))
+  (vbar :monitor_id 0))
 
 (defwindow bar1
   :monitor 1
