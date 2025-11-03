@@ -33,23 +33,21 @@
       nautilus
       sushi
       gnome-solanum
-      blueman
       vlc
       waypipe
       nwg-displays
       rofi-pulse-select
-      kdePackages.xwaylandvideobridge
       woomer
     ];
 
     wayland.windowManager.hyprland = {
       enable = true;
       package = config.lib.nixGL.wrap pkgs.hyprland;
-      settings = {
-        exec-once = [
-          "${pkgs.kdePackages.xwaylandvideobridge}/bin/xwaylandvideobridge"
-        ];
-      };
+      # settings = {
+      #   exec-once = [
+      #     "${pkgs.kdePackages.xwaylandvideobridge}/bin/xwaylandvideobridge"
+      #   ];
+      # };
       systemd.variables = ["--all"];
     };
 

@@ -13,6 +13,7 @@
     ./logiops.nix
     ../../hosts/modules
     inputs.nixos-hardware.nixosModules.common-gpu-amd
+    # inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
   ];
 
   # boot.kernelPackages = pkgs.linuxPackages_testing;
@@ -111,6 +112,7 @@
 
   programs.steam = {
     enable = true;
+    
     extraCompatPackages = [pkgs.proton-ge-bin];
   };
   programs.gamemode.enable = true;
@@ -122,9 +124,9 @@
 
   # vr
   services.monado.enable = false;
-  services.wivrn.enable = false;
+  services.wivrn.enable = true;
 
-  # programs.alvr.enable = true;
+  programs.alvr.enable = false;
 
   programs.obs-studio = {
     enable = true;
@@ -152,7 +154,6 @@
   hardware = {
     graphics = {
       extraPackages = with pkgs; [
-        vaapiVdpau
         libvdpau-va-gl
         libva-vdpau-driver
       ];
@@ -188,6 +189,9 @@
           xorg.libXi
           xorg.libXinerama
           xorg.libXScrnSaver
+          libsForQt5.qt5.qtbase
+          libsForQt5.qt5.qtmultimedia
+          nss
         ];
     }; # https://github.com/ValveSoftware/gamescope/issues/905
   };
@@ -203,6 +207,9 @@
     virt-manager
     kdePackages.polkit-kde-agent-1
     virtiofsd
+
+    inputs.nixpkgs-xr.packages.x86_64-linux.wayvr-dashboard
+    wlx-overlay-s
   ];
 
   # List services that you want to enable:

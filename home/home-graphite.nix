@@ -55,7 +55,7 @@
     # gaming.osu-stable # TODO: broke, check
     # gaming.osu-lazer-bin # TODO: broke, check
     # gdlauncher
-    prismlauncher
+    (pkgs.prismlauncher.override {jdks = [pkgs.jdk21 pkgs.jdk25];})
     wine
     lutris
     moonlight-qt
@@ -68,7 +68,7 @@
     wlx-overlay-s
 
     libva
-    vaapiVdpau
+    libva-vdpau-driver
     libvdpau-va-gl
     libva-utils
     #nvapi latencyflex

@@ -33,6 +33,8 @@
       inputs.flake-parts.follows = "flake-parts";
     };
 
+    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
+
     nix-alien.url = "github:thiagokokada/nix-alien";
 
     nixgl = {
