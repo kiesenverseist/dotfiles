@@ -83,7 +83,6 @@
   hardware = {
     graphics = {
       extraPackages = [
-        pkgs.vaapiVdpau
         pkgs.libvdpau-va-gl
         pkgs.libva-vdpau-driver
         pkgs.libva-utils
@@ -212,6 +211,37 @@
 
   services.tailscale = {
     permitCertUid = "caddy";
+  };
+
+  clan.core.vars.generators.tsidp = {
+    prompts.ts_auth_key.description = "The key to authenticate with tailscale. For use tailscale's idp.";
+
+    files.env.secret = true;
+
+    script = ''
+      cat << EOF > $out/env
+        TS_AUTH_KEY=$(cat $prompts/ts_auth_key)
+      EOF
+    '';
+  };
+
+  services.tsidp = {
+    enable = true;
+    # settings.useLocalTailscaled = true;
+    environmentFile = config.clan.core.vars.generators.tsidp.files.env.path;
+  };
+
+  clan.core.vars.generators.lldap.prompts.pass = {
+    description = "The admin password for lldap";
+    persist = true;
+  };
+
+  services.lldap = {
+    enable = true;
+    settings = {
+      ldap_base_dn = "dc=kiesen,dc=moe";
+      ldap_user_pass_file = config.clan.core.vars.generators.lldap.files.pass.path;
+    };
   };
 
   clan.core.vars.generators.caddy = {

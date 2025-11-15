@@ -3,6 +3,7 @@
     enable = true;
     settings.server = {
       domain = "grafana.kiesen.moe";
+      root_url = "https://grafana.kiesen.moe";
     };
 
     provision = {
