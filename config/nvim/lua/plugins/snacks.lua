@@ -14,6 +14,8 @@ return {
 		indent = {},
 		image = {},
 		input = {},
+		gh = {},
+		git = {},
 	},
 	keys = {
 		-- pickers
@@ -33,7 +35,13 @@ return {
 
 		-- command toggle
 		{"<leader>j", function() Snacks.terminal.toggle("jjui") end, desc = "Toggle [j]jui"},
-		{"<leader>g", function() Snacks.lazygit.open() end, desc = "Toggle lazy[g]it"},
+		{"<leader>g", function() Snacks.lazygit.open() end, desc = "Toggle [l]azygit"},
+
+		-- git
+		{ "<leader>Gi", function() Snacks.picker.gh_issue() end, desc = "GitHub [i]ssues (open)" },
+		{ "<leader>Gp", function() Snacks.picker.gh_pr() end, desc = "GitHub [p]ull requests (open)" },
+		{ "<leader>Gb", function() Snacks.picker.git_log_line() end, desc = "Git [b]lame line" },
+
 	},
 	init = function()
 		vim.api.nvim_create_autocmd("User", {

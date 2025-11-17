@@ -2,15 +2,14 @@
 
 local map = vim.keymap.set
 
-map("n", "<esc>", "<cmd>nohlsearch<CR>")
-
-map("t", "<esc><esc>", "<C-\\><C-n>", { desc = 'Exit terminal mode' })
-map("t", "<C-[><C-[>", "<C-\\><C-n>", { desc = 'Exit terminal mode' })
+map("t", "<M-esc>", "<C-\\><C-n>", { desc = 'Exit terminal mode' })
+map("t", "<M-C-[>", "<C-\\><C-n>", { desc = 'Exit terminal mode' })
 
 -- go to tab
 map({ "n", "i", "t" }, "<M-q>", "<cmd>tabnext 1<CR>")
 map({ "n", "i", "t" }, "<M-w>", "<cmd>tabnext 2<CR>")
 map({ "n", "i", "t" }, "<M-e>", "<cmd>tabnext 3<CR>")
+map({ "n", "i", "t" }, "<M-r>", "<cmd>tabnext 4<CR>")
 
 -- formatting
 -- map("n", "<leader>bf", vim.lsp.buf.format, { desc = "[f]ormat buffer" })

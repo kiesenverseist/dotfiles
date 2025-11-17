@@ -10,6 +10,7 @@ return {
 			{ '<leader>b', group = '[b]uffer' },
 			{ '<leader>s', group = '[s]ession' },
 			{ '<leader>l', group = '[l]sp' },
+			{ '<leader>G', group = '[G]ithub' },
 			{ '<leader>lw', group = '[w]orkspace' },
 		},
 	},
