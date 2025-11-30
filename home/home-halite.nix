@@ -49,7 +49,6 @@
     looking-glass-client
 
     libva
-    vaapiVdpau
     libvdpau-va-gl
     #nvapi latencyflex
 
