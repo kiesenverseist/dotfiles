@@ -96,6 +96,14 @@
     };
   };
 
+  services.samba = {
+    enable = true;
+    # package = pkgs.samba4Full;
+    settings.global = {
+      "client min protocol" = "smb2";
+    };
+  };
+
   services.blueman.enable = true;
 
   programs.hyprland.enable = true;
