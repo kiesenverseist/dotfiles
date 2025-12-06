@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-eww daemon
-eww open-many bar0 bar1
+# eww daemon
+# eww open-many bar0 bar1
 # polkit-agent-helper-1 &
 # waybar &
 # dunst &

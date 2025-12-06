@@ -12,6 +12,7 @@ return {
 			"css", "scss", "html", "javascript", "svelte", "tsx",
 			"latex", "typst", "norg",
 			"gleam",
+			"qmljs",
 		},
 		highlight = {
 			enable = true,

@@ -1,0 +1,5 @@
+singleton Time Time.qml
+singleton Theme Theme.qml
+Bar Bar.qml
+ClockWidget ClockWidget.qml
+SystemTray SystemTray.qml

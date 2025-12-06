@@ -50,6 +50,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    caelestia-shell = {
+      url = "github:caelestia-dots/shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     plasma-manager = {
       url = "github:nix-community/plasma-manager/plasma-5";
       inputs.nixpkgs.follows = "nixpkgs";

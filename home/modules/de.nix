@@ -30,7 +30,6 @@
       playerctl
       xdg-user-dirs
       gnome-calculator
-      nautilus
       sushi
       gnome-solanum
       vlc
@@ -38,6 +37,8 @@
       nwg-displays
       rofi-pulse-select
       woomer
+      kdePackages.qtdeclarative
+      kdePackages.dolphin
     ];
 
     wayland.windowManager.hyprland = {
@@ -66,9 +67,45 @@
       extraPortals = [pkgs.xdg-desktop-portal-gtk];
     };
 
-    ## CLI Tools
+    # programs.hyprpanel.enable = true;
+    programs.quickshell = {
+      enable = false;
+      activeConfig = "${config.home.homeDirectory}/dotfiles/config/quickshell";
+      systemd.enable = true;
+    };
 
-    programs.rofi.enable = true;
+    programs.rofi.enable = false;
+
+    programs.caelestia = {
+      enable = true;
+      systemd = {
+        enable = true;
+        target = "graphical-session.target";
+        environment = [];
+      };
+      settings = {
+        bar = {
+          status = {
+            showBattery = false;
+            showBluetooth = false;
+            showWifi = false;
+            showMicrophone = true;
+            showNetwork = false;
+          };
+          workspaces = {
+            perMonitorWorkspaces = true;
+            show = 10;
+          };
+        };
+        paths.wallpaperDir = "~/Pictures/wallpapers/";
+      };
+      cli = {
+        enable = true; # Also add caelestia-cli to path
+        settings = {
+          theme.enableGtk = false;
+        };
+      };
+    };
 
     programs.qutebrowser = {
       enable = true;
@@ -106,8 +143,8 @@
 
     programs.mangohud.enable = true;
 
-    services.swaync.enable = true;
-    services.swayosd.enable = true;
+    services.swaync.enable = false;
+    services.swayosd.enable = false;
 
     # remember to do the manual setup of this on first setup on computer
     services.syncthing = {

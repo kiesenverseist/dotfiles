@@ -8,6 +8,7 @@ vim.lsp.enable {
 	"rust_analyzer",
 	"vtsls",
 	"gleam",
+	"qmlls",
 }
 
 vim.lsp.config("nixd", {
@@ -56,4 +57,8 @@ vim.lsp.config("yamlls", {
 			},
 		},
 	},
+})
+
+vim.lsp.config("qmlls", {
+	cmd = {"qmlls", "-E"},
 })

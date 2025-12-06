@@ -70,6 +70,7 @@
       sym = dir: config.lib.file.mkOutOfStoreSymlink "${dotfiles}/config/${dir}";
     in {
       ".config/nvim".source = sym "nvim";
+      ".config/quickshell".source = sym "quickshell";
     };
 
     xdg.userDirs.enable = true;

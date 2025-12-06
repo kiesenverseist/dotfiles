@@ -3,7 +3,10 @@
   inputs,
   ...
 }: {
-  imports = [ ./modules ];
+  imports = [
+    ./modules
+    inputs.caelestia-shell.homeManagerModules.default
+  ];
 
   de.enable = true;
 
