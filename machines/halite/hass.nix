@@ -246,19 +246,19 @@
   in {
     "z2m.kiesen.moe".extraConfig = ''
       reverse_proxy http://localhost:${builtins.toString zigbee2mqtt.settings.frontend.port}
-      import porkbun
+      # import porkbun
     '';
     "otbr.kiesen.moe".extraConfig = ''
       reverse_proxy http://localhost:${builtins.toString openthread-border-router.web.listenPort}
-      import porkbun
+      # import porkbun
     '';
     "hass.kiesen.moe".extraConfig = ''
       reverse_proxy http://[::1]:8123
-      import porkbun
+      # import porkbun
     '';
     "mass.kiesen.moe".extraConfig = ''
       reverse_proxy http://localhost:8095
-      import porkbun
+      # import porkbun
     '';
   };
 }

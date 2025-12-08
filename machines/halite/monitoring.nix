@@ -25,7 +25,7 @@
   in {
     ${domain}.extraConfig = ''
       reverse_proxy http://${http_addr}:${builtins.toString http_port}
-      import porkbun
+      # import porkbun
     '';
   };
 

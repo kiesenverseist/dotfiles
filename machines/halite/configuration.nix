@@ -286,29 +286,33 @@
       str = builtins.toString;
       inherit (config.services) jellyseerr sonarr radarr deluge komga immich;
     in {
-      "jellyfin.kiesen.moe".extraConfig = ''
-        reverse_proxy http://127.0.0.1:8096
+      "*.kiesen.moe".extraConfig = ''
         import porkbun
+      '';
+
+      "jellyfin.kiesen.moe".extraConfig = ''
+        reverse_proxcaddyy http://127.0.0.1:8096
+        # import porkbun
       ''; # there is no port config for jellyfin
       "jellyseerr.kiesen.moe".extraConfig = ''
         reverse_proxy http://127.0.0.1:${str jellyseerr.port}
-        import porkbun
+        # import porkbun
       '';
       "sonarr.kiesen.moe".extraConfig = ''
         reverse_proxy http://127.0.0.1:${str sonarr.settings.server.port}
-        import porkbun
+        # import porkbun
       '';
       "radarr.kiesen.moe".extraConfig = ''
         reverse_proxy http://127.0.0.1:${str radarr.settings.server.port}
-        import porkbun
+        # import porkbun
       '';
       "deluge.kiesen.moe".extraConfig = ''
         reverse_proxy http://127.0.0.1:${str deluge.web.port}
-        import porkbun
+        # import porkbun
       '';
       "komga.kiesen.moe".extraConfig = ''
         reverse_proxy http://127.0.0.1:${str komga.settings.server.port}
-        import porkbun
+        # import porkbun
       '';
       # "git.kiesen.moe".extraConfig = ''
       #   reverse_proxy http://127.0.0.1:3000
@@ -316,7 +320,7 @@
       # ''; # for when we have a git forge
       "immich.kiesen.moe".extraConfig = ''
         reverse_proxy http://[::1]:${str immich.port}
-        import porkbun
+        # import porkbun
       '';
       "proxmox.kiesen.moe".extraConfig = ''
         reverse_proxy ${config.services.proxmox-ve.ipAddress}:8006 {
@@ -326,7 +330,7 @@
             # tls_trusted_ca_certs /etc/pve/pve-root-ca.pem # Path to PVE root cert
           }
         }
-        import porkbun
+        # import porkbun
       '';
     };
   };

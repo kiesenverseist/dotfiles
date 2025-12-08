@@ -3,7 +3,7 @@
     virtualHosts = {
       "www.kiesen.moe".extraConfig = ''
         reverse_proxy http://localhost:${builtins.toString config.services.homepage-dashboard.listenPort}
-        import porkbun
+        # import porkbun
       '';
     };
   };
