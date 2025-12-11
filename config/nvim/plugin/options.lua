@@ -51,4 +51,4 @@ vim.filetype.add({
 vim.diagnostic.config({ virtual_lines = true })
 
 -- set colour scheme
-vim.cmd("colorscheme retrobox")
+-- vim.cmd("colorscheme retrobox")

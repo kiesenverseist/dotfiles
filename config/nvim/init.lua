@@ -22,5 +22,5 @@ vim.opt.rtp:prepend(lazypath)
 -- load plugins
 require("lazy").setup({
 	spec = { import = "plugins" },
-	install = { colorscheme = { "retrobox" }},
+	install = { colorscheme = { "gruvbox" }},
 })
