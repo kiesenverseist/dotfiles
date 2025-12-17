@@ -12,7 +12,7 @@
   imports = [
     ./hyprland
     inputs.caelestia-shell.homeManagerModules.default
-    inputs.dms.homeModules.dankMaterialShell.default
+    inputs.dms.homeModules.dank-material-shell
   ];
   # ] ++ lib.optionals config.de.enable [./hyprland];
 
@@ -46,7 +46,7 @@
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = config.lib.nixGL.wrap pkgs.hyprland;
+      # package = config.lib.nixGL.wrap pkgs.hyprland;
       # settings = {
       #   exec-once = [
       #     "${pkgs.kdePackages.xwaylandvideobridge}/bin/xwaylandvideobridge"
@@ -110,7 +110,7 @@
       };
     };
 
-    programs.dankMaterialShell.enable = true;
+    programs.dank-material-shell.enable = true;
 
     programs.qutebrowser = {
       enable = true;

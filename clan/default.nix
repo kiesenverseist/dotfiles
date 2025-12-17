@@ -27,7 +27,8 @@
           roles.default.tags.all = {};
           roles.default.settings = {
             allowedKeys = {
-              "kiesen" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjmUayWr1sJxYNqGeqtp6fOTT38n/5iGJudDrgf630M";
+              "kiesen-fluorite" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjmUayWr1sJxYNqGeqtp6fOTT38n/5iGJudDrgf630M";
+              "kiesen-graphite" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILB44rGxgd27wPLkuUrHXlnrpEhqVQX92k1F3TVNYIWQ";
             };
             # certificateSearchDomains = ["ladon-minnow.ts.net"];
           };

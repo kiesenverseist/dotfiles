@@ -11,9 +11,9 @@
 
   config = lib.mkIf config.guiMinimal.enable {
     # nixgl config
-    nixGL = {
-      packages = lib.mkDefault inputs.nixgl.packages;
-    };
+    # nixGL = {
+    #   packages = lib.mkDefault inputs.nixgl.packages;
+    # };
 
     home.packages = with pkgs; [
       fira-code
