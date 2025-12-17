@@ -64,7 +64,6 @@
 
             groups = [
               "wheel"
-              "networkmanager"
               "video"
               "input"
               "libvirtd"
@@ -85,13 +84,15 @@
             input = "clan-core";
           };
 
-          roles.default.machines.fluorite = {};
+          roles.default.machines = {
+            fluorite = {};
+            graphite = {};
+          };
+
           roles.default.settings = {
             user = "talux";
 
             groups = [
-              "wheel"
-              "networkmanager"
               "video"
               "input"
               "libvirtd"

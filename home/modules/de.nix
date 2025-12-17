@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: {
   options = {
@@ -10,6 +11,8 @@
 
   imports = [
     ./hyprland
+    inputs.caelestia-shell.homeManagerModules.default
+    inputs.dms.homeModules.dankMaterialShell.default
   ];
   # ] ++ lib.optionals config.de.enable [./hyprland];
 
@@ -68,16 +71,16 @@
     };
 
     # programs.hyprpanel.enable = true;
-    programs.quickshell = {
-      enable = false;
-      activeConfig = "${config.home.homeDirectory}/dotfiles/config/quickshell";
-      systemd.enable = true;
-    };
+    # programs.quickshell = {
+    #   enable = false;
+    #   activeConfig = "${config.home.homeDirectory}/dotfiles/config/quickshell";
+    #   systemd.enable = true;
+    # };
 
     programs.rofi.enable = false;
 
     programs.caelestia = {
-      enable = true;
+      enable = false;
       systemd = {
         enable = true;
         target = "graphical-session.target";
@@ -106,6 +109,8 @@
         };
       };
     };
+
+    programs.dankMaterialShell.enable = true;
 
     programs.qutebrowser = {
       enable = true;

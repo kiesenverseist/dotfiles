@@ -14,6 +14,7 @@
     ../../hosts/modules
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     # inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
+    inputs.home-manager.nixosModules.default
   ];
 
   # boot.kernelPackages = pkgs.linuxPackages_testing;
@@ -119,7 +120,7 @@
 
   programs.steam = {
     enable = true;
-    
+
     extraCompatPackages = [pkgs.proton-ge-bin];
   };
   programs.gamemode.enable = true;
@@ -178,6 +179,8 @@
     extraGroups = ["wheel" "libvirtd" "qemu-libvirtd" "disk" "adbusers" "dialout"];
   };
 
+  home-manager.users.talux = {de.enable = true;};
+
   nixpkgs.config.packageOverrides = pkgs: {
     steam = pkgs.steam.override {
       extraPkgs = pkgs:
@@ -217,6 +220,7 @@
 
     inputs.nixpkgs-xr.packages.x86_64-linux.wayvr-dashboard
     wlx-overlay-s
+    jamesdsp
   ];
 
   # List services that you want to enable:
