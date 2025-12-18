@@ -179,8 +179,6 @@
     extraGroups = ["wheel" "libvirtd" "qemu-libvirtd" "disk" "adbusers" "dialout"];
   };
 
-  home-manager.users.talux = {de.enable = true;};
-
   nixpkgs.config.packageOverrides = pkgs: {
     steam = pkgs.steam.override {
       extraPkgs = pkgs:

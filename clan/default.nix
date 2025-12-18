@@ -105,11 +105,14 @@
           };
 
           roles.default.extraModules = [
-            {
+            ({pkgs, ...}: {
               imports = [inputs.home-manager.nixosModules.default];
-              home-manager.extraSpecialArgs = {inherit inputs;};
-              home-manager.users.talux.imports = [../home/talux.nix];
-            }
+              home-manager = {
+                extraSpecialArgs = {inherit inputs;};
+                users.talux.imports = [../home/talux.nix];
+                backupCommand = "${pkgs.trash-cli}/bin/trash";
+              };
+            })
           ];
         };
 

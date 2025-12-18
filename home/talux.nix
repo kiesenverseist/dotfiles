@@ -9,7 +9,7 @@
     inputs.stylix.homeModules.stylix
   ];
 
-  # de.enable = true;
+  de.enable = true;
   guiMinimal.enable = true;
   programming.enable = true;
 

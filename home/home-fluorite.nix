@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  # de.enable = true;
+  de.enable = true;
   guiMinimal.enable = true;
   programming.enable = true;
 

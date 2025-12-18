@@ -22,9 +22,25 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
+  services.displayManager = {
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
+    # dms-greeter = {
+    #   enable = true;
+    #   compositor.name = "hyprland";
+    # };
+    defaultSession = "hyprland-uwsm";
+  };
   services.desktopManager.plasma6.enable = true;
+
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+  };
+
+  programs.dsearch.enable = true;
 
   services.backups.enable = false;
 
