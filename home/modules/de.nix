@@ -14,7 +14,6 @@
     inputs.caelestia-shell.homeManagerModules.default
     inputs.dms.homeModules.dank-material-shell
   ];
-  # ] ++ lib.optionals config.de.enable [./hyprland];
 
   config = lib.mkIf config.de.enable {
     guiMinimal.enable = true;
@@ -46,17 +45,11 @@
 
     wayland.windowManager.hyprland = {
       enable = true;
-      # package = config.lib.nixGL.wrap pkgs.hyprland;
-      # settings = {
-      #   exec-once = [
-      #     "${pkgs.kdePackages.xwaylandvideobridge}/bin/xwaylandvideobridge"
-      #   ];
-      # };
       systemd.variables = ["--all"];
     };
 
     # programs.hyprlock.enable = true;
-    services.hypridle.enable = true;
+    # services.hypridle.enable = true;
     services.hyprpolkitagent.enable = true;
 
     xdg.systemDirs.data = [
@@ -180,12 +173,5 @@
       ".config/hypr/plugins.conf".source = sym "hypr/plugins.conf";
       ".config/hypr/zoom".source = sym "hypr/zoom";
     };
-
-    # systemd.user.targets.tray = {
-    #   Unit = {
-    #     Description = "Home Manager System Tray";
-    #     Requires = ["graphical-session-pre.target"];
-    #   };
-    # };
   };
 }

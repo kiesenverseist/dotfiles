@@ -17,7 +17,7 @@
       machines = {
         lazurite = {
           deploy = {
-            buildHost = "kiesen@graphite";
+            buildHost = "graphite";
           };
         };
       };

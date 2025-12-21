@@ -10,6 +10,7 @@
   ];
 
   de.enable = true;
+  theme.enable = false;
   guiMinimal.enable = true;
   programming.enable = true;
 
