@@ -12,7 +12,10 @@
     };
 
     inventory = {
-      meta = {name = "kiesnet";};
+      meta = {
+        name = "kiesnet";
+        domain = "kies";
+      };
 
       machines = {
         lazurite = {
@@ -51,6 +54,19 @@
           graphite.settings.host = "graphite";
           fluorite.settings.host = "fluorite";
           lazurite.settings.host = "lazurite";
+        };
+
+        mycelium = {
+          roles.peer.tags.all = {};
+        };
+
+        tor = {
+          roles.server.tags.nixos = {};
+          roles.client.tags.nixos = {};
+        };
+
+        yggdrasil = {
+          roles.default.tags.all = {};
         };
 
         kiesen-user = {
