@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: {
   imports = [
@@ -266,9 +267,11 @@
 
   services.caddy = {
     enable = true;
-    package = pkgs.caddy.withPlugins {
+    package = let
+      pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.system};
+    in pkgs-stable.caddy.withPlugins {
       plugins = ["github.com/caddy-dns/porkbun@v0.3.1"];
-      hash = "sha256-j/GODingW5BhfjQRajinivX/9zpiLGgyxvAjX0+amRU=";
+      hash = "sha256-X11vSQRbBg25I1eSKF2O5QBRS7zGOtdGhLISiwrHclw=";
     };
     environmentFile = config.clan.core.vars.generators.caddy.files.env.path;
     extraConfig = ''
