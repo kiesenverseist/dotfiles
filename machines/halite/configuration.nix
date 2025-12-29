@@ -229,7 +229,7 @@
   services.tsidp = {
     enable = true;
     # settings.useLocalTailscaled = true;
-    environmentFile = config.clan.core.vars.generators.tsidp.files.env.path;
+    # environmentFile = config.clan.core.vars.generators.tsidp.files.env.path;
   };
 
   clan.core.vars.generators.lldap.prompts.pass = {
@@ -294,7 +294,7 @@
       '';
 
       "jellyfin.kiesen.moe".extraConfig = ''
-        reverse_proxcaddyy http://127.0.0.1:8096
+        reverse_proxy http://127.0.0.1:8096
         # import porkbun
       ''; # there is no port config for jellyfin
       "jellyseerr.kiesen.moe".extraConfig = ''
