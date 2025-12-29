@@ -21,7 +21,6 @@
       builtins.mapAttrs (_: module: conf module) {
         "kiesen@halite" = ./home-halite.nix;
         "kiesen@graphite" = ./home-graphite.nix;
-        "kiesen@kiesen-eos-laptop" = ./home-laptop.nix;
         "kiesen@fluorite" = ./home-fluorite.nix;
       };
   };
