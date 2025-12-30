@@ -34,6 +34,7 @@
     enable = true;
     package = pkgs.sonarr.overrideAttrs (pkgs.lib.const {doCheck = false;});
     group = "media";
+    settings.server.port = 8988;
   };
 
   services.radarr = {
@@ -54,10 +55,11 @@
     settings.server.port = 8084;
   };
 
-  # services.qbittorrent = {
-  #   enable = true;
-  #   user = "kiesen";
-  # };
+  services.qbittorrent = {
+    enable = true;
+    group = "media";
+    webuiPort = 8987; 
+  };
 
   services.immich = {
     enable = true;

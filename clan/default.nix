@@ -37,17 +37,18 @@
           };
         };
 
-        # sshd = {
-        #   module = {
-        #     name = "sshd";
-        #     input = "clan-core";
-        #   };
-        #   roles.server.tags.all = {};
-        #   roles.client.tags.all = {};
-        #
-        #   # roles.server.settings.certificate.searchDomains = ["ladon-minnow.ts.net"];
-        #   roles.client.settings.certificate.searchDomains = ["ladon-minnow.ts.net"];
-        # };
+        sshd = {
+          module = {
+            name = "sshd";
+            input = "clan-core";
+          };
+
+          roles.server.tags.all = {};
+          roles.client.tags.all = {};
+
+          roles.server.settings.certificate.searchDomains = ["kies"];
+          roles.client.settings.certificate.searchDomains = ["kies"];
+        };
 
         # internet.roles.default.machines = {
         #   halite.settings.host = "halite";
@@ -56,18 +57,14 @@
         #   lazurite.settings.host = "lazurite";
         # };
 
-        mycelium = {
-          roles.peer.tags.all = {};
-        };
+        mycelium.roles.peer.tags.all = {};
 
         tor = {
           roles.server.tags.nixos = {};
           roles.client.tags.nixos = {};
         };
 
-        yggdrasil = {
-          roles.default.tags.all = {};
-        };
+        yggdrasil.roles.default.tags.all = {};
 
         kiesen-user = {
           module = {
@@ -182,6 +179,32 @@
             halite.settings.ipAddress = "100.120.252.116";
           };
         };
+
+        # ncps = {
+        #   roles.server.machines."halite".settings = {
+        #     upstream = {
+        #       caches = [
+        #         "https://cache.nixos.org"
+        #         "https://nix-community.cachix.org"
+        #         "https://nixpkgs-unfree.cachix.org"
+        #         "https://nix-gaming.cachix.org"
+        #         "https://cuda-maintainers.cachix.org"
+        #         "https://cache.garnix.io"
+        #       ];
+        #
+        #       publicKeys = [
+        #         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        #         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        #         "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
+        #         "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+        #         "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
+        #         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        #       ];
+        #     };
+        #   };
+        #
+        #   roles.client.tags.all = {};
+        # };
       };
     };
   };
