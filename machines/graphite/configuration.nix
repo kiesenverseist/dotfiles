@@ -268,7 +268,10 @@
     #     target = "shared";
     #   };
     # };
+    docker.enable = true;
   };
+
+
 
   # systemd.user.tmpfiles.rules = ["f /dev/shm/looking-glass 0666 root qemu-libvirtd -"];
 
