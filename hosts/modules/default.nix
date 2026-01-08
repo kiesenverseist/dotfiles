@@ -43,6 +43,11 @@
 
     security.polkit.enable = true;
 
+    security.pam.services = {
+      sddm.kwallet.enable = true;
+      login.kwallet.enable = true;
+    };
+
     time.timeZone = lib.mkDefault "Australia/Sydney";
 
     # Select internationalisation properties.

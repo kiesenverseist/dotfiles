@@ -5,6 +5,8 @@
   config,
   ...
 }: {
+  imports = [inputs.stylix.homeModules.stylix];
+
   options = {
     theme.enable = lib.mkEnableOption "enables stylix themeing";
   };

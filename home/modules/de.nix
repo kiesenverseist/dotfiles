@@ -11,7 +11,6 @@
 
   imports = [
     ./hyprland
-    inputs.caelestia-shell.homeManagerModules.default
     inputs.dms.homeModules.dank-material-shell
   ];
 
@@ -39,8 +38,11 @@
       nwg-displays
       rofi-pulse-select
       woomer
+
       kdePackages.qtdeclarative
       kdePackages.dolphin
+      kdePackages.kwallet
+      kdePackages.kwalletmanager
     ];
 
     wayland.windowManager.hyprland = {
@@ -63,7 +65,6 @@
       extraPortals = [pkgs.xdg-desktop-portal-gtk];
     };
 
-    # programs.hyprpanel.enable = true;
     # programs.quickshell = {
     #   enable = false;
     #   activeConfig = "${config.home.homeDirectory}/dotfiles/config/quickshell";
@@ -72,40 +73,20 @@
 
     programs.rofi.enable = false;
 
-    programs.caelestia = {
-      enable = false;
-      systemd = {
-        enable = true;
-        target = "graphical-session.target";
-        environment = [];
-      };
-      settings = {
-        bar = {
-          status = {
-            showBattery = false;
-            showBluetooth = false;
-            showWifi = false;
-            showMicrophone = true;
-            showNetwork = false;
-          };
-          workspaces = {
-            perMonitorWorkspaces = true;
-            show = 10;
-          };
-        };
-        paths.wallpaperDir = "~/Pictures/wallpapers/";
-      };
-      cli = {
-        enable = true; # Also add caelestia-cli to path
-        settings = {
-          theme.enableGtk = false;
-        };
-      };
-    };
-
     programs.dank-material-shell = {
       enable = true;
       systemd.enable = true;
+
+      plugins = {
+        HyprlandSubmap = {
+          src = pkgs.fetchFromGitHub {
+            owner = "mesteryui";
+            repo = "DMS_HyprlandSubmap";
+            rev = "main";
+            sha256 = "sha256-5srAvsrhBUtzPNf3FTComfm+4alh4B41StHPZryQi2M=";
+          };
+        };
+      };
     };
 
     programs.qutebrowser = {
@@ -150,12 +131,12 @@
     # remember to do the manual setup of this on first setup on computer
     services.syncthing = {
       enable = lib.mkDefault true;
-      tray.enable = true;
+      tray.enable = lib.mkDefault true;
     };
 
     services.udiskie.enable = true;
-    services.network-manager-applet.enable = true;
-    services.blueman-applet.enable = true;
+    # services.network-manager-applet.enable = true;
+    # services.blueman-applet.enable = true;
 
     services.kdeconnect = {
       enable = true;

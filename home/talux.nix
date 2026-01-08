@@ -4,15 +4,9 @@
   lib,
   ...
 }: {
-  imports = [
-    ./modules
-    inputs.stylix.homeModules.stylix
-  ];
+  imports = [./modules];
 
   de.enable = true;
-  theme.enable = false;
-  guiMinimal.enable = true;
-  programming.enable = true;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -40,6 +34,16 @@
     pkgs.vtsls
     pkgs.awscli2
     pkgs.mongodb-compass
+    # (
+    #   pkgs.symlinkJoin {
+    #     name = "mongodb-compass-wrapped";
+    #     paths = [pkgs.mongodb-compass];
+    #     buildInputs = [pkgs.makeWrapper];
+    #     postBuild = "wrapProgram $out/bin/mongodb-compass --set XDG_CURRENT_DESKTOP=GNOME";
+    #   }
+    # )
+
+    pkgs.kdePackages.qt6ct
   ];
 
   programs.git = {
@@ -53,8 +57,27 @@
     };
   };
 
-  services.syncthing.enable = false;
+  services.syncthing = {
+    enable = false;
+    tray.enable = false;
+  };
 
-  gtk.enable = lib.mkForce false;
-  qt.enable = lib.mkForce false;
+  wayland.windowManager.hyprland = {
+    settings = {
+      exec-once = [
+        "[workspace 1 silent] floorp"
+        "[workspace 2 silent] neovide"
+        "[workspace special silent] slack"
+        "[workspace special:memo silent] obsidian"
+      ];
+    };
+  };
+
+  # xdg.desktopEntries = {
+  #   mongodb-compass = {
+  #     name = "MongoDB Compass";
+  #     exec = "env XDG_CURRENT_DESKTOP=GNOME mongodb-compass %U";
+  #     terminal = false;
+  #   };
+  # };
 }
