@@ -5,9 +5,6 @@
   inputs,
   ...
 }: {
-  imports = [
-    ./modules
-  ];
 
   guiMinimal.enable = true;
   programming.enable = true;

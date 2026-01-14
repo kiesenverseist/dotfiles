@@ -11,11 +11,7 @@
             overlays = [inputs.nixgl.overlay];
           };
           extraSpecialArgs = {inherit inputs;};
-          modules = [
-            module
-            inputs.stylix.homeModules.stylix
-            ./modules
-          ];
+          modules = [module ./modules];
         };
     in
       builtins.mapAttrs (_: module: conf module) {

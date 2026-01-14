@@ -37,7 +37,6 @@
       neovim-remote
       yadm
       lazygit
-      jjui
       isd
 
       ## nix stuff
@@ -166,6 +165,13 @@
         # ui.diff-editor = ["nvr" "-s" "-c" "DiffEditor $left $right $output"];
 
         # merge-tools.nvr.merge-args = config.programs.jujutsu.settings.ui.diff-editor;
+      };
+    };
+
+    programs.jjui = {
+      enable = true;
+      settings = {
+        preview.show_at_start = true; 
       };
     };
 

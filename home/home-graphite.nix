@@ -90,8 +90,6 @@
     inputs.nix-alien.packages.${system}.nix-alien
   ];
 
-  programs.vscode.enable = true;
-
   programs.git.settings.user = {
     name = "Ibrahim Fuad";
     email = "creativeibi77@gmail.com";

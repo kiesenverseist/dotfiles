@@ -47,6 +47,10 @@
         pkgs.nh
         pkgs.optnix
         inputs'.clan-core.packages.clan-cli
+        (pkgs.writeShellApplication {
+          name = "build-iso";
+          text = "nix build .#nixosConfigurations.iso.config.system.build.isoImage";
+        })
       ];
     };
 
