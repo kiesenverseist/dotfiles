@@ -84,6 +84,18 @@
 
   programs.adb.enable = true;
 
+  services.kanata = {
+    enable = true;
+    keyboards."builtin".config = ''
+      (defsrc
+        caps)
+
+      (deflayermap (default-layer)
+        ;; tap caps lock as caps lock, hold caps lock as left control
+        caps (tap-hold 100 100 caps lctl))
+    '';
+  };
+
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #
