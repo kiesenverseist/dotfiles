@@ -43,10 +43,6 @@
     carla
 
     # proprietary stuffs
-    vesktop
-    # (discord.override {
-    #   withOpenASAR = false;
-    # })
     discord-ptb
 
     # gaming

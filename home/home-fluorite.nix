@@ -24,9 +24,7 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    pkgs.vesktop
     pkgs.discord
-    # pkgs.jellyfin-media-player
     pkgs.ferdium
     # pkgs.pdfslicer
 
