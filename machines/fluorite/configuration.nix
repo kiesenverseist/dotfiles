@@ -15,6 +15,7 @@
   networking.networkmanager.enable = true;
 
   hardware.bluetooth.enable = true;
+  hardware.rtl-sdr.enable = true;
 
   # console = {
   #   font = "Lat2-Terminus16";
@@ -84,6 +85,7 @@
 
   programs.adb.enable = true;
 
+  hardware.uinput.enable = true;
   services.kanata = {
     enable = true;
     keyboards."builtin".config = ''

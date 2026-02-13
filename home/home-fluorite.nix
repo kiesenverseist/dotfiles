@@ -34,6 +34,8 @@
     pkgs.freecad
 
     pkgs.virt-viewer
+
+    pkgs.sdrpp
   ];
 
   programs.git.settings.user = {

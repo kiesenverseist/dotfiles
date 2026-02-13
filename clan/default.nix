@@ -86,6 +86,7 @@
               "docker"
               "minecraft"
               "adbusers"
+              "plugdev"
             ];
 
             share = true;
