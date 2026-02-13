@@ -29,6 +29,7 @@
     # device = " /dev/disk/by-id/wwn-0x50014ee2bcf8d5aa:/dev/disk/by-id/wwn-0x5000c500cf8957af-part2:/dev/nvme0n1";
     device = "UUID=e0644bf4-482d-4d43-a927-1033fb82e8da";
     fsType = "bcachefs";
+    options = ["x-systemd.mount-timeout=5m"];
   };
 
   fileSystems."/boot" = {
