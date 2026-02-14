@@ -15,7 +15,7 @@ return {
 	},
 	{
 		"ellisonleao/gruvbox.nvim",
-		enabled = false,
+		enabled = true,
 		priority = 1000,
 		opts = {
 			contrast = "hard",
@@ -27,7 +27,7 @@ return {
 	},
 	{
 		"dgox16/oldworld.nvim",
-		enabled = true,
+		enabled = false,
 		lazy = false,
 		priority = 1000,
 		opts = {

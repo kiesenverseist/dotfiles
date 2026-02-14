@@ -26,16 +26,6 @@
       };
 
       instances = {
-        admin = {
-          roles.default.tags.all = {};
-          roles.default.settings = {
-            allowedKeys = {
-              "kiesen-fluorite" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjmUayWr1sJxYNqGeqtp6fOTT38n/5iGJudDrgf630M";
-              "kiesen-graphite" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILB44rGxgd27wPLkuUrHXlnrpEhqVQX92k1F3TVNYIWQ";
-            };
-            # certificateSearchDomains = ["ladon-minnow.ts.net"];
-          };
-        };
 
         sshd = {
           module = {
@@ -45,8 +35,14 @@
 
           roles.server.tags.all = {};
           roles.client.tags.all = {};
+          roles.server.settings = {
+            authorizedKeys = {
+              "kiesen-fluorite" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjmUayWr1sJxYNqGeqtp6fOTT38n/5iGJudDrgf630M";
+              "kiesen-graphite" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILB44rGxgd27wPLkuUrHXlnrpEhqVQX92k1F3TVNYIWQ";
+            };
+            certificate.searchDomains = ["kies"];
+          };
 
-          roles.server.settings.certificate.searchDomains = ["kies"];
           roles.client.settings.certificate.searchDomains = ["kies"];
         };
 
@@ -65,6 +61,20 @@
         };
 
         yggdrasil.roles.default.tags.all = {};
+
+        root-user = {
+          module = {
+            name = "users";
+            input = "clan-core";
+          };
+
+          roles.default.tags.all = {};
+          roles.default.settings = {
+            user = "root";
+            share = true;
+            prompt = true;
+          };
+        };
 
         kiesen-user = {
           module = {
