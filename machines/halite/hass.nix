@@ -25,6 +25,14 @@
           media = "/var/media";
         };
       };
+      sensor = [
+        {
+          platform = "foxess";
+          deviceSN = "!secret foxess_inverter_sn";
+          deviceID = "!secret foxess_inverter_sn";
+          apiKey = "!secret foxess_api_key";
+        }
+      ];
     };
     # config = null;
     lovelaceConfig = null;
@@ -85,6 +93,12 @@
       (pkgs.python3Packages.callPackage ./home-assistant-custom-components/foxess-ha.nix {})
     ];
   };
+
+  systemd.tmpfiles.rules = let
+    secrets-yaml = config.clan.core.vars.generators.hass.files."secrets.yaml".path;
+  in [
+    "L+ ${config.services.home-assistant.configDir}/secrets.yaml 0400 hass hass - ${secrets-yaml}" 
+  ];
 
   services.zigbee2mqtt = {
     enable = true;
@@ -164,6 +178,30 @@
         mosquitto_passwd -c -b "$out"/password-hash z2m $(cat "$out"/password)
         cat << EOF > $out/secret.yaml
           password: $(cat $out/password)
+        EOF
+      '';
+    };
+    foxess.prompts = {
+      inverter-sn = {
+        description = "Serial number for the foxess inverter";
+        persist = true;
+      };
+      api-key = {
+        description = "Foxess cloud's api key";
+        persist = true;
+      };
+    };
+    hass = {
+      dependencies = ["foxess"];
+      files."secrets.yaml" = {
+        secret = true;
+        owner = "hass";
+        restartUnits = ["home-assistant.service"];
+      };
+      script = ''
+        cat << EOF > $out/secrets.yaml
+          foxess_inverter_sn: $(cat $in/foxess/inverter-sn)
+          foxess_api_key: $(cat $in/foxess/api-key)
         EOF
       '';
     };
