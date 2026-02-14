@@ -61,7 +61,6 @@
     # modrinth-app
     # bottles
     xivlauncher
-    wlx-overlay-s
 
     libva
     libva-vdpau-driver

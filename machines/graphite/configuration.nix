@@ -110,8 +110,6 @@
 
   programs.hyprland.enable = true;
 
-  programs.adb.enable = true;
-
   systemd.targets.hyprland-session = {
     description = "Hyprland compositor session";
     documentation = ["man:systemd.special(7)"];
@@ -195,10 +193,10 @@
           libvorbis
           fuse
           stdenv.cc.cc.lib
-          xorg.libXcursor
-          xorg.libXi
-          xorg.libXinerama
-          xorg.libXScrnSaver
+          libXcursor
+          libXi
+          libXinerama
+          libXScrnSaver
           libsForQt5.qt5.qtbase
           libsForQt5.qt5.qtmultimedia
           nss
@@ -218,9 +216,9 @@
     kdePackages.polkit-kde-agent-1
     virtiofsd
 
-    inputs.nixpkgs-xr.packages.x86_64-linux.wayvr-dashboard
-    wlx-overlay-s
+    inputs.nixpkgs-xr.packages.x86_64-linux.wayvr
     jamesdsp
+    android-tools
   ];
 
   # List services that you want to enable:

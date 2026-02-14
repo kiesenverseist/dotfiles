@@ -60,7 +60,7 @@
       qt.enable = true;
     };
 
-    stylix.iconTheme = {
+    stylix.icons = {
       enable = true;
       # package = pkgs.zafiro-icons;
       # dark = "Zafiro-icons";

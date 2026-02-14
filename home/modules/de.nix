@@ -83,7 +83,7 @@
             owner = "mesteryui";
             repo = "DMS_HyprlandSubmap";
             rev = "main";
-            sha256 = "sha256-bpQif4kXI90H1hIRi+hQ+K27V2uHxnHNXfDWLQWD3UY=";
+            sha256 = "sha256-EJ8MCxnA/eZUccUf7EG6N8hPHblTXSlgXfxwLy/Jt8s=";
           };
         };
       };

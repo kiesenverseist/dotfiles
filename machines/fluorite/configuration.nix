@@ -83,8 +83,6 @@
     };
   };
 
-  programs.adb.enable = true;
-
   hardware.uinput.enable = true;
   services.kanata = {
     enable = true;

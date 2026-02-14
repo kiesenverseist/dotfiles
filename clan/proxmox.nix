@@ -36,7 +36,7 @@
         nixpkgs.overlays = [inputs.proxmox-nixos.overlays."x86_64-linux"];
 
         services.proxmox-ve = {
-          enable = true;
+          enable = false;
           ipAddress = settings.ipAddress;
           bridges = ["br0"];
           # ceph = {
@@ -76,7 +76,7 @@
         # ];
 
         # i can't quite get the above to work, so:
-        services.openssh.settings.PasswordAuthentication = lib.mkForce true;
+        # services.openssh.settings.PasswordAuthentication = lib.mkForce true;
       };
     };
   };
