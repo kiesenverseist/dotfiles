@@ -76,8 +76,13 @@
       bubble-card
       zigbee2mqtt-networkmap
     ];
-    customComponents = with pkgs.home-assistant-custom-components; [
+    customComponents = let
+      inherit (pkgs.home-assistant-custom-components) samsungtv-smart;
+      # inherit (pkgs.callPackages ./home-assistant-custom-components {}) foxess-ha;
+    in [
       samsungtv-smart
+      # foxess-ha
+      (pkgs.python3Packages.callPackage ./home-assistant-custom-components/foxess-ha.nix {})
     ];
   };
 
@@ -224,7 +229,7 @@
     radio.url = "spinel+hdlc+uart:///tmp/ttyOTBR?uart-baudrate=460800";
     rest.listenAddress = "0.0.0.0";
     web = {
-      enable =true;
+      enable = true;
       listenAddress = "0.0.0.0";
     };
   };
