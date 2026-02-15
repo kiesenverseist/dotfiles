@@ -16,6 +16,13 @@ return {
 		input = {},
 		gh = {},
 		git = {},
+		lazygit = {
+			config = {
+				git = {
+					overrideGpg = true,
+				},
+			},
+		},
 	},
 	keys = {
 		-- pickers

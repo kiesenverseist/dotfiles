@@ -22,10 +22,8 @@
         "f[1]s[false], gapsout:0, gapsin:0"
       ];
       windowrule = [
-        "bordersize 0, floating:0, onworkspace:w[tv1]s[false]"
-        "rounding 0, floating:0, onworkspace:w[tv1]s[false]"
-        "bordersize 0, floating:0, onworkspace:f[1]s[false]"
-        "rounding 0, floating:0, onworkspace:f[1]s[false]"
+        "border_size 0, rounding 0, match:float 0, match:workspace w[tv1]s[false]"
+        "border_size 0, rounding 0, match:float 0, match:workspace f[1]s[false]"
       ];
 
       exec-once = [
