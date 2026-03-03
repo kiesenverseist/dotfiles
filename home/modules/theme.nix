@@ -58,6 +58,7 @@
       fish.enable = false;
       kitty.enable = false;
       qt.enable = true;
+      dank-material-shell.enable = false;
     };
 
     stylix.icons = {

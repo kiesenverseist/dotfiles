@@ -3,13 +3,17 @@
     ./hypridle.nix
     ./hyprlock.nix
     # ./which-key.nix
+    ./dms.nix
   ];
 
   wayland.windowManager.hyprland = {
     settings = {
       source = [
         "~/.config/hypr/main.conf"
-        "~/.config/hypr/monitors.conf"
+        # "~/.config/hypr/monitors.conf"
+        # "~/.config/hypr/dms/layout.conf"
+        "~/.config/hypr/dms/outputs.conf"
+        "~/.config/hypr/dms/windowrules.conf"
       ];
 
       # bind = [

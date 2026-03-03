@@ -6,17 +6,17 @@
   ...
 }: {
   options = {
-    de.enable = lib.mkEnableOption "enables basic cli config";
+    de.enable = lib.mkEnableOption "enables desktop environment";
   };
 
   imports = [
     ./hyprland
-    inputs.dms.homeModules.dank-material-shell
   ];
 
   config = lib.mkIf config.de.enable {
     guiMinimal.enable = true;
     programming.enable = true;
+    dms.enable = true;
 
     # The home.packages option allows you to install Nix packages into your
     # environment.
@@ -26,6 +26,7 @@
       grim
       slurp
       pavucontrol
+      hyprpwcenter
       pulsemixer
       wl-clipboard
       playerctl
@@ -35,7 +36,6 @@
       gnome-solanum
       vlc
       waypipe
-      nwg-displays
       rofi-pulse-select
       woomer
 
@@ -73,22 +73,6 @@
 
     programs.rofi.enable = false;
 
-    programs.dank-material-shell = {
-      enable = true;
-      systemd.enable = true;
-
-      plugins = {
-        HyprlandSubmap = {
-          src = pkgs.fetchFromGitHub {
-            owner = "mesteryui";
-            repo = "DMS_HyprlandSubmap";
-            rev = "main";
-            sha256 = "sha256-EJ8MCxnA/eZUccUf7EG6N8hPHblTXSlgXfxwLy/Jt8s=";
-          };
-        };
-      };
-    };
-
     programs.qutebrowser = {
       enable = true;
       settings = {
@@ -124,9 +108,6 @@
     programs.zathura.enable = true;
 
     programs.mangohud.enable = true;
-
-    services.swaync.enable = false;
-    services.swayosd.enable = false;
 
     # remember to do the manual setup of this on first setup on computer
     services.syncthing = {

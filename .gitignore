@@ -2,3 +2,4 @@
 .devenv
 result
 config/quickshell/.qmlls.ini
+/config/nvim/lua/plugins/dankcolors.lua
