@@ -20,7 +20,7 @@
       systemd.enable = true;
 
       # settings = lib.mkForce null;
-      settings = lib.mkForce null;
+      settings = {};
       # settings = {
       #   barConfigs = [
       #     {
@@ -33,18 +33,18 @@
       #   currentThemeCategory = "generic";
       # };
 
-      # plugins = {
-      #   hyprlandSubmap.enable = true;
-      #   homeAssistantMonitor.enable = true;
-      #   dankKDEConnect.enable = true;
-      #   prayerTimes.enable = true;
-      #   flatpakUpdates.enable = true;
-      #   dankBitwarden.enable = true;
-      #   dankPomodoroTimer.enable = true;
-      #   dankBatteryAlerts.enable = true;
-      #   dankHyprlandWindows.enable = true;
-      #   dankDesktopWeather.enable = true;
-      # };
+      plugins = {
+        hyprlandSubmap.enable = true;
+        homeAssistantMonitor.enable = true;
+        dankKDEConnect.enable = true;
+        prayerTimes.enable = true;
+        flatpakUpdates.enable = true;
+        dankBitwarden.enable = true;
+        dankPomodoroTimer.enable = true;
+        dankBatteryAlerts.enable = true;
+        dankHyprlandWindows.enable = true;
+        dankDesktopWeather.enable = true;
+      };
     };
 
     services.swaync.enable = false;
