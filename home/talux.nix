@@ -44,6 +44,9 @@
     # )
 
     pkgs.kdePackages.qt6ct
+
+    pkgs._1password-gui
+    pkgs._1password-cli
   ];
 
   programs.git = {
