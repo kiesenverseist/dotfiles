@@ -33,6 +33,10 @@
       exec-once = [
         "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
       ];
+
+      xwayland = {
+        force_zero_scaling = true;
+      };
     };
 
     plugins = [
