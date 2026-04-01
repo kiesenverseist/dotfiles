@@ -19,14 +19,6 @@
         domain = "kies";
       };
 
-      machines = {
-        lazurite = {
-          deploy = {
-            buildHost = "graphite";
-          };
-        };
-      };
-
       instances = {
         sshd = {
           module = {
