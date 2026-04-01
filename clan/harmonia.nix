@@ -23,7 +23,7 @@
           '';
         };
 
-        services.harmonia = {
+        services.harmonia.cache = {
           enable = true;
           signKeyPaths = [config.clan.core.vars.generators.harmonia.files.secret.path];
         };
