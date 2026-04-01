@@ -104,43 +104,6 @@
           };
         };
 
-        talux-user = {
-          module = {
-            name = "users";
-            input = "clan-core";
-          };
-
-          roles.default.machines = {
-            fluorite = {};
-            graphite = {};
-          };
-
-          roles.default.settings = {
-            user = "talux";
-
-            groups = [
-              "video"
-              "input"
-              "libvirtd"
-              "qemu-libvirtd"
-              "docker"
-            ];
-
-            share = true;
-          };
-
-          roles.default.extraModules = [
-            ({pkgs, ...}: {
-              imports = [inputs.home-manager.nixosModules.default];
-              home-manager = {
-                extraSpecialArgs = {inherit inputs;};
-                users.talux.imports = [../home/talux.nix];
-                backupCommand = "${pkgs.trash-cli}/bin/trash";
-              };
-            })
-          ];
-        };
-
         media-user = {
           module = {
             name = "users";
