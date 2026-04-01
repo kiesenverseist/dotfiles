@@ -1,11 +1,13 @@
 {inputs, ...}: {
-  imports = [inputs.clan-core.flakeModules.default];
+  imports = [
+    inputs.clan-core.flakeModules.default
+    ./restic.nix
+  ];
 
   clan = {
     specialArgs = {inherit inputs;};
 
     modules = {
-      "@kiesen/restic" = import ./restic.nix;
       "@kiesen/harmonia" = import ./harmonia.nix;
       "@kiesen/prometheus" = import ./prometheus.nix;
       "@kiesen/proxmox" = import ./proxmox.nix;
@@ -26,7 +28,6 @@
       };
 
       instances = {
-
         sshd = {
           module = {
             name = "sshd";
@@ -157,7 +158,36 @@
         restic = {
           module.name = "@kiesen/restic";
           module.input = "self";
-          roles.default.tags.all = {};
+          roles.default.tags.nixos = {};
+          roles.default = {
+            settings = {
+              repositories = {
+                local.enable = true;
+                s3.backblaze.url = "s3:s3.us-east-005.backblazeb2.com/kiesen";
+              };
+              exclude = [
+                "/home/*/.cache"
+                "/home/*/.steam"
+                "/home/*/.local/share/Steam"
+                "/var/lib/plex"
+                "/var/lib/private/ollama"
+              ];
+            };
+            extraModules = [({...}: {
+              clan.core.state.all.folders = [
+                "/etc/group"
+                "/etc/machine-id"
+                "/etc/NetworkManager/system-connections"
+                "/etc/passwd"
+                "/etc/subgid"
+                "/etc/ssh"
+                "/home"
+                "/root"
+                "/var/lib"
+                "/var/lib/plex/Plex Media Server/Preferences.xml"
+              ];
+            })];
+          };
         };
 
         harmonia = {
