@@ -38,6 +38,6 @@ return {
 		require("mini.ai").setup()
 		require("mini.surround").setup()
 		require("mini.move").setup()
-		require("mini.diff").setup()
+		-- require("mini.diff").setup()
 	end,
 }

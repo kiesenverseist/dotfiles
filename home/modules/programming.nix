@@ -28,6 +28,7 @@
       sqlite
       tree-sitter
       wl-clipboard
+      tea
 
       # langs
       clang
