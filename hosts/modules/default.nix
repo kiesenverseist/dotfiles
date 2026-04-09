@@ -8,7 +8,7 @@
   imports = [
     ./backups.nix
     ./cachix.nix
-    inputs.determinate.nixosModules.default
+    # inputs.determinate.nixosModules.default
   ];
 
   options.default.enable = lib.mkOption {
@@ -57,7 +57,7 @@
 
     nix = {
       settings = {
-        download-buffer-size = 524288000;
+        # download-buffer-size = 524288000;
         experimental-features = ["nix-command" "flakes"];
         trusted-users = ["root" "@wheel"];
       };
@@ -70,6 +70,7 @@
         dates = lib.mkDefault "weekly";
         options = lib.mkDefault "--delete-older-than 30d";
       };
+      package = pkgs.lixPackageSets.stable.lix;
     };
 
     nixpkgs = {

@@ -46,14 +46,14 @@
         #   lazurite.settings.host = "lazurite";
         # };
 
-        mycelium.roles.peer.tags.all = {};
+        # mycelium.roles.peer.tags.all = {};
 
-        tor = {
-          roles.server.tags.nixos = {};
-          roles.client.tags.nixos = {};
-        };
+        # tor = {
+        #   roles.server.tags.nixos = {};
+        #   roles.client.tags.nixos = {};
+        # };
 
-        yggdrasil.roles.default.tags.all = {};
+        # yggdrasil.roles.default.tags.all = {};
 
         root-user = {
           module = {

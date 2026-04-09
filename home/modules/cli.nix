@@ -11,7 +11,8 @@
 
   config = lib.mkIf config.cli.enable {
     nix = {
-      package = lib.mkDefault pkgs.nix;
+      # package = lib.mkDefault pkgs.nix;
+      package = lib.mkDefault pkgs.lixPackageSets.stable.lix;
       settings.experimental-features = ["nix-command" "flakes"];
       registry.nixpkgs.flake = inputs.nixpkgs;
       nixPath = ["nixpkgs=${inputs.nixpkgs}"];

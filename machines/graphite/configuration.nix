@@ -36,9 +36,9 @@
 
   networking.hostName = "graphite"; # Define your hostname.
 
-  networking.useDHCP = false;
-  networking.bridges."br0".interfaces = ["eno2"];
-  networking.interfaces."br0".useDHCP = true;
+  # networking.useDHCP = false;
+  # networking.bridges."br0".interfaces = ["eno2"];
+  # networking.interfaces."br0".useDHCP = true;
 
   # Select internationalisation properties.
   # console = {
@@ -238,14 +238,19 @@
 
   nixpkgs.config.rocmSupport = false;
   services.ollama = {
-    enable = false;
+    enable = true;
+    package = pkgs.ollama-rocm;
     host = "0.0.0.0";
-    rocmOverrideGfx = "11.0.1";
+    # rocmOverrideGfx = "11.0.1";
   };
   services.open-webui = {
-    enable = false;
+    enable = true;
     host = "0.0.0.0";
-    environment.OLLAMA_API_BASE_URL = "http://localhost:${builtins.toString config.services.ollama.port}";
+    environment.OLLAMA_API_BASE_URL = "http://localhost:${toString config.services.ollama.port}";
+  };
+
+  services.zerotierone = {
+    enable = true;
   };
 
   # Open ports in the firewall.
