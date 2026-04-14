@@ -32,7 +32,7 @@
             };
           }
           {
-            "Jellyseerr" = {
+            "Seerr" = {
               icon = "jellyseerr.png";
               href = "https://jellyseerr.kiesen.moe";
             };

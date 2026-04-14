@@ -287,7 +287,7 @@
     '';
     virtualHosts = let
       str = builtins.toString;
-      inherit (config.services) jellyseerr sonarr radarr deluge komga immich;
+      inherit (config.services) seerr sonarr radarr deluge komga immich;
     in {
       "*.kiesen.moe".extraConfig = ''
         import porkbun
@@ -298,7 +298,7 @@
         # import porkbun
       ''; # there is no port config for jellyfin
       "jellyseerr.kiesen.moe".extraConfig = ''
-        reverse_proxy http://127.0.0.1:${str jellyseerr.port}
+        reverse_proxy http://127.0.0.1:${str seerr.port}
         # import porkbun
       '';
       "sonarr.kiesen.moe".extraConfig = ''

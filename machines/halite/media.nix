@@ -21,12 +21,7 @@
   };
   users.users.jellyfin.extraGroups = ["video" "render"];
 
-  services.plex = {
-    # enable = true;
-    group = "media";
-  };
-
-  services.jellyseerr = {
+  services.seerr = {
     enable = true;
   };
 

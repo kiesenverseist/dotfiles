@@ -70,7 +70,7 @@
         dates = lib.mkDefault "weekly";
         options = lib.mkDefault "--delete-older-than 30d";
       };
-      package = pkgs.lixPackageSets.stable.lix;
+      package = pkgs.nix;
     };
 
     nixpkgs = {
