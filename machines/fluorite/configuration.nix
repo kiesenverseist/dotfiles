@@ -11,6 +11,8 @@
   boot.loader.efi.canTouchEfiVariables = false;
   boot.loader.systemd-boot.configurationLimit = 20;
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   networking.hostName = "fluorite";
   networking.networkmanager.enable = true;
 
@@ -95,6 +97,19 @@
         caps (tap-hold 100 100 caps lctl))
     '';
   };
+
+  services.udev = {
+    enable = true;
+    packages = [pkgs.libsigrok];
+  };
+
+  environment.systemPackages = [
+    pkgs.pulseview
+    pkgs.libsigrok
+    pkgs.sigrok-firmware-fx2lafw
+    pkgs.sigrok-cli
+  ];
+
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

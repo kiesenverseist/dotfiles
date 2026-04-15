@@ -219,6 +219,11 @@
     inputs.nixpkgs-xr.packages.x86_64-linux.wayvr
     jamesdsp
     android-tools
+
+    pulseview
+    libsigrok
+    sigrok-firmware-fx2lafw
+    sigrok-cli
   ];
 
   # List services that you want to enable:
@@ -290,11 +295,15 @@
     };
   };
 
-  services.udev.extraRules = ''
-    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
-    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+  services.udev = {
+    enable = true;
+    extraRules = ''
+      KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+      KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+    '';
+    packages = [pkgs.libsigrok];
+  };
 
-  '';
 
   # enable core dumps
   systemd.coredump.enable = true;

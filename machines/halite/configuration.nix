@@ -175,12 +175,6 @@
   networking.bridges."br0".interfaces = ["enp34s0"];
   networking.interfaces."br0".useDHCP = true;
 
-  # networking.nat = {
-  #   enable = true;
-  #   internalInterfaces = ["br0"];
-  #   externalInterface = "enp34s0";
-  # };
-  #
   # networking.bridges."br0".interfaces = [];
   # networking.interfaces."br0".ipv4.addresses = [
   #   {address="192.168.122.1"; prefixLength=24;}
