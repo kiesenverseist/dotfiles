@@ -73,6 +73,30 @@ in {
         autoStart = false;
         jvmOpts = "-Xms6G -Xmx6G -Dfml.readTimeout=180 @java9args.txt";
       };
+      kiesens_pack = let 
+        inherit (inputs.nix-minecraft.lib) collectFilesAt;
+        modpack = pkgs.fetchModrinthModpack {
+          url = "https://cdn.modrinth.com/data/aiyZy0Bi/versions/6LY8E7q6/Kiesen%27s%20pack%200.6.0.mrpack";
+          packHash = "sha256-7OBTsFrRdok9rs4Hey+PrZykgp73qPyK22MPsAY/vRo=";
+          side = "server";
+        };
+
+        mods = collectFilesAt modpack "mods";
+        symlinks = removeAttrs mods [
+          "mods/connector-2.0.0-beta.14+1.21.1-full.jar" 
+          "mods/continuity-3.0.0+1.21.neoforge.jar"
+          "mods/controlify-3.0.0-beta.3+1.21.1-neoforge.jar"
+          "mods/BetterGrassify-1.7.0+neoforge.1.21.1.jar"
+          "mods/distraction_free_recipes-neoforge-1.2.1-1.21.1.jar"
+          "mods/ConnectorExtras-1.12.1+1.21.1.jar"
+        ];
+      in {
+        enable = true;
+        package = pkgs.minecraftServers.neoforge-1_21_1-21_1_227;
+        autoStart = false;
+        jvmOpts = "-Xms6G -Xmx6G";
+        inherit symlinks;
+      };
     };
   };
 }
