@@ -76,13 +76,13 @@ in {
       kiesens_pack = let 
         inherit (inputs.nix-minecraft.lib) collectFilesAt;
         modpack = pkgs.fetchModrinthModpack {
-          url = "https://cdn.modrinth.com/data/aiyZy0Bi/versions/6LY8E7q6/Kiesen%27s%20pack%200.6.0.mrpack";
-          packHash = "sha256-7OBTsFrRdok9rs4Hey+PrZykgp73qPyK22MPsAY/vRo=";
+          url = "https://cdn.modrinth.com/data/aiyZy0Bi/versions/YNAF43Oc/Kiesen%27s%20pack%200.6.1.mrpack";
+          packHash = "sha256-W/gkHpTh2eyZZMyaQy/mfTsCaURW1cs9wcTiNyLA024=";
           side = "server";
         };
 
         mods = collectFilesAt modpack "mods";
-        symlinks = removeAttrs mods [
+        serverMods = removeAttrs mods [
           "mods/connector-2.0.0-beta.14+1.21.1-full.jar" 
           "mods/continuity-3.0.0+1.21.neoforge.jar"
           "mods/controlify-3.0.0-beta.3+1.21.1-neoforge.jar"
@@ -90,11 +90,36 @@ in {
           "mods/distraction_free_recipes-neoforge-1.2.1-1.21.1.jar"
           "mods/ConnectorExtras-1.12.1+1.21.1.jar"
         ];
+        symlinks = serverMods // {
+          # "mods/directauth.jar" = pkgs.fetchurl {
+          #   pname = "directauth";
+          #   version = "1.0.0";
+          #   url = "https://www.curseforge.com/minecraft/mc-mods/directauth/download/7313986";
+          #   hash = "";
+          # };
+          "mods/directauth.jar" = let 
+            version = "1.0.0";
+          in pkgs.requireFile {
+            name = "directauth-${version}.jar";
+            message = ''
+              Please download directauth from:
+              https://www.curseforge.com/minecraft/mc-mods/directauth/download/7313986
+
+              Then add it to the nix store with:
+              nix-store --add-fixed sha256 directauth-${version}.jar
+            '';
+            hash = "sha256-uyMWctk/1mh3NNRJuxE5mVucysvCmGkg+RfDG+xBVcs=";
+          };
+        };
       in {
         enable = true;
         package = pkgs.minecraftServers.neoforge-1_21_1-21_1_227;
         autoStart = false;
-        jvmOpts = "-Xms6G -Xmx6G";
+        jvmOpts = "-Xms6G -Xmx12G -XX:+UseZGC -XX:+ZGenerational";
+        serverProperties = {
+          online-mode = false;
+          allow-flight = true;
+        };
         inherit symlinks;
       };
     };
