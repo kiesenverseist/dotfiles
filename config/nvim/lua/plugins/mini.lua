@@ -1,6 +1,6 @@
 return {
 	'echasnovski/mini.nvim',
-	version = '*',
+	-- version = '*',
 	config = function()
 		-- mini icons
 		require("mini.icons").setup()
@@ -33,6 +33,9 @@ return {
 		vim.keymap.set("n", "<leader>so", function()
 			MiniSessions.select("read")
 		end, { desc = "[o]pen session" })
+		vim.keymap.set("n", "<leader>sr", function()
+			MiniSessions.restart()
+		end, { desc = "[r]estart session" })
 
 		require("mini.statusline").setup({ use_icons = true })
 		require("mini.ai").setup()
