@@ -11,13 +11,13 @@
             overlays = [inputs.nixgl.overlay];
           };
           extraSpecialArgs = {inherit inputs;};
-          modules = [module ./modules];
+          modules = [module ./_modules];
         };
     in
       builtins.mapAttrs (_: module: conf module) {
-        "kiesen@halite" = ./home-halite.nix;
-        "kiesen@graphite" = ./home-graphite.nix;
-        "kiesen@fluorite" = ./home-fluorite.nix;
+        "kiesen@halite" = ./_homes/home-halite.nix;
+        "kiesen@graphite" = ./_homes/home-graphite.nix;
+        "kiesen@fluorite" = ./_homes/home-fluorite.nix;
       };
   };
 }

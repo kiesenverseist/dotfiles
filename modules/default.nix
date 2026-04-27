@@ -12,7 +12,6 @@
   systems = ["x86_64-linux"];
 
   imports = [
-    ../home
     inputs.flake-file.flakeModules.default
     inputs.flake-file.flakeModules.import-tree
   ];
