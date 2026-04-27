@@ -13,7 +13,6 @@
 
   imports = [
     ../home
-    ../clan
     inputs.flake-file.flakeModules.default
     inputs.flake-file.flakeModules.import-tree
   ];

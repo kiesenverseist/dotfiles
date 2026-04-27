@@ -1,16 +1,23 @@
 {inputs, ...}: {
+
+  flake-file.inputs.clan-core = {
+    url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
+    # inputs.nixpkgs.follows = "nixpkgs";
+    inputs.flake-parts.follows = "flake-parts";
+  };
+
+
   imports = [
     inputs.clan-core.flakeModules.default
-    ./restic.nix
   ];
 
   clan = {
     specialArgs = {inherit inputs;};
 
     modules = {
-      "@kiesen/harmonia" = import ./harmonia.nix;
-      "@kiesen/prometheus" = import ./prometheus.nix;
-      "@kiesen/proxmox" = import ./proxmox.nix;
+      "@kiesen/harmonia" = import ./_clan_services/harmonia.nix;
+      "@kiesen/prometheus" = import ./_clan_services/prometheus.nix;
+      "@kiesen/proxmox" = import ./_clan_services/proxmox.nix;
     };
 
     inventory = {
