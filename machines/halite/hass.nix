@@ -1,13 +1,8 @@
 {
   config,
   pkgs,
-  inputs,
   ...
 }: {
-  imports = [
-    (inputs.otbr + "/nixos/modules/services/home-automation/openthread-border-router.nix")
-  ];
-
   services.home-assistant = {
     enable = true;
     config = {
@@ -90,7 +85,7 @@
     in [
       samsungtv-smart
       # foxess-ha
-      (pkgs.python3Packages.callPackage ./home-assistant-custom-components/foxess-ha.nix {})
+      # (pkgs.python3Packages.callPackage ./home-assistant-custom-components/foxess-ha.nix {})
     ];
   };
 
@@ -261,8 +256,7 @@
   services.openthread-border-router = {
     enable = true;
     logLevel = "debug";
-    package = inputs.otbr.legacyPackages.${pkgs.system}.openthread-border-router;
-    backboneInterface = "br0";
+    backboneInterfaces = ["br0"];
     radio.url = "spinel+hdlc+uart:///tmp/ttyOTBR?uart-baudrate=460800";
     rest.listenAddress = "0.0.0.0";
     web = {
@@ -287,11 +281,11 @@
     inherit (config.services) zigbee2mqtt openthread-border-router;
   in {
     "z2m.kiesen.moe".extraConfig = ''
-      reverse_proxy http://localhost:${builtins.toString zigbee2mqtt.settings.frontend.port}
+      reverse_proxy http://localhost:${toString zigbee2mqtt.settings.frontend.port}
       # import porkbun
     '';
     "otbr.kiesen.moe".extraConfig = ''
-      reverse_proxy http://localhost:${builtins.toString openthread-border-router.web.listenPort}
+      reverse_proxy http://localhost:${toString openthread-border-router.web.listenPort}
       # import porkbun
     '';
     "hass.kiesen.moe".extraConfig = ''

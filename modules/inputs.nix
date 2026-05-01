@@ -2,9 +2,6 @@
   flake-file.inputs = {
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
-    # TODO: remove when https://github.com/NixOS/nixpkgs/pull/332296 is merged
-    otbr.url = "github:mrene/nixpkgs/openthread-border-router";
-
     devenv.url = "github:cachix/devenv";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";

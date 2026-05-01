@@ -51,7 +51,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
-    otbr.url = "github:mrene/nixpkgs/openthread-border-router";
     plasma-manager = {
       url = "github:nix-community/plasma-manager/plasma-5";
       inputs = {
