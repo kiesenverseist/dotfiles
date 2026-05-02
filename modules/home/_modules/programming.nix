@@ -43,6 +43,9 @@
       rust-analyzer
       vtsls
 
+      # ai stuffs
+      opencode
+
       ## nix stuff
       devenv
       cachix

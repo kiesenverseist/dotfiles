@@ -6,7 +6,7 @@
   inputs,
   ...
 }: let
-  factorio-custom = pkgs.callPackage ./factorio-custom {releaseType = "headless";};
+  # factorio-custom = pkgs.callPackage ./factorio-custom {releaseType = "headless";};
 in {
   imports = [
     ../../hosts/modules/satisfactory.nix
@@ -30,16 +30,16 @@ in {
     '';
   };
 
-  services.factorio = {
-    enable = true;
-    lan = true;
-    requireUserVerification = false;
-    nonBlockingSaving = true;
-    saveName = "spaceage-m";
-    extraSettingsFile = config.clan.core.vars.generators.factorio.files.settings.path;
-    admins = ["kiesenverseist"];
-    package = factorio-custom;
-  };
+  # services.factorio = {
+  #   enable = true;
+  #   lan = true;
+  #   requireUserVerification = false;
+  #   nonBlockingSaving = true;
+  #   saveName = "spaceage-m";
+  #   extraSettingsFile = config.clan.core.vars.generators.factorio.files.settings.path;
+  #   admins = ["kiesenverseist"];
+  #   package = factorio-custom;
+  # };
 
   # services.foundryvtt = {
   #   enable = false;

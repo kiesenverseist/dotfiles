@@ -1,36 +1,55 @@
 local toggle_key = "<C-,>"
 return {
 	{
-		"coder/claudecode.nvim",
-		dependencies = { "folke/snacks.nvim" },
-		keys = {
-			{ toggle_key, "<cmd>ClaudeCodeFocus<cr>", desc = "Claude Code", mode = { "n", "x" } },
+	  "sudo-tee/opencode.nvim",
+	  config = function()
+		require("opencode").setup({})
+	  end,
+	  dependencies = {
+		"nvim-lua/plenary.nvim",
+		{
+		  "MeanderingProgrammer/render-markdown.nvim",
+		  opts = {
+			anti_conceal = { enabled = false },
+			file_types = { 'markdown', 'opencode_output' },
+		  },
+		  ft = { 'markdown', 'Avante', 'copilot-chat', 'opencode_output' },
 		},
-		opts = {
-			terminal_cmd = "direnv exec . claude",
-			terminal = {
-				---@module "snacks"
-				---@type snacks.win.Config|{}
-				snacks_win_opts = {
-					position = "float",
-					width = 0.9,
-					height = 0.9,
-					keys = {
-						claude_hide = {
-							toggle_key,
-							function(self) self:hide() end,
-							mode = "t",
-							desc = "Hide",
-						},
-					},
-				},
-			},
-			diff_opts = {
-				open_in_current_tab = false,
-				-- keep_terminal_focus = true,
-			},
-		},
+		'saghen/blink.cmp',
+		'folke/snacks.nvim',
+	  },
 	},
+	-- {
+	-- 	"coder/claudecode.nvim",
+	-- 	dependencies = { "folke/snacks.nvim" },
+	-- 	keys = {
+	-- 		{ toggle_key, "<cmd>ClaudeCodeFocus<cr>", desc = "Claude Code", mode = { "n", "x" } },
+	-- 	},
+	-- 	opts = {
+	-- 		terminal_cmd = "direnv exec . claude",
+	-- 		terminal = {
+	-- 			---@module "snacks"
+	-- 			---@type snacks.win.Config|{}
+	-- 			snacks_win_opts = {
+	-- 				position = "float",
+	-- 				width = 0.9,
+	-- 				height = 0.9,
+	-- 				keys = {
+	-- 					claude_hide = {
+	-- 						toggle_key,
+	-- 						function(self) self:hide() end,
+	-- 						mode = "t",
+	-- 						desc = "Hide",
+	-- 					},
+	-- 				},
+	-- 			},
+	-- 		},
+	-- 		diff_opts = {
+	-- 			open_in_current_tab = false,
+	-- 			-- keep_terminal_focus = true,
+	-- 		},
+	-- 	},
+	-- },
 	-- {
 	-- 	'saghen/blink.cmp',
 	-- 	dependencies = {
