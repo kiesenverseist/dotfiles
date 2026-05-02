@@ -258,6 +258,8 @@
     enable = true;
   };
 
+  services.netbird.clients.vcc.port = 51820;
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
