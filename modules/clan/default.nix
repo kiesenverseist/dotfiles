@@ -46,12 +46,12 @@
           roles.client.settings.certificate.searchDomains = ["kies"];
         };
 
-        # internet.roles.default.machines = {
-        #   halite.settings.host = "halite";
-        #   graphite.settings.host = "graphite";
-        #   fluorite.settings.host = "fluorite";
-        #   lazurite.settings.host = "lazurite";
-        # };
+        internet.roles.default.machines = {
+          halite.settings.host = "halite";
+          # graphite.settings.host = "graphite";
+          # fluorite.settings.host = "fluorite";
+          # lazurite.settings.host = "lazurite";
+        };
 
         mycelium.roles.peer.tags.all = {};
 

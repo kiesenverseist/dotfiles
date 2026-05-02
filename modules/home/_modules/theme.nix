@@ -38,7 +38,7 @@
 
     stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-hard.yaml";
 
-    stylix.image = ../../Pictures/wallpapers/solar-system.jpg;
+    stylix.image = ../../../Pictures/wallpapers/solar-system.jpg;
 
     stylix.polarity = "dark";
 

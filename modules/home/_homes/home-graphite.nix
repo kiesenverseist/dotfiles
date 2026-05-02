@@ -51,7 +51,7 @@
     # gdlauncher
     (pkgs.prismlauncher.override {jdks = [pkgs.jdk21 pkgs.jdk25];})
     wine
-    lutris
+    # lutris
     moonlight-qt
     protonup-qt
     # looking-glass-client

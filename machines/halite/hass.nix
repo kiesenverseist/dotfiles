@@ -257,7 +257,7 @@
     enable = true;
     logLevel = "debug";
     backboneInterfaces = ["br0"];
-    radio.url = "spinel+hdlc+uart:///tmp/ttyOTBR?uart-baudrate=460800";
+    radio.url = "spinel+hdlc+uart:///run/ttyOTBR?uart-baudrate=460800";
     rest.listenAddress = "0.0.0.0";
     web = {
       enable = true;
@@ -273,7 +273,7 @@
     before = ["otbr-agent.service"];
     path = [pkgs.socat];
     script = ''
-      socat -d pty,raw,echo=0,link=/tmp/ttyOTBR,ignoreeof "tcp:192.168.1.35:6638"
+      socat -d pty,raw,echo=0,link=/run/ttyOTBR,ignoreeof "tcp:192.168.1.35:6638"
     '';
   };
 

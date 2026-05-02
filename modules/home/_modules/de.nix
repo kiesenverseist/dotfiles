@@ -31,8 +31,8 @@
       wl-clipboard
       playerctl
       xdg-user-dirs
-      gnome-calculator
-      sushi
+      # gnome-calculator
+      # sushi
       gnome-solanum
       vlc
       waypipe

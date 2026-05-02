@@ -1,11 +1,11 @@
-{lib, pkgs, ...}: {
+{lib, ...}: {
   imports = [
     ./cli.nix
     ./gui.nix
     ./de.nix
     ./programming.nix
     ./theme.nix
-    ../../hosts/modules/cachix.nix
+    ../../../hosts/modules/cachix.nix
   ];
 
   cli.enable = lib.mkDefault true;
