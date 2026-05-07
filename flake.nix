@@ -6,10 +6,11 @@
   inputs = {
     clan-core = {
       url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
-      inputs.flake-parts.follows = "flake-parts";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
     };
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
-    devenv.url = "github:cachix/devenv";
     dms = {
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,21 +29,12 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprhook = {
-      url = "github:hyprhook/hyprhook";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     import-tree.url = "github:vic/import-tree";
-    nix-alien.url = "github:thiagokokada/nix-alien";
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.flake-parts.follows = "flake-parts";
     };
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
-    nixgl = {
-      url = "github:nix-community/nixGL";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -51,13 +43,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager/plasma-5";
-      inputs = {
-        home-manager.follows = "home-manager";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
     proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
     stylix = {
       url = "github:danth/stylix";

@@ -47,7 +47,6 @@
       opencode
 
       ## nix stuff
-      devenv
       cachix
       nixd
       nh

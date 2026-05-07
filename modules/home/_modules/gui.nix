@@ -22,7 +22,8 @@
       nerd-fonts.gohufont
       nerd-fonts.symbols-only
 
-      (config.lib.nixGL.wrap neovide)
+      # (config.lib.nixGL.wrap neovide)
+      neovide
       floorp-bin
       obsidian
       todoist-electron
@@ -44,7 +45,7 @@
 
     programs.kitty = {
       enable = true;
-      package = config.lib.nixGL.wrap pkgs.kitty;
+      # package = config.lib.nixGL.wrap pkgs.kitty;
       font = {
         # name = "FiraCode Nerd Font";
         name = "FiraCode Mono,Symbols Nerd Font";

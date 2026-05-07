@@ -8,7 +8,7 @@
           pkgs = import inputs.nixpkgs {
             system = "x86_64-linux";
             config = {allowUnfree = true;};
-            overlays = [inputs.nixgl.overlay];
+            # overlays = [inputs.nixgl.overlay];
           };
           extraSpecialArgs = {inherit inputs;};
           modules = [module ./_modules];

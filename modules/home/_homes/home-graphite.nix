@@ -41,7 +41,7 @@
     carla
 
     # proprietary stuffs
-    discord-ptb
+    discord
 
     # gaming
     protontricks
@@ -55,7 +55,7 @@
     moonlight-qt
     protonup-qt
     # looking-glass-client
-    runelite
+    # runelite
     # modrinth-app
     # bottles
     xivlauncher
@@ -79,8 +79,6 @@
     # openscad-unstable
 
     # edl
-
-    inputs.nix-alien.packages.${system}.nix-alien
   ];
 
   programs.git.settings.user = {

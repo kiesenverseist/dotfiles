@@ -47,16 +47,30 @@
   #   useXkbConfig = true; # use xkbOptions in tty.
   # };
 
-  services.displayManager.sddm = {
-    enable = true;
-    #   wayland.enable = true;
-    theme = "${pkgs.sddm-sugar-dark}";
-  };
-  services.displayManager.defaultSession = "hyprland";
+  # services.displayManager.sddm = {
+  #   enable = true;
+  #   wayland.enable = true;
+  #   theme = "${pkgs.sddm-sugar-dark}";
+  # };
+  # services.displayManager.defaultSession = "hyprland";
   services.xserver = {
-    enable = true;
+    enable = false;
     # desktopManager.plasma5.enable = true;
     videoDrivers = ["amdgpu"];
+  };
+
+  services.displayManager.dms-greeter = {
+    enable = true;
+    compositor.name = "hyprland";
+  };
+
+  programs.dsearch = {
+    enable = true;
+
+    systemd = {
+      enable = true;
+      target = "graphical-session.target";  # Only start in graphical sessions
+    };
   };
 
   # Enable CUPS to print documents.
@@ -105,8 +119,6 @@
       "client min protocol" = "smb2";
     };
   };
-
-  services.blueman.enable = true;
 
   programs.hyprland.enable = true;
 
@@ -174,7 +186,6 @@
     bluetooth.enable = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kiesen = {
     extraGroups = ["wheel" "libvirtd" "qemu-libvirtd" "disk" "adbusers" "dialout"];
   };
@@ -246,7 +257,6 @@
     enable = true;
     package = pkgs.ollama-rocm;
     host = "0.0.0.0";
-    # rocmOverrideGfx = "11.0.1";
   };
   services.open-webui = {
     enable = true;
@@ -258,13 +268,17 @@
     enable = true;
   };
 
-  services.netbird.clients.vcc.port = 51820;
+  services.netbird.clients.vcc = {
+    port = 51820;
+    hardened = false;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
+  services.resolved.enable = true;
 
   # virtualisation
   virtualisation = {

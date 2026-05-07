@@ -3,10 +3,6 @@
   options,
   ...
 }: {
-  # imports = [
-  #   inputs.devenv.flakeModule
-  # ];
-
   # Required for evaluating module option values.
   debug = true;
   flake = {
@@ -52,16 +48,6 @@
         })
       ];
     };
-
-    # devenv.shells.default = {
-    #   packages = [
-    #     pkgs.age
-    #     pkgs.ssh-to-age
-    #     pkgs.sops
-    #     pkgs.nh
-    #     pkgs.optnix
-    #   ];
-    # };
 
     formatter = pkgs.alejandra;
   };

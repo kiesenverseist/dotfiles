@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }: {
   options = {
@@ -128,8 +127,6 @@
       dotfiles = "${config.home.homeDirectory}/dotfiles";
       sym = dir: config.lib.file.mkOutOfStoreSymlink "${dotfiles}/config/${dir}";
     in {
-      ".config/quickshell".source = sym "quickshell";
-
       ".config/hypr/main.conf".source = sym "hypr/main.conf";
       ".config/hypr/bindings.conf".source = sym "hypr/bindings.conf";
       ".config/hypr/plugins.conf".source = sym "hypr/plugins.conf";
