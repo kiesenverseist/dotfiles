@@ -2,6 +2,9 @@ return {
 	"folke/snacks.nvim",
 	priority = 1000,
 	lazy = false,
+    dependencies = {
+      "sbulav/snacks-tea.nvim",
+    },
 	---@module "snacks"
 	---@type snacks.Config
 	opts = {
@@ -15,6 +18,7 @@ return {
 		image = {},
 		input = {},
 		gh = {},
+		tea = {},
 		git = {},
 		lazygit = {
 			config = {
@@ -44,11 +48,15 @@ return {
 		{"<leader>j", function() Snacks.terminal.toggle("jjui") end, desc = "Toggle [j]jui"},
 		{"<leader>g", function() Snacks.lazygit.open() end, desc = "Toggle [l]azygit"},
 
-		-- git
+		-- github
 		{ "<leader>Gi", function() Snacks.picker.gh_issue() end, desc = "GitHub [i]ssues (open)" },
 		{ "<leader>Gp", function() Snacks.picker.gh_pr() end, desc = "GitHub [p]ull requests (open)" },
 		{ "<leader>Gb", function() Snacks.picker.git_log_line() end, desc = "Git [b]lame line" },
 
+		-- tea
+		{ "<leader>Tp", function() Snacks.tea.pr() end, desc = "Tea Pull Requests (open)" },
+		{ "<leader>TP", function() Snacks.tea.pr { state = "all" } end, desc = "Tea Pull Requests (all)" },
+		{ "<leader>Tc", function() Snacks.tea.pr_create {} end, desc = "Tea Create Pull Request" },
 	},
 	init = function()
 		vim.api.nvim_create_autocmd("User", {

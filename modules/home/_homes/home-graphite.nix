@@ -79,6 +79,8 @@
     # openscad-unstable
 
     # edl
+
+    rpi-imager
   ];
 
   programs.git.settings.user = {

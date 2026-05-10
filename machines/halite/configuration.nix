@@ -36,7 +36,6 @@
   boot.loader.systemd-boot.configurationLimit = 10;
 
   networking.hostName = "halite"; # Define your hostname.
-  # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   # Enable the X11 windowing system.
   services.xserver = {
@@ -174,6 +173,9 @@
   networking.interfaces."enp34s0".useDHCP = false;
   networking.bridges."br0".interfaces = ["enp34s0"];
   networking.interfaces."br0".useDHCP = true;
+  networking.useNetworkd = true;
+  systemd.network.enable = true;
+  networking.networkmanager.enable = lib.mkForce false;  # Easiest to use and most distros use this by default.
 
   # networking.bridges."br0".interfaces = [];
   # networking.interfaces."br0".ipv4.addresses = [
