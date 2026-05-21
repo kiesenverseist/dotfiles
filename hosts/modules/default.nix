@@ -100,6 +100,8 @@
       nix-ld.enable = lib.mkDefault true;
 
       dconf.enable = lib.mkDefault true;
+
+      steam.extest.enable = lib.mkDefault true;
     };
 
     environment.systemPackages = [

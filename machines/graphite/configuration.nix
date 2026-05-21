@@ -74,7 +74,11 @@
   };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = [pkgs.ptouch-driver];
+  };
+
   services.avahi.publish = {
     addresses = true;
     domain = true;

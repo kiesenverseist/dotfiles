@@ -7,6 +7,7 @@
   ];
 
   wayland.windowManager.hyprland = {
+    configType = "hyprlang";
     settings = {
       source = [
         "~/.config/hypr/main.conf"

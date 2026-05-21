@@ -54,7 +54,7 @@ return {
 		{ "<leader>Gb", function() Snacks.picker.git_log_line() end, desc = "Git [b]lame line" },
 
 		-- tea
-		{ "<leader>Tp", function() Snacks.tea.pr() end, desc = "Tea Pull Requests (open)" },
+ 		{ "<leader>Tp", function() Snacks.tea.pr() end, desc = "Tea Pull Requests (open)" },
 		{ "<leader>TP", function() Snacks.tea.pr { state = "all" } end, desc = "Tea Pull Requests (all)" },
 		{ "<leader>Tc", function() Snacks.tea.pr_create {} end, desc = "Tea Create Pull Request" },
 	},
