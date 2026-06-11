@@ -47,7 +47,7 @@
         };
 
         internet.roles.default.machines = {
-          halite.settings.host = "halite";
+          # halite.settings.host = "halite";
           # graphite.settings.host = "graphite";
           # fluorite.settings.host = "fluorite";
           # lazurite.settings.host = "lazurite";

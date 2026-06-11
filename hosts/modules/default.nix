@@ -46,6 +46,7 @@
     security.pam.services = {
       sddm.kwallet.enable = true;
       login.kwallet.enable = true;
+      dms-greeter.kwallet.enable = true;
     };
 
     time.timeZone = lib.mkDefault "Australia/Sydney";

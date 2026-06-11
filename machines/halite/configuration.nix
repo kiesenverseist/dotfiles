@@ -17,11 +17,12 @@
     ../../hosts/modules
   ];
 
-  vfio.enable = lib.mkDefault true;
-  specialisation."NO_VFIO".configuration = {
-    system.nixos.tags = ["without-vfio"];
-    vfio.enable = false;
-  };
+  # vfio.enable = lib.mkDefault false;
+  vfio.enable = false;
+  # specialisation."VFIO".configuration = {
+  #   system.nixos.tags = ["with-vfio"];
+  #   vfio.enable = lib.mkForce true;
+  # };
 
   # Use the GRUB 2 boot loader.
   # boot.loader.grub.enable = true;
@@ -40,6 +41,7 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
+    videoDrivers = [ "nvidia" ];
   };
 
   services.displayManager = {
@@ -75,6 +77,8 @@
 
   programs.hyprland.enable = true;
 
+  programs.steam.enable = true;
+
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
@@ -90,6 +94,16 @@
     };
 
     bluetooth.enable = true;
+
+    nvidia = {
+      open = true;
+      modesetting.enable = true;
+    };
+  };
+
+  users.users.zaky = {
+    isNormalUser = true;
+    extraGroups = [];
   };
 
   # List packages installed in system profile. To search, run:
@@ -160,7 +174,7 @@
     qemu = {
       # runAsRoot = false;
     };
-    onBoot = "start";
+    onBoot = "ignore";
     onShutdown = "shutdown";
   };
 
@@ -234,7 +248,7 @@
   };
 
   services.lldap = {
-    enable = true;
+    enable = false;
     settings = {
       ldap_base_dn = "dc=kiesen,dc=moe";
       ldap_user_pass_file = config.clan.core.vars.generators.lldap.files.pass.path;
