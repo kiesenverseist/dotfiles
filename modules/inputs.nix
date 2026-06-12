@@ -2,7 +2,10 @@
   flake-file.inputs = {
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";

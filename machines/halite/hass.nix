@@ -85,7 +85,7 @@
     in [
       samsungtv-smart
       # foxess-ha
-      # (pkgs.python3Packages.callPackage ./home-assistant-custom-components/foxess-ha.nix {})
+      (pkgs.python3Packages.callPackage ./home-assistant-custom-components/foxess-ha.nix {})
     ];
   };
 

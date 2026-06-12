@@ -2,18 +2,17 @@
   lib,
   buildHomeAssistantComponent,
   fetchFromGitHub,
-  callPackage,
 }:
 buildHomeAssistantComponent rec {
   owner = "macxq";
   domain = "foxess";
-  version = "v0.48beta1";
+  version = "v0.48beta2";
 
   src = fetchFromGitHub {
     owner = "macxq";
     repo = "foxess-ha";
     tag = version;
-    hash = "sha256-xIRqYx8xodK+KC5EX6px4lfsl/pKYefjQIpYvM52Sfo=";
+    hash = "sha256-/6nUiAKRHLANOPRpJIJB5Q8V2CUVf3QotzAtCxxv4X0=";
   };
 
   meta = {
