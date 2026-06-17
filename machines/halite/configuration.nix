@@ -47,7 +47,8 @@
   services.displayManager = {
     sddm = {
       enable = true;
-      theme = "${pkgs.sddm-sugar-dark}";
+      theme = "sddm-astronaut-theme";
+      extraPackages = [ pkgs.sddm-astronaut ];
     };
     defaultSession = "plasma";
   };
@@ -101,6 +102,7 @@
     };
   };
 
+  # users.mutableUsers = true;
   users.users.zaky = {
     isNormalUser = true;
     extraGroups = [];
@@ -112,9 +114,6 @@
     firefox
 
     nixd
-
-    libsForQt5.qt5.qtquickcontrols2
-    libsForQt5.qt5.qtgraphicaleffects
 
     # virt-manager
     kdePackages.polkit-kde-agent-1

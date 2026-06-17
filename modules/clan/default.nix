@@ -98,6 +98,20 @@
           };
         };
 
+        zaky-user = {
+          module = {
+            name = "users";
+            input = "clan-core";
+          };
+
+          roles.default.machines.halite = {};
+          roles.default.settings = {
+            user = "zaky";
+            groups = [ "video" "input" "libvirtd" "dialout" ];
+            share = true;
+          };
+        };
+
         media-user = {
           module = {
             name = "users";

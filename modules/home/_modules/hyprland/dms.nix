@@ -11,7 +11,7 @@
 
   imports = [
     inputs.dms.homeModules.dank-material-shell
-    inputs.dms-plugin-registry.modules.default
+    inputs.dms-plugin-registry.homeModules.default
   ];
 
   config = lib.mkIf config.dms.enable {
