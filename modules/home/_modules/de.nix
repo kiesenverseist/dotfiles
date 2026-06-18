@@ -64,6 +64,8 @@
       extraPortals = [pkgs.xdg-desktop-portal-gtk];
     };
 
+    xdg.userDirs.setSessionVariables = true;
+
     # programs.quickshell = {
     #   enable = false;
     #   activeConfig = "${config.home.homeDirectory}/dotfiles/config/quickshell";

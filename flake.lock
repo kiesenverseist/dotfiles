@@ -185,6 +185,24 @@
         "type": "github"
       }
     },
+    "evergarden": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1779191906,
+        "narHash": "sha256-K2eSYy96Y1cNpKBQFoYdVvgTx48K4v7NTroq8AGVWQg=",
+        "rev": "32ec084388dafd63bff3e2d3120b058cdce759cc",
+        "type": "tarball",
+        "url": "https://codeberg.org/api/v1/repos/evergarden/nix/archive/32ec084388dafd63bff3e2d3120b058cdce759cc.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://codeberg.org/evergarden/nix/archive/main.tar.gz"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -830,6 +848,7 @@
         "clan-core": "clan-core",
         "dms": "dms",
         "dms-plugin-registry": "dms-plugin-registry",
+        "evergarden": "evergarden",
         "flake-file": "flake-file",
         "flake-parts": "flake-parts",
         "foundryvtt": "foundryvtt",

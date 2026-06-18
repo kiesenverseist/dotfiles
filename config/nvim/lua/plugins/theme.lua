@@ -15,7 +15,7 @@ return {
 	},
 	{
 		"ellisonleao/gruvbox.nvim",
-		enabled = true,
+		enabled = false,
 		priority = 1000,
 		opts = {
 			contrast = "hard",
@@ -37,5 +37,28 @@ return {
 			require("oldworld").setup(opts)
 			vim.cmd.colorscheme("oldworld")
 		end
+	},
+	{
+		'everviolet/nvim',
+		name = 'evergarden',
+		enabled = true,
+		lazy = false,
+		priority = 1000, -- Colorscheme plugin is loaded first before any other plugins
+		opts = {
+			theme = {
+				variant = 'winter', -- 'winter'|'fall'|'spring'|'summer'
+				-- accent = 'yellow',
+			},
+		},
+		config = function(_, opts)
+			require("evergarden").setup(opts)
+			vim.cmd.colorscheme("evergarden")
+		end
+	},
+
+	{
+		"catgoose/nvim-colorizer.lua",
+		event = "BufReadPre",
+		opts = {},
 	},
 }
