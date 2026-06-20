@@ -80,10 +80,11 @@
       zigbee2mqtt-networkmap
     ];
     customComponents = let
-      inherit (pkgs.home-assistant-custom-components) samsungtv-smart;
+      inherit (pkgs.home-assistant-custom-components) samsungtv-smart auth_oidc;
       # inherit (pkgs.callPackages ./home-assistant-custom-components {}) foxess-ha;
     in [
       samsungtv-smart
+      auth_oidc
       # foxess-ha
       (pkgs.python3Packages.callPackage ./home-assistant-custom-components/foxess-ha.nix {})
     ];

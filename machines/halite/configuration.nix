@@ -246,13 +246,13 @@
     persist = true;
   };
 
-  services.lldap = {
-    enable = false;
-    settings = {
-      ldap_base_dn = "dc=kiesen,dc=moe";
-      ldap_user_pass_file = config.clan.core.vars.generators.lldap.files.pass.path;
-    };
-  };
+  # services.lldap = {
+  #   enable = false;
+  #   settings = {
+  #     ldap_base_dn = "dc=kiesen,dc=moe";
+  #     ldap_user_pass_file = config.clan.core.vars.generators.lldap.files.pass.path;
+  #   };
+  # };
 
   clan.core.vars.generators.caddy = {
     prompts = {
@@ -295,7 +295,6 @@
       }
     '';
     virtualHosts = let
-      str = builtins.toString;
       inherit (config.services) seerr sonarr radarr deluge komga immich;
     in {
       "*.kiesen.moe".extraConfig = ''
@@ -307,23 +306,23 @@
         # import porkbun
       ''; # there is no port config for jellyfin
       "jellyseerr.kiesen.moe".extraConfig = ''
-        reverse_proxy http://127.0.0.1:${str seerr.port}
+        reverse_proxy http://127.0.0.1:${toString seerr.port}
         # import porkbun
       '';
       "sonarr.kiesen.moe".extraConfig = ''
-        reverse_proxy http://127.0.0.1:${str sonarr.settings.server.port}
+        reverse_proxy http://127.0.0.1:${toString sonarr.settings.server.port}
         # import porkbun
       '';
       "radarr.kiesen.moe".extraConfig = ''
-        reverse_proxy http://127.0.0.1:${str radarr.settings.server.port}
+        reverse_proxy http://127.0.0.1:${toString radarr.settings.server.port}
         # import porkbun
       '';
       "deluge.kiesen.moe".extraConfig = ''
-        reverse_proxy http://127.0.0.1:${str deluge.web.port}
+        reverse_proxy http://127.0.0.1:${toString deluge.web.port}
         # import porkbun
       '';
       "komga.kiesen.moe".extraConfig = ''
-        reverse_proxy http://127.0.0.1:${str komga.settings.server.port}
+        reverse_proxy http://127.0.0.1:${toString komga.settings.server.port}
         # import porkbun
       '';
       # "git.kiesen.moe".extraConfig = ''
@@ -331,7 +330,7 @@
       #   import porkbun
       # ''; # for when we have a git forge
       "immich.kiesen.moe".extraConfig = ''
-        reverse_proxy http://[::1]:${str immich.port}
+        reverse_proxy http://[::1]:${toString immich.port}
         # import porkbun
       '';
       "proxmox.kiesen.moe".extraConfig = ''
