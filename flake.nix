@@ -38,6 +38,10 @@
       url = "github:fufexan/nix-gaming";
       inputs.flake-parts.follows = "flake-parts";
     };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
