@@ -67,6 +67,8 @@
       "transport_nsw"
       "unifi"
       "zeroconf"
+      "matter"
+      "otbr"
       "thread"
       "ollama"
       "roborock"
@@ -266,6 +268,17 @@
     };
   };
 
+  users.groups.otbr = {};
+
+  systemd.services.otbr-agent = {
+    after = [ "otbr-network.service" ];
+    requires = [ "otbr-network.service" ];
+    serviceConfig = {
+      ReadWritePaths = ["/run/ttyOTBR"];
+      Group = "otbr";
+    };
+  };
+
   systemd.services.otbr-network = {
     description = "otbr network to tty";
     requires = ["network-online.target"];
@@ -274,8 +287,12 @@
     before = ["otbr-agent.service"];
     path = [pkgs.socat];
     script = ''
-      socat -d pty,raw,echo=0,link=/run/ttyOTBR,ignoreeof "tcp:192.168.1.35:6638"
+      socat -d pty,raw,echo=0,link=/run/ttyOTBR,group=otbr,mode=660,ignoreeof "tcp:192.168.1.35:6638"
     '';
+    serviceConfig = { 
+      Restart = "always";
+      RestartSec = 5;
+    };
   };
 
   services.caddy.virtualHosts = let

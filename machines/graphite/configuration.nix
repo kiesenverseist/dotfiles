@@ -212,8 +212,6 @@
           libXi
           libXinerama
           libXScrnSaver
-          libsForQt5.qt5.qtbase
-          libsForQt5.qt5.qtmultimedia
           nss
         ];
     }; # https://github.com/ValveSoftware/gamescope/issues/905
@@ -223,9 +221,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # nixd
-
-    libsForQt5.qt5.qtquickcontrols2
-    libsForQt5.qt5.qtgraphicaleffects
 
     virt-manager
     kdePackages.polkit-kde-agent-1
