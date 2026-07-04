@@ -28,7 +28,7 @@
     pkgs.ferdium
     # pkgs.pdfslicer
 
-    (pkgs.prismlauncher.override {jdks = [pkgs.jdk25];})
+    (pkgs.prismlauncher.override {jdks = [pkgs.jdk25 pkgs.jdk17];})
 
     pkgs.prusa-slicer
     pkgs.freecad

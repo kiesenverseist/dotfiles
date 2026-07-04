@@ -22,7 +22,7 @@
           };
         };
 
-        systemd.services.homebox.serviceConfig = let 
+        systemd.services.homebox.serviceConfig = let
           start = pkgs.writeShellScript "homebox-start" ''
             export HBOX_OIDC_CLIENT_SECRET="$(cat "$CREDENTIALS_DIRECTORY/oidc-secret")"
             ${lib.getExe config.services.homebox.package}
@@ -37,6 +37,7 @@
         services.caddy.virtualHosts."homebox.kiesen.moe".extraConfig = ''
           reverse_proxy http://[::1]:7745
         '';
+        services.caddy.virtualHosts."hb.kiesen.moe".extraConfig = config.services.caddy.virtualHosts."homebox.kiesen.moe".extraConfig;
 
         clan.core.vars.generators.homebox-oidc = {
           prompts.secret = {

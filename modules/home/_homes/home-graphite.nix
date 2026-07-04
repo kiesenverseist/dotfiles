@@ -49,7 +49,7 @@
     # gaming.osu-stable # TODO: broke, check
     # gaming.osu-lazer-bin # TODO: broke, check
     # gdlauncher
-    (pkgs.prismlauncher.override {jdks = [pkgs.jdk21 pkgs.jdk25];})
+    (pkgs.prismlauncher.override {jdks = [pkgs.jdk17 pkgs.jdk21 pkgs.jdk25];})
     wine
     # lutris
     moonlight-qt

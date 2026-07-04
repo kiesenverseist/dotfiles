@@ -106,6 +106,7 @@
   users.users.zaky = {
     isNormalUser = true;
     extraGroups = [];
+    shell = pkgs.fish;
   };
 
   # List packages installed in system profile. To search, run:
@@ -118,6 +119,8 @@
     # virt-manager
     kdePackages.polkit-kde-agent-1
     virtiofsd
+
+    kitty
   ];
 
   # services.gitea = {
