@@ -13,35 +13,49 @@
     # inputs.lucide-src.follows = "";
     # inputs.mermaid-src.follows = "";
   };
-  clan.inventory.instances.import-homebox = {
+  clan.inventory.instances.import-spindle = {
     module.name = "importer";
     roles.default.machines.halite = {};
     roles.default.extraModules = [
-      inputs.tangled.nixosModules.knot 
       inputs.tangled.nixosModules.spindle 
-      ({
-        # config,
-        # lib,
-        # pkgs,
-        ...
-      }: let
-      in {
+      ({ ... }: {
         services.tangled = {
-          knot = {
-            enable = true;
-            stateDir = "/var/lib/tangled/knot";
-            server = {
-              owner = "did:plc:en6yraip4v5hl4aenyxpy4xo";
-              hostname = "knot.kiesen.dev";
-              listenAddr = "0.0.0.0:5555";
-            };
-          };
+          # knot = {
+          #   enable = true;
+          #   stateDir = "/var/lib/tangled/knot";
+          #   server = {
+          #     owner = "did:plc:en6yraip4v5hl4aenyxpy4xo";
+          #     hostname = "knot.kiesen.dev";
+          #     listenAddr = "0.0.0.0:5555";
+          #   };
+          # };
           spindle = {
             enable = true;
             server = {
               owner = "did:plc:en6yraip4v5hl4aenyxpy4xo";
               hostname = "spindle.kiesen.dev";
               listenAddr = "0.0.0.0:5556";
+            };
+          };
+        }; 
+      })
+    ];
+  };
+  clan.inventory.instances.import-knot = {
+    module.name = "importer";
+    roles.default.machines.lazurite = {};
+    roles.default.extraModules = [
+      inputs.tangled.nixosModules.knot 
+      ({ ... }: {
+        services.tangled = {
+          knot = {
+            enable = true;
+            stateDir = "/var/lib/tangled/knot";
+            repo.scanPath = "/var/lib/tangled/knot/repos";
+            server = {
+              owner = "did:plc:en6yraip4v5hl4aenyxpy4xo";
+              hostname = "knot.kiesen.dev";
+              listenAddr = "0.0.0.0:5555";
             };
           };
         }; 

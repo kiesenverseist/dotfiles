@@ -1,7 +1,7 @@
 {pkgs, ...}: {
 
   boot.tmp.cleanOnBoot = true;
-  # zramSwap.enable = true;
+  boot.zswap.enable = true;
   time.timeZone = "Australia/Sydney";
 
   users.users.root.openssh.authorizedKeys.keys = [''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILB44rGxgd27wPLkuUrHXlnrpEhqVQX92k1F3TVNYIWQ kiesen@graphite''];
@@ -59,15 +59,12 @@
     '';
 
     virtualHosts."knot.kiesen.dev".extraConfig = ''
-      reverse_proxy halite.ladon-minnow.ts.net:5555
+      reverse_proxy 127.0.0.1:5555
     '';
 
     virtualHosts."spindle.kiesen.dev".extraConfig = ''
       reverse_proxy halite.ladon-minnow.ts.net:5556
     '';
-
-
-
 
     # virtualHosts."sf.kiesen.moe".extraConfig = ''
     #   reverse_proxy graphite.ladon-minnow.ts.net
