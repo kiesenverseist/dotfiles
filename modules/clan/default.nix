@@ -200,7 +200,6 @@
               "https://nixpkgs-unfree.cachix.org"
               "https://nix-gaming.cachix.org"
               "https://cuda-maintainers.cachix.org"
-              "https://cache.garnix.io"
             ];
 
             publicKeys = [
@@ -209,7 +208,6 @@
               "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
               "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
               "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
-              "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
             ];
           };
 

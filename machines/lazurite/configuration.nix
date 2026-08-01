@@ -51,12 +51,28 @@
     '';
 
     virtualHosts."hello.kiesen.moe".extraConfig = ''
-      respond "Hello, world!"
+      respond "Hello, moe world!"
     '';
+
+    virtualHosts."hello.kiesen.dev".extraConfig = ''
+      respond "Hello, dev world!"
+    '';
+
+    virtualHosts."knot.kiesen.dev".extraConfig = ''
+      reverse_proxy halite.ladon-minnow.ts.net:5555
+    '';
+
+    virtualHosts."spindle.kiesen.dev".extraConfig = ''
+      reverse_proxy halite.ladon-minnow.ts.net:5556
+    '';
+
+
+
 
     # virtualHosts."sf.kiesen.moe".extraConfig = ''
     #   reverse_proxy graphite.ladon-minnow.ts.net
     # '';
+
   };
 
   security.acme = {

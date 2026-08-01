@@ -62,5 +62,9 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    tangled = {
+      url = "git+https://tangled.org/tangled.org/core?ref=refs/tags/v1.16.1-alpha";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }
