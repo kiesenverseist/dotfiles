@@ -1,0 +1,14 @@
+when:
+  - event: ["push", "pull_request", "main"]
+    branch: ["*"]
+    tag: ["*"]
+
+engine: microvm
+image: nixos
+
+dependencies:
+  - nix
+
+steps:
+  - name: Check flake
+    command: nix flake check
