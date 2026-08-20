@@ -9,6 +9,7 @@ vim.lsp.enable {
 	"vtsls",
 	"gleam",
 	"qmlls",
+	"gdscript",
 }
 
 vim.lsp.config("nixd", {
