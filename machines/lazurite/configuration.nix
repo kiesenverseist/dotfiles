@@ -1,7 +1,7 @@
 {pkgs, ...}: {
 
   boot.tmp.cleanOnBoot = true;
-  boot.zswap.enable = true;
+  zramSwap.enable = true;
   time.timeZone = "Australia/Sydney";
 
   users.users.root.openssh.authorizedKeys.keys = [''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILB44rGxgd27wPLkuUrHXlnrpEhqVQX92k1F3TVNYIWQ kiesen@graphite''];
