@@ -13,6 +13,7 @@
     # inputs.lucide-src.follows = "";
     # inputs.mermaid-src.follows = "";
   };
+
   clan.inventory.instances.import-spindle = {
     module.name = "importer";
     roles.default.machines.halite = {};
@@ -31,13 +32,24 @@
         }; 
 
         systemd.tmpfiles.settings.spindle-nixos-image = {
-          "/var/lib/spindle/images/nixos"."L+" = {
-            argument = toString inputs.tangled.packages.${pkgs.stdenv.hostPlatform.system}.spindle-nixos-image;
+          # as this failed to build, i manually built and copied it from another computer
+          # "/var/lib/spindle/images/nixos"."L+" = {
+          #   argument = toString inputs.tangled.packages.${pkgs.stdenv.hostPlatform.system}.spindle-nixos-image;
+          # }; 
+          "/var/lib/spindle/images/alpine"."L+" = {
+            argument = toString inputs.tangled.packages.${pkgs.stdenv.hostPlatform.system}.spindle-alpine-image;
           }; 
         };
+
+        virtualisation.docker.enable = true;
+        # virtualisation.podman = {
+        #   enable = true;
+        #   dockerSocket.enable = true;
+        # };
       })
     ];
   };
+
   clan.inventory.instances.import-knot = {
     module.name = "importer";
     roles.default.machines.lazurite = {};
@@ -59,4 +71,5 @@
       })
     ];
   };
+
 }
