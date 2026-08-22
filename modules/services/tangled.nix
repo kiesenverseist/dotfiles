@@ -18,17 +18,8 @@
     roles.default.machines.halite = {};
     roles.default.extraModules = [
       inputs.tangled.nixosModules.spindle 
-      ({ ... }: {
+      ({pkgs, ... }: {
         services.tangled = {
-          # knot = {
-          #   enable = true;
-          #   stateDir = "/var/lib/tangled/knot";
-          #   server = {
-          #     owner = "did:plc:en6yraip4v5hl4aenyxpy4xo";
-          #     hostname = "knot.kiesen.dev";
-          #     listenAddr = "0.0.0.0:5555";
-          #   };
-          # };
           spindle = {
             enable = true;
             server = {
@@ -38,6 +29,12 @@
             };
           };
         }; 
+
+        systemd.tmpfiles.settings.spindle-nixos-image = {
+          "/var/lib/spindle/images/nixos"."L+" = {
+            argument = toString inputs.tangled.packages.${pkgs.stdenv.hostPlatform.system}.spindle-nixos-image;
+          }; 
+        };
       })
     ];
   };
