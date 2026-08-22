@@ -31,8 +31,6 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
   };
 
 }

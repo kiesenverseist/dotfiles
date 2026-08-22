@@ -336,16 +336,6 @@
         reverse_proxy http://[::1]:${toString immich.port}
         # import porkbun
       '';
-      "proxmox.kiesen.moe".extraConfig = ''
-        reverse_proxy ${config.services.proxmox-ve.ipAddress}:8006 {
-          transport http {
-            tls
-            tls_insecure_skip_verify
-            # tls_trusted_ca_certs /etc/pve/pve-root-ca.pem # Path to PVE root cert
-          }
-        }
-        # import porkbun
-      '';
     };
   };
 

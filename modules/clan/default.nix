@@ -17,7 +17,6 @@
     modules = {
       "@kiesen/harmonia" = import ./_clan_services/harmonia.nix;
       "@kiesen/prometheus" = import ./_clan_services/prometheus.nix;
-      "@kiesen/proxmox" = import ./_clan_services/proxmox.nix;
     };
 
     inventory = {
@@ -180,16 +179,6 @@
             lazurite = {};
           };
           roles.scraper.machines.halite = {};
-        };
-
-        proxmox = {
-          module.name = "@kiesen/proxmox";
-          module.input = "self";
-          roles.default.machines = {
-            # use the tailscale network as the proxmox backbone
-            # graphite.settings.ipAddress = "100.119.227.45";
-            halite.settings.ipAddress = "100.120.252.116";
-          };
         };
 
         ncps = {
