@@ -28,6 +28,7 @@
               hostname = "spindle.kiesen.dev";
               listenAddr = "0.0.0.0:5556";
             };
+            pipelines.workflowTimeout = "20m";
           };
         }; 
 
@@ -44,12 +45,6 @@
         boot.kernelModules = [
           "vhost_vsock"
         ];
-
-        virtualisation.docker.enable = true;
-        # virtualisation.podman = {
-        #   enable = true;
-        #   dockerSocket.enable = true;
-        # };
       })
     ];
   };
