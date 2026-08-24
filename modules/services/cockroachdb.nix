@@ -1,11 +1,11 @@
 {...}: {
-
   clan.inventory.instances.cockroachdb = {
     module.input = "self";
     module.name = "@kiesen/cockroachdb";
     roles.default.machines = {
       graphite = {};
       halite = {};
+      lazurite = {};
     };
   };
 
@@ -25,7 +25,11 @@
         };
       };
 
-      perInstance = {roles, machine, ...}: {
+      perInstance = {
+        roles,
+        machine,
+        ...
+      }: {
         nixosModule = {
           config,
           lib,
@@ -38,13 +42,13 @@
           };
         in {
           nixpkgs.config.allowUnfree = true;
-  
+
           clan.core.vars.generators = {
             cockroachdb-ca = {
               share = true;
-              files."ca.crt" = { };
+              files."ca.crt" = {};
               files."ca.key".deploy = false;
-              runtimeInputs = [ pkgsUnfree.cockroachdb ];
+              runtimeInputs = [pkgsUnfree.cockroachdb];
               script = ''
                 cockroachdb cert create-ca \
                   --certs-dir="$out" \
@@ -52,12 +56,12 @@
               '';
             };
             cockroachdb-node = {
-              files."ca.crt" = { };
-              files."node.crt" = { };
-              files."node.key" = { };
+              files."ca.crt" = {};
+              files."node.crt" = {};
+              files."node.key" = {};
 
               dependencies = ["cockroachdb-ca"];
-              runtimeInputs = [ pkgsUnfree.cockroachdb ];
+              runtimeInputs = [pkgsUnfree.cockroachdb];
 
               script = ''
                 cp "$in"/cockroachdb-ca/ca.crt "$out"/ca.crt
@@ -73,9 +77,10 @@
 
           services.cockroachdb = {
             enable = true;
-            certsDir = "/run/secrets/vars/per-machine/${config.networking.hostName}/cockroachdb-node";
+            certsDir = "/run/cockroachdb/certs";
             http.port = 8088;
             listen.address = "[::]";
+            extraArgs = ["--advertise-addr" "${machine.name}.${config.clan.core.settings.domain}"];
             join = lib.pipe roles.default.machines [
               lib.attrNames
               (map (n: n + ".${config.clan.core.settings.domain}"))
@@ -84,7 +89,43 @@
             openPorts = true;
           };
 
-          
+          systemd.services.cockroachdb = let
+            certs = config.clan.core.vars.generators.cockroachdb-node.files;
+            inherit (config.services.cockroachdb) user group;
+          in {
+            serviceConfig = {
+              RuntimeDirectory = "cockroachdb";
+              RuntimeDirectoryMode = "0700";
+              LoadCredential = [
+                "ca.crt:${certs."ca.crt".path}"
+                "node.crt:${certs."node.crt".path}"
+                "node.key:${certs."node.key".path}"
+              ];
+              TimeoutStartSec = "5min";
+              NotifyAccess = "all";
+            };
+
+            preStart = ''
+              install -d \
+                -m 0700 -o ${user} -g ${group} \
+                /run/cockroachdb/certs
+
+              install \
+                -m 0644 -o ${user} -g ${group} \
+                "$CREDENTIALS_DIRECTORY/ca.crt" \
+                /run/cockroachdb/certs/ca.crt
+
+              install \
+                -m 0644 -o ${user} -g ${group} \
+                "$CREDENTIALS_DIRECTORY/node.crt" \
+                /run/cockroachdb/certs/node.crt
+
+              install \
+                -m 0600 -o ${user} -g ${group} \
+                "$CREDENTIALS_DIRECTORY/node.key" \
+                /run/cockroachdb/certs/node.key
+            '';
+          };
         };
       };
     };
