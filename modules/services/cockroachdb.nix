@@ -3,7 +3,10 @@
   clan.inventory.instances.cockroachdb = {
     module.input = "self";
     module.name = "@kiesen/cockroachdb";
-    roles.default.machines.graphite = {};
+    roles.default.machines = {
+      graphite = {};
+      halite = {};
+    };
   };
 
   clan.modules."@kiesen/cockroachdb" = {
@@ -22,7 +25,7 @@
         };
       };
 
-      perInstance = {settings, ...}: {
+      perInstance = {roles, machine, ...}: {
         nixosModule = {
           config,
           lib,
@@ -61,6 +64,7 @@
                 cockroachdb cert create-node \
                   localhost \
                   ${config.networking.hostName} \
+                  ${machine.name}.${config.clan.core.settings.domain} \
                   --certs-dir="$out" \
                   --ca-key="$in"/cockroachdb-ca/ca.key
               '';
@@ -69,8 +73,15 @@
 
           services.cockroachdb = {
             enable = true;
-            # insecure = true;
             certsDir = "/run/secrets/vars/per-machine/${config.networking.hostName}/cockroachdb-node";
+            http.port = 8088;
+            listen.address = "[::]";
+            join = lib.pipe roles.default.machines [
+              lib.attrNames
+              (map (n: n + ".${config.clan.core.settings.domain}"))
+              (lib.join ",")
+            ];
+            openPorts = true;
           };
 
           
