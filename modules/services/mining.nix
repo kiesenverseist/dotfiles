@@ -2,7 +2,8 @@
   clan.inventory.instances.mining = {
     module.input = "self";
     module.name = "@kiesen/mining";
-    roles.default.machines = {
+    roles.node.machines.graphite = {};
+    roles.miner.machines = {
       graphite = {};
     };
   };
@@ -16,8 +17,8 @@
       categories = ["System"];
     };
 
-    roles.default = {
-      description = "To include this machine for mining";
+    roles.node = {
+      description = "The machine that runs the monero node";
       interface = {...}: {
         options = {
         };
@@ -25,8 +26,6 @@
 
       perInstance = {...}: {
         nixosModule = {config, ...}: {
-          nixpkgs.config.allowUnfree = true;
-
           clan.core.vars.generators = {
             monero-wallet = {
               share = true;
@@ -37,7 +36,7 @@
               files.address.deploy = false;
             };
             p2pool = {
-              files.env.secret = true;
+              files.env.owner = "p2pool";
               dependencies = ["monero-wallet"];
               script = ''
                 cat << EOF > $out/env
@@ -62,7 +61,7 @@
 
           services.p2pool = {
             enable = true;
-            host = "127.0.0.1";
+            host = "0.0.0.0";
             rpcPort = 18081;
             zmqPort = 18083;
             sidechain = "mini";
@@ -70,6 +69,20 @@
             environmentFile = config.clan.core.vars.generators.p2pool.files.env.path;
           };
 
+        };
+      };
+    };
+
+
+    roles.miner = {
+      description = "To include this machine for mining";
+      interface = {...}: {
+        options = {
+        };
+      };
+
+      perInstance = {roles, ...}: {
+        nixosModule = {config, ...}: {
           services.xmrig = {
             enable = true;
             settings = {
@@ -84,9 +97,9 @@
               };
               pools = [
                 {
-                  url = "127.0.0.1:3333";
-                  # user = "x";
-                  # pass = "x";
+                  url = let
+                    node = builtins.elemAt roles.node.machines 0;
+                  in "${node.name}.${config.clan.core.settings.domain}:3333";
                   keepalive = true;
                 }
               ];
