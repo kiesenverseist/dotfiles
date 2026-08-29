@@ -59,6 +59,7 @@
     # modrinth-app
     # bottles
     xivlauncher
+    bs-manager
 
     libva
     libva-vdpau-driver
@@ -91,8 +92,8 @@
   wayland.windowManager.hyprland = {
     settings = {
       exec-once = [
-        "[workspace special silent] kitty btop"
-        "[workspace 7 silent] vesktop"
+        "[workspace 7 silent] kitty btop"
+        "[workspace special silent] discord"
         "[workspace special:memo silent] obsidian"
         "bash ~/.config/hypr/start-desktop.sh"
       ];
