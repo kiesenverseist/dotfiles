@@ -5,6 +5,7 @@
     roles.node.machines.graphite = {};
     roles.miner.machines = {
       graphite = {};
+      halite = {};
     };
   };
 
@@ -98,8 +99,8 @@
               pools = [
                 {
                   url = let
-                    node = builtins.elemAt roles.node.machines 0;
-                  in "${node.name}.${config.clan.core.settings.domain}:3333";
+                    node = builtins.elemAt (builtins.attrNames roles.node.machines) 0;
+                  in "${node}.${config.clan.core.settings.domain}:3333";
                   keepalive = true;
                 }
               ];

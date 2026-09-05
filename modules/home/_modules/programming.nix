@@ -42,6 +42,7 @@
       yaml-language-server
       rust-analyzer
       vtsls
+      uv
 
       # ai stuffs
       opencode
