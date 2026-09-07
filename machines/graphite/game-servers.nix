@@ -122,6 +122,13 @@ in {
         };
         inherit symlinks;
       };
+      vcc = {
+        enable = true;
+        autoStart = false;
+        serverProperties = {
+          online-mode = false;
+        };
+      };
     };
   };
 }
