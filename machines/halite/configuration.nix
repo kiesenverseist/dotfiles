@@ -298,7 +298,7 @@
       }
     '';
     virtualHosts = let
-      inherit (config.services) seerr sonarr radarr deluge komga immich;
+      inherit (config.services) seerr sonarr radarr deluge komga immich bookorbit;
     in {
       "*.kiesen.moe".extraConfig = ''
         import porkbun
@@ -335,6 +335,9 @@
       "immich.kiesen.moe".extraConfig = ''
         reverse_proxy http://[::1]:${toString immich.port}
         # import porkbun
+      '';
+      "bookorbit.kiesen.moe".extraConfig = ''
+        reverse_proxy http://127.0.0.1:${toString bookorbit.environment.PORT}
       '';
     };
   };

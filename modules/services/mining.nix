@@ -85,7 +85,7 @@
       perInstance = {roles, ...}: {
         nixosModule = {config, ...}: {
           services.xmrig = {
-            enable = true;
+            enable = false;
             settings = {
               autosave = false;
               cpu = {

@@ -62,6 +62,30 @@
   };
   users.users.immich.extraGroups = ["video" "render"];
 
+  services.bookorbit = {
+    enable = true;
+    group = "media";
+    environment = {
+      PORT = 3010;
+      APP_URL = "https://bookorbit.kiesen.moe";
+      APP_DATA_PATH = "/var/media/books";
+    };
+    environmentFile = config.clan.core.vars.generators.bookorbit.files.env.path;
+  };
+
+  systemd.services.bookorbit.serviceConfig.ReadWritePaths = [config.services.bookorbit.environment.APP_DATA_PATH];
+
+  clan.core.vars.generators.bookorbit = {
+    files.env.secret = true;
+    runtimeInputs = [pkgs.openssl];
+    script = ''
+      cat << EOF > $out/env
+        JWT_SECRET=$(openssl rand -hex 32)
+        SETUP_BOOTSTRAP_TOKEN=$(openssl rand -hex 16)
+      EOF
+    '';
+  };
+
   services.samba = {
     enable = true;
     # package = pkgs.samba4Full;
@@ -72,7 +96,7 @@
         "server string" = "smbnix";
         "netbios name" = "smbnix";
         "security" = "user";
-        #"use sendfile" = "yes";
+        # "use sendfile" = "yes";
         # "min protocol" = "smb2";
         # note: localhost is the ipv6 localhost ::1
         # "hosts allow" = "192.168.1. 127.0.0.1 localhost";
