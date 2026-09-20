@@ -30,16 +30,19 @@ in {
     '';
   };
 
-  # services.factorio = {
-  #   enable = true;
-  #   lan = true;
-  #   requireUserVerification = false;
-  #   nonBlockingSaving = true;
-  #   saveName = "spaceage-m";
-  #   extraSettingsFile = config.clan.core.vars.generators.factorio.files.settings.path;
-  #   admins = ["kiesenverseist"];
-  #   package = factorio-custom;
-  # };
+  services.factorio = {
+    enable = true;
+    lan = true;
+    # bind = "[::]";
+    requireUserVerification = false;
+    nonBlockingSaving = true;
+    # saveName = "spaceage-m";
+    # saveName = "default";
+    saveName = "vanilla";
+    extraSettingsFile = config.clan.core.vars.generators.factorio.files.settings.path;
+    admins = ["kiesenverseist"];
+    # package = factorio-custom;
+  };
 
   # services.foundryvtt = {
   #   enable = false;
