@@ -17,6 +17,7 @@
 
         services.sparkyfitness = {
           enable = true;
+          port = 3011;
           frontendUrl = "https://sparkyfitness.kiesen.moe";
           environmentFile = vars.sparkyfitness.files.env.path;
           nginx.enable = false;
@@ -68,19 +69,22 @@
           #     openssl rand -base64 48 > $out/secret
           #   '';
           # };
-          sparkyfitness-oidc = {
-            prompts.secret = {
-              description = "The oidc secret for sparkyfitness";
-              persist = true;
-            };
-          };
+          # sparkyfitness-oidc = {
+          #   prompts.secret = {
+          #     description = "The oidc secret for sparkyfitness";
+          #     persist = true;
+          #   };
+          # };
           sparkyfitness = {
-            dependencies = ["sparkyfitness-oidc"];
+            # dependencies = ["sparkyfitness-oidc"];
             files.env = {};
+            runtimeInputs = [pkgs.openssl];
             script = ''
               cat << EOF > $out/env
-                FOO=$(cat $in/sparkyfitness-oidc/secret)
+                SPARKY_FITNESS_DB_PASSWORD=$(openssl rand -hex 32)
+                SPARKY_FITNESS_APP_DB_PASSWORD=$(openssl rand -hex 32)
                 SPARKY_FITNESS_API_ENCRYPTION_KEY=$(openssl rand -hex 32)
+                BETTER_AUTH_SECRET=$(openssl rand -hex 32)
               EOF
             '';
           };
