@@ -34,14 +34,14 @@
       # };
 
       plugins = {
-        hyprlandSubmap.enable = true;
+        # hyprlandSubmap.enable = true;
         homeAssistantMonitor.enable = true;
         dankKDEConnect.enable = true;
         prayerTimes.enable = true;
         flatpakUpdates.enable = true;
         dankBitwarden.enable = true;
         dankPomodoroTimer.enable = true;
-        dankBatteryAlerts.enable = true;
+        # dankBatteryAlerts.enable = true;
         dankHyprlandWindows.enable = true;
         dankDesktopWeather.enable = true;
       };

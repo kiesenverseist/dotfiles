@@ -61,10 +61,15 @@
 
     programs.rofi = {
       # enable = true;
-      cycle = true;
-      # font = "FiraCode Nerd Font 16";
-      font = lib.mkForce "GohuFont 11 Nerd Font Propo 22";
-      terminal = "${pkgs.kitty}/bin/kitty";
+      settings = {
+        cycle = true;
+        # font = "FiraCode Nerd Font 16";
+        font = lib.mkForce "GohuFont 11 Nerd Font Propo 22";
+        terminal = "${pkgs.kitty}/bin/kitty";
+        extraConfig = {
+          modes = "window,drun,run,ssh";
+        };
+      };
       theme = let
         inherit (config.lib.formats.rasi) mkLiteral;
       in {
@@ -72,9 +77,6 @@
         element-icon = {
           size = mkLiteral "2.5ch";
         };
-      };
-      extraConfig = {
-        modes = "window,drun,run,ssh";
       };
       plugins = [
         pkgs.rofi-calc

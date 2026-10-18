@@ -12,7 +12,10 @@
       inputs.flake-parts.follows = "flake-parts";
     };
 
-    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
+    nixpkgs-xr = {
+      url = "github:nix-community/nixpkgs-xr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     foundryvtt.url = "github:reckenrode/nix-foundryvtt";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
