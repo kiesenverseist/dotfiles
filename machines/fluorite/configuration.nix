@@ -78,6 +78,11 @@
     enable = true;
   };
 
+  services.netbird.clients.vcc = {
+    port = 51820;
+    hardened = false;
+  };
+
   services.samba = {
     enable = true;
     settings.global = {
@@ -108,8 +113,12 @@
     pkgs.libsigrok
     pkgs.sigrok-firmware-fx2lafw
     pkgs.sigrok-cli
+    pkgs.android-tools
   ];
 
+  users.users.kiesen = {
+    extraGroups = ["wheel" "libvirtd" "qemu-libvirtd" "disk" "adbusers" "dialout"];
+  };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

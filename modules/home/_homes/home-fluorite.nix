@@ -36,6 +36,7 @@
     pkgs.virt-viewer
 
     pkgs.sdrpp
+    pkgs.qbittorrent
   ];
 
   programs.git.settings.user = {
