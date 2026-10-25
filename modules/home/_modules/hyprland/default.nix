@@ -1,9 +1,10 @@
-{pkgs, ...}: {
+{inputs, pkgs, ...}: {
   imports = [
     ./hypridle.nix
     ./hyprlock.nix
     # ./which-key.nix
-    ./dms.nix
+    # ./dux.nix
+    inputs.self.homeModules.dux
   ];
 
   wayland.windowManager.hyprland = {

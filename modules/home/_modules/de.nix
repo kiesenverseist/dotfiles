@@ -15,7 +15,7 @@
   config = lib.mkIf config.de.enable {
     guiMinimal.enable = true;
     programming.enable = true;
-    dms.enable = true;
+    dux.enable = true;
 
     # The home.packages option allows you to install Nix packages into your
     # environment.
