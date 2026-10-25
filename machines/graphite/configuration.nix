@@ -257,11 +257,11 @@
     package = pkgs.ollama-rocm;
     host = "0.0.0.0";
   };
-  services.open-webui = {
-    enable = true;
-    host = "0.0.0.0";
-    environment.OLLAMA_API_BASE_URL = "http://localhost:${toString config.services.ollama.port}";
-  };
+  # services.open-webui = {
+  #   enable = true;
+  #   host = "0.0.0.0";
+  #   environment.OLLAMA_API_BASE_URL = "http://localhost:${toString config.services.ollama.port}";
+  # };
 
   services.zerotierone = {
     enable = true;

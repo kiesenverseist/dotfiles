@@ -994,6 +994,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_5": {
+      "locked": {
+        "lastModified": 1792502884,
+        "narHash": "sha256-IoNisKcGbUjdd45qCqywGMCYmZ5EnkxezvLII0FWwNA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "02c087f3fe673c9e317f206a627cb6b910336dbe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nur": {
       "inputs": {
         "flake-parts": [
@@ -1114,20 +1130,19 @@
     "sparkyfitness": {
       "inputs": {
         "flake-utils": "flake-utils_2",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1792629423,
-        "narHash": "sha256-0CwBLdV4z2vFThHrHGnGsWDFMW/sYGsoRobEhgCAOQg=",
+        "lastModified": 1792544791,
+        "narHash": "sha256-OL08sDGOiQDMIZY//rdwLaz99Ip0zrcSoXL/V9JyCAU=",
         "owner": "CodeWithCJ",
         "repo": "SparkyFitness",
-        "rev": "f082dea4c66197bd450aed907919899893865f18",
+        "rev": "5b19b859b477faf9b615231f3a5a2e20f7dfca27",
         "type": "github"
       },
       "original": {
         "owner": "CodeWithCJ",
+        "ref": "refs/tags/v1.9.0",
         "repo": "SparkyFitness",
         "type": "github"
       }

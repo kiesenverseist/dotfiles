@@ -34,13 +34,13 @@
     #   enable = true;
     #   compositor.name = "hyprland";
     # };
-    defaultSession = "hyprland-uwsm";
+    defaultSession = "hyprland";
   };
   services.desktopManager.plasma6.enable = true;
 
   programs.hyprland = {
     enable = true;
-    withUWSM = true;
+    withUWSM = false;
   };
 
   programs.dsearch.enable = true;

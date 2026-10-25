@@ -39,15 +39,11 @@
       };
 
       fwupd.enable = lib.mkDefault true;
+
+      gnome.gnome-keyring.enable = true;
     };
 
     security.polkit.enable = true;
-
-    security.pam.services = {
-      sddm.kwallet.enable = true;
-      login.kwallet.enable = true;
-      dms-greeter.kwallet.enable = true;
-    };
 
     time.timeZone = lib.mkDefault "Australia/Sydney";
 
@@ -103,6 +99,8 @@
       dconf.enable = lib.mkDefault true;
 
       steam.extest.enable = lib.mkDefault true;
+
+      seahorse.enable = true;
     };
 
     environment.systemPackages = [
@@ -111,6 +109,7 @@
       pkgs.btop-rocm
       pkgs.firefox
       pkgs.home-manager
+      pkgs.libsecret
     ];
 
     fonts.packages = [pkgs.nerd-fonts.fira-code];

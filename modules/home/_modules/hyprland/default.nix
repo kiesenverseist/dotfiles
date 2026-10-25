@@ -31,9 +31,9 @@
         "border_size 0, rounding 0, match:float 0, match:workspace f[1]s[false]"
       ];
 
-      exec-once = [
-        "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
-      ];
+      # exec-once = [
+      #   "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
+      # ];
 
       xwayland = {
         force_zero_scaling = true;

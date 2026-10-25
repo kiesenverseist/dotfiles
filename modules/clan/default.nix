@@ -141,6 +141,7 @@
                 "/home/*/.local/share/Steam"
                 "/var/lib/plex"
                 "/var/lib/private/ollama"
+                "/var/lib/swapfile"
               ];
             };
             extraModules = [({...}: {

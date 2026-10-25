@@ -71,7 +71,7 @@
       "otbr"
       "thread"
       "ollama"
-      "roborock"
+      # "roborock"
       "immich"
       "daikin"
       "http"

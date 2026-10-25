@@ -1,12 +1,12 @@
 {inputs, ...}: {
   flake-file.inputs.sparkyfitness = {
-    url = "github:CodeWithCJ/SparkyFitness";
-    inputs.nixpkgs.follows = "nixpkgs";
+    url = "github:CodeWithCJ/SparkyFitness?ref=refs/tags/v1.9.0";
+    # inputs.nixpkgs.follows = "nixpkgs";
   };
 
   clan.inventory.instances.import-sparkyfitness = {
     module.name = "importer";
-    roles.default.machines.halite = {};
+    # roles.default.machines.halite = {};
     roles.default.extraModules = [
       ({ config, pkgs, ... }: let
         # inherit (pkgs.stdenv.hostPlatform) system;

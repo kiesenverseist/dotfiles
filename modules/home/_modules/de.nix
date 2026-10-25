@@ -35,13 +35,12 @@
       gnome-solanum
       vlc
       waypipe
-      rofi-pulse-select
       woomer
 
       kdePackages.qtdeclarative
       kdePackages.dolphin
-      kdePackages.kwallet
-      kdePackages.kwalletmanager
+      # kdePackages.kwallet
+      # kdePackages.kwalletmanager
     ];
 
     wayland.windowManager.hyprland = {
@@ -116,7 +115,7 @@
       tray.enable = lib.mkDefault true;
     };
 
-    services.udiskie.enable = true;
+    # services.udiskie.enable = true;
     # services.network-manager-applet.enable = true;
     # services.blueman-applet.enable = true;
 
