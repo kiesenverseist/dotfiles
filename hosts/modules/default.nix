@@ -41,6 +41,8 @@
       fwupd.enable = lib.mkDefault true;
 
       gnome.gnome-keyring.enable = true;
+
+      gvfs.enable = true;
     };
 
     security.polkit.enable = true;
