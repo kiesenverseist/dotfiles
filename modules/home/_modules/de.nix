@@ -30,17 +30,13 @@
       wl-clipboard
       playerctl
       xdg-user-dirs
-      # gnome-calculator
-      # sushi
+      gnome-calculator
       gnome-solanum
       vlc
       waypipe
       woomer
 
       kdePackages.qtdeclarative
-      kdePackages.dolphin
-      # kdePackages.kwallet
-      # kdePackages.kwalletmanager
     ];
 
     wayland.windowManager.hyprland = {
@@ -48,8 +44,6 @@
       systemd.variables = ["--all"];
     };
 
-    # programs.hyprlock.enable = true;
-    # services.hypridle.enable = true;
     services.hyprpolkitagent.enable = true;
 
     xdg.systemDirs.data = [
@@ -64,12 +58,6 @@
     };
 
     xdg.userDirs.setSessionVariables = true;
-
-    # programs.quickshell = {
-    #   enable = false;
-    #   activeConfig = "${config.home.homeDirectory}/dotfiles/config/quickshell";
-    #   systemd.enable = true;
-    # };
 
     programs.rofi.enable = false;
 
@@ -106,7 +94,6 @@
     };
 
     programs.zathura.enable = true;
-
     programs.mangohud.enable = true;
 
     # remember to do the manual setup of this on first setup on computer
@@ -114,10 +101,6 @@
       enable = lib.mkDefault true;
       tray.enable = lib.mkDefault true;
     };
-
-    # services.udiskie.enable = true;
-    # services.network-manager-applet.enable = true;
-    # services.blueman-applet.enable = true;
 
     services.kdeconnect = {
       enable = true;
