@@ -339,6 +339,10 @@
       "bookorbit.kiesen.moe".extraConfig = ''
         reverse_proxy http://127.0.0.1:${toString bookorbit.environment.PORT}
       '';
+      "http://192.168.1.53".extraConfig = ''
+        root * /srv/httpboot
+        file_server
+      '';
     };
   };
 
