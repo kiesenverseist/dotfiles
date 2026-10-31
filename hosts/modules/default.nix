@@ -8,7 +8,7 @@
   imports = [
     ./backups.nix
     ./cachix.nix
-    # inputs.determinate.nixosModules.default
+    inputs.determinate.nixosModules.default
   ];
 
   options.default.enable = lib.mkOption {
@@ -69,7 +69,6 @@
         dates = lib.mkDefault "weekly";
         options = lib.mkDefault "--delete-older-than 30d";
       };
-      package = pkgs.nix;
     };
 
     nixpkgs = {

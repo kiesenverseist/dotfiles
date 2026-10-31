@@ -3,6 +3,11 @@
 {
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
+  nixConfig = {
+    extraSubstituters = [ "https://install.determinate.systems" ];
+    extraTrustedPublicKeys = [ "https://install.determinate.systems" ];
+  };
+
   inputs = {
     clan-core = {
       url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
@@ -11,6 +16,7 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     dux = {
       url = "github:duxlabs-dev/dux-shell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -60,7 +66,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-xr = {
       url = "github:nix-community/nixpkgs-xr";
       inputs.nixpkgs.follows = "nixpkgs";

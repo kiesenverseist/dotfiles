@@ -24,45 +24,43 @@
   #   vfio.enable = lib.mkForce true;
   # };
 
-  # Use the GRUB 2 boot loader.
-  # boot.loader.grub.enable = true;
-  # boot.loader.grub.efiSupport = true;
-  # boot.loader.grub.efiInstallAsRemovable = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot";
-  # Define on which hard drive you want to install Grub.
-  # boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
+  boot.loader = {
+    systemd-boot.enable = false;
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.configurationLimit = 10;
+    grub = {
+      enable = true;
+      efiSupport = true;
+      device = "nodev";
+      configurationLimit = 10;
+    };
+
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot";
+    };
+  };
 
   networking.hostName = "halite"; # Define your hostname.
 
-  # Enable the X11 windowing system.
-  services.xserver = {
+  # services.displayManager = {
+  #   sddm = {
+  #     enable = true;
+  #     wayland.enable = true;
+  #     theme = "sddm-astronaut-theme";
+  #     extraPackages = [ pkgs.sddm-astronaut ];
+  #   };
+  #   defaultSession = "plasma";
+  # };
+  #
+  # services.desktopManager.plasma6.enable = true;
+
+  services.displayManager.dms-greeter = {
     enable = true;
-    videoDrivers = [ "nvidia" ];
+    compositor.name = "hyprland";
   };
-
-  services.displayManager = {
-    sddm = {
-      enable = true;
-      theme = "sddm-astronaut-theme";
-      extraPackages = [ pkgs.sddm-astronaut ];
-    };
-    defaultSession = "plasma";
-  };
-
-  services.desktopManager.plasma6.enable = true;
-
-  # Configure keymap in X11
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e,caps:escape";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  # services.onedrive.enable = true;
 
   # Enable sound.
   # sound.enable = true;
@@ -102,10 +100,9 @@
     };
   };
 
-  # users.mutableUsers = true;
   users.users.zaky = {
     isNormalUser = true;
-    extraGroups = [];
+    extraGroups = [ "video" "render" ];
     shell = pkgs.fish;
   };
 
@@ -122,26 +119,6 @@
 
     kitty
   ];
-
-  # services.gitea = {
-  #   enable = true;
-  #   lfs.enable = true;
-  #   settings.server.ROOT_URL = "https://halite.ladon-minnow.ts.net/git/";
-  # };
-
-  # services.gitea-actions-runner = {
-  #   instances."main" = {
-  #     name = "main";
-  #     enable = true;
-  #     url = config.services.gitea.settings.server.ROOT_URL;
-  #     token = "zk0hCo1VHHjdadQPH4X4IbMQ5u09Le7KSuinNyD5";
-  #     labels = [
-  #       "native:host"
-  #       "ubuntu-latest:docker://node:16-bullseye"
-  #       "ubuntu-22.04:docker://node:16-bullseye"
-  #     ];
-  #   };
-  # };
 
   clan.core.vars.generators.searx = {
     files.key.secret = true;
@@ -338,10 +315,6 @@
       '';
       "bookorbit.kiesen.moe".extraConfig = ''
         reverse_proxy http://127.0.0.1:${toString bookorbit.environment.PORT}
-      '';
-      "http://192.168.1.53".extraConfig = ''
-        root * /srv/httpboot
-        file_server
       '';
     };
   };

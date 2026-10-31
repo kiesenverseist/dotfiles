@@ -47,18 +47,6 @@
   #   useXkbConfig = true; # use xkbOptions in tty.
   # };
 
-  # services.displayManager.sddm = {
-  #   enable = true;
-  #   wayland.enable = true;
-  #   theme = "${pkgs.sddm-sugar-dark}";
-  # };
-  # services.displayManager.defaultSession = "hyprland";
-  services.xserver = {
-    enable = false;
-    # desktopManager.plasma5.enable = true;
-    videoDrivers = ["amdgpu"];
-  };
-
   services.displayManager.dms-greeter = {
     enable = true;
     compositor.name = "hyprland";
