@@ -2,8 +2,7 @@
   services.caddy = {
     virtualHosts = {
       "www.kiesen.moe".extraConfig = ''
-        reverse_proxy http://localhost:${builtins.toString config.services.homepage-dashboard.listenPort}
-        # import porkbun
+        reverse_proxy http://localhost:${toString config.services.homepage-dashboard.listenPort}
       '';
     };
   };
@@ -32,9 +31,21 @@
             };
           }
           {
+            "Immich" = {
+              icon = "immich.png";
+              href = "https://immich.kiesen.moe";
+            };
+          }
+          {
+            "Bookorbit" = {
+              icon = "bookorbit.png";
+              href = "https://bookorbit.kiesen.moe";
+            };
+          }
+          {
             "Seerr" = {
-              icon = "jellyseerr.png";
-              href = "https://jellyseerr.kiesen.moe";
+              icon = "seerr.png";
+              href = "https://seerr.kiesen.moe";
             };
           }
         ];
@@ -43,13 +54,19 @@
         "Home" = [
           {
             "Home assistant" = {
-              icon = "hass.png";
+              icon = "home-assistant.png";
               href = "https://hass.kiesen.moe";
             };
           }
           {
             "zigbee2mqtt" = {
+              icon = "zigbee2mqtt.png";
               href = "https://z2m.kiesen.moe";
+            };
+          }
+          {
+            "slzb-mr2" = {
+              href = "http://slzb-mr2.local";
             };
           }
           {
@@ -59,7 +76,14 @@
           }
           {
             "Music assistant" = {
+              icon = "music-assistant.png";
               href = "https://mass.kiesen.moe";
+            };
+          }
+          {
+            "Homebox" = {
+              icon = "homebox.png";
+              href = "https://homebox.kiesen.moe";
             };
           }
         ];

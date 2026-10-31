@@ -260,7 +260,7 @@
       pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.system};
     in pkgs-stable.caddy.withPlugins {
       plugins = ["github.com/caddy-dns/porkbun@v0.3.1"];
-      hash = "sha256-X11vSQRbBg25I1eSKF2O5QBRS7zGOtdGhLISiwrHclw=";
+      hash = "sha256-3XnnBdOW8A+LmmcqR94v1ZkyMoMB3EfBWFv0uBzz4cA=";
     };
     environmentFile = config.clan.core.vars.generators.caddy.files.env.path;
     extraConfig = ''
@@ -285,7 +285,7 @@
         reverse_proxy http://127.0.0.1:8096
         # import porkbun
       ''; # there is no port config for jellyfin
-      "jellyseerr.kiesen.moe".extraConfig = ''
+      "seerr.kiesen.moe".extraConfig = ''
         reverse_proxy http://127.0.0.1:${toString seerr.port}
         # import porkbun
       '';

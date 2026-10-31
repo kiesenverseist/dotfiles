@@ -6,13 +6,13 @@
 buildHomeAssistantComponent rec {
   owner = "macxq";
   domain = "foxess";
-  version = "v0.48beta2";
+  version = "v0.59";
 
   src = fetchFromGitHub {
     owner = "macxq";
     repo = "foxess-ha";
     tag = version;
-    hash = "sha256-/6nUiAKRHLANOPRpJIJB5Q8V2CUVf3QotzAtCxxv4X0=";
+    hash = "sha256-NDdGg8P6TUQ651mVhaYt0vojknmphIweTSOEK50fMKk=";
   };
 
   meta = {

@@ -11,10 +11,6 @@
       automation = "!include automations.yaml";
       script = "!include scripts.yaml";
       scene = "!include scenes.yaml";
-      http = {
-        use_x_forwarded_for = true;
-        trusted_proxies = ["::1"];
-      };
       homeassistant = {
         media_dirs = {
           media = "/var/media";
@@ -26,6 +22,13 @@
           deviceSN = "!secret foxess_inverter_sn";
           deviceID = "!secret foxess_inverter_sn";
           apiKey = "!secret foxess_api_key";
+        }
+        {
+          name = "Zigbee2mqtt Networkmap";
+          state_topic = "zigbee2mqtt/bridge/response/networkmap";
+          value_template = " {{ now().strftime('%Y-%m-%d %H:%M:%S') }}";
+          json_attributes_topic = "zigbee2mqtt/bridge/response/networkmap";
+          json_attributes_template = "{{ value_json.data.value | tojson }}";
         }
       ];
     };
@@ -71,7 +74,7 @@
       "otbr"
       "thread"
       "ollama"
-      # "roborock"
+      "roborock"
       "immich"
       "daikin"
       "http"
@@ -83,12 +86,11 @@
     ];
     customComponents = let
       inherit (pkgs.home-assistant-custom-components) samsungtv-smart auth_oidc;
-      # inherit (pkgs.callPackages ./home-assistant-custom-components {}) foxess-ha;
     in [
       samsungtv-smart
       auth_oidc
-      # foxess-ha
       (pkgs.python3Packages.callPackage ./home-assistant-custom-components/foxess-ha.nix {})
+      (pkgs.python3Packages.callPackage ./home-assistant-custom-components/narwal-integration.nix {})
     ];
   };
 
@@ -234,6 +236,10 @@
       "ytmusic"
       "hass"
       "snapcast"
+      "chromecast"
+      "dlna"
+      "audible"
+      "bandcamp"
     ];
   };
 
@@ -252,7 +258,7 @@
     };
   };
 
-  services.matter-server = {
+  services.matterjs-server = {
     enable = true;
   };
 

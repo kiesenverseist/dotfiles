@@ -37,9 +37,9 @@
           # "/var/lib/spindle/images/nixos"."L+" = {
           #   argument = toString inputs.tangled.packages.${pkgs.stdenv.hostPlatform.system}.spindle-nixos-image;
           # }; 
-          "/var/lib/spindle/images/alpine"."L+" = {
-            argument = toString inputs.tangled.packages.${pkgs.stdenv.hostPlatform.system}.spindle-alpine-image;
-          }; 
+          # "/var/lib/spindle/images/alpine"."L+" = {
+          #   argument = toString inputs.tangled.packages.${pkgs.stdenv.hostPlatform.system}.spindle-alpine-image;
+          # }; 
         };
 
         boot.kernelModules = [

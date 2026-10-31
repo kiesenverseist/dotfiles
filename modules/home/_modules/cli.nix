@@ -9,13 +9,19 @@
     cli.enable = lib.mkEnableOption "enables basic cli config";
   };
 
+  imports = [
+    inputs.determinate.homeManagerModules.default
+  ];
+
   config = lib.mkIf config.cli.enable {
     nix = {
-      package = lib.mkDefault pkgs.nix;
+      enable = true;
+      # package = lib.mkForce inputs.determinate.packages.${pkgs.stdenv.hostPlatform.system}.default;
+      package = lib.mkForce pkgs.nix;
       settings.experimental-features = ["nix-command" "flakes"];
       registry.nixpkgs.flake = inputs.nixpkgs;
       nixPath = ["nixpkgs=${inputs.nixpkgs}"];
-   };
+    };
 
     nixpkgs.config = {
       allowUnfree = true;

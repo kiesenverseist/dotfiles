@@ -1,4 +1,5 @@
 {
+  # inputs,
   config,
   pkgs,
   lib,
@@ -15,8 +16,11 @@
     media = {};
   };
 
-  services.jellyfin = {
+  services.jellyfin = let 
+    # stablePkgs = inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  in {
     enable = true;
+    # package = stablePkgs.jellyfin;
     group = "media";
   };
   users.users.jellyfin.extraGroups = ["video" "render"];
