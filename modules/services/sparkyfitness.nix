@@ -6,7 +6,7 @@
 
   clan.inventory.instances.import-sparkyfitness = {
     module.name = "importer";
-    # roles.default.machines.halite = {};
+    roles.default.machines.halite = {};
     roles.default.extraModules = [
       ({ config, pkgs, ... }: let
         # inherit (pkgs.stdenv.hostPlatform) system;
