@@ -71,7 +71,10 @@
       url = "github:nix-community/nixpkgs-xr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    sparkyfitness.url = "github:CodeWithCJ/SparkyFitness?ref=refs/tags/v1.9.0";
+    sparkyfitness = {
+      url = "github:CodeWithCJ/SparkyFitness?ref=refs/tags/v1.12.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     stylix = {
       url = "github:danth/stylix";
       inputs = {

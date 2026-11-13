@@ -122,7 +122,10 @@
 
     programs.bash.enable = lib.mkDefault true;
 
-    programs.nushell.enable = lib.mkDefault true;
+    programs.nushell = {
+      enable = lib.mkDefault true;
+      loadSessionVariables = true;
+    };
 
     programs.starship = {
       enable = true;

@@ -26,8 +26,6 @@
       neovide
       floorp-bin
       obsidian
-      todoist-electron
-      # hyprpanel
     ];
 
     fonts.fontconfig = {

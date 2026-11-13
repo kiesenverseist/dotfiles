@@ -21,7 +21,7 @@
   };
 
   services.pgadmin = {
-    enable = true;
+    enable = false;
     openFirewall = true;
     initialEmail = "creativeibi77@gmail.com";
     initialPasswordFile = config.clan.core.vars.generators.pgadmin.files.password.path;

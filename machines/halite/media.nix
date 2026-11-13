@@ -135,13 +135,16 @@
     enable = true;
     nssmdns4 = true;
     openFirewall = true;
+    settings.publish = {
+      disable-publishing = false;
+      publish-addresses = true;
+    };
     publish = {
-      enable = true;
-      addresses = true;
       userServices = true;
       workstation = true;
     };
   };
+
 
   clan.core.vars.generators.user-password-media.files.user-password.deploy = lib.mkForce true;
 

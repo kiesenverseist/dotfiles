@@ -30,8 +30,6 @@
       wl-clipboard
       playerctl
       xdg-user-dirs
-      gnome-calculator
-      gnome-solanum
       vlc
       waypipe
       woomer
@@ -62,7 +60,7 @@
     programs.rofi.enable = false;
 
     programs.qutebrowser = {
-      enable = true;
+      enable = false; # currently insecure
       settings = {
         colors.webpage.darkmode.enabled = true;
         # fonts.default_size = "12pt";

@@ -1,7 +1,7 @@
 {inputs, ...}: {
   flake-file.inputs.sparkyfitness = {
-    url = "github:CodeWithCJ/SparkyFitness?ref=refs/tags/v1.9.0";
-    # inputs.nixpkgs.follows = "nixpkgs";
+    url = "github:CodeWithCJ/SparkyFitness?ref=refs/tags/v1.12.1";
+    inputs.nixpkgs.follows = "nixpkgs";
   };
 
   clan.inventory.instances.import-sparkyfitness = {

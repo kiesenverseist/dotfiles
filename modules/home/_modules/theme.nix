@@ -102,6 +102,7 @@
       fzf.enable = false;
       bat.enable = false;
       dank-material-shell.enable = false;
+      rofi.enable = false;
     };
 
     stylix.icons = {

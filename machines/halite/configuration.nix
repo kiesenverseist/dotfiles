@@ -54,10 +54,15 @@
   #
   # services.desktopManager.plasma6.enable = true;
 
-  services.displayManager.dms-greeter = {
+  services.displayManager.dux-greeter = {
     enable = true;
     compositor.name = "hyprland";
   };
+
+  programs.dux-shell.enable = true;
+  programs.dux-files.enable = true;
+  programs.dux-search.enable = true;
+  programs.dux-calendar.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -75,6 +80,8 @@
   # services.xserver.libinput.enable = true;
 
   programs.hyprland.enable = true;
+  programs.niri.enable = true;
+  programs.mango.enable = true;
 
   programs.steam.enable = true;
 
@@ -130,9 +137,10 @@
   services.searx = {
     enable = true;
     redisCreateLocally = true;
-    settings = {
-      server.bind_address = "0.0.0.0";
-      server.secret_key = config.clan.core.vars.generators.searx.files.key.path;
+    settings.server = {
+      port = 8888;
+      bind_address = "0.0.0.0";
+      secret_key = config.clan.core.vars.generators.searx.files.key.path;
     };
   };
 
@@ -275,7 +283,7 @@
       }
     '';
     virtualHosts = let
-      inherit (config.services) seerr sonarr radarr deluge komga immich bookorbit;
+      inherit (config.services) seerr sonarr radarr deluge komga immich bookorbit searx;
     in {
       "*.kiesen.moe".extraConfig = ''
         import porkbun
@@ -315,6 +323,9 @@
       '';
       "bookorbit.kiesen.moe".extraConfig = ''
         reverse_proxy http://127.0.0.1:${toString bookorbit.environment.PORT}
+      '';
+      "searx.kiesen.moe".extraConfig = ''
+        reverse_proxy http://127.0.0.1:${toString searx.settings.server.port}
       '';
     };
   };

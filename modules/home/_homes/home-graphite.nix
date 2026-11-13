@@ -84,6 +84,8 @@
     rpi-imager
   ];
 
+  programs.lutris.enable = true;
+
   programs.git.settings.user = {
     name = "Ibrahim Fuad";
     email = "creativeibi77@gmail.com";
